@@ -5,12 +5,16 @@ import {launchPortable} from './launch-portable.mjs';
 const dataDir=path.resolve('artifacts','electron-test-'+Date.now());
 const packaged=process.argv.includes('--packaged');
 const portable=process.argv.includes('--portable');
-const version=JSON.parse(await fs.readFile('package.json','utf8')).version;
+const metadata=JSON.parse(await fs.readFile('package.json','utf8'));
+const {version,build:{productName}}=metadata;
 const testEnv={...process.env,GTNH_TEST_DATA:dataDir};
-const app=portable?await launchPortable(path.resolve(`release/GTNH-Idle-${version}-Portable.exe`),testEnv):await electron.launch({...(packaged?{executablePath:path.resolve('release/win-unpacked/格雷的长路.exe'),args:[]}:{args:['.']}),env:testEnv,timeout:60000});
+const app=portable?await launchPortable(path.resolve(`release/${productName}-${version}-Portable.exe`),testEnv):await electron.launch({...(packaged?{executablePath:path.resolve(`release/win-unpacked/${productName}.exe`),args:[]}:{args:['.']}),env:testEnv,timeout:60000});
 try{
-  const win=await app.firstWindow();const errors=[];win.on('pageerror',x=>errors.push(x.message));
+  const win=await app.firstWindow();win.setDefaultTimeout(10000);const errors=[];win.on('pageerror',x=>errors.push(x.message));
   await win.waitForSelector('[data-page="resources"]');
+  await expect(win).toHaveTitle(productName);
+  await expect(win.locator('.brand strong')).toHaveText(productName);
+  await expect(win.locator('[data-page="fluids"]')).toHaveCount(0);
   await win.locator('[data-page="resources"]').first().click();await win.locator('[data-gather-hit="forest"]').click();await win.waitForTimeout(2300);
   await expect(win.locator('[data-qty="wood"]')).toHaveText('0');
   for(let i=0;i<3;i++)await win.locator('[data-gather="forest"]').click();
@@ -31,10 +35,10 @@ try{
   await win.locator('[data-page="workshop"]').first().click();await win.locator('[data-tab="craft"]').click();
   await win.locator('[data-book-item="woodBucket"]').click();await win.locator('[data-fill="woodBucket"]').click();await win.locator('[data-craft="woodBucket"][data-count="1"]').click();
   await expect(win.locator('#queuePanel')).toContainText('队列为空',{timeout:4000});
-  await win.locator('[data-page="fluids"]').first().click();await win.locator('[data-place-container="woodBucket"]').click();
+  await win.locator('[data-page="inventory"]').first().click();await win.locator('[data-inventory-tab="containers"]').click();await win.locator('[data-place-container="woodBucket"]').click();
   await win.locator('[data-page="resources"]').first().click();for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();
-  await win.locator('[data-page="fluids"]').first().click();await expect(win.locator('[data-container-amount]')).toHaveText('1,000');
-  await win.locator('[data-page="inventory"]').first().click();await expect(win.locator('[data-inventory-item="water"]')).toHaveCount(0);
+  await win.locator('[data-page="inventory"]').first().click();await win.locator('[data-inventory-tab="containers"]').click();await expect(win.locator('[data-container-amount]')).toHaveText('1,000');
+  await win.locator('[data-page="inventory"]').first().click();await win.locator('[data-inventory-tab="items"]').click();await expect(win.locator('[data-inventory-item="water"]')).toHaveCount(0);
   // Release-specific checks use the same isolated test profile and never touch the player's save.
   await expect(win.locator('[data-page="reference"]')).toHaveCount(0);
   if(await win.evaluate(()=>parseFloat(getComputedStyle(document.body).fontSize))<16)throw Error('Body font is too small');
@@ -57,7 +61,8 @@ try{
   await expect(win.locator('[data-device-state]').first()).toHaveText('运行中');
   await win.setViewportSize({width:1040,height:720});
   if(await win.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Factory controls overflow at 1040px');
+  if(await win.locator('img').evaluateAll(images=>images.some(img=>!img.complete||!img.naturalWidth)))throw Error('Packaged image failed to load');
   await win.locator('[data-page="overview"]').first().click();await win.screenshot({path:'artifacts/electron-overview.png',fullPage:true});
   if(errors.length)throw Error(errors.join('\n'));
-  console.log((portable?'Portable single exe':packaged?'Packaged exe':'Electron')+' smoke OK: recipes, random drop ranges, fluid storage, larger type, removed reference, factory groups and force-stop/product switching');
-}finally{await app.close();}
+  console.log((portable?'Portable single exe':packaged?'Packaged exe':'Electron')+' smoke OK: app name/version, GTNH images, recipes, random drops, warehouse containers, factory groups and force-stop/product switching');
+}catch(error){const win=await app.firstWindow();console.error((await win.locator('#page').innerText()).slice(0,3000));await win.screenshot({path:'artifacts/electron-failure.png',fullPage:true}).catch(()=>{});throw error;}finally{await app.close();}

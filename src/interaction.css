@@ -110,6 +110,19 @@
 .factory-group{min-width:0}
 .factory-group-heading{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:14px}
 .factory-group-heading h2{font-size:18px;margin:0;font-weight:600}
+.factory-group-heading small{font-size:14px;color:var(--muted)}
+.factory-group-heading{flex-wrap:wrap}
+.device-stack{padding:20px;min-width:0;align-self:start}
+.device-stack.expanded{grid-column:1/-1}
+.device-stack>.card-top h3{margin:0;font-size:18px;font-weight:500;overflow-wrap:anywhere}
+.device-stack>.card-top p{font-size:15px;color:var(--muted);margin:6px 0 0}
+.device-stack>.card-top>div{flex:1;min-width:0}
+.device-stack>.card-top .pill{white-space:nowrap}
+.stack-recipe>small{font-size:14px;color:var(--muted)}
+.stack-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.stack-footer .button{white-space:nowrap}
+.stack-devices{padding-top:18px;border-top:1px solid var(--line);margin-top:18px}
+.stack-devices[hidden]{display:none}
 .factory-group-heading>span:last-child{margin-left:auto;color:var(--muted);font-size:15px;white-space:nowrap}
 .sidebar{overflow-y:auto}
 .nav button,.sidebar .nav button{font-size:16px}
@@ -149,3 +162,45 @@
 @media(max-width:850px){.page-grid{grid-template-columns:1fr}.sidebar .nav button,.sidebar .nav button.active{font-size:0}}
 @media(max-width:700px){.workshop-layout{grid-template-columns:1fr}.book-item{grid-template-columns:1fr}.bench-heading{flex-wrap:wrap}.right-stack{display:flex}.resource-list{grid-template-columns:1fr}}
 @media(max-width:600px){.bench-layout{flex-direction:column}.bench-arrow{transform:rotate(90deg)}.bench-outputs{flex-direction:row;flex-wrap:wrap;justify-content:center}.topbar{flex-wrap:wrap;height:auto;min-height:66px;padding-block:10px}.stats{margin-left:auto}.era-card{flex-wrap:wrap}}
+
+/* Long lists use explicit pages; the document owns wheel scrolling. */
+html{scrollbar-gutter:stable}
+.topbar{position:sticky;top:0;z-index:4;background:var(--bg)}
+[data-list-start]{scroll-margin-top:82px}
+.book-items{max-height:none;overflow:visible}
+.list-pagination{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px 0;margin:0 0 16px}
+.list-pagination:last-child{margin:16px 0 0}
+.list-pagination .button{min-height:42px;min-width:42px;padding:7px 12px}
+.list-pagination .current{background:#283321;border-color:var(--green);color:var(--green)}
+.page-count{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:15px;color:var(--muted);padding:0 4px}
+.page-gap{color:var(--muted)}
+.list-pagination.compact{gap:6px;justify-content:space-between;margin:0;padding:8px 0}
+.list-pagination.compact .button{padding:4px 10px;min-width:36px}
+.list-pagination.compact .page-count{font-size:14px;padding:0}
+.container-grid>.list-pagination{grid-column:1/-1;margin:0}
+.container-grid>.list-pagination:first-child{padding-top:0}
+.item-art{background:none}
+.item-art img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated;pointer-events:none;filter:drop-shadow(0 2px 2px #0004)}
+.navicon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 24px;width:24px;height:24px}
+.navicon img{width:24px;height:24px;object-fit:contain;image-rendering:pixelated}
+.brandmark img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+.brandmark{background:transparent}
+.brand{flex-wrap:wrap}
+.brandmark{flex-shrink:0}
+.brand>div:last-child{flex-basis:100%;min-width:0}
+.brand strong{display:block;line-height:1.35;overflow-wrap:anywhere}
+.stat-eu{display:inline-flex;align-items:center;gap:5px}
+.stat-eu>img{width:22px;height:22px;object-fit:contain;image-rendering:pixelated}
+.resource-scene>.item-art.large{width:104px;height:104px;flex-basis:104px}
+.device-grid{display:grid}
+.dispatch-panel{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.dispatch-panel h3{flex-basis:100%;font-size:17px;margin:0}
+.dispatch-panel .select-label{flex:1 1 200px;margin:0}
+.dispatch-panel .text-link{margin:0}
+.collector-controls{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.collector-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.collector-heading strong{font-size:16px;font-weight:500}
+.collector-heading>span{font-size:14px;color:var(--muted)}
+.collector-controls .progress{margin:10px 0 12px}
+.inventory-tabs{margin-bottom:20px}
+@media(max-width:700px){.book-items{max-height:none;overflow:visible}.list-pagination{gap:5px}.list-pagination .button{padding:7px 9px}}

@@ -73,7 +73,7 @@ test('generator consumes fuel and adds bounded energy over time',()=>{
 });
 
 test('offline simulation matches online steps and survives save roundtrip',()=>{
-  const a=new Game();a.add({stone:16,clay:20,coal:10});const {device}=a.build('furnace');a.assign(device.id,'bricks');a.state.collectors.river={count:1,elapsed:0};const b=new Game(a.snapshot());a.simulate(60);for(let i=0;i<120;i++)b.tick(.5);for(const key of ['inventory','queue','devices','energy','collectors'])assert.deepEqual(a.state[key],b.state[key]);const loaded=new Game(a.snapshot());assert.deepEqual(loaded.state.inventory,a.state.inventory);
+  const a=new Game();a.add({stone:16,clay:20,coal:10});const {device}=a.build('furnace');a.assign(device.id,'bricks');a.state.collectors.river={count:1,activeCount:1,enabled:true,elapsed:0};const b=new Game(a.snapshot());a.simulate(60);for(let i=0;i<120;i++)b.tick(.5);for(const key of ['inventory','queue','devices','energy','collectors'])assert.deepEqual(a.state[key],b.state[key]);const loaded=new Game(a.snapshot());assert.deepEqual(loaded.state.inventory,a.state.inventory);
 });
 
 test('stage advancement counts consumed production and never charges goal items',()=>{

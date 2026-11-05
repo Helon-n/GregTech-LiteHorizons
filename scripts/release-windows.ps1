@@ -16,6 +16,6 @@ if($LASTEXITCODE -eq 1){
     & git commit -m "release: $tag"
     if($LASTEXITCODE -ne 0){throw 'Git commit failed'}
 }elseif($LASTEXITCODE -ne 0){throw 'Git diff failed'}
-& git tag -a $tag -m "GTNH Idle $tag"
+& git tag -a $tag -m "GregTech-LiteHorizons $tag"
 if($LASTEXITCODE -ne 0){throw 'Git tag failed'}
 Write-Output "Released $tag locally. Only the latest Portable and Setup executables are retained."

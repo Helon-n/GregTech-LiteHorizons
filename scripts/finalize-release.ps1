@@ -4,9 +4,9 @@ $releaseRoot=(Resolve-Path -LiteralPath (Join-Path $projectRoot 'release')).Path
 if($releaseRoot -ne (Join-Path $projectRoot 'release')){throw 'Release directory must be inside this project'}
 $metadata=Get-Content -LiteralPath (Join-Path $projectRoot 'package.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $version=$metadata.version
-$installerName="GTNH-Idle-$version-Setup.exe"
+$installerName="$($metadata.build.productName)-$version-Setup.exe"
 $installer=Join-Path $releaseRoot $installerName
-$portableName="GTNH-Idle-$version-Portable.exe"
+$portableName="$($metadata.build.productName)-$version-Portable.exe"
 $portable=Join-Path $releaseRoot $portableName
 $application=Join-Path (Join-Path $releaseRoot 'win-unpacked') ($metadata.build.productName+'.exe')
 foreach($required in @($installer,"$installer.blockmap",$portable,$application,(Join-Path $releaseRoot 'win-unpacked\resources\app.asar'))){
@@ -15,7 +15,7 @@ foreach($required in @($installer,"$installer.blockmap",$portable,$application,(
 # Only remove recognized application installers and their matching block maps.
 # All targets are resolved and checked before any deletion; no recursive delete.
 $oldFiles=@(Get-ChildItem -LiteralPath $releaseRoot -File | Where-Object {
-    $_.Name -match '^GTNH-Idle-\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?-(?:Setup|Portable)\.exe(?:\.blockmap)?$' -and
+    $_.Name -match '^(?:GTNH-Idle|GregTech-LiteHorizons)-\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?-(?:Setup|Portable)\.exe(?:\.blockmap)?$' -and
     $_.Name -ne $installerName -and $_.Name -ne "$installerName.blockmap" -and $_.Name -ne $portableName -and $_.Name -ne "$portableName.blockmap"
 })
 foreach($file in $oldFiles){

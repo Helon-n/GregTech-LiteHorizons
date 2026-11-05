@@ -6,7 +6,7 @@ try{
   const errors=[];
   page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text());});
   page.on('pageerror',e=>errors.push('page: '+e.message));
-  const go=async name=>page.locator(`[data-page="${name}"]`).first().click();
+  const go=async name=>{await page.locator(`[data-page="${name==='fluids'?'inventory':name}"]`).first().click();if(name==='fluids'||name==='inventory')await page.locator(`[data-inventory-tab="${name==='fluids'?'containers':'items'}"]`).click();};
   const clickNode=async(id,count)=>{for(let i=0;i<count;i++)await page.locator(`[data-gather="${id}"]`).click();};
   const stock=async(id,amount,node)=>{for(let i=0;i<100;i++){if(Number((await page.locator(`[data-qty="${id}"]`).innerText()).replaceAll(',',''))>=amount)return;await clickNode(node,4);}throw Error('Insufficient gathered material: '+id);};
   await page.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
@@ -109,7 +109,7 @@ try{
   await steamPage.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
   await steamPage.locator('[data-page="factory"]').first().click();
   await expect(steamPage.locator('[data-device-state]')).toHaveText('流体输出空间不足');
-  await steamPage.locator('[data-page="fluids"]').first().click();
+  await steamPage.locator('[data-page="inventory"]').first().click();await steamPage.locator('[data-inventory-tab="containers"]').click();
   await steamPage.locator('[data-container-reserve="c3"]').selectOption('');
   await steamPage.locator('[data-transfer-target="c2"]').selectOption('c3');await steamPage.locator('[data-transfer="c2"]').click();
   await expect(steamPage.locator('[data-container-amount="c3"]')).toHaveText('64.0k');
@@ -117,6 +117,7 @@ try{
   if(await steamPage.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Container overflow at 1040px');
   await steamPage.screenshot({path:'artifacts/ui-fluid-tanks-1040.png',fullPage:true});
   await steamPage.locator('[data-page="workshop"]').first().click();await steamPage.locator('[data-tab="recipes"]').click();
+  await steamPage.locator('#search').fill('铜板');
   await steamPage.locator('[data-book-item="copperPlate"]').click();
   await expect(steamPage.locator('[data-recipe-step="1"]')).toBeEnabled();
   const first=await steamPage.locator('[data-bench-recipe]').getAttribute('data-bench-recipe');

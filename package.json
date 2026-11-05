@@ -1,10 +1,10 @@
 {
-  "name": "gtnh-idle-desktop",
-  "version": "0.1.3",
+  "name": "gregtech-litehorizons",
+  "version": "0.1.4",
   "private": true,
   "type": "module",
   "description": "GTNH-inspired offline idle factory game for Windows",
-  "author": "GTNH Idle Project",
+  "author": "GregTech-LiteHorizons Project",
   "main": "src/main.cjs",
   "scripts": {
     "start": "electron .",
@@ -24,7 +24,7 @@
   },
   "build": {
     "appId": "dev.gtnh.idle",
-    "productName": "格雷的长路",
+    "productName": "GregTech-LiteHorizons",
     "directories": {
       "output": "release"
     },
@@ -36,10 +36,10 @@
       "target": ["nsis", "portable"],
       "signExecutable": false,
       "icon": "src/assets/app-icon.ico",
-      "artifactName": "GTNH-Idle-${version}-Setup.${ext}"
+      "artifactName": "GregTech-LiteHorizons-${version}-Setup.${ext}"
     },
     "portable": {
-      "artifactName": "GTNH-Idle-${version}-Portable.exe",
+      "artifactName": "GregTech-LiteHorizons-${version}-Portable.exe",
       "requestExecutionLevel": "user"
     },
     "nsis": {
