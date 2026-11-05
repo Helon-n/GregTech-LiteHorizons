@@ -7,7 +7,7 @@ function harvest(g,id){let r;for(let i=0;i<g.gatherClicks(g.catalog.gatherNodes.
 
 test('fluids cannot enter inventory; a crafted and enabled bucket is required to collect water',()=>{
   const g=new Game();assert.equal(g.add({water:1000,wood:2}),false);assert.equal(g.quantity('wood'),0);
-  const bare=harvest(g,'river');assert.deepEqual(bare.drops,{clay:2,sand:2});assert.deepEqual(bare.skipped,{water:1000});assert.equal(g.quantity('water'),0);
+  const bare=harvest(g,'river');for(const id of ['clay','sand'])assert.ok(bare.drops[id]>=1&&bare.drops[id]<=3);assert.deepEqual(bare.skipped,{water:1000});assert.equal(g.quantity('water'),0);
   g.add({wood:3});assert.equal(g.craft('woodBucket').ok,true);g.simulate(2);assert.equal(g.quantity('woodBucket'),1);
   harvest(g,'river');assert.equal(g.quantity('water'),0);
   const enabled=g.placeContainer('woodBucket');assert.equal(enabled.ok,true);assert.equal(g.quantity('woodBucket'),0);
@@ -58,7 +58,7 @@ test('competing producers retain completed batches when a tank fills; reloading 
 test('offline collectors respect container capacity and do not store uncollected fluids for later',()=>{
   const a=new Game();place(a,'woodBucket');a.state.collectors.river={count:2,elapsed:0};const b=new Game(a.snapshot());
   a.simulate(80);for(let i=0;i<160;i++)b.tick(.5);
-  assert.equal(a.quantity('water'),1000);assert.equal(a.quantity('clay'),40);assert.equal(a.state.collectors.river.blocked,'流体容器不足');
+  assert.equal(a.quantity('water'),1000);assert.ok(a.quantity('clay')>=20&&a.quantity('clay')<=60);assert.equal(a.state.collectors.river.blocked,'流体容器不足');
   assert.deepEqual(a.state.containers,b.state.containers);assert.deepEqual(a.state.inventory,b.state.inventory);
   a.pay({water:1000});a.tick(.5);assert.equal(a.quantity('water'),0);
 });

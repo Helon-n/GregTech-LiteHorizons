@@ -14,7 +14,7 @@
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <div class="brand"><div class="brandmark">G</div><div><strong>格雷的长路</strong><small>AN IDLE FACTORY</small></div></div>
+      <div class="brand"><div class="brandmark">G</div><div><strong>格雷的长路</strong></div></div>
       <div class="nav-label">基地</div>
       <nav class="nav" aria-label="主导航">
         <button class="active" data-page="overview"><span class="navicon">⌂</span>总览</button>
@@ -23,12 +23,11 @@
         <button data-page="factory"><span class="navicon">⚙</span>生产工厂</button>
         <button data-page="inventory"><span class="navicon">▦</span>物品仓库</button>
         <button data-page="fluids"><span class="navicon">♧</span>桶与储罐</button>
-        <button data-page="research"><span class="navicon">⌬</span>科技阶段</button>
+        <button data-page="research"><span class="navicon">⌬</span>科技主线</button>
         <button data-page="space"><span class="navicon">✦</span>星际远征</button>
-        <button data-page="reference"><span class="navicon">▤</span>原版资料</button>
         <button data-page="settings"><span class="navicon">☷</span>存档与设置</button>
       </nav>
-      <div class="side-foot"><div class="status-line"><i></i>GTNH 2.9.0 · 工艺改编</div><div id="saveStatus" class="version">v0.1.2 · 本地世界</div><button data-page="settings" class="text-button">存档管理 →</button></div>
+      <div class="side-foot"><div class="status-line"><i></i>GTNH 2.9.0</div><div id="saveStatus" class="version">v0.1.3 · 本地世界</div><button data-page="settings" class="text-button">存档管理 →</button></div>
     </aside>
     <main class="main">
       <header class="topbar"><div class="location"><span class="location-dot"></span><span id="pageLocation">地球 · 主基地</span><span class="divider">/</span><strong id="pageName">总览</strong></div><div class="stats"><span>阶段 <strong id="headerStage">石器时代</strong></span><span class="stat-eu">⚡ <strong id="headerEu">0 EU</strong></span><span class="save-dot" title="已保存"></span></div></header>
@@ -38,7 +37,6 @@
   <div id="toast" role="status" aria-live="polite"></div>
   <dialog id="modal"><div id="modalContent"></div></dialog>
   <input id="importFile" type="file" accept="application/json,.json" hidden>
-  <input id="recipeFile" type="file" accept="application/json,.json" hidden>
   <script type="module" src="app.js"></script>
 </body>
 </html>

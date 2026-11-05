@@ -30,9 +30,9 @@ test('manual gathering advances only with clicks and drops exactly once at compl
   assert.equal(g.state.gatherProgress.forest,1);assert.equal(g.quantity('wood'),0);
   assert.equal(g.gather('river').ok,true);assert.equal(g.state.gatherProgress.forest,1);
   assert.equal(g.gather('forest').completed,false);assert.equal(g.gather('forest').completed,false);
-  const result=g.gather('forest');assert.equal(result.completed,true);assert.deepEqual(result.drops,{wood:2,resin:1});
-  assert.equal(g.quantity('wood'),2);assert.equal(g.quantity('resin'),1);assert.equal(g.state.gatherProgress.forest,0);
-  assert.equal(g.gather('forest').completed,false);assert.equal(g.quantity('wood'),2);
+  const result=g.gather('forest');assert.equal(result.completed,true);assert.ok(result.drops.wood>=1&&result.drops.wood<=3);
+  assert.equal(g.quantity('wood'),result.drops.wood);assert.ok(g.quantity('resin')>=0&&g.quantity('resin')<=2);assert.equal(g.state.gatherProgress.forest,0);
+  assert.equal(g.gather('forest').completed,false);assert.equal(g.quantity('wood'),result.drops.wood);
 });
 
 test('click progress survives saves and old timers migrate without advancing during offline simulation',()=>{
@@ -41,17 +41,17 @@ test('click progress survives saves and old timers migrate without advancing dur
   assert.deepEqual(loaded.state.gatherProgress,{forest:1,river:1});assert.deepEqual(loaded.state.inventory,{});
   const old=g.snapshot();delete old.gatherProgress;old.manual={id:'forest',remaining:1};old.inventory={wood:7};old.earned={wood:7};
   const migrated=new Game(old);assert.equal(migrated.state.gatherProgress.forest,2);assert.equal(migrated.state.manual,null);migrated.simulate(10);assert.equal(migrated.quantity('wood'),7);
-  migrated.gather('forest');migrated.gather('forest');assert.equal(migrated.quantity('wood'),9);
+  migrated.gather('forest');migrated.gather('forest');assert.ok(migrated.quantity('wood')>=8&&migrated.quantity('wood')<=10);
   for(const progress of [{forest:-1},{forest:4},{forest:1.5},{unknown:1},[]]){const raw=g.snapshot();raw.gatherProgress=progress;assert.throws(()=>new Game(raw));}
 });
 
 test('all unlocked resource nodes award their declared drops after the required number of clicks',()=>{
   const g=new Game();g.state.stage=15;tanks(g,8);g.add({flintPick:1,rocket:1,advancedRocket:1});
   for(const node of CATALOG.gatherNodes){
-    const before=Object.fromEntries(Object.keys(CATALOG.items).map(id=>[id,g.quantity(id)])),expected=g.drops(node);
+    const before=Object.fromEntries(Object.keys(CATALOG.items).map(id=>[id,g.quantity(id)])),expected=g.dropRanges(node);
     for(let i=1;i<g.gatherClicks(node);i++){assert.equal(g.gather(node.id).completed,false);for(const id of Object.keys(expected))assert.equal(g.quantity(id),before[id]);}
-    const outcome=g.gather(node.id);assert.equal(outcome.completed,true);assert.deepEqual(outcome.drops,expected);
-    for(const[id,count]of Object.entries(expected))assert.equal(g.quantity(id),(before[id]||0)+count,node.id+' '+id);
+    const outcome=g.gather(node.id);assert.equal(outcome.completed,true);
+    for(const[id,{min,max}]of Object.entries(expected)){const count=outcome.drops[id]||0;assert.ok(count>=min&&count<=max,node.id+' '+id);assert.equal(g.quantity(id),before[id]+count);}
   }
   assert.equal(new Game().gather('moon').ok,false);assert.equal(g.gather('unknown').ok,false);
 });
@@ -85,11 +85,11 @@ test('bad imports reject unknown items, NaN, duplicate devices, invalid jobs and
 });
 
 test('automatic collectors scale with elapsed time, not UI render frequency',()=>{
-  const g=new Game();g.state.collectors.forest={count:2,elapsed:0};g.simulate(16);assert.equal(g.quantity('wood'),8);assert.equal(g.quantity('resin'),4);
+  const g=new Game();g.state.collectors.forest={count:2,elapsed:0};g.simulate(16);assert.ok(g.quantity('wood')>=4&&g.quantity('wood')<=12);assert.ok(g.quantity('resin')>=0&&g.quantity('resin')<=8);
 });
 
 test('initial chapter can be completed through collection, crafting, and a working furnace',()=>{
- const g=new Game();
+ const g=new Game();g.nextDropRandom=()=>.5;
  for(const[id,batches]of [['forest',3],['surface',4],['river',4]]){const node=CATALOG.gatherNodes.find(n=>n.id===id);for(let i=0;i<batches*g.gatherClicks(node);i++)assert.equal(g.gather(id).ok,true);}
  assert.equal(g.craft('sticks').ok,true);g.simulate(1);assert.equal(g.craft('pick').ok,true);g.simulate(3);
  const built=g.build('furnace');assert.equal(built.ok,true);g.assign(built.device.id,'charcoal');g.simulate(6);assert.equal(g.quantity('coal'),3);g.assign(built.device.id,'bricks');g.simulate(10);assert.equal(g.quantity('brick'),8);assert.equal(g.canAdvance(),true);g.advance();assert.equal(g.state.stage,1);

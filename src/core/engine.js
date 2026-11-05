@@ -9,7 +9,7 @@ export class Game {
   constructor(saved=null,catalog=CATALOG){
     this.catalog=catalog;
     this.recipeById=new Map(catalog.recipes.map(r=>[r.id,r]));
-    this.state={schema:SCHEMA,stage:0,inventory:{},earned:{},devices:[],containers:[],collectors:{},manual:null,gatherProgress:{},queue:[],energy:0,produced:0,playtime:0,lastSeen:Date.now(),nextId:1,completed:false,speed:1,log:[]};
+    this.state={schema:SCHEMA,stage:0,inventory:{},earned:{},devices:[],containers:[],collectors:{},manual:null,gatherProgress:{},lootSeed:Math.floor(Math.random()*4294967296),queue:[],energy:0,produced:0,playtime:0,lastSeen:Date.now(),nextId:1,completed:false,speed:1,log:[]};
     if(saved)this.restore(saved);
   }
   quantity(id){return isFluid(this.catalog,id)?this.state.containers.reduce((n,c)=>n+(c.fluid===id?c.amount:0),0):this.state.inventory[id]||0;}
@@ -55,8 +55,13 @@ export class Game {
     dst.fluid=src.fluid;dst.amount+=amount;src.amount-=amount;return {ok:true,amount};
   }
   collectDrops(node,batches=1){
-    const drops={},skipped={};
-    for(const[id,n]of Object.entries(this.drops(node))){const requested=n*batches,received=isFluid(this.catalog,id)?Math.min(requested,this.fluidRoom(id)):requested;if(received>0){this.add({[id]:received});drops[id]=received;}if(received<requested)skipped[id]=requested-received;}
+    const drops={},skipped={},totals={},ranges=Object.entries(this.dropRanges(node));
+    // Each collector and each completed round rolls independently, also during offline simulation.
+    for(let batch=0;batch<batches;batch++)for(const[id,{min,max}]of ranges){
+      const amount=min===max?min:min+Math.floor(this.nextDropRandom()*(max-min+1));
+      totals[id]=(totals[id]||0)+amount;
+    }
+    for(const[id,requested]of Object.entries(totals)){const received=isFluid(this.catalog,id)?Math.min(requested,this.fluidRoom(id)):requested;if(received>0){this.add({[id]:received});drops[id]=received;}if(received<requested)skipped[id]=requested-received;}
     return {drops,skipped};
   }
   note(text){this.state.log.unshift({text,at:Date.now()});this.state.log=this.state.log.slice(0,40);}
@@ -79,8 +84,14 @@ export class Game {
   missing(stacks){return Object.entries(stacks).filter(([id,n])=>this.quantity(id)<n).map(([id,n])=>({id,need:n,have:this.quantity(id)}));}
   canBuild(type){const m=this.catalog.machines[type];return !!m&&m.stage<=this.state.stage&&this.canPay(m.cost);}
   build(type){const m=this.catalog.machines[type];if(!m||m.stage>this.state.stage)return{ok:false,message:'机器科技尚未解锁'};if(!this.pay(m.cost))return{ok:false,message:'建造材料不足'};const device={id:'d'+this.state.nextId++,type,recipe:null,job:null,enabled:true,blocked:'请选择配方'};this.state.devices.push(device);this.state.earned[type]=(this.state.earned[type]||0)+1;this.note('建成：'+m.name);return{ok:true,device};}
-  assign(deviceId,recipeId){const d=this.state.devices.find(x=>x.id===deviceId),r=this.recipeById.get(recipeId);if(!d)return{ok:false,message:'机器不存在'};if(d.job)return{ok:false,message:'请等待当前批次完成后再切换'};if(recipeId===''){d.recipe=null;return{ok:true};}if(!r||r.stage>this.state.stage||!this.catalog.machines[d.type].processes.includes(r.process))return{ok:false,message:'此机器不能执行该配方'};d.recipe=recipeId;d.blocked='就绪';return{ok:true};}
+  assign(deviceId,recipeId){const d=this.state.devices.find(x=>x.id===deviceId),r=this.recipeById.get(recipeId);if(!d)return{ok:false,message:'机器不存在'};if(d.job)return{ok:false,message:'请先强制停止或等待当前批次完成'};if(recipeId===''){d.recipe=null;d.blocked=d.enabled?'请选择配方':'已停止';return{ok:true};}if(!r||r.stage>this.state.stage||!this.catalog.machines[d.type].processes.includes(r.process))return{ok:false,message:'此机器不能执行该配方'};d.recipe=recipeId;d.blocked=d.enabled?'就绪':'已暂停';return{ok:true};}
   toggle(id){const d=this.state.devices.find(x=>x.id===id);if(d)d.enabled=!d.enabled;}
+  forceStop(id){
+    const d=this.state.devices.find(x=>x.id===id);if(!d)return{ok:false,message:'机器不存在'};
+    // Paid inputs and spent energy remain consumed, including fuel that already generated power.
+    d.job=null;d.recipe=null;d.enabled=false;d.blocked='已停止';
+    return{ok:true};
+  }
   dismantle(id){const d=this.state.devices.find(x=>x.id===id);if(!d)return{ok:false,message:'机器不存在'};if(d.job)return{ok:false,message:'请先完成当前批次'};this.add(this.catalog.machines[d.type].cost,false);this.state.devices=this.state.devices.filter(x=>x!==d);return{ok:true};}
   canCraft(r){return r&&r.stage<=this.state.stage&&this.canPay(r.inputs)&&this.canPay(r.tools||{});}
   craft(id,amount=1){const r=this.recipeById.get(id);if(!r||r.process!=='craft'||r.stage>this.state.stage)return{ok:false,message:'需要对应机器执行此配方'};if(this.state.queue.length>=20)return{ok:false,message:'手工队列已满'};if(![1,5,10].includes(amount))return{ok:false,message:'批次数量无效'};const inputs=Object.fromEntries(Object.entries(r.inputs).map(([id,n])=>[id,n*amount]));if(!this.canPay(r.tools||{}))return{ok:false,message:'缺少可重复使用的工具'};if(!this.pay(inputs))return{ok:false,message:'制作材料不足'};this.state.queue.push({recipe:id,remaining:r.seconds,amount});return{ok:true};}
@@ -90,6 +101,13 @@ export class Game {
   canAdvance(){return !this.state.completed&&this.milestoneProgress().every(x=>x.have>=x.need);}
   advance(){if(!this.canAdvance())return{ok:false,message:'先完成本阶段目标'};if(this.state.stage===this.catalog.stages.length-1){this.state.completed=true;this.note('星门已建成：格雷的长路完成');return{ok:true,message:'星门已建成！'};}this.state.stage++;this.note('进入 '+this.stage.name+' · '+this.stage.code);return{ok:true,message:'阶段解锁：'+this.stage.name};}
   drops(node){return this.catalog.nodeDrops[node.id]||{[node.output]:node.amount};}
+  dropRanges(node){return Object.fromEntries(Object.entries(this.drops(node)).map(([id,n])=>[id,isFluid(this.catalog,id)?{min:n,max:n}:{min:Math.max(id===node.output?1:0,n-1),max:n+1}]));}
+  nextDropRandom(){
+    // Saved random state keeps future drops consistent after loading and across offline/online steps.
+    let value=this.state.lootSeed=(this.state.lootSeed+0x6D2B79F5)>>>0;
+    value=Math.imul(value^(value>>>15),value|1);value^=value+Math.imul(value^(value>>>7),value|61);
+    return ((value^(value>>>14))>>>0)/4294967296;
+  }
   finish(r){if(!this.add(r.outputs))return false;this.state.produced+=Object.values(r.outputs).reduce((a,b)=>a+b,0);return true;}
   tick(dt){
     if(!finite(dt,0,1))throw Error('单步时间必须为 0–1 秒');
@@ -100,7 +118,7 @@ export class Game {
     // Generators run before consumers. One physical machine runs one recipe.
     const devices=[...this.state.devices].sort((a,b)=>Number(!!this.recipeById.get(b.recipe)?.generation)-Number(!!this.recipeById.get(a.recipe)?.generation));
     for(const d of devices){
-      if(!d.enabled){d.blocked='已暂停';continue;}
+      if(!d.enabled){d.blocked=d.recipe?'已暂停':'已停止';continue;}
       const r=this.recipeById.get(d.recipe);if(!r){d.blocked='请选择配方';continue;}
       if(d.job&&d.job.remaining<=1e-8){if(this.finish(r)){d.job=null;d.blocked='就绪';}else d.blocked='流体输出空间不足';continue;}
       if(!d.job){
@@ -133,6 +151,7 @@ export class Game {
     // Convert old schema-2 timers to partial click progress without granting drops.
     if(raw.manual){const n=this.catalog.gatherNodes.find(n=>n.id===raw.manual.id);if(!n||!finite(raw.manual.remaining,.000000001,n.seconds))throw Error('采集存档无效');gatherProgress[n.id]??=Math.min(this.gatherClicks(n)-1,Math.floor((1-raw.manual.remaining/n.seconds)*this.gatherClicks(n)));}
     for(const key of ['energy','produced','playtime','lastSeen','nextId'])if(!finite(raw[key]))throw Error('存档数值无效');
+    if(Object.hasOwn(raw,'lootSeed')&&(!Number.isInteger(raw.lootSeed)||!finite(raw.lootSeed,0,4294967295)))throw Error('采集掉落存档无效');
     if(!Array.isArray(raw.log)||raw.log.some(x=>typeof x.text!=='string'||!finite(x.at)))throw Error('存档日志无效');
     const containers=raw.schema===2?[]:clone(raw.containers);
     if(!Array.isArray(containers)||containers.length>10000)throw Error('流体容器存档无效');

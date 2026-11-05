@@ -18,4 +18,4 @@ if($LASTEXITCODE -eq 1){
 }elseif($LASTEXITCODE -ne 0){throw 'Git diff failed'}
 & git tag -a $tag -m "GTNH Idle $tag"
 if($LASTEXITCODE -ne 0){throw 'Git tag failed'}
-Write-Output "Released $tag locally. Only the latest application installer is retained."
+Write-Output "Released $tag locally. Only the latest Portable and Setup executables are retained."

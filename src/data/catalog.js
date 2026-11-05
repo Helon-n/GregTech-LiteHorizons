@@ -40,7 +40,7 @@ export const containerTypes={
   ironBucket:{name:'铁桶',capacity:1000,accepts:['water','creosote','oil','diesel'],stage:0},
   fluidTank:{name:'密封储罐',capacity:64000,accepts:null,stage:1},
   largeTank:{name:'大型储罐',capacity:1024000,accepts:null,stage:2},
-  legacyTank:{name:'迁移储罐',capacity:0,accepts:null,stage:0,migrationOnly:true}
+  legacyTank:{name:'旧式储罐',capacity:0,accepts:null,stage:0,migrationOnly:true}
 };
 for(const[id,c]of Object.entries(containerTypes))item(id,c.name,'流体容器','#a8b7ac');
 for(const [id,name]of [['vacuumTube','真空管'],['resistor','电阻'],['coatedBoard','覆膜电路板'],['basicCircuit','基础电路'],['goodCircuit','进阶电路'],['advancedCircuit','高级电路'],['processor','处理器'],['nanoCircuit','纳米电路'],['quantumCircuit','量子电路'],['crystalCircuit','晶体电路'],['wetwareCircuit','湿件电路'],['biowareCircuit','生物电路'],['opticalCircuit','光学电路'],['exoticCircuit','异域电路'],['cosmicCircuit','宇宙电路'],['transcendentCircuit','超越电路'],['spacetimeCircuit','时空电路'],['ultimateCircuit','终极电路'],['motor','电动马达'],['pump','电动泵'],['rocket','一级火箭'],['advancedRocket','深空火箭'],['fusionCore','聚变核心'],['dyson','戴森集群'],['starCore','恒星核心'],['fieldGenerator','力场发生器']])item(id,name,'元件');

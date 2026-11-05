@@ -8,9 +8,10 @@ try{
   page.on('pageerror',e=>errors.push('page: '+e.message));
   const go=async name=>page.locator(`[data-page="${name}"]`).first().click();
   const clickNode=async(id,count)=>{for(let i=0;i<count;i++)await page.locator(`[data-gather="${id}"]`).click();};
+  const stock=async(id,amount,node)=>{for(let i=0;i<100;i++){if(Number((await page.locator(`[data-qty="${id}"]`).innerText()).replaceAll(',',''))>=amount)return;await clickNode(node,4);}throw Error('Insufficient gathered material: '+id);};
   await page.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
   await page.screenshot({path:'artifacts/ui-overview.png',fullPage:true});
-  for(const name of ['resources','workshop','factory','inventory','fluids','research','space','reference','settings']){
+  for(const name of ['resources','workshop','factory','inventory','fluids','research','space','settings']){
     await go(name);await expect(page.locator('#page')).not.toBeEmpty();
   }
 
@@ -20,14 +21,14 @@ try{
   await expect(page.locator('[data-qty="wood"]')).toHaveText('0');
   await expect(page.locator('[data-click-progress="forest"]')).toHaveText('1 / 4 次点击');
   await clickNode('river',1);await clickNode('forest',3);
-  await expect(page.locator('[data-qty="wood"]')).toHaveText('2');
-  await expect(page.locator('[data-last-drops]')).toContainText('黏性树脂');
-  await expect(page.locator('[data-drop-layer="forest"] .floating-drop')).toHaveCount(2);
+  await expect(page.locator('[data-qty="wood"]')).toHaveText(/^[1-3]$/);
+  await expect(page.locator('[data-last-drops]')).toContainText('原木');
+  expect(await page.locator('[data-drop-layer="forest"] .floating-drop').count()).toBeGreaterThanOrEqual(1);
   await page.waitForTimeout(130);await page.screenshot({path:'artifacts/ui-gather-drops.png',fullPage:true});
   await clickNode('surface',4);await clickNode('river',3);
-  await expect(page.locator('[data-qty="clay"]')).toHaveText('2');
+  await expect(page.locator('[data-qty="clay"]')).toHaveText(/^[1-3]$/);
   await go('inventory');
-  for(const name of ['原木','黏性树脂','圆石','燧石','沙砾','黏土','沙子'])await expect(page.locator('#page')).toContainText(name);
+  for(const name of ['原木','圆石','黏土','沙子'])await expect(page.locator('#page')).toContainText(name);
 
   await go('workshop');
   await expect(page.locator('.bench-grid > .bench-slot')).toHaveCount(9);
@@ -41,7 +42,7 @@ try{
   await page.locator('[data-book-item="flintPick"]').click();
   await expect(page.locator('[data-fill="pick"]')).toBeDisabled();
   await expect(page.locator('[data-bench-status]')).toContainText('燧石');
-  await go('resources');await clickNode('surface',8);
+  await go('resources');await stock('flint',3,'surface');
   await go('workshop');await page.locator('[data-book-item="flintPick"]').click();
   await expect(page.locator('.bench-grid [data-slot-item="flint"]')).toHaveCount(3);
   await expect(page.locator('.bench-grid [data-slot-item="stick"]')).toHaveCount(2);
@@ -65,7 +66,7 @@ try{
   await expect(page.locator('.recipe-book')).not.toContainText('制作');
 
   // Craft, enable and fill a bucket; there is no loose water inventory item.
-  await go('resources');await clickNode('forest',4);
+  await go('resources');await stock('wood',3,'forest');
   await go('workshop');await page.locator('[data-tab="craft"]').click();await page.locator('[data-book-item="woodBucket"]').click();
   await page.locator('[data-fill="woodBucket"]').click();await page.locator('[data-craft="woodBucket"][data-count="1"]').click();
   await expect(page.locator('#queuePanel')).toContainText('队列为空',{timeout:4000});

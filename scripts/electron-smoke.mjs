@@ -14,8 +14,8 @@ try{
   await win.locator('[data-page="resources"]').first().click();await win.locator('[data-gather-hit="forest"]').click();await win.waitForTimeout(2300);
   await expect(win.locator('[data-qty="wood"]')).toHaveText('0');
   for(let i=0;i<3;i++)await win.locator('[data-gather="forest"]').click();
-  await expect(win.locator('[data-qty="wood"]')).toHaveText('2');
-  await expect(win.locator('[data-last-drops]')).toContainText('黏性树脂');
+  await expect(win.locator('[data-qty="wood"]')).toHaveText(/^[1-3]$/);
+  await expect(win.locator('[data-last-drops]')).toContainText('原木');
   await win.locator('[data-page="workshop"]').first().click();
   await expect(win.locator('[data-book-item="flintPick"]')).toContainText('燧石镐');
   await expect(win.locator('.recipe-book')).not.toContainText('制作');
@@ -27,7 +27,7 @@ try{
   await expect(win.locator('.bench-heading h2')).toHaveText('燧石镐');
   await win.locator('[data-page="resources"]').first().click();for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();
   await expect(win.locator('[data-last-drops]')).toContainText('需要兼容的空桶');
-  for(let i=0;i<4;i++)await win.locator('[data-gather="forest"]').click();
+  for(let round=0;round<3;round++)for(let i=0;i<4;i++)await win.locator('[data-gather="forest"]').click();
   await win.locator('[data-page="workshop"]').first().click();await win.locator('[data-tab="craft"]').click();
   await win.locator('[data-book-item="woodBucket"]').click();await win.locator('[data-fill="woodBucket"]').click();await win.locator('[data-craft="woodBucket"][data-count="1"]').click();
   await expect(win.locator('#queuePanel')).toContainText('队列为空',{timeout:4000});
@@ -35,10 +35,29 @@ try{
   await win.locator('[data-page="resources"]').first().click();for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();
   await win.locator('[data-page="fluids"]').first().click();await expect(win.locator('[data-container-amount]')).toHaveText('1,000');
   await win.locator('[data-page="inventory"]').first().click();await expect(win.locator('[data-inventory-item="water"]')).toHaveCount(0);
-  await win.locator('[data-page="reference"]').first().click();await win.waitForSelector('.quest-card');
-  const content=await win.locator('#page').innerText();if(!content.includes('3814'))throw Error('Local reference failed to load');
-  await win.locator('.quest-card').first().click();if(!await win.locator('#modal').isVisible())throw Error('Quest dialog not visible');await win.locator('[data-action="close-modal"]').click();
+  // Release-specific checks use the same isolated test profile and never touch the player's save.
+  await expect(win.locator('[data-page="reference"]')).toHaveCount(0);
+  if(await win.evaluate(()=>parseFloat(getComputedStyle(document.body).fontSize))<16)throw Error('Body font is too small');
+  await win.locator('[data-page="resources"]').first().click();
+  await expect(win.locator('[data-node="forest"] .node-drops')).toContainText('1–3');
+  const factoryFixture=await win.evaluate(async()=>{
+    const {Game}=await import('./core/engine.js');const g=new Game();g.state.stage=1;
+    for(const type of ['furnace','cokeOven','furnace']){g.add(g.catalog.machines[type].cost);if(!g.build(type).ok)throw Error('Fixture machine failed');}
+    g.add({clay:1,coal:2,sand:4});const d=g.state.devices[0];g.assign(d.id,'bricks');g.tick(.5);g.toggle(d.id);
+    return JSON.stringify(g.snapshot());
+  });
+  await win.addInitScript(value=>localStorage.setItem('gtnh-long-road-v2',value),factoryFixture);
+  await win.reload();await win.locator('.nav [data-page="factory"]').click();
+  await expect(win.locator('[data-machine-group]')).toHaveCount(2);
+  await win.locator('[data-factory-type="furnace"]').click();
+  await expect(win.locator('[data-machine-group]')).toHaveCount(1);await expect(win.locator('[data-device]')).toHaveCount(2);
+  await expect(win.locator('[data-assign]').first()).toBeDisabled();
+  await win.locator('[data-force-stop]').first().click();await expect(win.locator('[data-assign]').first()).toBeEnabled();
+  await win.locator('[data-assign]').first().selectOption('glass');await win.locator('[data-toggle]').first().click();
+  await expect(win.locator('[data-device-state]').first()).toHaveText('运行中');
+  await win.setViewportSize({width:1040,height:720});
+  if(await win.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Factory controls overflow at 1040px');
   await win.locator('[data-page="overview"]').first().click();await win.screenshot({path:'artifacts/electron-overview.png',fullPage:true});
   if(errors.length)throw Error(errors.join('\n'));
-  console.log((portable?'Portable single exe':packaged?'Packaged exe':'Electron')+' smoke OK: item recipe/usage lookup, click gathering, bucket crafting and water storage, local reference, quest dialog');
+  console.log((portable?'Portable single exe':packaged?'Packaged exe':'Electron')+' smoke OK: recipes, random drop ranges, fluid storage, larger type, removed reference, factory groups and force-stop/product switching');
 }finally{await app.close();}
