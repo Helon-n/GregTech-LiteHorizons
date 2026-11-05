@@ -4,7 +4,7 @@ import {applyTier,tierFor,readAppearance,saveAppearance} from './tier-theme.js';
 import {appearanceMarkup,mountAppearance} from './tier-appearance.js';
 import {updateText,updateDisabled,updateAttribute,updatePercent} from './live-view.js';
 import {deviceReadout,updateDeviceReadout} from './device-readout.js';
-import {Game,OFFLINE_LIMIT} from './core/engine.js';
+import {Game} from './core/engine.js';
 import {energySpec,energyCapacity,voltage,generatorFuel,carrier,batteryItem} from './core/energy.js';
 import {ENERGY_REFERENCE as ENERGY,recipeEnergyText} from './data/energy-reference.js';
 import {loadWorld,saveWorld,exportWorld,replaceWorld} from './core/storage.js';
@@ -314,7 +314,7 @@ function research(){const plan=gridPlan('research',100,Math.max(0,viewport.width
 
 function space(){const plan=gridPlan('space'),list=listPage('space',gatherNodes.filter(n=>['moon','mars','belt'].includes(n.id)),plan.size);return heading('星际远征')+`<div class="resource-cards fitted-cards" ${gridAttrs('space')}>${list.entries.map(nodeCard).join('')}</div>${list.controls}`;}
 
-function settings(){if(appearanceOpen)return appearance();return heading('存档与设置','<button class="button" data-appearance-open>电压外观</button>')+`<div class="page-grid"><div class="page-main">${panel('世界存档','',`<div class="settings-row"><div><h3>导出存档</h3><p>备份当前世界，或迁移到另一台电脑。</p></div><button class="button primary" data-action="export">导出存档</button></div><div class="settings-row"><div><h3>导入存档</h3><p>载入存档，替换当前世界。</p></div><button class="button" data-action="import">导入存档</button></div><div class="settings-row"><div><h3>重置世界</h3><p>重新开始，重置前会导出当前存档。</p></div><button class="button danger" data-action="reset">重置</button></div>`)}</div><aside class="page-rail">${panel('离线收益','','<p class="muted">离开后，自动采集和产线继续结算，最多 12 小时。</p><p class="muted">缺少原料、电力或流体容量时，相关产出暂停。</p>')}${panel('世界统计','',`<div class="goal-row"><span>当前章节</span><strong>${game.stage.code}</strong></div><div class="goal-row"><span>运行时间</span><strong data-playtime>${time(game.state.playtime)}</strong></div><div class="goal-row"><span>累计产出</span><strong data-produced>${num(game.state.produced)}</strong></div><div class="goal-row"><span>自动采集点</span><strong>${Object.keys(game.state.collectors).length}</strong></div>`)}</aside></div>`;}
+function settings(){if(appearanceOpen)return appearance();return heading('存档与设置','<button class="button" data-appearance-open>电压外观</button>')+`<div class="page-grid"><div class="page-main">${panel('世界存档','',`<div class="settings-row"><div><h3>导出存档</h3><p>备份当前世界，或迁移到另一台电脑。</p></div><button class="button primary" data-action="export">导出存档</button></div><div class="settings-row"><div><h3>导入存档</h3><p>载入存档，替换当前世界。</p></div><button class="button" data-action="import">导入存档</button></div><div class="settings-row"><div><h3>重置世界</h3><p>重新开始，重置前会导出当前存档。</p></div><button class="button danger" data-action="reset">重置</button></div>`)}</div><aside class="page-rail">${panel('运行规则','','<p class="muted">采集、生产和手工队列仅在程序运行时推进。</p><p class="muted">关闭程序后暂停，重新打开时从保存的进度继续。</p>')}${panel('世界统计','',`<div class="goal-row"><span>当前章节</span><strong>${game.stage.code}</strong></div><div class="goal-row"><span>运行时间</span><strong data-playtime>${time(game.state.playtime)}</strong></div><div class="goal-row"><span>累计产出</span><strong data-produced>${num(game.state.produced)}</strong></div><div class="goal-row"><span>自动采集点</span><strong>${Object.keys(game.state.collectors).length}</strong></div>`)}</aside></div>`;}
 const pages={overview,resources:resourcesPage,workshop,factory,inventory,research,space,settings};
 function queueStateSignature(){return JSON.stringify(game.state.queue.map(q=>[q.recipe,q.amount]));}
 function containerStateSignature(){return JSON.stringify(game.state.containers.map(c=>[c.id,c.type,c.fluid]));}
@@ -474,4 +474,5 @@ setInterval(persist,10000);window.addEventListener('beforeunload',persist);
 document.addEventListener('visibilitychange',()=>{if(document.hidden)persist();else{const gap=(performance.now()-last)/1000;if(gap>1)game.simulate(gap);last=performance.now();refresh();}});
 let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{closeChoices();render();},120);});
 render();
-const offline=Math.min(OFFLINE_LIMIT,Math.max(0,(Date.now()-game.state.lastSeen)/1000));if(offline>30){const summary=game.simulate(offline);render();notify(`离线结算 ${time(summary.seconds)} · 产出 ${num(summary.produced)}`);}if(recovered)notify('主存档不可用，已从上一份有效备份恢复。');persist();
+// Resume the saved state directly; time spent with the application closed does not advance the world.
+if(recovered)notify('主存档不可用，已从上一份有效备份恢复。');persist();
