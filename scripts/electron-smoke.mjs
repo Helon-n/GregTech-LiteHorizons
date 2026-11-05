@@ -3,7 +3,7 @@ import {_electron as electron,expect} from '@playwright/test';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {launchPortable} from './launch-portable.mjs';
-const dataDir=path.resolve('artifacts','electron-test-'+Date.now());
+const dataDir=path.resolve('artifacts','electron-test-'+Date.now()+'-'+process.pid);
 const packaged=process.argv.includes('--packaged');
 const portable=process.argv.includes('--portable');
 const metadata=JSON.parse(await fs.readFile('package.json','utf8'));
@@ -54,7 +54,7 @@ try{
   });
   await win.addInitScript(value=>localStorage.setItem('gtnh-long-road-v2',value),factoryFixture);
   await win.reload();await win.locator('.nav [data-page="factory"]').click();
-  await expect(win.locator('[data-factory-type]')).toHaveCount(3);
+  await expect(win.locator('[data-factory-type]')).toHaveCount(2);
   await win.locator('[data-factory-type="furnace"]').click();
   await expect(win.locator('[data-machine-group]')).toHaveCount(2);await expect(win.locator('[data-device]')).toHaveCount(2);
   await expect(win.locator('[data-assign]').first()).toBeDisabled();

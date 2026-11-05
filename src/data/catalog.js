@@ -1,3 +1,4 @@
+import {applyEnergyCatalog} from './energy-catalog.js';
 // Gameplay adaptation of GTNH progression. Exact original recipes come from the
 // optional runtime exporter; these authored recipes are deliberately labelled.
 export const STAGES = [
@@ -175,4 +176,5 @@ export const nodeDrops={forest:{wood:2,resin:1},surface:{stone:2,flint:1,gravel:
 export const milestones=[
  {flintPick:1,brick:8},{steel:4,basicCircuit:1,motor:1},{goodCircuit:2,electrolyzer:1},{aluminium:4,chemical:1},{stainless:4,advancedCircuit:2},{titanium:4,processor:2,rocket:1,moonRock:4},{tungstensteel:4,nanoCircuit:2},{iridium:4,quantumCircuit:2},{europium:4,wetwareCircuit:2},{neutronium:4,biowareCircuit:2},{cosmic:4,opticalCircuit:2},{catalyst:4,exoticCircuit:2},{infinity:4,cosmicCircuit:2},{spacetime:4,transcendentCircuit:2},{eternity:4,spacetimeCircuit:2},{stargate:1}
 ];
-export const CATALOG={version:3,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};
+applyEnergyCatalog({items,machines,recipes});
+export const CATALOG={version:4,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};

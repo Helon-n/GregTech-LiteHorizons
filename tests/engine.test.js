@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Game} from '../src/core/engine.js';
 import {CATALOG,recipes,machines,STAGES} from '../src/data/catalog.js';
+import {generatorFuel,energyCapacity} from '../src/core/energy.js';
 function tanks(g,count=3){g.add({largeTank:count});for(let i=0;i<count;i++)assert.equal(g.placeContainer('largeTank').ok,true);}
 
 test('catalog IDs and all costs / recipes refer to known items',()=>{
@@ -65,11 +66,22 @@ test('one machine cannot auto-run several recipes; times and input conservation 
 });
 
 test('powered machines pause without losing prepaid input or producing free output',()=>{
-  const g=new Game();g.state.stage=2;tanks(g);g.add({steelPlate:6,basicCircuit:2,pump:1,water:1000});const {device}=g.build('electrolyzer');g.assign(device.id,'waterElectrolysis');g.simulate(4);assert.equal(g.quantity('water'),0);assert.equal(g.quantity('hydrogen'),0);assert.equal(device.blocked,'电力不足');const job=JSON.stringify(device.job);g.simulate(2);assert.equal(JSON.stringify(device.job),job);g.state.energy=10000;g.simulate(8);assert.equal(g.quantity('hydrogen'),2000);assert.equal(g.quantity('oxygen'),1000);assert.equal(g.state.energy,10000-16*20*8);
+  const g=new Game();g.state.stage=2;tanks(g);g.add({...machines.electrolyzer.cost,water:1000});
+  const {device}=g.build('electrolyzer');g.assign(device.id,'waterElectrolysis');g.state.energy=10000;
+  g.simulate(4);assert.equal(g.quantity('water'),1000);assert.equal(device.job,null);assert.equal(g.state.energy,0);
+  device.eu=300;g.tick(.5);assert.equal(g.quantity('water'),0);assert.equal(g.quantity('hydrogen'),0);
+  const job=JSON.stringify(device.job);g.simulate(2);assert.equal(device.blocked,'电力不足');assert.equal(JSON.stringify(device.job),job);
+  g.add({...machines.batteryBuffer.cost,batteryLV:1});const battery=g.build('batteryBuffer').device;
+  assert.equal(g.changeBattery(battery.id,true).ok,true);battery.eu=60000;
+  assert.equal(g.setSupply(device.id,'storage',battery.id).ok,true);g.simulate(99.5);
+  assert.equal(g.quantity('hydrogen'),2000);assert.equal(g.quantity('oxygen'),1000);assert.equal(g.state.energy,300);
 });
 
 test('generator consumes fuel and adds bounded energy over time',()=>{
-  const g=new Game();g.state.stage=2;tanks(g,1);g.add({steelPlate:6,basicCircuit:1,motor:1,steam:3200});const {device}=g.build('turbine');g.assign(device.id,'steamPower');g.simulate(5);assert.equal(g.quantity('steam'),0);assert.equal(g.state.energy,3200);
+  const g=new Game();g.state.stage=2;tanks(g,1);g.add({...machines.turbine.cost,steam:3200});
+  const {device}=g.build('turbine');g.assign(device.id,'steamPower');g.setSupply(device.id,'storage',g.state.containers[0].id);
+  g.simulate(5);assert.equal(g.quantity('steam'),0);assert.equal(device.fuel,1);assert.equal(g.state.energy,1371);
+  assert.ok(device.eu<=energyCapacity(g,device));g.simulate(5);assert.equal(g.state.energy,1371);
 });
 
 test('offline simulation matches online steps and survives save roundtrip',()=>{
@@ -95,7 +107,7 @@ test('initial chapter can be completed through collection, crafting, and a worki
  const built=g.build('furnace');assert.equal(built.ok,true);g.assign(built.device.id,'charcoal');g.simulate(6);assert.equal(g.quantity('coal'),3);g.assign(built.device.id,'bricks');g.simulate(10);assert.equal(g.quantity('brick'),8);assert.equal(g.canAdvance(),true);g.advance();assert.equal(g.state.stage,1);
 });
 
-test('generator power labels equal output and its plasma cycle has positive net yield',()=>{
- for(const r of recipes.filter(x=>x.generation)){const machine=Object.values(machines).find(m=>m.processes.includes(r.process));assert.equal(r.generation/r.seconds,Math.abs(machine.power)*20,r.id);}
+test('generator operation values match calibrated fuels and its plasma cycle has positive net yield',()=>{
+ for(const r of recipes.filter(x=>x.generation)){const machine=Object.values(machines).find(m=>m.processes.includes(r.process));const g=new Game();g.state.stage=15;g.add(machine.cost);const d=g.build(machine.id).device,fuel=generatorFuel(g,d);assert.equal(r.generation,fuel.eu,r.id);assert.equal(r.inputs[fuel.id],fuel.amount,r.id);assert.equal(Math.abs(machine.power),g.catalog.machines[d.type].energy.tier===d.energyTier?8*4**d.energyTier:0);}
  const fusion=recipes.find(r=>r.id==='fusionFuel'),generator=recipes.find(r=>r.id==='plasmaPower');assert.ok(fusion.outputs.plasma/generator.inputs.plasma*generator.generation>fusion.power*20*fusion.seconds);
 });

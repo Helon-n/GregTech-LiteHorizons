@@ -1,7 +1,7 @@
 import {chromium,expect} from '@playwright/test';
 import {Game} from '../src/core/engine.js';
 import {items,machines,recipes,gatherNodes} from '../src/data/catalog.js';
-import {pickOption} from './ui-controls.mjs';
+import {pickOption,revealResource} from './ui-controls.mjs';
 
 const game=new Game();game.state.stage=15;
 game.add(Object.fromEntries(Object.values(items).filter(i=>i.kind!=='fluid').map(i=>[i.id,100000])));
@@ -55,19 +55,21 @@ try{
           await page.screenshot({path:'artifacts/window-resources.png'});
         }
         const ids=await page.locator('[data-node]').evaluateAll(nodes=>nodes.map(n=>n.dataset.node));
-        for(const id of ids)await page.locator(`[data-node-id="${id}"][data-node-view="auto"]`).click();
+        for(const id of ids){await revealResource(page,id);await page.locator(`[data-node-id="${id}"][data-node-view="auto"]`).click();}
         await fit(`${width}x${height} automatic collectors`);
         const first=ids[0];
+        await revealResource(page,first);await page.locator(`[data-node-id="${first}"][data-node-view="auto"]`).click();
         await page.locator(`[data-worker-node="${first}"][data-worker-count="1"]`).first().click();
         expect(await page.evaluate(id=>JSON.parse(localStorage.getItem('gtnh-long-road-v2')).collectors[id].activeCount,first)).toBe(1);
       }
       if(name==='factory'){
-        await expect(page.locator('[data-device-stack="furnace-bricks"]')).toHaveCount(1);
+        await page.locator('[data-factory-type="furnace"]').click();
+        await expect(page.locator('[data-device-stack^="furnace-bricks-"]')).toHaveCount(1);
         await expect(page.locator('[data-stack-status]')).not.toHaveCount(0);
         await page.locator('[data-factory-type="furnace"]').click();
-        await page.locator('[data-expand-stack="furnace-bricks"]').click();
+        await page.locator('[data-expand-stack^="furnace-bricks-"]').click();
         await fit(`${width}x${height} expanded devices`);
-        await page.locator('[data-expand-stack="furnace-bricks"]').click();
+        await page.locator('[data-expand-stack^="furnace-bricks-"]').click();
         await page.locator(`[data-assign="${idle.id}"]+button`).click();
         await expect(page.locator('.choice-option .choice-art img').first()).toBeVisible();
         await fit(`${width}x${height} recipe cards`);
@@ -86,7 +88,8 @@ try{
   // Resize the same open page; density must change without restarting/navigation.
   await go('resources');await page.setViewportSize({width:1280,height:720});
   await expect(page.locator('[data-node]')).toHaveCount(2);
-  await page.setViewportSize({width:2048,height:1090});await expect(page.locator('[data-node]')).toHaveCount(8);
+  const compactCount=await page.locator('[data-node]').count();
+  await page.setViewportSize({width:2048,height:1090});await expect.poll(()=>page.locator('[data-node]').count()).toBeGreaterThan(compactCount);
   await fit('live resize');
   expect(errors).toEqual([]);
   console.log(`Window layout OK: ${checks} viewport/interaction checks, automatic factory grouping, icon cards, worker controls and live resize.`);

@@ -64,6 +64,10 @@
 .tier-preview{display:flex;flex-direction:column;gap:12px;min-width:0}
 .tier-preview>h2{font-size:19px;margin:0;display:flex;justify-content:space-between}
 .tier-preview>h2 small{font-weight:400;font-size:14px;color:var(--muted)}
+.tier-preview-pages{display:none;gap:8px}
+.tier-appearance[data-preview-paged="true"] .tier-preview-pages{display:flex}
+.tier-appearance[data-preview-paged="true"][data-preview-page="energy"] [data-preview-part="production"],
+.tier-appearance[data-preview-paged="true"][data-preview-page="production"] [data-preview-part="energy"]{display:none}
 .tier-preview .empty{padding:14px 10px}
 .tier-dna-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .tier-dna h2{font-size:23px;margin:4px 0;line-height:1.4}

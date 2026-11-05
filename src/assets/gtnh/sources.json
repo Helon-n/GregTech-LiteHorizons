@@ -2006,6 +2006,195 @@
         }
       ],
       "note": "GTNH pack logo traced into SVG paths."
+    },
+    "batteryLV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/518.png"
+        }
+      ],
+      "note": "Original GTNH rechargeable battery artwork."
+    },
+    "batteryMV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/528.png"
+        }
+      ],
+      "note": "Original GTNH rechargeable battery artwork."
+    },
+    "batteryHV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "Original GTNH rechargeable battery artwork."
+    },
+    "batteryEV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 540; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "batteryIV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 545; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "batteryLuV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 550; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "batteryZPM": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 555; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "batteryUV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 560; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "batteryUHV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 570; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "batteryUEV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 575; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "batteryUIV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 580; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "batteryUMV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 585; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "batteryUXV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/gt.metaitem.01/538.png"
+        }
+      ],
+      "note": "The installed original jars lack the artwork for meta 590; shares the original HV lithium battery silhouette. The UI tier label identifies this battery."
+    },
+    "lithiumDust": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
+          "tint": "#e1dcff"
+        }
+      ],
+      "note": "Lithium: MaterialsInit, DULL/NONE material texture fallback, color 0xe1dcff."
+    },
+    "cryotheum": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/blocks/fluids/fluid.cryotheum.png"
+        }
+      ]
+    },
+    "gasTurbine": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/GAS_TURBINE_SIDE.png"
+        }
+      ],
+      "note": "Original GTNH gas-turbine overlay on the same steel casing used by the existing generators."
+    },
+    "batteryBuffer": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_ENERGY_OUT_MULTI_4A_LV.png"
+        }
+      ],
+      "note": "GTNH casing and available four-ampere overlay, four-slot battery box."
+    },
+    "centrifuge": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/basicmachines/centrifuge/OVERLAY_FRONT.png"
+        }
+      ]
+    },
+    "deuterium": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/fluids/fluid.deuterium.png"
+        }
+      ]
+    },
+    "tritium": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/fluids/fluid.tritium.png"
+        }
+      ]
     }
   }
 }

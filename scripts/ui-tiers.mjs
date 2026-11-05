@@ -82,6 +82,9 @@ try{
       await expect(page.locator('[data-select-tier="MAX"]')).toBeFocused();
     }
     await view('preview');await fit(`${width}x${height} preview`);
+    if(await page.locator('.tier-preview-pages').isVisible())for(const part of ['production','energy']){
+      await page.locator(`[data-preview-view="${part}"]`).click();await fit(`${width}x${height} ${part} preview`);
+    }
     await view('dna');await fit(`${width}x${height} DNA`);
     if(await page.locator('.tier-dna-pages').isVisible()){
       await page.locator('[data-dna-view="palette"]').click();await fit(`${width}x${height} DNA palette`);

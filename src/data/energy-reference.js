@@ -1,0 +1,30 @@
+// Numeric rules from the installed GTNH 2.9.0 / GT5 5.09.54.265.
+// Source paths, configuration overrides and adaptation boundaries: docs/ENERGY.md.
+export const ENERGY_REFERENCE=Object.freeze({
+  version:'5.09.54.265',ticksPerSecond:20,
+  voltage:[8,32,128,512,2048,8192,32768,131072,524288,2097152,8388608,33554432,134217728,536870912,2147483640],
+  codes:['ULV','LV','MV','HV','EV','IV','LuV','ZPM','UV','UHV','UEV','UIV','UMV','UXV','MAX'],
+  boiler:{steamPerSecond:120,steamCapacity:16000,waterCapacity:16000,steamPerWater:160,ambient:20,boiling:100,maxTemperature:500,heatTicks:12,coolTicks:46,coalHeat:160},
+  steamMachine:{steamPerEU:2,durationMultiplier:2,capacity:32000,minimumSteam:2000},
+  turbine:{minTier:1,maxTier:3,euPerOperation:3,steamPerOperation:[0,7,8,9]},
+  diesel:{minTier:1,maxTier:3,fuelEU:480,efficiency:[0,95,90,85]},
+  gas:{minTier:1,maxTier:5,hydrogenEU:20,efficiency:[0,95,90,85,60,50]},
+  plasma:{minTier:4,maxTier:8,heliumEU:81920},
+  fusion:{baseTier:6,maxTier:8,capacity:160000000,startup:40000000,hydrogenToDeuterium:{input:160,output:40,seconds:8,power:20},deuteriumToTritium:{input:160,output:40,seconds:8,power:80}},
+  battery:{slots:4,inputAmpsPerCell:2,outputAmpsPerCell:1,hullTicksPerSlot:64,
+    // Lithium cells LV–HV; full batteries EV–UXV, MetaGeneratedItem01.setElectricStats.
+    capacity:[0,100000,400000,1600000,6400000,25600000,102400000,409600000,1638400000,6553600000,26214400000,104857600000,419430400000,1677721600000]},
+  dyson:{euPerModule:10000000,maxModules:10000,cycleSeconds:3600,coolant:3600000,powerFactor:1,destroyA:.00005,destroyChance:.066},
+});
+
+export function recipeEnergyText(r){
+  const E=ENERGY_REFERENCE;
+  if(r.process==='boil')return '额定 120 mB/s · 1 mB 水 → 160 mB 蒸汽 · 需要煤炭与升温';
+  if(r.process==='generateSteam')return 'LV：7 mB 蒸汽 → 3 EU · 额定 32 EU/t';
+  if(r.process==='generateDiesel')return '柴油热值 480 EU/mB · 输出与效率由机组等级决定';
+  if(r.process==='generateGas')return '氢气热值 20 EU/mB · 输出与效率由机组等级决定';
+  if(r.process==='generatePlasma')return '氦等离子体热值 81920 EU/mB · 输出与效率由机组等级决定';
+  if(r.process==='generateStellar')return '每模块 10000000 EU/t · 冷却液按小时消耗';
+  if(['grind','alloy','compress'].includes(r.process))return `青铜机器：${r.seconds*E.steamMachine.durationMultiplier} 秒/批 · ${r.power*20*E.steamMachine.steamPerEU} mB 蒸汽/s`;
+  return (r.seconds?`${r.seconds} 秒/批`:'')+(r.power?` · ${r.power} EU/t`:'')+(r.startup?` · 启动 ${r.startup} EU`:'');
+}

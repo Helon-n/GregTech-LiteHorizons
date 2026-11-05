@@ -331,6 +331,8 @@ class Importer:
                  'dysonGenerator':r'gregtech/textures/blocks/iconsets/OVERLAY_FRONT_DYSONSPHERE\.png$',
                  'cosmicFabricator':r'gregtech/textures/blocks/iconsets/EM_OUTER_SPACETIME_REINFORCED_EOH_CASING\.png$'}
         for item in catalog['machines']:
+            if item in ['gasTurbine','batteryBuffer','centrifuge']:
+                continue  # Imported with the energy items below.
             if item == 'workbench':
                 continue
             if item == 'furnace':
@@ -371,6 +373,13 @@ class Importer:
         pack.resize((256,256),Image.Resampling.NEAREST).save(self.output.parent/'app-icon.ico',sizes=[(16,16),(32,32),(48,48),(64,64),(128,128),(256,256)])
         (self.output.parent/'app-icon.png').unlink(missing_ok=True)
         missing=set(catalog['items'])-set(self.manifest)
+        if missing:
+            import sys
+            subprocess.run([sys.executable, str(PROJECT/'scripts/import-energy-icons.py'), '--instance', str(self.instance), '--output', str(self.output)], check=True)
+            energy_icons=json.loads((self.output/'sources.json').read_text(encoding='utf-8'))['icons']
+            for item in missing:
+                if item in energy_icons:self.manifest[item]=energy_icons[item]
+            missing=set(catalog['items'])-set(self.manifest)
         if missing:
             raise ValueError('Missing item icons: '+', '.join(sorted(missing)))
         (self.output/'sources.json').write_text(json.dumps({'pack':'GTNH 2.9.0','format':'SVG paths traced from original pixel artwork','resourcePacks':self.packs,'icons':self.manifest},ensure_ascii=False,indent=2),encoding='utf-8')

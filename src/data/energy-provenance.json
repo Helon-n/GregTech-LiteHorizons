@@ -1,0 +1,148 @@
+{
+  "pack": "GTNH 2.9.0",
+  "gregtech": "5.09.54.265",
+  "files": [
+    {
+      "path": "mods/gregtech-5.09.54.265.jar",
+      "size": 68204142,
+      "sha256": "b969e11625a0298416a75b6e39703da795233edb71cb66f25fb9bbf654d75528"
+    },
+    {
+      "path": "mods/GTNewHorizonsCoreMod-2.9.99.jar",
+      "size": 48453248,
+      "sha256": "1fb7974c50807ca28acfe5396886475d9ac3d1b6292c1e809ff821d830b4ddcb"
+    },
+    {
+      "path": "mods/industrialcraft-2-2.2.828-experimental.jar",
+      "size": 5633947,
+      "sha256": "de1d4597972be036eccd1c3b37e9980c3c9d9cdb92f52df2bf470971873893f6"
+    },
+    {
+      "path": "config/GregTech/GregTech.cfg",
+      "size": 28526,
+      "sha256": "ae692bd75f0b4ad49f8451d641c04b1abb8490898a288babe8af7c5ba4f73b84"
+    },
+    {
+      "path": "config/gtnhintergalactic.cfg",
+      "size": 4898,
+      "sha256": "9fc9c5242ec6cc1478f5ebb04cd9dc37ef2cd005b4c90adb4a8d6bcfbc5357fd"
+    }
+  ],
+  "sources": [
+    {
+      "path": "gregtech/api/enums/GTValues.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/enums/GTValues.java"
+    },
+    {
+      "path": "gregtech/common/tileentities/boilers/MTEBoiler.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/common/tileentities/boilers/MTEBoiler.java"
+    },
+    {
+      "path": "gregtech/common/tileentities/boilers/MTEBoilerBronze.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/common/tileentities/boilers/MTEBoilerBronze.java"
+    },
+    {
+      "path": "gregtech/common/tileentities/generators/MTESteamTurbine.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/common/tileentities/generators/MTESteamTurbine.java"
+    },
+    {
+      "path": "gregtech/common/tileentities/generators/MTEDieselGenerator.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/common/tileentities/generators/MTEDieselGenerator.java"
+    },
+    {
+      "path": "gregtech/common/tileentities/generators/MTEGasTurbine.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/common/tileentities/generators/MTEGasTurbine.java"
+    },
+    {
+      "path": "gregtech/common/tileentities/generators/MTEPlasmaGenerator.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/common/tileentities/generators/MTEPlasmaGenerator.java"
+    },
+    {
+      "path": "gregtech/api/metatileentity/MetaTileEntity.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/metatileentity/MetaTileEntity.java"
+    },
+    {
+      "path": "gregtech/api/metatileentity/implementations/MTEBasicGenerator.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/metatileentity/implementations/MTEBasicGenerator.java"
+    },
+    {
+      "path": "gregtech/api/metatileentity/implementations/MTEBasicMachine.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/metatileentity/implementations/MTEBasicMachine.java"
+    },
+    {
+      "path": "gregtech/api/metatileentity/implementations/MTEBasicMachineBronze.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/metatileentity/implementations/MTEBasicMachineBronze.java"
+    },
+    {
+      "path": "gregtech/api/metatileentity/implementations/MTEBasicBatteryBuffer.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/metatileentity/implementations/MTEBasicBatteryBuffer.java"
+    },
+    {
+      "path": "gregtech/api/objects/overclockdescriber/SteamOverclockDescriber.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/objects/overclockdescriber/SteamOverclockDescriber.java"
+    },
+    {
+      "path": "gregtech/api/util/OverclockCalculator.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/util/OverclockCalculator.java"
+    },
+    {
+      "path": "gregtech/api/objects/overclockdescriber/FusionOverclockDescriber.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/objects/overclockdescriber/FusionOverclockDescriber.java"
+    },
+    {
+      "path": "gregtech/common/tileentities/machines/multi/MTEFusionComputer.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/common/tileentities/machines/multi/MTEFusionComputer.java"
+    },
+    {
+      "path": "gregtech/common/items/MetaGeneratedItem01.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/common/items/MetaGeneratedItem01.java"
+    },
+    {
+      "path": "gregtech/loaders/preload/LoaderMetaTileEntities.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/preload/LoaderMetaTileEntities.java"
+    },
+    {
+      "path": "gregtech/loaders/materials/MaterialsInit.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/materials/MaterialsInit.java"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingCell.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingCell.java"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingOre.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingOre.java"
+    },
+    {
+      "path": "gregtech/loaders/postload/recipes/AlloySmelterRecipes.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/postload/recipes/AlloySmelterRecipes.java"
+    },
+    {
+      "path": "gregtech/loaders/postload/recipes/ElectrolyzerRecipes.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/postload/recipes/ElectrolyzerRecipes.java"
+    },
+    {
+      "path": "gregtech/loaders/postload/recipes/CentrifugeRecipes.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/postload/recipes/CentrifugeRecipes.java"
+    },
+    {
+      "path": "gregtech/loaders/postload/recipes/FusionReactorRecipes.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/postload/recipes/FusionReactorRecipes.java"
+    },
+    {
+      "path": "gtnhintergalactic/tile/multi/TileEntityDysonSwarm.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gtnhintergalactic/tile/multi/TileEntityDysonSwarm.java"
+    },
+    {
+      "path": "gtnhintergalactic/config/IGConfig.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gtnhintergalactic/config/IGConfig.java"
+    }
+  ],
+  "bytecodeCrossCheck": [
+    "MTEBoilerBronze production/temperature/fuel/cooldown",
+    "MTESteamTurbine fuel value/consumption",
+    "IDMetaItem01 battery IDs"
+  ],
+  "scope": "Energy constants and source review. No game execution, runtime recipe export or gameplay tests.",
+  "notes": "Construction and uncalibrated material recipes remain adapted; see docs/ENERGY.md."
+}

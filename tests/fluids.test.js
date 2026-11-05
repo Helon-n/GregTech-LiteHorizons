@@ -39,20 +39,20 @@ test('multi-fluid output planning is atomic and does not allocate a single empty
 });
 
 test('machines wait before consuming inputs when fluid output has no compatible container',()=>{
-  const g=new Game();g.state.stage=1;g.add({bronzePlate:6,brick:6,coal:2});place(g,'woodBucket');g.add({water:1000});
-  const {device}=g.build('boiler');g.assign(device.id,'steam');g.simulate(10);
-  assert.equal(device.blocked,'流体输出空间不足');assert.equal(g.quantity('water'),1000);assert.equal(g.quantity('coal'),2);assert.equal(device.job,null);
-  place(g,'fluidTank');g.simulate(8);assert.equal(g.quantity('steam'),16000);assert.equal(g.quantity('water'),0);assert.equal(g.quantity('coal'),1);
+  const g=new Game();g.state.stage=1;g.add({...g.catalog.machines.cokeOven.cost,coal:4});place(g,'woodBucket');
+  const {device}=g.build('cokeOven');g.assign(device.id,'coke');g.simulate(15);
+  assert.equal(device.blocked,'流体输出空间不足');assert.equal(g.quantity('coal'),4);assert.equal(device.job,null);
+  place(g,'fluidTank');g.simulate(15);assert.equal(g.quantity('creosote'),1000);assert.equal(g.quantity('coal'),0);assert.equal(g.quantity('coke'),4);
 });
 
 test('competing producers retain completed batches when a tank fills; reloading and draining release output exactly once',()=>{
-  const g=new Game();g.state.stage=1;g.add({bronzePlate:12,brick:12,coal:4});place(g,'woodBucket',2);g.add({water:2000});
-  place(g,'fluidTank');g.add({steam:48000});
-  const a=g.build('boiler').device,b=g.build('boiler').device;g.assign(a.id,'steam');g.assign(b.id,'steam');g.simulate(8);
-  assert.equal(g.quantity('steam'),64000);assert.equal(b.job.remaining,0);assert.equal(b.blocked,'流体输出空间不足');
-  const loaded=new Game(g.snapshot());loaded.simulate(30);assert.equal(loaded.quantity('steam'),64000);assert.equal(loaded.quantity('coal'),2);
-  loaded.pay({steam:16000});loaded.tick(.5);assert.equal(loaded.quantity('steam'),64000);assert.equal(loaded.state.devices[1].job,null);
-  loaded.simulate(20);assert.equal(loaded.quantity('steam'),64000);assert.equal(loaded.state.produced,32000);
+  const g=new Game();g.state.stage=1;g.add({brick:48,clay:24,coal:8});
+  place(g,'fluidTank');g.add({creosote:63000});
+  const a=g.build('cokeOven').device,b=g.build('cokeOven').device;g.assign(a.id,'coke');g.assign(b.id,'coke');g.simulate(15);
+  assert.equal(g.quantity('creosote'),64000);assert.equal(b.job.remaining,0);assert.equal(b.blocked,'流体输出空间不足');
+  const loaded=new Game(g.snapshot());loaded.simulate(30);assert.equal(loaded.quantity('creosote'),64000);assert.equal(loaded.quantity('coal'),0);
+  loaded.pay({creosote:1000});loaded.tick(.5);assert.equal(loaded.quantity('creosote'),64000);assert.equal(loaded.state.devices[1].job,null);
+  loaded.simulate(20);assert.equal(loaded.quantity('creosote'),64000);assert.equal(loaded.state.produced,2008);
 });
 
 test('offline collectors respect container capacity and do not store uncollected fluids for later',()=>{

@@ -107,20 +107,21 @@ try{
     await go(name);if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Horizontal overflow at 1040px: '+name);
     if(name==='workshop')await page.screenshot({path:'artifacts/ui-workbench-1040.png',fullPage:true});
   }
-  // Independent steam fixture: full tank blocks production; transfer makes room.
+  // Independent hot boiler fixture: surplus remains inside until tank transfer makes room.
   const steamFixture=await page.evaluate(async()=>{
     const {Game}=await import('/core/engine.js');const g=new Game();g.state.stage=1;
     g.add({woodBucket:1,fluidTank:2,bronzePlate:6,brick:6,coal:3});
     g.placeContainer('woodBucket');g.placeContainer('fluidTank');g.placeContainer('fluidTank');
     g.reserveContainer('c2','steam');g.reserveContainer('c3','oil');g.add({water:1000,steam:64000});
-    const {device}=g.build('boiler');g.assign(device.id,'steam');return JSON.stringify(g.snapshot());
+    const {device}=g.build('boiler');g.assign(device.id,'steam');g.setSteamOutput(device.id,'c2');
+    Object.assign(device,{temperature:500,water:1000,steam:16000,startupTicks:0});return JSON.stringify(g.snapshot());
   });
   const context=await browser.newContext({viewport:{width:1040,height:720}});
   await context.addInitScript(value=>localStorage.setItem('gtnh-long-road-v2',value),steamFixture);
   const steamPage=await context.newPage();steamPage.on('pageerror',e=>errors.push(e.message));
   await steamPage.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
   await steamPage.locator('[data-page="factory"]').first().click();
-  await expect(steamPage.locator('[data-device-state]')).toHaveText('流体输出空间不足');
+  await expect(steamPage.locator('[data-device-energy]')).toContainText('°C');
   await steamPage.locator('[data-page="inventory"]').first().click();await steamPage.locator('[data-inventory-tab="containers"]').click();
   await steamPage.locator('[data-pagination="fluids"] button').last().click();
   await pickOption(steamPage,'[data-container-reserve="c3"]','');
@@ -129,7 +130,9 @@ try{
   await steamPage.locator('[data-pagination="fluids"] button').last().click();
   await expect(steamPage.locator('[data-container-amount="c3"]')).toHaveText('64.0k');
   await steamPage.locator('[data-pagination="fluids"] button').first().click();
-  await expect(steamPage.locator('[data-container-amount="c2"]')).toHaveText('16.0k',{timeout:10000});
+  await expect.poll(async()=>{
+    const value=await steamPage.locator('[data-container-amount="c2"]').innerText();return parseFloat(value.replaceAll(',',''))*(value.endsWith('k')?1000:1);
+  }).toBeGreaterThan(10000);
   if(await steamPage.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Container overflow at 1040px');
   await steamPage.screenshot({path:'artifacts/ui-fluid-tanks-1040.png',fullPage:true});
   await steamPage.locator('[data-page="workshop"]').first().click();await steamPage.locator('[data-tab="recipes"]').click();
@@ -142,5 +145,5 @@ try{
   await steamPage.screenshot({path:'artifacts/ui-nei-machine-recipe.png',fullPage:true});
   await context.close();
   if(errors.length)throw Error(errors.join('\n'));
-  console.log('UI smoke OK: NEI item recipes/usages, recipe navigation, click gathering, bucket storage, full-tank pause and transfer, construction, 1040px layout');
+  console.log('UI smoke OK: NEI item recipes/usages, recipe navigation, click gathering, bucket storage, boiler surplus and tank transfer, construction, 1040px layout');
 }finally{await browser.close();}

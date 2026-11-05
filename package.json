@@ -1,6 +1,6 @@
 {
   "name": "gregtech-litehorizons",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "type": "module",
   "description": "GTNH-inspired offline idle factory game for Windows",
@@ -11,6 +11,9 @@
     "test": "node --test tests/*.test.js",
     "test:ui": "node scripts/ui-smoke.mjs",
     "test:ui:tiers": "node scripts/ui-tiers.mjs",
+    "test:ui:energy": "node scripts/ui-energy.mjs",
+    "test:ui:layout": "node scripts/ui-window-layout.mjs",
+    "test:ui:performance": "node scripts/ui-performance.mjs",
     "test:desktop": "node scripts/electron-smoke.mjs",
     "dev:web": "node scripts/serve.mjs",
     "dist": "electron-builder --win nsis portable --x64",
