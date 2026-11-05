@@ -1,3 +1,4 @@
+import {revealResource,pickOption,checkLastDrop} from './ui-controls.mjs';
 import {chromium,expect} from '@playwright/test';
 
 const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
@@ -7,8 +8,8 @@ try{
   page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text());});
   page.on('pageerror',e=>errors.push('page: '+e.message));
   const go=async name=>{await page.locator(`[data-page="${name==='fluids'?'inventory':name}"]`).first().click();if(name==='fluids'||name==='inventory')await page.locator(`[data-inventory-tab="${name==='fluids'?'containers':'items'}"]`).click();};
-  const clickNode=async(id,count)=>{for(let i=0;i<count;i++)await page.locator(`[data-gather="${id}"]`).click();};
-  const stock=async(id,amount,node)=>{for(let i=0;i<100;i++){if(Number((await page.locator(`[data-qty="${id}"]`).innerText()).replaceAll(',',''))>=amount)return;await clickNode(node,4);}throw Error('Insufficient gathered material: '+id);};
+  const clickNode=async(id,count)=>{await revealResource(page,id);for(let i=0;i<count;i++)await page.locator(`[data-gather="${id}"]`).click();};
+  const stock=async(id,amount,node)=>{await revealResource(page,node);for(let i=0;i<100;i++){if(Number((await page.locator(`[data-qty="${id}"]`).innerText()).replaceAll(',',''))>=amount)return;await clickNode(node,4);}throw Error('Insufficient gathered material: '+id);};
   await page.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
   await page.screenshot({path:'artifacts/ui-overview.png',fullPage:true});
   for(const name of ['resources','workshop','factory','inventory','fluids','research','space','settings']){
@@ -22,7 +23,7 @@ try{
   await expect(page.locator('[data-click-progress="forest"]')).toHaveText('1 / 4 次点击');
   await clickNode('river',1);await clickNode('forest',3);
   await expect(page.locator('[data-qty="wood"]')).toHaveText(/^[1-3]$/);
-  await expect(page.locator('[data-last-drops]')).toContainText('原木');
+  await checkLastDrop(page,expect,'原木');
   expect(await page.locator('[data-drop-layer="forest"] .floating-drop').count()).toBeGreaterThanOrEqual(1);
   await page.waitForTimeout(130);await page.screenshot({path:'artifacts/ui-gather-drops.png',fullPage:true});
   await clickNode('surface',4);await clickNode('river',3);
@@ -37,8 +38,8 @@ try{
   await page.locator('[data-fill="sticks"]').click();
   await expect(page.locator('[data-craft="sticks"][data-count="1"]')).toBeEnabled();
   await page.locator('[data-craft="sticks"][data-count="1"]').click();
-  await expect(page.locator('#queuePanel')).toContainText('木棍');
-  await expect(page.locator('#queuePanel')).toContainText('队列为空',{timeout:3000});
+  await expect(page.locator('[data-queue-count]')).toHaveText('1');
+  await expect(page.locator('[data-queue-count]')).toHaveText('0',{timeout:3000});
   await page.locator('[data-book-item="flintPick"]').click();
   await expect(page.locator('[data-fill="pick"]')).toBeDisabled();
   await expect(page.locator('[data-bench-status]')).toContainText('燧石');
@@ -53,7 +54,7 @@ try{
   await expect(page.locator('[data-bench-recipe]')).toHaveAttribute('data-bench-recipe','pick');
   await page.locator('#search').fill('');await page.waitForTimeout(250);
   await page.locator('[data-craft="pick"][data-count="1"]').click();
-  await expect(page.locator('#queuePanel')).toContainText('队列为空',{timeout:5000});
+  await expect(page.locator('[data-queue-count]')).toHaveText('0',{timeout:5000});
   await go('inventory');await expect(page.locator('#page')).toContainText('燧石镐');
   // NEI-style product names and recipe/usage lookup via keyboard and ingredients.
   await go('workshop');await page.locator('[data-book-item="stick"]').hover();await page.keyboard.press('u');
@@ -69,8 +70,8 @@ try{
   await go('resources');await stock('wood',3,'forest');
   await go('workshop');await page.locator('[data-tab="craft"]').click();await page.locator('[data-book-item="woodBucket"]').click();
   await page.locator('[data-fill="woodBucket"]').click();await page.locator('[data-craft="woodBucket"][data-count="1"]').click();
-  await expect(page.locator('#queuePanel')).toContainText('队列为空',{timeout:4000});
-  await go('fluids');await page.locator('[data-place-container="woodBucket"]').click();
+  await expect(page.locator('[data-queue-count]')).toHaveText('0',{timeout:4000});
+  await go('fluids');await page.locator('[data-container-view="catalog"]').click();await page.locator('[data-place-container="woodBucket"]').click();
   await expect(page.locator('[data-container]')).toHaveCount(1);
   await go('resources');await clickNode('river',4);
   await go('fluids');await expect(page.locator('[data-container-amount]')).toHaveText('1,000');
@@ -87,7 +88,7 @@ try{
   await page.locator('[data-tab="machines"]').click();await page.locator('[data-book-item="furnace"]').click();
   await expect(page.locator('[data-build="furnace"]')).toBeDisabled();
   await page.locator('[data-fill="build:furnace"]').click();await page.locator('[data-build="furnace"]').click();
-  await go('factory');await page.locator('[data-assign]').selectOption('bricks');
+  await go('factory');await pickOption(page,'[data-assign="d1"]','bricks');
   await page.waitForTimeout(5300);await expect(page.locator('[data-device-state]').first()).not.toHaveText('请选择配方');
   await page.screenshot({path:'artifacts/ui-factory.png',fullPage:true});
   await page.setViewportSize({width:1040,height:720});
@@ -110,9 +111,13 @@ try{
   await steamPage.locator('[data-page="factory"]').first().click();
   await expect(steamPage.locator('[data-device-state]')).toHaveText('流体输出空间不足');
   await steamPage.locator('[data-page="inventory"]').first().click();await steamPage.locator('[data-inventory-tab="containers"]').click();
-  await steamPage.locator('[data-container-reserve="c3"]').selectOption('');
-  await steamPage.locator('[data-transfer-target="c2"]').selectOption('c3');await steamPage.locator('[data-transfer="c2"]').click();
+  await steamPage.locator('[data-pagination="fluids"] button').last().click();
+  await pickOption(steamPage,'[data-container-reserve="c3"]','');
+  await steamPage.locator('[data-pagination="fluids"] button').first().click();
+  await pickOption(steamPage,'[data-transfer-target="c2"]','c3');await steamPage.locator('[data-transfer="c2"]').click();
+  await steamPage.locator('[data-pagination="fluids"] button').last().click();
   await expect(steamPage.locator('[data-container-amount="c3"]')).toHaveText('64.0k');
+  await steamPage.locator('[data-pagination="fluids"] button').first().click();
   await expect(steamPage.locator('[data-container-amount="c2"]')).toHaveText('16.0k',{timeout:10000});
   if(await steamPage.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Container overflow at 1040px');
   await steamPage.screenshot({path:'artifacts/ui-fluid-tanks-1040.png',fullPage:true});

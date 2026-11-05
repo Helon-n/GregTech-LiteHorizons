@@ -1,22 +1,12 @@
 {
   "pack": "GTNH 2.9.0",
-  "resourcePacks": [
-    "Modernity-2.9.x-fa35a3d.zip",
-    "Modernity-GTNH-UI.zip",
-    "Legacy Ore Textures.zip",
-    "Modernity-GTNHAddon-OutlinedOres.zip",
-    "Realistic Sky GT New Horizons.zip",
-    "Fast Leaves Fix.zip",
-    "Glow Lines Only Galacticraft Thermal Padding GT V1.0.0.zip",
-    "Hidden Galacticraft Thermal Padding GT V1.0.0.zip",
-    "Legacy IronChest Textures.zip",
-    "Round Large Turbine Overlay.zip"
-  ],
+  "format": "SVG paths traced from original pixel artwork",
+  "resourcePacks": [],
   "icons": {
     "stick": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/stick.png"
         }
       ]
@@ -24,7 +14,7 @@
     "flint": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/flint.png"
         }
       ]
@@ -32,7 +22,7 @@
     "clay": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/clay_ball.png"
         }
       ]
@@ -40,7 +30,7 @@
     "coal": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/coal.png"
         }
       ]
@@ -48,7 +38,7 @@
     "brick": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/brick.png"
         }
       ]
@@ -56,7 +46,7 @@
     "redstone": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/redstone_dust.png"
         }
       ]
@@ -64,7 +54,7 @@
     "diamond": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/diamond.png"
         }
       ]
@@ -72,7 +62,7 @@
     "ironBucket": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/bucket_empty.png"
         }
       ]
@@ -80,7 +70,7 @@
     "ui-research": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/book_normal.png"
         }
       ]
@@ -88,7 +78,7 @@
     "ui-overview": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/compass.png"
         }
       ]
@@ -96,11 +86,11 @@
     "wood": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/log_oak.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/log_oak_top.png"
         }
       ]
@@ -108,7 +98,7 @@
     "stone": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/cobblestone.png"
         }
       ]
@@ -116,7 +106,7 @@
     "gravel": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/gravel.png"
         }
       ]
@@ -124,7 +114,7 @@
     "sand": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/sand.png"
         }
       ]
@@ -132,7 +122,7 @@
     "glass": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/glass.png"
         }
       ]
@@ -140,11 +130,11 @@
     "workbench": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/crafting_table_front.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/crafting_table_top.png"
         }
       ]
@@ -152,42 +142,34 @@
     "sulfur": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
           "tint": "#c8c800"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust_OVERLAY.png"
         }
       ]
     },
     "salt": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/FINE/dust.png",
           "tint": "#fafafa"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/FINE/dust_OVERLAY.png"
         }
       ]
     },
     "bauxite": {
       "sources": [
         {
-          "archive": "Modernity-GTNHAddon-OutlinedOres.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/DULL/ore.png",
           "tint": "#c86400"
         },
         {
-          "archive": "Legacy Ore Textures.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/DULL/ore_OVERLAY.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/stone.png"
         }
       ]
@@ -195,16 +177,12 @@
     "rutile": {
       "sources": [
         {
-          "archive": "Modernity-GTNHAddon-OutlinedOres.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/GEM_HORIZONTAL/ore.png",
           "tint": "#d40d5c"
         },
         {
-          "archive": "Legacy Ore Textures.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/GEM_HORIZONTAL/ore_OVERLAY.png"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/stone.png"
         }
       ]
@@ -212,16 +190,16 @@
     "tungstate": {
       "sources": [
         {
-          "archive": "Modernity-GTNHAddon-OutlinedOres.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/DULL/ore.png",
           "tint": "#373223"
         },
         {
-          "archive": "Legacy Ore Textures.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/DULL/ore_OVERLAY.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/stone.png"
         }
       ]
@@ -229,16 +207,16 @@
     "platinumOre": {
       "sources": [
         {
-          "archive": "Modernity-GTNHAddon-OutlinedOres.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/SHINY/ore.png",
           "tint": "#ffffc8"
         },
         {
-          "archive": "Legacy Ore Textures.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/SHINY/ore_OVERLAY.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/stone.png"
         }
       ]
@@ -246,29 +224,25 @@
     "rareEarth": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/FINE/dust.png",
           "tint": "#808064"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/FINE/dust_OVERLAY.png"
         }
       ]
     },
     "naquadahOre": {
       "sources": [
         {
-          "archive": "Modernity-GTNHAddon-OutlinedOres.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/METALLIC/ore.png",
           "tint": "#323232"
         },
         {
-          "archive": "Legacy Ore Textures.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/METALLIC/ore_OVERLAY.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/stone.png"
         }
       ]
@@ -276,12 +250,12 @@
     "rubber": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate.png",
           "tint": "#000000"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate_OVERLAY.png"
         }
       ]
@@ -289,60 +263,44 @@
     "copper": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/ingot.png",
           "tint": "#ff6400"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot_OVERLAY.png"
         }
       ]
     },
     "copperPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plate.png",
           "tint": "#ff6400"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate_OVERLAY.png"
         }
       ]
     },
     "copperDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
           "tint": "#ff6400"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust_OVERLAY.png"
         }
       ]
     },
     "copperRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/DULL/stick.png",
           "tint": "#ff6400"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/stick_OVERLAY.png"
         }
       ]
     },
     "copperWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/DULL/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#ff6400"
         }
       ]
@@ -350,16 +308,16 @@
     "copperOre": {
       "sources": [
         {
-          "archive": "Modernity-GTNHAddon-OutlinedOres.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/CUSTOM/copper/ore.png",
           "tint": "#ff6400"
         },
         {
-          "archive": "Legacy Ore Textures.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/CUSTOM/copper/ore_OVERLAY.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/stone.png"
         }
       ]
@@ -367,60 +325,44 @@
     "tin": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/ingot.png",
           "tint": "#dcdcdc"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot_OVERLAY.png"
         }
       ]
     },
     "tinPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plate.png",
           "tint": "#dcdcdc"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate_OVERLAY.png"
         }
       ]
     },
     "tinDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
           "tint": "#dcdcdc"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust_OVERLAY.png"
         }
       ]
     },
     "tinRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/DULL/stick.png",
           "tint": "#dcdcdc"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/stick_OVERLAY.png"
         }
       ]
     },
     "tinWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/DULL/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#dcdcdc"
         }
       ]
@@ -428,16 +370,16 @@
     "tinOre": {
       "sources": [
         {
-          "archive": "Modernity-GTNHAddon-OutlinedOres.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/DULL/ore.png",
           "tint": "#dcdcdc"
         },
         {
-          "archive": "Legacy Ore Textures.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/DULL/ore_OVERLAY.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/stone.png"
         }
       ]
@@ -445,60 +387,44 @@
     "iron": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot.png",
           "tint": "#c8c8c8"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot_OVERLAY.png"
         }
       ]
     },
     "ironPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate.png",
           "tint": "#c8c8c8"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate_OVERLAY.png"
         }
       ]
     },
     "ironDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust.png",
           "tint": "#c8c8c8"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust_OVERLAY.png"
         }
       ]
     },
     "ironRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
           "tint": "#c8c8c8"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick_OVERLAY.png"
         }
       ]
     },
     "ironWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/METALLIC/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#c8c8c8"
         }
       ]
@@ -506,16 +432,16 @@
     "ironOre": {
       "sources": [
         {
-          "archive": "Modernity-GTNHAddon-OutlinedOres.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/CUSTOM/iron/ore.png",
           "tint": "#c8c8c8"
         },
         {
-          "archive": "Legacy Ore Textures.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/CUSTOM/iron/ore_OVERLAY.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/stone.png"
         }
       ]
@@ -523,60 +449,44 @@
     "bronze": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot.png",
           "tint": "#ff8000"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot_OVERLAY.png"
         }
       ]
     },
     "bronzePlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate.png",
           "tint": "#ff8000"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate_OVERLAY.png"
         }
       ]
     },
     "bronzeDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust.png",
           "tint": "#ff8000"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust_OVERLAY.png"
         }
       ]
     },
     "bronzeRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
           "tint": "#ff8000"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick_OVERLAY.png"
         }
       ]
     },
     "bronzeWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/METALLIC/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#ff8000"
         }
       ]
@@ -584,60 +494,44 @@
     "steel": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot.png",
           "tint": "#808080"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot_OVERLAY.png"
         }
       ]
     },
     "steelPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate.png",
           "tint": "#808080"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate_OVERLAY.png"
         }
       ]
     },
     "steelDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust.png",
           "tint": "#808080"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust_OVERLAY.png"
         }
       ]
     },
     "steelRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
           "tint": "#808080"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick_OVERLAY.png"
         }
       ]
     },
     "steelWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/METALLIC/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#808080"
         }
       ]
@@ -645,60 +539,44 @@
     "aluminium": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/ingot.png",
           "tint": "#80c8f0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot_OVERLAY.png"
         }
       ]
     },
     "aluminiumPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plate.png",
           "tint": "#80c8f0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate_OVERLAY.png"
         }
       ]
     },
     "aluminiumDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
           "tint": "#80c8f0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust_OVERLAY.png"
         }
       ]
     },
     "aluminiumRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/DULL/stick.png",
           "tint": "#80c8f0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/stick_OVERLAY.png"
         }
       ]
     },
     "aluminiumWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/DULL/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#80c8f0"
         }
       ]
@@ -706,12 +584,12 @@
     "stainless": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot.png",
           "tint": "#c8c8dc"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot_OVERLAY.png"
         }
       ]
@@ -719,12 +597,12 @@
     "stainlessPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate.png",
           "tint": "#c8c8dc"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate_OVERLAY.png"
         }
       ]
@@ -732,12 +610,12 @@
     "stainlessDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/dust.png",
           "tint": "#c8c8dc"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/dust_OVERLAY.png"
         }
       ]
@@ -745,12 +623,12 @@
     "stainlessRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick.png",
           "tint": "#c8c8dc"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick_OVERLAY.png"
         }
       ]
@@ -758,8 +636,8 @@
     "stainlessWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/SHINY/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#c8c8dc"
         }
       ]
@@ -767,60 +645,44 @@
     "titanium": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot.png",
           "tint": "#dca0f0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot_OVERLAY.png"
         }
       ]
     },
     "titaniumPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate.png",
           "tint": "#dca0f0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate_OVERLAY.png"
         }
       ]
     },
     "titaniumDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust.png",
           "tint": "#dca0f0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust_OVERLAY.png"
         }
       ]
     },
     "titaniumRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
           "tint": "#dca0f0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick_OVERLAY.png"
         }
       ]
     },
     "titaniumWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/METALLIC/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#dca0f0"
         }
       ]
@@ -828,60 +690,44 @@
     "tungstensteel": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot.png",
           "tint": "#6464a0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot_OVERLAY.png"
         }
       ]
     },
     "tungstensteelPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate.png",
           "tint": "#6464a0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/plate_OVERLAY.png"
         }
       ]
     },
     "tungstensteelDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust.png",
           "tint": "#6464a0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust_OVERLAY.png"
         }
       ]
     },
     "tungstensteelRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
           "tint": "#6464a0"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/stick_OVERLAY.png"
         }
       ]
     },
     "tungstensteelWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/METALLIC/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#6464a0"
         }
       ]
@@ -889,60 +735,44 @@
     "iridium": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/ingot.png",
           "tint": "#f0f0f5"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot_OVERLAY.png"
         }
       ]
     },
     "iridiumPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plate.png",
           "tint": "#f0f0f5"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate_OVERLAY.png"
         }
       ]
     },
     "iridiumDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
           "tint": "#f0f0f5"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust_OVERLAY.png"
         }
       ]
     },
     "iridiumRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/DULL/stick.png",
           "tint": "#f0f0f5"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/stick_OVERLAY.png"
         }
       ]
     },
     "iridiumWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/DULL/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#f0f0f5"
         }
       ]
@@ -950,12 +780,12 @@
     "europium": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot.png",
           "tint": "#f6b5ff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot_OVERLAY.png"
         }
       ]
@@ -963,12 +793,12 @@
     "europiumPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate.png",
           "tint": "#f6b5ff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate_OVERLAY.png"
         }
       ]
@@ -976,12 +806,12 @@
     "europiumDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/dust.png",
           "tint": "#f6b5ff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/dust_OVERLAY.png"
         }
       ]
@@ -989,12 +819,12 @@
     "europiumRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick.png",
           "tint": "#f6b5ff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick_OVERLAY.png"
         }
       ]
@@ -1002,8 +832,8 @@
     "europiumWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/SHINY/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#f6b5ff"
         }
       ]
@@ -1011,60 +841,44 @@
     "neutronium": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/ingot.png",
           "tint": "#fafafa"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/ingot_OVERLAY.png"
         }
       ]
     },
     "neutroniumPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plate.png",
           "tint": "#fafafa"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/plate_OVERLAY.png"
         }
       ]
     },
     "neutroniumDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
           "tint": "#fafafa"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/dust_OVERLAY.png"
         }
       ]
     },
     "neutroniumRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/DULL/stick.png",
           "tint": "#fafafa"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/DULL/stick_OVERLAY.png"
         }
       ]
     },
     "neutroniumWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/DULL/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#fafafa"
         }
       ]
@@ -1072,12 +886,12 @@
     "cosmic": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/cosmicneutronium/ingot.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/ingot.png",
           "tint": "#323237"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/cosmicneutronium/ingot_OVERLAY.png"
         }
       ]
@@ -1085,12 +899,12 @@
     "cosmicPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/cosmicneutronium/plate.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plate.png",
           "tint": "#323237"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/cosmicneutronium/plate_OVERLAY.png"
         }
       ]
@@ -1098,12 +912,12 @@
     "cosmicDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/cosmicneutronium/dust.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
           "tint": "#323237"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/cosmicneutronium/dust_OVERLAY.png"
         }
       ]
@@ -1111,12 +925,12 @@
     "cosmicRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/cosmicneutronium/stick.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
           "tint": "#323237"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/cosmicneutronium/stick_OVERLAY.png"
         }
       ]
@@ -1124,7 +938,7 @@
     "cosmicWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#323237"
         }
@@ -1133,12 +947,12 @@
     "catalyst": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot.png",
           "tint": "#ffffff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot_OVERLAY.png"
         }
       ]
@@ -1146,12 +960,12 @@
     "catalystPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate.png",
           "tint": "#ffffff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate_OVERLAY.png"
         }
       ]
@@ -1159,12 +973,12 @@
     "catalystDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/dust.png",
           "tint": "#ffffff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/dust_OVERLAY.png"
         }
       ]
@@ -1172,12 +986,12 @@
     "catalystRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick.png",
           "tint": "#ffffff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick_OVERLAY.png"
         }
       ]
@@ -1185,8 +999,8 @@
     "catalystWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/SHINY/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#ffffff"
         }
       ]
@@ -1194,59 +1008,43 @@
     "infinity": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/ingot.png",
           "tint": "#ffffff"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/ingot_OVERLAY.png"
         }
       ]
     },
     "infinityPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/plate.png",
           "tint": "#ffffff"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/plate_OVERLAY.png"
         }
       ]
     },
     "infinityDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/dust.png",
           "tint": "#ffffff"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/dust_OVERLAY.png"
         }
       ]
     },
     "infinityRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/stick.png",
           "tint": "#ffffff"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/stick_OVERLAY.png"
         }
       ]
     },
     "infinityWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/CUSTOM/infinity/wire.png",
           "tint": "#ffffff"
         }
@@ -1255,59 +1053,43 @@
     "spacetime": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/ingot.png",
           "tint": "#ffffff"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/ingot_OVERLAY.png"
         }
       ]
     },
     "spacetimePlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/plate.png",
           "tint": "#ffffff"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/plate_OVERLAY.png"
         }
       ]
     },
     "spacetimeDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/dust.png",
           "tint": "#ffffff"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/dust_OVERLAY.png"
         }
       ]
     },
     "spacetimeRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/stick.png",
           "tint": "#ffffff"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/stick_OVERLAY.png"
         }
       ]
     },
     "spacetimeWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/materialicons/CUSTOM/spacetime/wire.png",
           "tint": "#ffffff"
         }
@@ -1316,12 +1098,12 @@
     "eternity": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/ingot.png",
           "tint": "#ffffff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/ingot_OVERLAY.png"
         }
       ]
@@ -1329,12 +1111,12 @@
     "eternityPlate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/plate.png",
           "tint": "#ffffff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/plate_OVERLAY.png"
         }
       ]
@@ -1342,12 +1124,12 @@
     "eternityDust": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/dust.png",
           "tint": "#ffffff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/dust_OVERLAY.png"
         }
       ]
@@ -1355,12 +1137,12 @@
     "eternityRod": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/stick.png",
           "tint": "#ffffff"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/stick_OVERLAY.png"
         }
       ]
@@ -1368,8 +1150,8 @@
     "eternityWire": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/blocks/materialicons/CUSTOM/eternity/wire.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
           "tint": "#ffffff"
         }
       ]
@@ -1377,12 +1159,12 @@
     "chrome": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot.png",
           "tint": "#ffe6e6"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot_OVERLAY.png"
         }
       ]
@@ -1390,25 +1172,21 @@
     "nickel": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot.png",
           "tint": "#c8c8fa"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/ingot_OVERLAY.png"
         }
       ]
     },
     "platinum": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot.png",
           "tint": "#ffffc8"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/SHINY/ingot_OVERLAY.png"
         }
       ]
@@ -1416,7 +1194,7 @@
     "vacuumTube": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.01/700.png"
         }
       ]
@@ -1424,7 +1202,7 @@
     "coatedBoard": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.01/710.png"
         }
       ]
@@ -1432,7 +1210,7 @@
     "resistor": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.01/716.png"
         }
       ]
@@ -1440,7 +1218,7 @@
     "motor": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.01/600.png"
         }
       ]
@@ -1448,7 +1226,7 @@
     "pump": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.01/610.png"
         }
       ]
@@ -1456,7 +1234,7 @@
     "silicon": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/33.png"
         }
       ]
@@ -1464,7 +1242,7 @@
     "basicCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/305.png"
         }
       ]
@@ -1472,7 +1250,7 @@
     "goodCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/79.png"
         }
       ]
@@ -1480,7 +1258,7 @@
     "advancedCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.01/703.png"
         }
       ]
@@ -1488,7 +1266,7 @@
     "processor": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/80.png"
         }
       ]
@@ -1496,7 +1274,7 @@
     "nanoCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/82.png"
         }
       ]
@@ -1504,7 +1282,7 @@
     "quantumCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/85.png"
         }
       ]
@@ -1512,7 +1290,7 @@
     "crystalCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/89.png"
         }
       ]
@@ -1520,7 +1298,7 @@
     "wetwareCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/92.png"
         }
       ]
@@ -1528,7 +1306,7 @@
     "biowareCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/97.png"
         }
       ]
@@ -1536,7 +1314,7 @@
     "opticalCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/154.png"
         }
       ]
@@ -1544,7 +1322,7 @@
     "exoticCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/166.png"
         }
       ]
@@ -1552,7 +1330,7 @@
     "cosmicCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/170.png"
         }
       ]
@@ -1560,7 +1338,7 @@
     "transcendentCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/174.png"
         }
       ]
@@ -1568,7 +1346,7 @@
     "fieldGenerator": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.01/674.png"
         }
       ]
@@ -1576,7 +1354,7 @@
     "starCore": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.01/725.png"
         }
       ]
@@ -1584,7 +1362,7 @@
     "fusionCore": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/gt.metaitem.03/230.png"
         }
       ]
@@ -1592,7 +1370,7 @@
     "resin": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "industrialcraft-2-2.2.828-experimental.jar",
           "texture": "assets/ic2/textures/items/itemHarz.png"
         }
       ]
@@ -1600,7 +1378,7 @@
     "coke": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "Railcraft-9.17.36.jar",
           "texture": "assets/railcraft/textures/items/fuel.coke.png"
         }
       ]
@@ -1608,7 +1386,7 @@
     "stargate": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
           "texture": "assets/dreamcraft/textures/items/itemStargateChevron.png"
         }
       ]
@@ -1616,7 +1394,7 @@
     "singularity": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "Avaritia-1.100.jar",
           "texture": "assets/avaritia/textures/items/singularity.png"
         }
       ]
@@ -1633,7 +1411,7 @@
     "spacetimeCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
           "texture": "assets/dreamcraft/textures/items/itemCircuitUXV.png"
         }
       ],
@@ -1642,7 +1420,7 @@
     "ultimateCircuit": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
           "texture": "assets/dreamcraft/textures/items/itemCircuitMAX.png"
         }
       ],
@@ -1651,7 +1429,7 @@
     "rocket": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "Galacticraft-3.4.37-GTNH.jar",
           "texture": "assets/galacticraftcore/textures/model/rocketT1.png"
         }
       ],
@@ -1677,7 +1455,7 @@
     "marsRock": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "Galacticraft-3.4.37-GTNH.jar",
           "texture": "assets/galacticraftmars/textures/blocks/cobblestone.png"
         }
       ]
@@ -1685,7 +1463,7 @@
     "asteroid": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "Galacticraft-3.4.37-GTNH.jar",
           "texture": "assets/galacticraftasteroids/textures/blocks/asteroid0.png"
         }
       ]
@@ -1693,7 +1471,7 @@
     "woodBucket": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/items/bucket_empty.png",
           "tint": "#643200"
         }
@@ -1703,13 +1481,9 @@
     "spaceTime": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/ingot.png",
           "tint": "#ffffff"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/ingot_OVERLAY.png"
         }
       ],
       "note": "Shared with the spacetime material."
@@ -1717,7 +1491,7 @@
     "water": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/water_still.png"
         }
       ]
@@ -1725,7 +1499,7 @@
     "steam": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.steam.png"
         }
       ]
@@ -1733,7 +1507,7 @@
     "creosote": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.creosote.png"
         }
       ]
@@ -1741,7 +1515,7 @@
     "oxygen": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.oxygen.png"
         }
       ]
@@ -1749,7 +1523,7 @@
     "hydrogen": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.hydrogen.png"
         }
       ]
@@ -1757,7 +1531,7 @@
     "oil": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.oil.png"
         }
       ]
@@ -1765,7 +1539,7 @@
     "diesel": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.fuel.png"
         }
       ]
@@ -1773,7 +1547,7 @@
     "sulfuricAcid": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.sulfuricacid.png"
         }
       ]
@@ -1781,7 +1555,7 @@
     "chlorine": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.chlorine.png"
         }
       ]
@@ -1789,7 +1563,7 @@
     "titaniumTetrachloride": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.titaniumtetrachloride.png"
         }
       ]
@@ -1797,7 +1571,7 @@
     "helium": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.helium.png"
         }
       ]
@@ -1805,7 +1579,7 @@
     "plasma": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.plasma.autogenerated.png"
         }
       ]
@@ -1813,73 +1587,49 @@
     "flintPick": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/FLINT/toolHeadPickaxe.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
           "tint": "#002040"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/FLINT/toolHeadPickaxe_OVERLAY.png"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/WOOD/stick.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
           "tint": "#643200"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/WOOD/stick_OVERLAY.png"
         }
       ]
     },
     "hammer": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/toolHeadHammer.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadHammer.png",
           "tint": "#c8c8c8"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/toolHeadHammer_OVERLAY.png"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/WOOD/stick.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
           "tint": "#643200"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/WOOD/stick_OVERLAY.png"
         }
       ]
     },
     "wrench": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/toolHeadWrench.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadWrench.png",
           "tint": "#c8c8c8"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/toolHeadWrench_OVERLAY.png"
         }
       ]
     },
     "saw": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/toolHeadSaw.png",
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadSaw.png",
           "tint": "#c8c8c8"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/toolHeadSaw_OVERLAY.png"
-        },
-        {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/items/materialicons/NONE/handleSaw.png",
           "tint": "#643200"
         }
@@ -1888,11 +1638,11 @@
     "furnace": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_BRICKEDBLASTFURNACE_INACTIVE.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_STEAM_FURNACE.png"
         }
       ],
@@ -1901,11 +1651,11 @@
     "cokeOven": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/COKE_OVEN_CASING.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/COKE_OVEN_OVERLAY_INACTIVE.png"
         }
       ],
@@ -1914,15 +1664,15 @@
     "boiler": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_BRONZEBRICKS_SIDE.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/BOILER_FRONT.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_BRONZEBRICKS_TOP.png"
         }
       ],
@@ -1931,15 +1681,15 @@
     "steamMacerator": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_BRONZE_SIDE.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_STEAM_MACERATOR.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_BRONZE_TOP.png"
         }
       ],
@@ -1948,15 +1698,15 @@
     "alloySmelter": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_BRONZE_SIDE.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_STEAM_ALLOY_SMELTER.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_BRONZE_TOP.png"
         }
       ],
@@ -1965,15 +1715,15 @@
     "compressor": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_BRONZE_SIDE.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_STEAM_COMPRESSOR.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_BRONZE_TOP.png"
         }
       ],
@@ -1982,7 +1732,7 @@
     "bbf": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_BRICKEDBLASTFURNACE_INACTIVE.png"
         }
       ],
@@ -1991,11 +1741,11 @@
     "turbine": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/LARGETURBINE_NEW5.png"
         }
       ],
@@ -2004,11 +1754,11 @@
     "assembler": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/basicmachines/assembler/OVERLAY_FRONT.png"
         }
       ],
@@ -2017,11 +1767,11 @@
     "wiremill": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/basicmachines/wiremill/OVERLAY_FRONT.png"
         }
       ],
@@ -2030,11 +1780,11 @@
     "electrolyzer": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/basicmachines/electrolyzer/OVERLAY_FRONT.png"
         }
       ],
@@ -2043,11 +1793,11 @@
     "ebf": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE.png"
         }
       ],
@@ -2056,11 +1806,11 @@
     "chemical": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/basicmachines/chemical_reactor/OVERLAY_FRONT.png"
         }
       ],
@@ -2069,11 +1819,11 @@
     "distiller": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_DISTILLATION_TOWER.png"
         }
       ],
@@ -2082,11 +1832,11 @@
     "dieselGenerator": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/DIESEL_GENERATOR_TOP.png"
         }
       ],
@@ -2095,11 +1845,11 @@
     "cleanroom": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_TOP_CLEANROOM.png"
         }
       ],
@@ -2108,11 +1858,11 @@
     "vacuumFreezer": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_VACUUM_FREEZER.png"
         }
       ],
@@ -2121,11 +1871,11 @@
     "assemblyLine": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_ASSEMBLY_LINE.png"
         }
       ],
@@ -2134,7 +1884,7 @@
     "fusion": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_FUSION.png"
         }
       ],
@@ -2143,11 +1893,11 @@
     "fusionGenerator": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_FUSION.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/LARGETURBINE_NEW5.png"
         }
       ],
@@ -2156,11 +1906,11 @@
     "stellarForge": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/GODFORGE_CONTROLLER.png"
         }
       ],
@@ -2169,7 +1919,7 @@
     "spaceElevator": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gtnhintergalactic/textures/blocks/spaceElevator/BaseCasing.png"
         }
       ],
@@ -2187,7 +1937,7 @@
     "dimensionFactory": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/miscutils/textures/blocks/TileEntities/adv_machine_dimensional.png"
         }
       ],
@@ -2196,11 +1946,11 @@
     "dysonGenerator": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
         },
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_DYSONSPHERE.png"
         }
       ],
@@ -2218,7 +1968,7 @@
     "fluidTank": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_TANK_0.png"
         }
       ]
@@ -2226,7 +1976,7 @@
     "largeTank": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_TANK_2.png"
         }
       ]
@@ -2234,7 +1984,7 @@
     "legacyTank": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "gregtech-5.09.54.265.jar",
           "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_TANK_1.png"
         }
       ]
@@ -2242,7 +1992,7 @@
     "ui-inventory": {
       "sources": [
         {
-          "archive": "Modernity-2.9.x-fa35a3d.zip",
+          "archive": "minecraft-1.7.10-client.jar",
           "texture": "assets/minecraft/textures/blocks/planks_oak.png"
         }
       ],
@@ -2254,7 +2004,8 @@
           "archive": "instance",
           "texture": "gtnh_icon.png"
         }
-      ]
+      ],
+      "note": "GTNH pack logo traced into SVG paths."
     }
   }
 }

@@ -1,0 +1,128 @@
+/* Semantic aliases keep gameplay components independent of tier palettes. */
+.tier-skin{
+  color-scheme:dark;--text:var(--ink);--muted:var(--readable-dim);--green:var(--a-ink);--gold:var(--warning);--red:var(--danger);
+  --sidebar:var(--p2);--panel:var(--p1);--raised:var(--c2);--frame:color-mix(in srgb,var(--ink) 30%,var(--c2));
+  --accent:var(--a);--accent-soft:color-mix(in srgb,var(--a) 65%,var(--ink));--wash-strong:color-mix(in srgb,var(--a) 17%,var(--p1));
+  --font:'Segoe UI','Microsoft YaHei UI','Microsoft YaHei',sans-serif;--mono:Consolas,'Cascadia Code',monospace;
+  --tex:none;--rivets:linear-gradient(transparent,transparent);--shell-width:1px;--shell-radius:6px;--shell-shadow:none;
+  --shell-edge:var(--line);--viewport-width:0;--viewport-radius:3px;--progress-fill:linear-gradient(90deg,var(--a),var(--a2));
+  color:var(--ink);
+}
+.tier-skin[data-light="true"]{color-scheme:light}
+.tier-skin[data-era="0"]{
+  --shell-width:3px;--shell-radius:3px;--shell-edge:var(--c1);
+  --shell-shadow:inset 0 1px color-mix(in srgb,var(--highlight) 12%,transparent),0 3px 0 var(--inset);
+  --rivets:radial-gradient(circle at 6px 6px,var(--a2) 0 1px,var(--c3) 1px 3px,transparent 3.5px),radial-gradient(circle at calc(100% - 6px) 6px,var(--a2) 0 1px,var(--c3) 1px 3px,transparent 3.5px),radial-gradient(circle at 6px calc(100% - 6px),var(--a2) 0 1px,var(--c3) 1px 3px,transparent 3.5px),radial-gradient(circle at calc(100% - 6px) calc(100% - 6px),var(--a2) 0 1px,var(--c3) 1px 3px,transparent 3.5px);
+  --progress-fill:repeating-linear-gradient(90deg,var(--a) 0 9px,var(--inset) 9px 12px);
+}
+.tier-skin[data-era="1"]{--shell-width:1px;--shell-edge:var(--frame);--viewport-width:1px;--viewport-radius:18px;--shell-shadow:inset 0 1px color-mix(in srgb,var(--highlight) 7%,transparent)}
+.tier-skin[data-era="2"]{--shell-width:1px;--shell-edge:transparent;--shell-radius:10px;--shell-shadow:0 0 18px var(--wash),inset 0 1px var(--glow)}
+.tier-skin[data-era="3"]{--shell-width:1px;--shell-edge:transparent;--shell-radius:9px;--shell-shadow:0 0 20px var(--wash);--rivets:linear-gradient(transparent,transparent)}
+.surface{border:var(--shell-width) solid var(--shell-edge);border-radius:var(--shell-radius);box-shadow:var(--shell-shadow);background:var(--rivets),var(--tex),linear-gradient(155deg,var(--p1),var(--p2));background-origin:padding-box}
+.tier-skin[data-era="3"] .surface{border-image:none}
+/* Gradient frames inherit their era through variables, including nested previews. */
+.tier-skin[data-era="3"]{--shell-border-image:linear-gradient(130deg,var(--a),var(--c3) 38%,var(--a2))}
+.tier-skin[data-era="0"],.tier-skin[data-era="1"],.tier-skin[data-era="2"]{--shell-border-image:linear-gradient(var(--shell-edge),var(--shell-edge))}
+.surface{background:var(--rivets) padding-box,var(--tex) padding-box,linear-gradient(155deg,var(--p1),var(--p2)) padding-box,var(--shell-border-image) border-box}
+.hero{background:var(--rivets) padding-box,var(--tex) padding-box,linear-gradient(110deg,var(--c2),var(--p1) 70%) padding-box,var(--shell-border-image) border-box}
+.device-card .card-top,.tier-preview .machine-row{border:var(--viewport-width) solid var(--frame);border-radius:var(--viewport-radius);padding:var(--viewport-padding,0);background:var(--viewport-bg,transparent)}
+.tier-skin[data-era="1"]{--viewport-padding:8px;--viewport-bg:var(--lcd-bg)}
+.tier-skin[data-era="0"],.tier-skin[data-era="2"],.tier-skin[data-era="3"]{--viewport-padding:0;--viewport-bg:transparent}
+.progress>div{background:var(--progress-fill);box-shadow:0 0 8px var(--glow)}
+.tier-skin[data-tier="HV"]{--progress-fill:repeating-linear-gradient(115deg,var(--a) 0 8px,var(--inset) 8px 15px)}
+.tier-skin[data-tier="MAX"]{--progress-fill:var(--spectrum)}
+.button.primary{background:var(--a);border-color:var(--a);color:var(--on-accent)}
+.button.primary:hover{background:var(--accent-soft)}
+.choice-trigger,.choice-option,.search{background:var(--p2);border-color:var(--frame);color:var(--ink)}
+.choice-option.selected,.nav button.active,.filter.active,.book-item.selected,.list-pagination .current{background:var(--wash-strong);color:var(--a-ink);border-color:var(--a)}
+.choice-trigger:hover,.choice-option:hover,.button:hover{border-color:var(--a)}
+.eyebrow,.nav-label,.version,.resource-amount{color:var(--muted)}
+.device-light.running,.save-dot{background:var(--a);box-shadow:0 0 8px var(--glow)}
+.tank-vessel{background:var(--lcd-bg);border-color:var(--frame)}
+.tier-open{padding:4px 8px;min-height:30px;font:15px var(--mono)}
+
+.tier-appearance{display:flex;flex-direction:column;flex:none;gap:14px;min-height:0}
+.tier-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tier-steps,.tier-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tier-steps strong{font-size:18px;min-width:170px;text-align:center}
+.tier-actions>span{font-size:14px}
+.tier-view-tabs{display:none;gap:8px}
+.tier-ladder{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tier-era{min-width:0;padding:10px;border:1px solid var(--line);border-radius:5px;background:var(--p2)}
+.tier-era h3{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:0 0 8px;font-size:15px;flex-wrap:wrap}
+.tier-era h3 small{font:12px var(--mono);color:var(--muted)}
+.tier-era-grid{display:grid;grid-template-columns:repeat(var(--tier-count),minmax(0,1fr));gap:6px}
+.tier-tile{display:flex;flex-direction:column;gap:2px;min-width:0;padding:8px 4px;border:1px solid var(--frame);border-radius:4px;background:linear-gradient(150deg,var(--c1),var(--c3));color:var(--ink);position:relative}
+.tier-tile strong{font:700 17px var(--mono);color:var(--a-ink)}
+.tier-tile small{font:11px var(--mono);white-space:nowrap}
+.tier-tile span{font-size:13px}
+.tier-tile i{display:block;width:100%;height:5px;background:linear-gradient(90deg,var(--a),var(--a2));margin:3px 0}
+.tier-tile:hover{border-color:var(--a)}
+.tier-tile.active{outline:2px solid var(--a);outline-offset:2px;box-shadow:0 0 14px var(--glow)}
+.tier-tile.active:after{content:'✓';position:absolute;right:3px;top:0;font-size:12px;color:var(--a-ink)}
+.tier-inspector{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;min-width:0;align-items:start;padding:14px;background:var(--bg);border:1px solid var(--line);border-radius:var(--shell-radius)}
+.tier-preview{display:flex;flex-direction:column;gap:12px;min-width:0}
+.tier-preview>h2{font-size:19px;margin:0;display:flex;justify-content:space-between}
+.tier-preview>h2 small{font-weight:400;font-size:14px;color:var(--muted)}
+.tier-preview .empty{padding:14px 10px}
+.tier-dna-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tier-dna h2{font-size:23px;margin:4px 0;line-height:1.4}
+.tier-dna-head small{font:14px var(--mono);color:var(--muted)}
+.tier-dna [data-dna-description]{margin:12px 0;color:var(--muted);font-size:15px;line-height:1.65}
+.tier-dna dl{margin:0;display:grid;gap:6px;font-size:14px}
+.tier-dna dl>div{display:grid;grid-template-columns:75px minmax(0,1fr);gap:8px}
+.tier-dna dt{color:var(--muted)}
+.tier-dna dd{margin:0;overflow-wrap:anywhere}
+.tier-dna .tier-detail{width:65px;height:65px;flex:0 0 65px}
+.tier-palette{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:14px}
+.tier-palette>div{display:flex;flex-direction:column;gap:3px;font-size:13px}
+.tier-palette i{display:block;height:16px;border:1px solid var(--frame);border-radius:2px}
+.swatch-a{background:var(--a)}.swatch-a2{background:var(--a2)}.swatch-c1{background:var(--c1)}.swatch-p1{background:var(--p1)}
+.tier-palette code{font:12px var(--mono);color:var(--muted)}
+.tier-tags{font-size:14px;color:var(--a-ink);margin:12px 0 0;line-height:1.5}
+.tier-era-pages{display:none;align-items:center;justify-content:center;gap:10px}
+.tier-dna-pages{display:none;gap:8px;margin:12px 0}
+.tier-appearance[data-dna-paged="true"] .tier-dna-pages{display:flex}
+.tier-appearance[data-dna-paged="true"] .tier-palette>div{display:grid;grid-template-columns:18px minmax(0,1fr);gap:2px 6px}
+.tier-appearance[data-dna-paged="true"] .tier-palette i{grid-row:span 2;height:100%}
+.tier-appearance[data-dna-paged="true"][data-dna-page="spec"] :is([data-dna-description],.tier-palette),
+.tier-appearance[data-dna-paged="true"][data-dna-page="palette"] :is(.tier-dna dl,.tier-tags){display:none}
+.tier-appearance[data-compact="true"] .tier-view-tabs{display:flex}
+.tier-appearance[data-compact="true"][data-view="ladder"] .tier-inspector{display:none}
+.tier-appearance[data-compact="true"]:not([data-view="ladder"]) .tier-ladder{display:none}
+.tier-appearance[data-compact="true"][data-view="preview"] .tier-dna,.tier-appearance[data-compact="true"][data-view="dna"] .tier-preview{display:none}
+.tier-appearance[data-compact="true"] .tier-inspector{grid-template-columns:minmax(0,1fr)}
+.tier-appearance[data-era-paged="true"][data-view="ladder"] .tier-era-pages{display:flex}
+
+@media(max-width:1120px){
+  .tier-ladder{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tier-inspector{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:850px){
+  .layout{grid-template-columns:60px minmax(0,1fr)}
+  .sidebar{padding:12px 5px}.brand{padding:0 5px 14px}
+  .sidebar .nav button{display:flex;justify-content:center;font-size:0;padding:7px;min-height:42px}
+  .sidebar .nav button.active{font-size:0}.sidebar .brand>div:last-child,.sidebar .nav-label,.side-foot{display:none}
+}
+@media(max-width:760px){
+  .tier-ladder{grid-template-columns:minmax(0,1fr)}
+  .workspace:has(.tier-appearance){padding:12px;gap:10px}
+  .tier-controls{gap:8px}.tier-actions{gap:7px}.tier-steps{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px}
+  .tier-steps strong{min-width:0;font-size:16px}.tier-steps .button{padding:5px 8px;font-size:14px}
+  .tier-appearance{gap:10px}.tier-dna{padding:12px}.tier-dna h2{font-size:21px}
+  .tier-era h3{flex-wrap:nowrap}.tier-era h3 small{font-size:11px}
+  .workspace:has(.tier-appearance)>.heading{flex-direction:row;align-items:center}
+  .workspace:has(.tier-appearance)>.heading h1{font-size:22px}
+  .workspace:has(.tier-appearance) .heading-actions{width:auto}
+}
+@media(max-width:420px){
+  .tier-era-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tier-palette{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tier-actions .button{font-size:14px;padding:5px 8px}
+  .tier-dna dl>div{grid-template-columns:64px minmax(0,1fr)}
+  .topbar .location{gap:4px}.topbar .stats{display:none}.topbar{padding-inline:10px}
+  .tier-dna .tier-detail{width:42px;height:42px;flex-basis:42px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}

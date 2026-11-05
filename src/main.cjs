@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('node:path');
 function createWindow() {
-  const win=new BrowserWindow({width:1440,height:960,minWidth:1040,minHeight:720,show:!isTest,backgroundColor:'#101512',title:'GregTech-LiteHorizons',icon:path.join(__dirname,'assets','app-icon.png'),autoHideMenuBar:true,webPreferences:{contextIsolation:true,nodeIntegration:false,sandbox:true,backgroundThrottling:!isTest}});
+  const win=new BrowserWindow({width:1440,height:960,minWidth:1040,minHeight:720,show:!isTest,backgroundColor:'#101512',title:'GregTech-LiteHorizons',icon:path.join(__dirname,'assets','app-icon.ico'),autoHideMenuBar:true,webPreferences:{contextIsolation:true,nodeIntegration:false,sandbox:true,backgroundThrottling:!isTest}});
   win.webContents.setWindowOpenHandler(()=>({action:'deny'}));
   win.webContents.on('will-navigate',event=>event.preventDefault());
   win.loadFile(path.join(__dirname,'index.html'));

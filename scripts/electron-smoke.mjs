@@ -1,3 +1,4 @@
+import {revealResource,pickOption,checkLastDrop} from './ui-controls.mjs';
 import {_electron as electron,expect} from '@playwright/test';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -12,6 +13,7 @@ const app=portable?await launchPortable(path.resolve(`release/${productName}-${v
 try{
   const win=await app.firstWindow();win.setDefaultTimeout(10000);const errors=[];win.on('pageerror',x=>errors.push(x.message));
   await win.waitForSelector('[data-page="resources"]');
+  await expect(win.locator('#saveStatus')).toContainText('v'+version);
   await expect(win).toHaveTitle(productName);
   await expect(win.locator('.brand strong')).toHaveText(productName);
   await expect(win.locator('[data-page="fluids"]')).toHaveCount(0);
@@ -19,25 +21,25 @@ try{
   await expect(win.locator('[data-qty="wood"]')).toHaveText('0');
   for(let i=0;i<3;i++)await win.locator('[data-gather="forest"]').click();
   await expect(win.locator('[data-qty="wood"]')).toHaveText(/^[1-3]$/);
-  await expect(win.locator('[data-last-drops]')).toContainText('原木');
+  await checkLastDrop(win,expect,'原木');
   await win.locator('[data-page="workshop"]').first().click();
   await expect(win.locator('[data-book-item="flintPick"]')).toContainText('燧石镐');
   await expect(win.locator('.recipe-book')).not.toContainText('制作');
   await expect(win.locator('.bench-grid > .bench-slot')).toHaveCount(9);
   await win.locator('[data-fill="sticks"]').click();await win.locator('[data-craft="sticks"][data-count="1"]').click();
-  await expect(win.locator('#queuePanel')).toContainText('队列为空',{timeout:3000});
+  await expect(win.locator('[data-queue-count]')).toHaveText('0',{timeout:3000});
   await win.locator('[data-book-item="stick"]').hover();await win.keyboard.press('u');
   await expect(win.locator('[data-recipe-mode="uses"]')).toHaveClass(/active/);
   await expect(win.locator('.bench-heading h2')).toHaveText('燧石镐');
-  await win.locator('[data-page="resources"]').first().click();for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();
-  await expect(win.locator('[data-last-drops]')).toContainText('需要兼容的空桶');
-  for(let round=0;round<3;round++)for(let i=0;i<4;i++)await win.locator('[data-gather="forest"]').click();
+  await win.locator('[data-page="resources"]').first().click();await revealResource(win,'river');for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();
+  await checkLastDrop(win,expect,'需要兼容的空桶');
+  await revealResource(win,'forest');for(let round=0;round<3;round++)for(let i=0;i<4;i++)await win.locator('[data-gather="forest"]').click();
   await win.locator('[data-page="workshop"]').first().click();await win.locator('[data-tab="craft"]').click();
   await win.locator('[data-book-item="woodBucket"]').click();await win.locator('[data-fill="woodBucket"]').click();await win.locator('[data-craft="woodBucket"][data-count="1"]').click();
-  await expect(win.locator('#queuePanel')).toContainText('队列为空',{timeout:4000});
-  await win.locator('[data-page="inventory"]').first().click();await win.locator('[data-inventory-tab="containers"]').click();await win.locator('[data-place-container="woodBucket"]').click();
-  await win.locator('[data-page="resources"]').first().click();for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();
-  await win.locator('[data-page="inventory"]').first().click();await win.locator('[data-inventory-tab="containers"]').click();await expect(win.locator('[data-container-amount]')).toHaveText('1,000');
+  await expect(win.locator('[data-queue-count]')).toHaveText('0',{timeout:4000});
+  await win.locator('[data-page="inventory"]').first().click();await win.locator('[data-inventory-tab="containers"]').click();await win.locator('[data-container-view="catalog"]').click();await win.locator('[data-place-container="woodBucket"]').click();
+  await win.locator('[data-page="resources"]').first().click();await revealResource(win,'river');for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();
+  await win.locator('[data-page="inventory"]').first().click();await win.locator('[data-inventory-tab="containers"]').click();await win.locator('[data-container-view="placed"]').click();await expect(win.locator('[data-container-amount]')).toHaveText('1,000');
   await win.locator('[data-page="inventory"]').first().click();await win.locator('[data-inventory-tab="items"]').click();await expect(win.locator('[data-inventory-item="water"]')).toHaveCount(0);
   // Release-specific checks use the same isolated test profile and never touch the player's save.
   await expect(win.locator('[data-page="reference"]')).toHaveCount(0);
@@ -52,17 +54,31 @@ try{
   });
   await win.addInitScript(value=>localStorage.setItem('gtnh-long-road-v2',value),factoryFixture);
   await win.reload();await win.locator('.nav [data-page="factory"]').click();
-  await expect(win.locator('[data-machine-group]')).toHaveCount(2);
-  await win.locator('[data-factory-type="furnace"]').click();
-  await expect(win.locator('[data-machine-group]')).toHaveCount(1);await expect(win.locator('[data-device]')).toHaveCount(2);
+  await expect(win.locator('[data-factory-select] option')).toHaveCount(3);
+  await pickOption(win,'[data-factory-select]','furnace');
+  await expect(win.locator('[data-machine-group]')).toHaveCount(2);await expect(win.locator('[data-device]')).toHaveCount(2);
   await expect(win.locator('[data-assign]').first()).toBeDisabled();
   await win.locator('[data-force-stop]').first().click();await expect(win.locator('[data-assign]').first()).toBeEnabled();
-  await win.locator('[data-assign]').first().selectOption('glass');await win.locator('[data-toggle]').first().click();
+  await pickOption(win,'[data-assign="d1"]','glass');await win.locator('[data-toggle]').first().click();
   await expect(win.locator('[data-device-state]').first()).toHaveText('运行中');
   await win.setViewportSize({width:1040,height:720});
   if(await win.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Factory controls overflow at 1040px');
   if(await win.locator('img').evaluateAll(images=>images.some(img=>!img.complete||!img.naturalWidth)))throw Error('Packaged image failed to load');
+  // Confirm that the packaged app ships the new tier data/styles and that an
+  // appearance preference never changes the world's actual technology stage.
+  await win.locator('[data-page="settings"]').first().click();
+  await win.locator('#page [data-appearance-open]').click();
+  await expect(win.locator('[data-select-tier]')).toHaveCount(15);
+  await win.locator('[data-select-tier="MAX"]').click();
+  await expect(win.locator('.tier-inspector')).toHaveAttribute('data-tex','prism');
+  await expect(win.locator('[data-dna-name]')).toHaveText('创造全谱');
+  await win.locator('[data-tier-use]').click();
+  await expect(win.locator('html')).toHaveAttribute('data-tier','MAX');
+  await expect(win.locator('html')).toHaveAttribute('data-light','true');
+  await expect(win.locator('#headerStage')).toHaveText('STEAM');
+  await win.locator('[data-tier-auto]').click();
+  await expect(win.locator('html')).toHaveAttribute('data-tier','ULV');
   await win.locator('[data-page="overview"]').first().click();await win.screenshot({path:'artifacts/electron-overview.png',fullPage:true});
   if(errors.length)throw Error(errors.join('\n'));
-  console.log((portable?'Portable single exe':packaged?'Packaged exe':'Electron')+' smoke OK: app name/version, GTNH images, recipes, random drops, warehouse containers, factory groups and force-stop/product switching');
+  console.log((portable?'Portable single exe':packaged?'Packaged exe':'Electron')+' smoke OK: app name/version, GTNH images, recipes, random drops, warehouse containers, factory groups, force-stop/product switching and voltage appearance');
 }catch(error){const win=await app.firstWindow();console.error((await win.locator('#page').innerText()).slice(0,3000));await win.screenshot({path:'artifacts/electron-failure.png',fullPage:true}).catch(()=>{});throw error;}finally{await app.close();}

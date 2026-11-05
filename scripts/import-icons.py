@@ -1,9 +1,9 @@
 """Build standalone item sprites from a read-only GTNH instance.
 
-Uses the instance's enabled resource packs over its mod assets. Material colors,
+Uses only original Minecraft and mod assets, never resource-pack overrides. Material colors,
 texture sets and meta-item IDs are read from the installed GregTech bytecode.
 Block icons combine the source top/side/front textures into an inventory cube.
-Requires Pillow, Node and javap for this development import only.
+Requires Pillow, NumPy, Node and javap for this development import only.
 """
 import argparse
 import io
@@ -43,11 +43,7 @@ class Importer:
         for jar in sorted(mods.glob('*.jar')):
             self.add_archive(jar)
         self.gregtech = next(mods.glob('gregtech-*.jar'))
-        options = (instance / '.minecraft/options.txt').read_text(encoding='utf-8', errors='replace')
-        packs = re.search(r'^resourcePacks:(.*)$', options, re.M)
-        self.packs = json.loads(packs[1]) if packs else []
-        for pack in self.packs:
-            self.add_archive(instance / '.minecraft/resourcepacks' / pack)
+        self.packs = []
         self.materials = self.read_materials()
         self.meta = {}
         for suffix in ['01', '03']:
@@ -131,7 +127,24 @@ class Importer:
         return result
 
     def save(self, item, image, note=''):
-        image.save(self.output / (item + '.png'), optimize=True)
+        # Trace same-color pixel runs into vector paths. No embedded raster image.
+        pixels = image.convert('RGBA')
+        colors = {}
+        for y in range(pixels.height):
+            x = 0
+            while x < pixels.width:
+                color = pixels.getpixel((x, y))
+                start = x
+                while x < pixels.width and pixels.getpixel((x, y)) == color:
+                    x += 1
+                if color[3]:
+                    colors.setdefault(color, []).append(f'M{start} {y}h{x-start}v1h{start-x}z')
+        paths = []
+        for (r, g, b, a), runs in colors.items():
+            opacity = f' fill-opacity="{a/255:.6f}"' if a < 255 else ''
+            paths.append(f'<path fill="#{r:02x}{g:02x}{b:02x}"{opacity} d="{"".join(runs)}"/>')
+        svg = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {pixels.width} {pixels.height}" shape-rendering="crispEdges">{"".join(paths)}</svg>\n'
+        (self.output / (item + '.svg')).write_text(svg, encoding='utf-8')
         self.manifest[item] = {'sources': self.used, **({'note': note} if note else {})}
         self.used = []
 
@@ -223,7 +236,7 @@ class Importer:
         catalog = json.loads(subprocess.check_output(['node', '--input-type=module', '-e',
             "import {items,MATERIALS,machines} from './src/data/catalog.js';console.log(JSON.stringify({items,MATERIALS,machines}));"], cwd=PROJECT, text=True, encoding='utf-8'))
         self.used = []
-        # Vanilla assets are part of the GTNH installation and receive its resource-pack overrides.
+        # Vanilla assets are read from the unmodified Minecraft archive.
         vanilla_items = {'stick': 'stick', 'flint': 'flint', 'clay': 'clay_ball', 'coal': 'coal',
                          'brick': 'brick', 'redstone': 'redstone_dust', 'diamond': 'diamond',
                          'ironBucket': 'bucket_empty', 'ui-research': 'book_normal', 'ui-overview': 'compass'}
@@ -353,14 +366,17 @@ class Importer:
             self.save(item,self.cube(self.load(self.find(GT+f'blocks/iconsets/{front}.png'))))
         self.save('ui-inventory',self.cube(self.load(self.find(MC+'blocks/planks_oak.png'))),'GTNH oak storage block, navigation icon.')
         pack=Image.open(self.instance/'gtnh_icon.png').convert('RGBA')
-        pack.save(self.output/'pack.png')
-        pack.resize((256,256),Image.Resampling.NEAREST).save(self.output.parent/'app-icon.png')
+        self.used = [{'archive':'instance','texture':'gtnh_icon.png'}]
+        self.save('pack', pack, 'GTNH pack logo traced into SVG paths.')
         pack.resize((256,256),Image.Resampling.NEAREST).save(self.output.parent/'app-icon.ico',sizes=[(16,16),(32,32),(48,48),(64,64),(128,128),(256,256)])
-        self.manifest['pack']={'sources':[{'archive':'instance','texture':'gtnh_icon.png'}]}
+        (self.output.parent/'app-icon.png').unlink(missing_ok=True)
         missing=set(catalog['items'])-set(self.manifest)
         if missing:
             raise ValueError('Missing item icons: '+', '.join(sorted(missing)))
-        (self.output/'sources.json').write_text(json.dumps({'pack':'GTNH 2.9.0','resourcePacks':self.packs,'icons':self.manifest},ensure_ascii=False,indent=2),encoding='utf-8')
+        (self.output/'sources.json').write_text(json.dumps({'pack':'GTNH 2.9.0','format':'SVG paths traced from original pixel artwork','resourcePacks':self.packs,'icons':self.manifest},ensure_ascii=False,indent=2),encoding='utf-8')
+        # Retire only previously generated raster item icons in this output folder.
+        for item in self.manifest:
+            (self.output / (item + '.png')).unlink(missing_ok=True)
         print(f'Imported {len(self.manifest)} icons into {self.output}')
 
 

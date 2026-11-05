@@ -5,31 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101512">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'">
-  <link rel="icon" href="assets/gtnh/pack.png" type="image/png">
+  <link rel="icon" href="assets/gtnh/pack.svg" type="image/svg+xml">
   <title>GregTech-LiteHorizons</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="components.css">
   <link rel="stylesheet" href="interaction.css">
+  <link rel="stylesheet" href="viewport.css">
+  <link rel="stylesheet" href="tier-motifs.css">
+  <link rel="stylesheet" href="tier-system.css">
 </head>
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <div class="brand"><div class="brandmark"><img src="assets/gtnh/pack.png" alt=""></div><div><strong>GregTech-<wbr>LiteHorizons</strong></div></div>
+      <div class="brand"><div class="brandmark"><img src="assets/gtnh/pack.svg" alt=""></div><div><strong>GregTech-<wbr>LiteHorizons</strong></div></div>
       <div class="nav-label">基地</div>
       <nav class="nav" aria-label="主导航">
-        <button class="active" data-page="overview"><span class="navicon"><img src="assets/gtnh/ui-overview.png" alt=""></span>总览</button>
-        <button data-page="resources"><span class="navicon"><img src="assets/gtnh/wood.png" alt=""></span>资源采集</button>
-        <button data-page="workshop"><span class="navicon"><img src="assets/gtnh/workbench.png" alt=""></span>配方与工作台</button>
-        <button data-page="factory"><span class="navicon"><img src="assets/gtnh/steamMacerator.png" alt=""></span>生产工厂</button>
-        <button data-page="inventory"><span class="navicon"><img src="assets/gtnh/ui-inventory.png" alt=""></span>物品仓库</button>
-        <button data-page="research"><span class="navicon"><img src="assets/gtnh/ui-research.png" alt=""></span>科技主线</button>
-        <button data-page="space"><span class="navicon"><img src="assets/gtnh/rocket.png" alt=""></span>星际远征</button>
-        <button data-page="settings"><span class="navicon"><img src="assets/gtnh/wrench.png" alt=""></span>存档与设置</button>
+        <button class="active" data-page="overview"><span class="navicon"><img src="assets/gtnh/ui-overview.svg" alt=""></span>总览</button>
+        <button data-page="resources"><span class="navicon"><img src="assets/gtnh/wood.svg" alt=""></span>资源采集</button>
+        <button data-page="workshop"><span class="navicon"><img src="assets/gtnh/workbench.svg" alt=""></span>配方与工作台</button>
+        <button data-page="factory"><span class="navicon"><img src="assets/gtnh/steamMacerator.svg" alt=""></span>生产工厂</button>
+        <button data-page="inventory"><span class="navicon"><img src="assets/gtnh/ui-inventory.svg" alt=""></span>物品仓库</button>
+        <button data-page="research"><span class="navicon"><img src="assets/gtnh/ui-research.svg" alt=""></span>科技主线</button>
+        <button data-page="space"><span class="navicon"><img src="assets/gtnh/rocket.svg" alt=""></span>星际远征</button>
+        <button data-page="settings"><span class="navicon"><img src="assets/gtnh/wrench.svg" alt=""></span>存档与设置</button>
       </nav>
-      <div class="side-foot"><div class="status-line"><i></i>GTNH 2.9.0</div><div id="saveStatus" class="version">v0.1.4 · 本地世界</div><button data-page="settings" class="text-button">存档管理 →</button></div>
+      <div class="side-foot"><div class="status-line"><i></i>GTNH 2.9.0</div><div id="saveStatus" class="version" data-version="0.1.5">v0.1.5 · 本地世界</div><button data-page="settings" class="text-button">存档管理 →</button></div>
     </aside>
     <main class="main">
-      <header class="topbar"><div class="location"><span class="location-dot"></span><span id="pageLocation">地球 · 主基地</span><span class="divider">/</span><strong id="pageName">总览</strong></div><div class="stats"><span>阶段 <strong id="headerStage">石器时代</strong></span><span class="stat-eu"><img src="assets/gtnh/turbine.png" alt="电力"> <strong id="headerEu">0 EU</strong></span><span class="save-dot" title="已保存"></span></div></header>
+      <header class="topbar"><div class="location"><span class="location-dot"></span><span id="pageLocation">地球 · 主基地</span><span class="divider">/</span><strong id="pageName">总览</strong></div><div class="stats"><span>阶段 <button id="headerStage" class="button tier-open" data-appearance-open title="电压外观">石器时代</button></span><span class="stat-eu"><img src="assets/gtnh/turbine.svg" alt="电力"> <strong id="headerEu">0 EU</strong></span><span class="save-dot" title="已保存"></span></div></header>
       <section id="page" class="workspace"></section>
     </main>
   </div>

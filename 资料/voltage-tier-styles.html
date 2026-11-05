@@ -1,0 +1,2641 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  #vt-tier-system,
+  #vt-tier-system * { box-sizing: border-box; }
+
+  #vt-tier-system {
+    --page-bg: #080b0d;
+    --page-panel: #141a1d;
+    --page-panel-2: #0f1416;
+    --page-line: #252e32;
+    --page-ink: #dbe3de;
+    --page-dim: #93a09a;
+    --gold: #c6a25c;
+    --red: #c96b5a;
+    --a: #7fae6a;
+    --a2: #b87333;
+    --a-ink: #7fae6a;
+    --glow: rgba(127, 174, 106, 0.36);
+    --wash: rgba(127, 174, 106, 0.1);
+    --c1: #33423a;
+    --c2: #24312a;
+    --c3: #151d18;
+    --p1: #243026;
+    --p2: #121a15;
+    --bg: #0a0f0b;
+    --inset: #070a0b;
+    --lcd-bg: #07110a;
+    --lcd-tx: #7fae6a;
+    --ink: #dde5e0;
+    --dim: #aab5ae;
+    --line: rgba(255, 255, 255, 0.09);
+    --mono: "Cascadia Mono", "Consolas", "SFMono-Regular", "DejaVu Sans Mono", monospace;
+    --pixel: "Silkscreen", "Cascadia Mono", "Consolas", monospace;
+    --sans: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", "Segoe UI", sans-serif;
+    --display: "Bahnschrift", "DIN Alternate", "Segoe UI", "Arial Narrow", sans-serif;
+
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    color: var(--page-ink);
+    background-color: var(--page-bg);
+    background-image:
+      radial-gradient(900px 320px at 14% -40px, var(--wash), transparent 70%),
+      linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: auto, 30px 30px, 30px 30px;
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.45;
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+  }
+  #vt-tier-system button { font-family: inherit; }
+  #vt-tier-system button:focus-visible {
+    outline: 1px solid var(--a);
+    outline-offset: 2px;
+  }
+
+  #vt-tier-system .vt-tape {
+    height: 4px;
+    background: linear-gradient(90deg,
+      #d47a4f 0 6.666%, #7fae6a 6.666% 13.333%, #d8ae4e 13.333% 20%,
+      #e6c93f 20% 26.666%, #b9c6cd 26.666% 33.333%, #5b9dff 33.333% 40%,
+      #cf8aff 40% 46.666%, #4fd6c9 46.666% 53.333%, #5fd98a 53.333% 60%,
+      #ff6b6b 60% 66.666%, #9b6bff 66.666% 73.333%, #6b7cff 73.333% 80%,
+      #ff5fa2 80% 86.666%, #ff7a4f 86.666% 93.333%, #b8862f 93.333% 100%);
+    border-bottom: 1px solid #030505;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+  #vt-tier-system .vt-inner {
+    max-width: 1680px;
+    margin: 0 auto;
+    padding: 0 26px 22px;
+  }
+
+  /* ---------- masthead ---------- */
+  #vt-tier-system .vt-mast {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0 17px;
+    border-bottom: 1px solid var(--page-line);
+  }
+  #vt-tier-system .vt-mast::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 96px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--a), transparent);
+  }
+  #vt-tier-system .vt-kicker {
+    font-family: var(--pixel);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--gold);
+  }
+  #vt-tier-system .vt-mast h1 {
+    margin: 6px 0 0;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    color: var(--page-ink);
+    text-shadow: 0 2px 0 #000;
+  }
+  #vt-tier-system .vt-sub {
+    margin: 8px 0 0;
+    font-size: 12.5px;
+    color: var(--page-dim);
+  }
+  #vt-tier-system .vt-mast-right {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    flex: none;
+  }
+  #vt-tier-system .vt-mast-plate {
+    display: flex;
+    gap: 0;
+    background: linear-gradient(180deg, #171d20, #0f1416);
+    border: 1px solid #050708;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  #vt-tier-system .vt-mast-plate > div {
+    padding: 7px 11px;
+    border-left: 1px solid var(--page-line);
+  }
+  #vt-tier-system .vt-mast-plate > div:first-child { border-left: 0; }
+  #vt-tier-system .vt-mast-plate span {
+    display: block;
+    font-family: var(--pixel);
+    font-size: 7.5px;
+    letter-spacing: 0.1em;
+    color: #6f7b75;
+  }
+  #vt-tier-system .vt-mast-plate b {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--page-ink);
+    letter-spacing: 0.03em;
+  }
+  #vt-tier-system .vt-live {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 11px;
+    background: linear-gradient(180deg, #171d20, #0f1416);
+    border: 1px solid #050708;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  #vt-tier-system .vt-live .vt-led { width: 5px; height: 5px; }
+  #vt-tier-system .vt-live div { display: flex; flex-direction: column; gap: 1px; }
+  #vt-tier-system .vt-live span {
+    font-family: var(--pixel);
+    font-size: 7.5px;
+    letter-spacing: 0.1em;
+    color: #6f7b75;
+  }
+  #vt-tier-system .vt-live b {
+    font-family: var(--pixel);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--a);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  #vt-tier-system .vt-live em {
+    margin-left: auto;
+    align-self: flex-end;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 9px;
+    color: var(--page-dim);
+  }
+
+  /* ---------- ladder ---------- */
+  #vt-tier-system .vt-ladder-frame {
+    margin-top: 16px;
+    padding: 11px 13px 13px;
+    background: linear-gradient(180deg, #141a1d 0%, #101518 100%);
+    border: 1px solid #050708;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.055), 0 2px 0 rgba(0, 0, 0, 0.35);
+  }
+  #vt-tier-system .vt-ladder-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--page-line);
+  }
+  #vt-tier-system .vt-ladder-title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  #vt-tier-system .vt-label {
+    font-family: var(--pixel);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+  }
+  #vt-tier-system .vt-ladder-title > span:last-child {
+    font-size: 11px;
+    color: var(--page-ink);
+  }
+  #vt-tier-system .vt-ladder-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--page-dim);
+  }
+  #vt-tier-system .vt-ladder-hint .vt-led { width: 4px; height: 4px; }
+  #vt-tier-system .vt-ladder {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 11px;
+  }
+  #vt-tier-system .vt-era {
+    flex: 4 1 0;
+    min-width: 0;
+  }
+  #vt-tier-system .vt-era[data-count="3"] { flex: 3 1 0; }
+  #vt-tier-system .vt-era-head {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 6px;
+    min-width: 0;
+  }
+  #vt-tier-system .vt-era-idx {
+    font-family: var(--pixel);
+    font-size: 7.5px;
+    color: var(--gold);
+    opacity: 0.8;
+  }
+  #vt-tier-system .vt-era-name {
+    font-size: 11px;
+    color: var(--page-ink);
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-era-range {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 8px;
+    color: #6f7b75;
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-era-grid { display: grid; gap: 4px; }
+  #vt-tier-system .vt-tier {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 80px;
+    padding: 8px 7px 7px;
+    background: #0c1113;
+    border: 1px solid #050708;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.045);
+    text-align: left;
+    color: inherit;
+  }
+  #vt-tier-system .vt-tier-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px;
+    min-width: 0;
+  }
+  #vt-tier-system .vt-tier-code {
+    font-family: var(--pixel);
+    font-size: 10.5px;
+    letter-spacing: 0.01em;
+    color: var(--page-ink);
+    line-height: 1;
+  }
+  #vt-tier-system .vt-tier-v {
+    font-family: var(--mono);
+    font-size: 7px;
+    color: #6f7b75;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  #vt-tier-system .vt-tier-swatch {
+    position: relative;
+    height: 23px;
+    flex: none;
+    background-color: var(--tc2);
+    background-image:
+      linear-gradient(90deg, var(--tc3), var(--tc2) 45%, var(--tc1));
+    border: 1px solid #050708;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.045);
+    overflow: hidden;
+  }
+  #vt-tier-system .vt-tier-swatch::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--ta);
+    box-shadow: 0 0 6px var(--ta);
+    opacity: 0.9;
+  }
+  #vt-tier-system .vt-tier-mat {
+    font-size: 9.5px;
+    color: var(--page-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #vt-tier-system .vt-tier:hover {
+    background: #11171a;
+    border-color: #39454a;
+  }
+  #vt-tier-system .vt-tier.is-active {
+    background: #11171a;
+    border-color: var(--ta);
+    box-shadow:
+      inset 0 0 12px rgba(255, 255, 255, 0.035),
+      0 0 0 1px var(--ta),
+      0 0 12px rgba(255, 255, 255, 0.05);
+  }
+  #vt-tier-system .vt-tier.is-active .vt-tier-code {
+    color: var(--ta);
+    text-shadow: 0 0 8px var(--ta);
+  }
+  #vt-tier-system .vt-tier.is-active .vt-tier-swatch {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 8px var(--ta);
+  }
+
+  /* ---------- main grid ---------- */
+  #vt-tier-system .vt-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 344px;
+    gap: 18px;
+    align-items: stretch;
+    margin-top: 16px;
+  }
+  #vt-tier-system .vt-preview {
+    display: flex;
+    min-width: 0;
+  }
+
+  /* ---------- preview window ---------- */
+  #vt-tier-system .vt-window {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    background: #0b0f11;
+    border: 1px solid #050708;
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 255, 255, 0.06),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.55),
+      0 2px 0 rgba(0, 0, 0, 0.45),
+      0 18px 40px rgba(0, 0, 0, 0.28);
+  }
+  #vt-tier-system .vt-window::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 3.5px 3.5px, #d2dbde 0 1.1px, #859195 1.1px 2.1px, #232a2d 2.1px 2.9px, transparent 2.9px),
+      radial-gradient(circle at 3.5px 3.5px, #d2dbde 0 1.1px, #859195 1.1px 2.1px, #232a2d 2.1px 2.9px, transparent 2.9px),
+      radial-gradient(circle at 3.5px 3.5px, #d2dbde 0 1.1px, #859195 1.1px 2.1px, #232a2d 2.1px 2.9px, transparent 2.9px),
+      radial-gradient(circle at 3.5px 3.5px, #d2dbde 0 1.1px, #859195 1.1px 2.1px, #232a2d 2.1px 2.9px, transparent 2.9px);
+    background-position:
+      7px 7px,
+      calc(100% - 7px) 7px,
+      7px calc(100% - 7px),
+      calc(100% - 7px) calc(100% - 7px);
+    background-size: 7px 7px;
+    background-repeat: no-repeat;
+  }
+  #vt-tier-system .vt-winbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 34px;
+    padding: 0 9px 0 11px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 42%),
+      linear-gradient(180deg, #262f34, #1a2124 60%, #151b1e);
+    border-bottom: 1px solid #050708;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    flex: none;
+  }
+  #vt-tier-system .vt-winbar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--a), transparent 70%);
+    opacity: 0.8;
+  }
+  #vt-tier-system .vt-g {
+    display: grid;
+    place-items: center;
+    width: 19px;
+    height: 19px;
+    flex: none;
+    color: #a7eb84;
+    background: linear-gradient(160deg, #303c36, #17201b 65%, #0f1512);
+    border: 1px solid #050a07;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.14), inset -1px -1px 0 #000;
+    font-family: var(--pixel);
+    font-size: 13px;
+    line-height: 1;
+    text-shadow: 0 0 7px rgba(140, 230, 110, 0.45);
+  }
+  #vt-tier-system .vt-win-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e2e9e4;
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-win-sub {
+    padding-left: 8px;
+    border-left: 1px solid #3a454a;
+    font-family: var(--pixel);
+    font-size: 7.5px;
+    letter-spacing: 0.1em;
+    color: #7b8781;
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-win-tier {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    height: 18px;
+    padding: 0 6px;
+    background: #0c1113;
+    border: 1px solid #050708;
+    font-family: var(--pixel);
+    font-size: 9px;
+    color: var(--a);
+    letter-spacing: 0.04em;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7);
+  }
+  #vt-tier-system .vt-wbtns { display: flex; gap: 3px; margin-left: 2px; }
+  #vt-tier-system .vt-wbtn {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 20px;
+    padding: 0;
+    background: linear-gradient(#2a3338, #1d2428);
+    border: 1px solid #0a0e10;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.06);
+    color: #95a19b;
+  }
+  #vt-tier-system .vt-wbtn svg { width: 11px; height: 11px; }
+  #vt-tier-system .vt-wbtn:hover { color: #e6ece8; background: #39444a; }
+
+  #vt-tier-system .vt-window-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    background: var(--bg);
+  }
+  #vt-tier-system .vt-rail {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 48px;
+    padding: 9px 0;
+    background-color: var(--p1);
+    background-image: var(--tex), linear-gradient(180deg, var(--p1), var(--p2));
+    border-right: 1px solid var(--line);
+  }
+  #vt-tier-system .vt-rail-logo {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+    color: #a7eb84;
+    background: linear-gradient(160deg, #303c36, #17201b 65%, #0f1512);
+    border: 1px solid #050a07;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.13);
+    font-family: var(--pixel);
+    font-size: 15px;
+    line-height: 1;
+  }
+  #vt-tier-system .vt-rail-btn {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--dim);
+    opacity: 0.8;
+  }
+  #vt-tier-system .vt-rail-btn svg { width: 14px; height: 14px; }
+  #vt-tier-system .vt-rail-btn.is-active {
+    color: var(--a-ink);
+    background: var(--inset);
+    border-color: var(--line);
+    box-shadow: inset 0 0 9px var(--glow);
+    opacity: 1;
+  }
+  #vt-tier-system .vt-rail-btn:hover { color: var(--ink); opacity: 1; }
+
+  #vt-tier-system .vt-app {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: 0 0;
+  }
+  #vt-tier-system .vt-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    height: 32px;
+    flex: none;
+    padding: 0 12px;
+    background-color: var(--p1);
+    background-image: var(--tex), linear-gradient(180deg, var(--p1), var(--p2));
+    border-bottom: 1px solid var(--line);
+  }
+  #vt-tier-system .vt-crumb {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    font-size: 11px;
+    color: var(--dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #vt-tier-system .vt-crumb .vt-led { width: 4px; height: 4px; }
+  #vt-tier-system .vt-crumb strong { color: var(--ink); font-weight: 500; }
+  #vt-tier-system .vt-sep { color: var(--dim); opacity: 0.5; }
+  #vt-tier-system .vt-topmeta { display: flex; gap: 4px; flex: none; }
+  #vt-tier-system .vt-chip {
+    display: inline-flex;
+    align-items: center;
+    height: 21px;
+    padding: 0 7px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.45);
+    font-family: var(--pixel);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--a-ink);
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-chip-alt {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 0;
+  }
+
+  #vt-tier-system .vt-pagehead {
+    flex: none;
+    padding: 11px 13px 9px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1), transparent);
+  }
+  #vt-tier-system .vt-eyebrow {
+    font-family: var(--pixel);
+    font-size: 8.5px;
+    letter-spacing: 0.1em;
+    color: var(--a-ink);
+  }
+  #vt-tier-system .vt-h2row {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  #vt-tier-system .vt-h2 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+  }
+  #vt-tier-system .vt-stamp {
+    padding: 2px 5px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    font-family: var(--pixel);
+    font-size: 7px;
+    letter-spacing: 0.04em;
+    color: var(--dim);
+    transform: rotate(-1deg);
+  }
+  #vt-tier-system .vt-subline {
+    margin-top: 5px;
+    font-size: 9.5px;
+    color: var(--dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #vt-tier-system .vt-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 228px;
+    gap: 10px;
+    align-items: start;
+    flex: 1;
+    padding: 12px 13px 12px;
+  }
+
+  /* ---------- machine specimen ---------- */
+  #vt-tier-system .vt-machine {
+    position: relative;
+    min-width: 0;
+    padding: 12px 12px 11px 16px;
+    background-color: var(--c2);
+    background-image: var(--tex), linear-gradient(180deg, var(--c1), var(--c2) 58%, var(--c3));
+    border: 1px solid var(--line);
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 255, 255, 0.1),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.42),
+      0 2px 0 rgba(0, 0, 0, 0.3);
+  }
+  #vt-tier-system .vt-machine::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 1;
+    background-image:
+      radial-gradient(circle at 3px 3px, #d2dbde 0 1px, #859195 1px 2px, #232a2d 2px 2.8px, transparent 2.8px),
+      radial-gradient(circle at 3px 3px, #d2dbde 0 1px, #859195 1px 2px, #232a2d 2px 2.8px, transparent 2.8px),
+      radial-gradient(circle at 3px 3px, #d2dbde 0 1px, #859195 1px 2px, #232a2d 2px 2.8px, transparent 2.8px),
+      radial-gradient(circle at 3px 3px, #d2dbde 0 1px, #859195 1px 2px, #232a2d 2px 2.8px, transparent 2.8px);
+    background-position: 6px 6px, calc(100% - 6px) 6px, 6px calc(100% - 6px), calc(100% - 6px) calc(100% - 6px);
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+    transition: opacity 0.2s;
+  }
+  #vt-tier-system[data-era="1"] .vt-machine::before { opacity: 0.45; }
+  #vt-tier-system[data-era="2"] .vt-machine::before,
+  #vt-tier-system[data-era="3"] .vt-machine::before { opacity: 0; }
+
+  #vt-tier-system .vt-strip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--a2), var(--a) 45%, var(--c1));
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.55), inset 1px 0 0 rgba(255, 255, 255, 0.18);
+  }
+  #vt-tier-system .vt-machine-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  #vt-tier-system .vt-slot {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex: none;
+    background: var(--inset);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.75), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  }
+  #vt-tier-system .vt-slot canvas {
+    display: block;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+  }
+  #vt-tier-system .vt-machine-id { flex: 1; min-width: 0; }
+  #vt-tier-system .vt-machine-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #vt-tier-system .vt-machine-name > span {
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 400;
+    color: var(--dim);
+    margin-left: 2px;
+  }
+  #vt-tier-system .vt-machine-sub {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 3px;
+    font-size: 9px;
+    color: var(--dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #vt-tier-system .vt-mini {
+    display: inline-flex;
+    align-items: center;
+    height: 15px;
+    padding: 0 4px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    font-family: var(--pixel);
+    font-size: 7.5px;
+    color: var(--a-ink);
+    letter-spacing: 0.02em;
+  }
+  #vt-tier-system .vt-detail-box {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    flex: none;
+    padding: 3px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.55);
+  }
+  #vt-tier-system .vt-machine-state {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: none;
+    padding: 3px 6px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    font-family: var(--pixel);
+    font-size: 8px;
+    letter-spacing: 0.04em;
+    color: var(--a-ink);
+  }
+  #vt-tier-system .vt-machine-state .vt-led { width: 4px; height: 4px; }
+  #vt-tier-system .vt-sigline {
+    height: 2px;
+    margin: 7px 0;
+    background: linear-gradient(90deg, transparent, var(--a) 18%, var(--a) 72%, transparent);
+    opacity: 0.8;
+  }
+  #vt-tier-system[data-tier="ULV"] .vt-sigline {
+    height: 3px;
+    background-image: radial-gradient(circle, var(--a) 0 1px, transparent 1.4px);
+    background-size: 9px 3px;
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+    opacity: 0.7;
+  }
+  #vt-tier-system[data-tier="HV"] .vt-sigline {
+    height: 4px;
+    background: repeating-linear-gradient(45deg, var(--a) 0 6px, #0c0f10 6px 12px);
+    opacity: 0.9;
+  }
+  #vt-tier-system[data-tier="MAX"] .vt-sigline {
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b6b, #ffd76a 20%, #6be08a 45%, #5fd9ff 65%, #b58cff 85%, #ff6bd0);
+    opacity: 1;
+  }
+
+  #vt-tier-system .vt-recipe {
+    display: flex;
+    align-items: center;
+    height: 28px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.45);
+  }
+  #vt-tier-system .vt-recipe-label {
+    flex: none;
+    padding: 0 9px;
+    font-size: 9px;
+    color: var(--dim);
+    border-right: 1px solid var(--line);
+  }
+  #vt-tier-system .vt-recipe-val {
+    flex: 1;
+    padding: 0 9px;
+    font-size: 9.5px;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #vt-tier-system .vt-recipe svg {
+    width: 11px;
+    height: 11px;
+    margin-right: 7px;
+    color: var(--dim);
+    flex: none;
+  }
+
+  #vt-tier-system .vt-io {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 7px;
+    flex-wrap: wrap;
+  }
+  #vt-tier-system .vt-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 35px;
+    padding: 0 7px 0 2px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  }
+  #vt-tier-system .vt-item-slot {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    flex: none;
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.55);
+  }
+  #vt-tier-system .vt-item-slot canvas {
+    display: block;
+    width: 28px;
+    height: 28px;
+    image-rendering: pixelated;
+  }
+  #vt-tier-system .vt-item-name { font-size: 9.5px; color: var(--ink); white-space: nowrap; }
+  #vt-tier-system .vt-item-count {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-arrow {
+    position: relative;
+    width: 24px;
+    height: 12px;
+    flex: none;
+    opacity: 0.65;
+  }
+  #vt-tier-system .vt-arrow::before {
+    content: "";
+    position: absolute;
+    left: 1px;
+    top: 5px;
+    width: 16px;
+    height: 1px;
+    background: var(--dim);
+  }
+  #vt-tier-system .vt-arrow::after {
+    content: "";
+    position: absolute;
+    right: 1px;
+    top: 2px;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid var(--dim);
+    border-right: 1px solid var(--dim);
+    transform: rotate(45deg);
+  }
+
+  #vt-tier-system .vt-progress-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 7px;
+  }
+  #vt-tier-system .vt-progress {
+    position: relative;
+    flex: 1;
+    height: 8px;
+    padding: 1px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+  }
+  #vt-tier-system .vt-progress::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 6px, transparent 6px 8px);
+  }
+  #vt-tier-system .vt-progress i {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    bottom: 1px;
+    display: block;
+    background-color: var(--a);
+    background-image: repeating-linear-gradient(90deg, transparent 0 6px, rgba(0, 0, 0, 0.25) 6px 7px);
+    box-shadow: 0 0 7px var(--glow);
+    z-index: 1;
+  }
+  #vt-tier-system .vt-pct {
+    flex: none;
+    width: 26px;
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 7.5px;
+    color: var(--a-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  #vt-tier-system[data-tier="MAX"] .vt-progress i {
+    background-color: #ffd76a;
+    background-image:
+      linear-gradient(90deg, #ff6b6b, #ffd76a 22%, #6be08a 45%, #5fd9ff 67%, #b58cff 88%, #ff6bd0),
+      repeating-linear-gradient(90deg, transparent 0 6px, rgba(0, 0, 0, 0.12) 6px 7px);
+    box-shadow: 0 0 9px rgba(255, 215, 106, 0.45);
+  }
+  #vt-tier-system[data-tier="MAX"] .vt-strip {
+    background: linear-gradient(180deg, #ff6b6b, #ffd76a 22%, #6be08a 45%, #5fd9ff 67%, #b58cff 88%, #ff6bd0);
+  }
+
+  #vt-tier-system .vt-machine-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 7px;
+    padding-top: 6px;
+    border-top: 1px solid var(--line);
+  }
+  #vt-tier-system .vt-run {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9.5px;
+    color: var(--a-ink);
+  }
+  #vt-tier-system .vt-run .vt-led { width: 4px; height: 4px; }
+  #vt-tier-system .vt-actions { display: flex; gap: 4px; }
+  #vt-tier-system .vt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 22px;
+    padding: 0 7px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+    color: var(--dim);
+    font-size: 9px;
+  }
+  #vt-tier-system .vt-btn svg { width: 10px; height: 10px; }
+  #vt-tier-system .vt-btn:hover { color: var(--ink); border-color: var(--a); }
+  #vt-tier-system .vt-btn-danger { color: #c98e84; }
+  #vt-tier-system .vt-btn-danger:hover { color: #ffb4a5; border-color: #6d3027; }
+  #vt-tier-system[data-light="true"] .vt-btn-danger { color: #8f3b2e; }
+  #vt-tier-system[data-light="true"] .vt-btn-danger:hover { color: #6f2419; border-color: #a45a4b; }
+
+  /* ---------- side power panel ---------- */
+  #vt-tier-system .vt-side {
+    min-width: 0;
+    padding: 10px 10px 10px;
+    background-color: var(--p1);
+    background-image: var(--tex), linear-gradient(180deg, var(--p1), var(--p2));
+    border: 1px solid var(--line);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.07), inset -1px -1px 0 rgba(0, 0, 0, 0.35);
+  }
+  #vt-tier-system .vt-side-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  #vt-tier-system .vt-tick {
+    width: 2px;
+    height: 10px;
+    flex: none;
+    background: linear-gradient(180deg, var(--a2), var(--a));
+    box-shadow: 0 0 6px var(--glow);
+  }
+  #vt-tier-system .vt-side-head span:not(.vt-tick) {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-side-head em {
+    margin-left: auto;
+    font-family: var(--pixel);
+    font-size: 6.5px;
+    font-style: normal;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-lcd {
+    position: relative;
+    margin-top: 7px;
+    padding: 7px 8px 6px;
+    background: var(--lcd-bg);
+    border: 1px solid rgba(0, 0, 0, 0.55);
+    box-shadow: inset 0 2px 8px #000, inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+    overflow: hidden;
+  }
+  #vt-tier-system .vt-lcd::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.26) 0 1px, transparent 1px 3px);
+  }
+  #vt-tier-system .vt-lcd-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 6.5px;
+    letter-spacing: 0.06em;
+    color: var(--a);
+    opacity: 0.72;
+  }
+  #vt-tier-system .vt-lcd-main {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-top: 1px;
+  }
+  #vt-tier-system .vt-lcd-main b {
+    font-family: var(--display);
+    font-size: 29px;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--lcd-tx);
+    text-shadow: 0 0 10px var(--glow);
+    font-variant-numeric: tabular-nums;
+  }
+  #vt-tier-system .vt-lcd-main span {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--a);
+    opacity: 0.8;
+  }
+  #vt-tier-system .vt-cells {
+    height: 5px;
+    margin-top: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.09) 0 6px, rgba(0, 0, 0, 0.5) 6px 8px);
+    opacity: 0.55;
+  }
+  #vt-tier-system .vt-lcd-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+    font-family: var(--pixel);
+    font-size: 6.5px;
+    letter-spacing: 0.06em;
+    color: var(--a);
+    opacity: 0.65;
+  }
+  #vt-tier-system .vt-side-rows { margin-top: 6px; }
+  #vt-tier-system .vt-side-rows > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 3.5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+    font-size: 9px;
+    color: var(--dim);
+  }
+  #vt-tier-system .vt-side-rows > div:last-child { border-bottom: 0; }
+  #vt-tier-system .vt-side-rows b {
+    font-weight: 400;
+    font-size: 9.5px;
+    color: var(--ink);
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ---------- queue ---------- */
+  #vt-tier-system .vt-queue {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding: 6px 9px;
+    background: var(--p2);
+    border: 1px solid var(--line);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+  #vt-tier-system .vt-q-head {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    flex: none;
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-q-head span { font-size: 8.5px; color: var(--ink); }
+  #vt-tier-system .vt-q-head em {
+    font-family: var(--pixel);
+    font-size: 6.5px;
+    font-style: normal;
+    color: var(--dim);
+    letter-spacing: 0.06em;
+  }
+  #vt-tier-system .vt-qitems {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    overflow: hidden;
+  }
+  #vt-tier-system .vt-qitem {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 18px;
+    padding: 0 5px;
+    background: var(--inset);
+    border: 1px solid var(--line);
+    font-size: 7.5px;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-qitem .vt-led { width: 3px; height: 3px; }
+  #vt-tier-system .vt-qitem em {
+    font-family: var(--pixel);
+    font-size: 6px;
+    font-style: normal;
+    color: var(--a-ink);
+    letter-spacing: 0.04em;
+  }
+  #vt-tier-system .vt-qitem.is-idle { opacity: 0.55; }
+  #vt-tier-system .vt-qitem.is-idle .vt-led { background: var(--dim); box-shadow: none; animation: none; }
+  #vt-tier-system .vt-qitem.is-idle em { color: var(--dim); }
+
+  #vt-tier-system .vt-window-foot {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 26px;
+    flex: none;
+    padding: 0 10px;
+    background: var(--p2);
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.04em;
+    color: var(--dim);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  #vt-tier-system .vt-window-foot b { color: var(--ink); font-weight: 400; }
+  #vt-tier-system .vt-foot-right {
+    margin-left: auto;
+    font-family: var(--pixel);
+    font-size: 6.5px;
+    color: var(--a-ink);
+    letter-spacing: 0.06em;
+  }
+
+  /* ---------- style DNA ---------- */
+  #vt-tier-system .vt-dna {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 13px 14px 14px;
+    background: linear-gradient(180deg, #171d20 0%, #101518 100%);
+    border: 1px solid #050708;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.4);
+  }
+  #vt-tier-system .vt-dna::before {
+    content: "";
+    height: 2px;
+    margin: -13px -14px 10px;
+    background: linear-gradient(90deg, var(--a), transparent 72%);
+  }
+  #vt-tier-system .vt-dna-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid var(--page-line);
+  }
+  #vt-tier-system .vt-dna-kicker {
+    font-family: var(--pixel);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+  }
+  #vt-tier-system .vt-dna-index {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    color: var(--page-dim);
+    font-variant-numeric: tabular-nums;
+  }
+  #vt-tier-system .vt-dna-grid {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  #vt-tier-system .vt-material {
+    position: relative;
+    height: 96px;
+    flex: none;
+    margin-top: 10px;
+    padding: 9px 11px;
+    overflow: hidden;
+    background-color: var(--c2);
+    background-image: var(--tex), linear-gradient(180deg, var(--c1), var(--c2) 58%, var(--c3));
+    border: 1px solid var(--line);
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 255, 255, 0.12),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.38);
+  }
+  #vt-tier-system .vt-material::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 26px rgba(0, 0, 0, 0.18);
+  }
+  #vt-tier-system .vt-material-code {
+    position: relative;
+    z-index: 1;
+    font-family: var(--pixel);
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--a-ink);
+    text-shadow: 0 0 12px var(--glow);
+  }
+  #vt-tier-system .vt-material-detail {
+    position: absolute;
+    z-index: 1;
+    top: 12px;
+    right: 12px;
+    width: 62px;
+    height: 62px;
+  }
+  #vt-tier-system .vt-material-spec {
+    position: absolute;
+    z-index: 1;
+    left: 10px;
+    bottom: 6px;
+    font-family: var(--mono);
+    font-size: 7px;
+    letter-spacing: 0.03em;
+    color: var(--dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 20px);
+  }
+  #vt-tier-system .vt-dna-main { min-width: 0; margin-top: 10px; }
+  #vt-tier-system .vt-dna-title {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    min-width: 0;
+  }
+  #vt-tier-system .vt-dna-title b {
+    font-family: var(--pixel);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--a);
+    text-shadow: 0 0 10px var(--glow);
+  }
+  #vt-tier-system .vt-dna-title span {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--page-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #vt-tier-system .vt-dna-sub {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 3px;
+    font-family: var(--mono);
+    font-size: 7.5px;
+    color: var(--page-dim);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  #vt-tier-system .vt-dna-sub span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #vt-tier-system .vt-dna-sub em {
+    flex: none;
+    font-style: normal;
+    color: var(--a);
+  }
+  #vt-tier-system .vt-desc {
+    margin: 8px 0 0;
+    font-size: 11.5px;
+    line-height: 1.7;
+    color: var(--page-dim);
+  }
+  #vt-tier-system .vt-dna-extra { min-width: 0; }
+  #vt-tier-system .vt-swatches {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 5px;
+    margin-top: 9px;
+    max-width: 440px;
+  }
+  #vt-tier-system .vt-swatch { min-width: 0; }
+  #vt-tier-system .vt-swatch i {
+    display: block;
+    height: 20px;
+    border: 1px solid var(--page-line);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+  #vt-tier-system .vt-swatch span {
+    display: block;
+    margin-top: 2px;
+    font-family: var(--mono);
+    font-size: 7px;
+    color: var(--page-dim);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  #vt-tier-system .vt-swatch em {
+    display: block;
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: 6.5px;
+    color: #66716b;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  #vt-tier-system .vt-specs {
+    margin-top: 8px;
+    border-top: 1px solid var(--page-line);
+  }
+  #vt-tier-system .vt-spec-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 9px;
+  }
+  #vt-tier-system .vt-spec-row span {
+    flex: none;
+    width: 26px;
+    color: #6f7b75;
+    font-size: 8px;
+  }
+  #vt-tier-system .vt-spec-row b {
+    font-weight: 400;
+    color: var(--page-ink);
+    font-size: 9.5px;
+    line-height: 1.5;
+  }
+  #vt-tier-system .vt-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  #vt-tier-system .vt-tag {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 7px;
+    background: #0f1416;
+    border: 1px solid var(--page-line);
+    font-size: 8px;
+    color: var(--page-dim);
+    white-space: nowrap;
+  }
+  #vt-tier-system .vt-dna-foot {
+    display: flex;
+    gap: 5px;
+    margin-top: auto;
+    padding-top: 10px;
+  }
+  #vt-tier-system .vt-navbtn {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    height: 30px;
+    padding: 0 8px;
+    background: #13191c;
+    border: 1px solid #070b0d;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.04);
+    color: var(--page-dim);
+    font-family: var(--pixel);
+    font-size: 8px;
+    letter-spacing: 0.04em;
+  }
+  #vt-tier-system .vt-navbtn:last-child { justify-content: flex-end; }
+  #vt-tier-system .vt-navbtn svg { width: 10px; height: 10px; }
+  #vt-tier-system .vt-navbtn:hover:not(:disabled) {
+    color: var(--page-ink);
+    border-color: var(--a);
+  }
+  #vt-tier-system .vt-navbtn:disabled { opacity: 0.35; }
+
+  /* ---------- page footer ---------- */
+  #vt-tier-system .vt-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 11px;
+    border-top: 1px solid var(--page-line);
+  }
+  #vt-tier-system .vt-rules {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 9px;
+    color: var(--page-dim);
+  }
+  #vt-tier-system .vt-rule b {
+    margin-right: 5px;
+    font-family: var(--pixel);
+    font-size: 7.5px;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+  #vt-tier-system .vt-copy {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    letter-spacing: 0.08em;
+    color: #5f6a65;
+    white-space: nowrap;
+  }
+
+  /* ---------- LEDs ---------- */
+  #vt-tier-system .vt-led {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--a);
+    box-shadow: 0 0 7px var(--glow), inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+    flex: none;
+    animation: vt-pulse 2.8s ease-in-out infinite;
+  }
+  @keyframes vt-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+  #vt-tier-system .vt-preview.is-swap .vt-window,
+  #vt-tier-system .vt-dna.is-swap .vt-dna-grid { animation: vt-swap 0.24s ease; }
+  @keyframes vt-swap {
+    from { opacity: 0.35; transform: translateY(2px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* ---------- textures ---------- */
+  #vt-tier-system[data-tex="hammer"] {
+    --tex: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 5px),
+           repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.12) 0 2px, transparent 2px 9px);
+  }
+  #vt-tier-system[data-tex="paint"] {
+    --tex: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 3px),
+           repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 0 1px, transparent 1px 4px);
+  }
+  #vt-tier-system[data-tex="brushed"] {
+    --tex: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 3px),
+           linear-gradient(110deg, rgba(255, 255, 255, 0.05), transparent 42%, rgba(0, 0, 0, 0.06));
+  }
+  #vt-tier-system[data-tex="glass"] {
+    --tex: linear-gradient(115deg, rgba(255, 255, 255, 0.07), transparent 30%, rgba(255, 255, 255, 0.03) 55%, transparent 80%),
+           repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 7px);
+  }
+  #vt-tier-system[data-tex="hex"] {
+    --tex: repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 9px),
+           repeating-linear-gradient(120deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 9px),
+           repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.08) 0 1px, transparent 1px 9px);
+  }
+  #vt-tier-system[data-tex="mirror"] {
+    --tex: linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 35%, rgba(255, 255, 255, 0.07) 55%, transparent 82%),
+           repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 6px);
+  }
+  #vt-tier-system[data-tex="vein"] {
+    --tex: repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 26px),
+           repeating-linear-gradient(65deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 34px);
+  }
+  #vt-tier-system[data-tex="crystal"] {
+    --tex: repeating-linear-gradient(60deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 22px),
+           repeating-linear-gradient(-60deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 16px);
+  }
+  #vt-tier-system[data-tex="star"] {
+    --tex: repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 27px),
+           repeating-linear-gradient(65deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 34px),
+           radial-gradient(circle at 72% 22%, rgba(255, 255, 255, 0.08), transparent 32%);
+  }
+  #vt-tier-system[data-tex="fold"] {
+    --tex: repeating-linear-gradient(155deg, rgba(255, 255, 255, 0.055) 0 1px, transparent 1px 18px),
+           repeating-linear-gradient(25deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 22px);
+  }
+  #vt-tier-system[data-tex="monolith"] {
+    --tex: repeating-linear-gradient(90deg, transparent 0 48%, rgba(0, 0, 0, 0.22) 48% calc(48% + 1px), transparent calc(48% + 1px) 100%),
+           repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0 1px, transparent 1px 5px);
+  }
+  #vt-tier-system[data-tex="weave"] {
+    --tex: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 6px),
+           repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 6px);
+  }
+  #vt-tier-system[data-tex="plasma"] {
+    --tex: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 13px),
+           linear-gradient(115deg, rgba(255, 255, 255, 0.06), transparent 40%);
+  }
+  #vt-tier-system[data-tex="prism"] {
+    --tex: conic-gradient(from 200deg at 50% 50%,
+      rgba(255, 0, 0, 0.09), rgba(255, 200, 0, 0.09), rgba(0, 255, 120, 0.09),
+      rgba(0, 200, 255, 0.09), rgba(160, 0, 255, 0.09), rgba(255, 0, 120, 0.09), rgba(255, 0, 0, 0.09));
+  }
+
+  #vt-tier-system[data-tier="LV"] .vt-sigline {
+    background: linear-gradient(90deg, transparent, var(--a2) 16%, var(--a) 62%, transparent);
+  }
+  #vt-tier-system[data-light="true"] .vt-machine {
+    background-image:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.38), transparent 36%, rgba(255, 232, 176, 0.14) 62%, rgba(255, 255, 255, 0.22)),
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.018) 0 1px, transparent 1px 4px),
+      linear-gradient(180deg, var(--c1), var(--c2) 58%, var(--c3));
+  }
+  #vt-tier-system[data-light="true"] .vt-side,
+  #vt-tier-system[data-light="true"] .vt-rail,
+  #vt-tier-system[data-light="true"] .vt-topbar {
+    background-image:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.34), transparent 38%, rgba(255, 232, 176, 0.12) 64%, rgba(255, 255, 255, 0.2)),
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.016) 0 1px, transparent 1px 4px),
+      linear-gradient(180deg, var(--p1), var(--p2));
+  }
+
+  /* ---------- tier detail sigils ---------- */
+  #vt-tier-system .vt-detail { position: relative; width: 100%; height: 100%; }
+  #vt-tier-system .vt-detail::before,
+  #vt-tier-system .vt-detail::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  #vt-tier-system .vt-detail[data-detail="gauge"]::before {
+    inset: 9%;
+    border: 1px solid var(--a);
+    border-radius: 50%;
+    background: repeating-conic-gradient(from 210deg, var(--a) 0 1.4deg, transparent 1.4deg 26deg);
+    box-shadow: inset 0 0 8px var(--glow);
+    opacity: 0.85;
+  }
+  #vt-tier-system .vt-detail[data-detail="gauge"]::after {
+    left: 50%;
+    bottom: 50%;
+    width: 2px;
+    height: 30%;
+    background: var(--a2);
+    transform-origin: 50% 100%;
+    transform: translateX(-50%) rotate(34deg);
+    box-shadow: 0 0 4px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="coil"]::before {
+    inset: 12%;
+    border-radius: 50%;
+    background: repeating-radial-gradient(circle at 50% 50%, transparent 0 3px, var(--a) 3px 4px);
+    opacity: 0.8;
+  }
+  #vt-tier-system .vt-detail[data-detail="coil"]::after {
+    inset: 37%;
+    border-radius: 50%;
+    background: var(--a2);
+    box-shadow: 0 0 8px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="vent"]::before {
+    inset: 16% 18%;
+    border: 1px solid var(--a);
+    background: repeating-linear-gradient(0deg, var(--a) 0 2px, transparent 2px 5px);
+    opacity: 0.85;
+  }
+  #vt-tier-system .vt-detail[data-detail="vent"]::after {
+    inset: 10% 6%;
+    border-top: 1px solid var(--a2);
+    border-bottom: 1px solid var(--a2);
+    opacity: 0.5;
+  }
+  #vt-tier-system .vt-detail[data-detail="hazard"]::before {
+    inset: 16% 12%;
+    border: 1px solid var(--a2);
+    background: repeating-linear-gradient(45deg, var(--a) 0 4px, transparent 4px 8px);
+    opacity: 0.9;
+  }
+  #vt-tier-system .vt-detail[data-detail="hazard"]::after {
+    inset: 8% 24%;
+    border: 1px solid var(--a);
+    opacity: 0.4;
+  }
+  #vt-tier-system .vt-detail[data-detail="viewport"]::before {
+    inset: 8%;
+    border: 1px solid var(--a);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 45%, var(--a2) 0 6%, transparent 30%),
+      radial-gradient(circle at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.35) 72%);
+    box-shadow: inset 0 0 10px var(--glow), 0 0 8px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="viewport"]::after {
+    inset: 22%;
+    border: 1px solid var(--a);
+    border-radius: 50%;
+    opacity: 0.35;
+  }
+  #vt-tier-system .vt-detail[data-detail="plasma"]::before {
+    left: 42%;
+    top: 6%;
+    width: 16%;
+    height: 88%;
+    border-radius: 5px;
+    background: linear-gradient(180deg, transparent, var(--a) 20%, var(--a2) 50%, var(--a) 80%, transparent);
+    box-shadow: 0 0 10px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="plasma"]::after {
+    left: 12%;
+    right: 12%;
+    top: 50%;
+    height: 1px;
+    background: var(--a);
+    opacity: 0.45;
+    box-shadow: 0 0 6px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="halo"]::before {
+    inset: 12%;
+    border: 1.5px solid var(--a);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--glow), inset 0 0 8px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="halo"]::after {
+    inset: 28%;
+    border: 1px solid var(--a2);
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+  #vt-tier-system .vt-detail[data-detail="core"]::before {
+    inset: 26%;
+    background: var(--a);
+    border: 1px solid var(--a2);
+    transform: rotate(45deg);
+    box-shadow: 0 0 12px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="core"]::after {
+    inset: 10%;
+    border: 1px solid var(--a);
+    border-radius: 50%;
+    opacity: 0.4;
+  }
+  #vt-tier-system .vt-detail[data-detail="crystal"]::before {
+    inset: 8% 26%;
+    background: linear-gradient(160deg, var(--a2), var(--a) 45%, rgba(0, 0, 0, 0.05) 46%);
+    clip-path: polygon(50% 0, 100% 30%, 72% 100%, 28% 100%, 0 30%);
+    filter: drop-shadow(0 0 6px var(--glow));
+  }
+  #vt-tier-system .vt-detail[data-detail="crystal"]::after {
+    left: 50%;
+    top: 22%;
+    width: 1px;
+    height: 56%;
+    background: var(--a2);
+    opacity: 0.75;
+    transform: rotate(10deg);
+  }
+  #vt-tier-system .vt-detail[data-detail="orbit"]::before {
+    inset: 16%;
+    border: 1px solid var(--a);
+    border-radius: 50%;
+    transform: scaleY(0.5);
+    box-shadow: 0 0 8px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="orbit"]::after {
+    top: 33%;
+    right: 10%;
+    width: 7%;
+    height: 7%;
+    border-radius: 50%;
+    background: var(--a2);
+    box-shadow: 0 0 6px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="fold"]::before {
+    inset: 14% 8%;
+    background:
+      linear-gradient(135deg, transparent 0 44%, var(--a) 44% 51%, transparent 51%),
+      linear-gradient(45deg, transparent 0 49%, var(--a2) 49% 54%, transparent 54%);
+    opacity: 0.9;
+  }
+  #vt-tier-system .vt-detail[data-detail="fold"]::after {
+    inset: 10% 20%;
+    border: 1px solid var(--a);
+    opacity: 0.35;
+  }
+  #vt-tier-system .vt-detail[data-detail="seam"]::before {
+    inset: 10% 22%;
+    background: linear-gradient(180deg, var(--c1), var(--c2));
+    border: 1px solid var(--a);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+  }
+  #vt-tier-system .vt-detail[data-detail="seam"]::after {
+    top: 6%;
+    bottom: 6%;
+    left: 50%;
+    width: 2px;
+    background: var(--a);
+    box-shadow: 0 0 8px var(--glow);
+  }
+  #vt-tier-system .vt-detail[data-detail="weave"]::before {
+    inset: 8%;
+    background:
+      repeating-linear-gradient(45deg, var(--a) 0 1px, transparent 1px 6px),
+      repeating-linear-gradient(-45deg, var(--a2) 0 1px, transparent 1px 6px);
+    opacity: 0.8;
+  }
+  #vt-tier-system .vt-detail[data-detail="weave"]::after {
+    inset: 26%;
+    border: 1px solid var(--a);
+    opacity: 0.3;
+  }
+  #vt-tier-system .vt-detail[data-detail="star"]::before {
+    inset: 10%;
+    background: var(--a);
+    clip-path: polygon(50% 0, 60% 38%, 100% 50%, 60% 62%, 50% 100%, 40% 62%, 0 50%, 40% 38%);
+    filter: drop-shadow(0 0 8px var(--glow));
+  }
+  #vt-tier-system .vt-detail[data-detail="star"]::after {
+    inset: 32%;
+    background: var(--a2);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+    opacity: 0.9;
+  }
+  #vt-tier-system .vt-detail[data-detail="prism"]::before {
+    inset: 6%;
+    background: conic-gradient(from 0deg, #ff6b6b, #ffd76a, #6be08a, #5fd9ff, #b58cff, #ff6bd0, #ff6b6b);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+    opacity: 0.95;
+  }
+  #vt-tier-system .vt-detail[data-detail="prism"]::after {
+    inset: 58% 28% 15%;
+    background: rgba(255, 255, 255, 0.85);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    opacity: 0.55;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1120px) {
+    #vt-tier-system .vt-main { grid-template-columns: minmax(0, 1fr); }
+    #vt-tier-system .vt-ladder { flex-wrap: wrap; }
+    #vt-tier-system .vt-era,
+    #vt-tier-system .vt-era[data-count] { flex: 0 0 calc(50% - 6px); max-width: calc(50% - 6px); }
+    #vt-tier-system .vt-dna-grid {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 10px 16px;
+      align-items: start;
+    }
+    #vt-tier-system .vt-material { grid-column: 1; grid-row: 1; margin-top: 9px; }
+    #vt-tier-system .vt-dna-main { grid-column: 2; grid-row: 1; margin-top: 9px; }
+    #vt-tier-system .vt-dna-extra { grid-column: 1 / -1; }
+  }
+  @media (max-width: 900px) {
+    #vt-tier-system .vt-content { grid-template-columns: minmax(0, 1fr); }
+    #vt-tier-system .vt-side { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 12px; align-items: start; }
+    #vt-tier-system .vt-side-head { grid-column: 1 / -1; }
+    #vt-tier-system .vt-lcd { margin-top: 0; }
+    #vt-tier-system .vt-side-rows { margin-top: 0; }
+  }
+  @media (max-width: 760px) {
+    #vt-tier-system .vt-inner { padding: 0 16px 18px; }
+    #vt-tier-system .vt-mast { flex-direction: column; align-items: flex-start; gap: 14px; }
+    #vt-tier-system .vt-mast-right { width: 100%; }
+    #vt-tier-system .vt-mast-plate { flex: 1; }
+    #vt-tier-system .vt-live { margin-left: auto; }
+    #vt-tier-system .vt-era,
+    #vt-tier-system .vt-era[data-count] { flex: 0 0 100%; max-width: 100%; }
+    #vt-tier-system .vt-rail { display: none; }
+    #vt-tier-system .vt-win-sub { display: none; }
+    #vt-tier-system .vt-content { padding: 9px 9px 10px; }
+    #vt-tier-system .vt-queue { flex-wrap: wrap; }
+  }
+  @media (max-width: 620px) {
+    #vt-tier-system .vt-inner { padding: 0 12px 16px; }
+    #vt-tier-system .vt-mast h1 { font-size: 26px; }
+    #vt-tier-system .vt-kicker { font-size: 8.5px; }
+    #vt-tier-system .vt-sub { font-size: 11px; }
+    #vt-tier-system .vt-mast-right { flex-wrap: wrap; }
+    #vt-tier-system .vt-mast-plate { flex: 1 1 100%; }
+    #vt-tier-system .vt-live { margin-left: 0; width: 100%; }
+    #vt-tier-system .vt-ladder-frame { padding: 10px; }
+    #vt-tier-system .vt-ladder-head { flex-wrap: wrap; }
+    #vt-tier-system .vt-ladder { gap: 10px; }
+    #vt-tier-system .vt-era-head { flex-wrap: wrap; }
+    #vt-tier-system .vt-era-range { margin-left: 0; }
+    #vt-tier-system .vt-dna-grid { display: flex; }
+    #vt-tier-system .vt-material { width: 100%; }
+    #vt-tier-system .vt-dna-title b { font-size: 19px; }
+    #vt-tier-system .vt-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+    #vt-tier-system .vt-win-title { font-size: 10px; }
+    #vt-tier-system .vt-win-tier { display: none; }
+    #vt-tier-system .vt-crumb { font-size: 8.5px; }
+    #vt-tier-system .vt-topmeta { gap: 3px; }
+    #vt-tier-system .vt-chip { font-size: 7px; padding: 0 4px; }
+    #vt-tier-system .vt-chip-alt { font-size: 7px; }
+  }
+  @media (max-width: 480px) {
+    #vt-tier-system .vt-mast h1 { font-size: 23px; }
+    #vt-tier-system .vt-ladder-title > span:last-child { display: none; }
+    #vt-tier-system .vt-tier { height: 72px; padding: 6px 5px 5px; }
+    #vt-tier-system .vt-tier-code { font-size: 9px; }
+    #vt-tier-system .vt-tier-v { font-size: 6px; }
+    #vt-tier-system .vt-tier-mat { font-size: 8px; }
+    #vt-tier-system .vt-era-name { font-size: 9.5px; }
+    #vt-tier-system .vt-era-range { display: none; }
+    #vt-tier-system .vt-winbar { gap: 5px; }
+    #vt-tier-system .vt-wbtn { width: 21px; }
+    #vt-tier-system .vt-pagehead { padding: 8px 9px 7px; }
+    #vt-tier-system .vt-h2 { font-size: 18px; }
+    #vt-tier-system .vt-machine { padding: 8px 8px 8px 12px; }
+    #vt-tier-system .vt-detail-box { display: none; }
+    #vt-tier-system .vt-machine-state { display: none; }
+    #vt-tier-system .vt-io { gap: 4px; }
+    #vt-tier-system .vt-arrow { display: none; }
+    #vt-tier-system .vt-item { height: 29px; }
+    #vt-tier-system .vt-item-slot { width: 24px; height: 24px; }
+    #vt-tier-system .vt-item-slot canvas { width: 21px; height: 21px; }
+    #vt-tier-system .vt-machine-foot { flex-wrap: wrap; }
+    #vt-tier-system .vt-actions { width: 100%; }
+    #vt-tier-system .vt-btn { flex: 1; justify-content: center; }
+    #vt-tier-system .vt-side { grid-template-columns: 1fr; }
+    #vt-tier-system .vt-queue { display: none; }
+    #vt-tier-system .vt-swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #vt-tier-system .vt-window-foot { gap: 8px; }
+    #vt-tier-system .vt-window-foot span:nth-child(3) { display: none; }
+  }
+  @media (max-width: 420px) {
+    #vt-tier-system .vt-era-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #vt-tier-system .vt-led,
+    #vt-tier-system .vt-preview.is-swap .vt-window,
+    #vt-tier-system .vt-dna.is-swap .vt-dna-grid { animation: none; }
+  }
+</style>
+
+<div id="vt-tier-system" class="vt-page" data-tier="LV" data-era="0" data-tex="paint" data-detail="coil" data-light="false">
+  <div class="vt-tape" aria-hidden="true"></div>
+
+  <div class="vt-inner">
+    <header class="vt-mast">
+      <div class="vt-mast-left">
+        <div class="vt-kicker">GTNH // TIER SKIN SYSTEM</div>
+        <h1>电压阶段视觉系统</h1>
+        <p class="vt-sub">同一套生产界面，十五种机壳语言。颜色负责识别电压，材质负责讲述阶段。</p>
+      </div>
+      <div class="vt-mast-right">
+        <div class="vt-mast-plate" aria-hidden="true">
+          <div><span>TIERS</span><b>15</b></div>
+          <div><span>RANGE</span><b>ULV → MAX</b></div>
+        </div>
+        <div class="vt-live">
+          <span class="vt-led" aria-hidden="true"></span>
+          <div><span>SELECTED</span><b id="vt-mast-code">LV</b></div>
+          <em id="vt-mast-index">02 / 15</em>
+        </div>
+      </div>
+    </header>
+
+    <section class="vt-ladder-frame" aria-label="电压阶段选择">
+      <div class="vt-ladder-head">
+        <div class="vt-ladder-title">
+          <span class="vt-label">SPECTRUM</span>
+          <span>15 阶机壳样本</span>
+        </div>
+        <div class="vt-ladder-hint"><span class="vt-led" aria-hidden="true"></span>点击切换预览</div>
+      </div>
+      <div class="vt-ladder" id="vt-ladder"></div>
+    </section>
+
+    <div class="vt-main">
+      <section class="vt-preview" aria-label="电压阶段风格预览">
+        <div class="vt-window">
+          <div class="vt-winbar">
+            <span class="vt-g" aria-hidden="true">G</span>
+            <span class="vt-win-title">格雷的长路</span>
+            <span class="vt-win-sub">TIER PREVIEW</span>
+            <span class="vt-win-tier" id="vt-win-tier">LV</span>
+            <div class="vt-wbtns">
+              <button class="vt-wbtn" type="button" aria-label="最小化"><i data-lucide="minus" aria-hidden="true"></i></button>
+              <button class="vt-wbtn" type="button" aria-label="最大化"><i data-lucide="square" aria-hidden="true"></i></button>
+              <button class="vt-wbtn" type="button" aria-label="关闭"><i data-lucide="x" aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+          <div class="vt-window-body">
+            <aside class="vt-rail" aria-label="应用导航">
+              <div class="vt-rail-logo" aria-hidden="true">G</div>
+              <button class="vt-rail-btn" type="button" aria-label="总览"><i data-lucide="layout-grid" aria-hidden="true"></i></button>
+              <button class="vt-rail-btn" type="button" aria-label="资源采集"><i data-lucide="pickaxe" aria-hidden="true"></i></button>
+              <button class="vt-rail-btn is-active" type="button" aria-label="生产工厂"><i data-lucide="cog" aria-hidden="true"></i></button>
+              <button class="vt-rail-btn" type="button" aria-label="物品仓库"><i data-lucide="package" aria-hidden="true"></i></button>
+              <button class="vt-rail-btn" type="button" aria-label="星际远征"><i data-lucide="rocket" aria-hidden="true"></i></button>
+            </aside>
+
+            <div class="vt-app">
+              <div class="vt-topbar">
+                <div class="vt-crumb">
+                  <span class="vt-led" aria-hidden="true"></span>
+                  <span>地球</span><span class="vt-sep">/</span>
+                  <span>主基地</span><span class="vt-sep">/</span>
+                  <strong>生产工厂</strong>
+                </div>
+                <div class="vt-topmeta">
+                  <span class="vt-chip" id="vt-chip-tier">LV</span>
+                  <span class="vt-chip vt-chip-alt" id="vt-chip-v">32 EU/t</span>
+                </div>
+              </div>
+
+              <div class="vt-pagehead">
+                <div class="vt-eyebrow" id="vt-eyebrow">FACTORY OPERATIONS · TIER 02</div>
+                <div class="vt-h2row">
+                  <h2 class="vt-h2">生产工厂</h2>
+                  <span class="vt-stamp" id="vt-stamp">LV / 钢</span>
+                </div>
+                <div class="vt-subline" id="vt-subline">墨绿漆 · 铜母线 · 瓷瓶</div>
+              </div>
+
+              <div class="vt-content">
+                <article class="vt-machine">
+                  <span class="vt-strip" aria-hidden="true"></span>
+                  <div class="vt-machine-head">
+                    <div class="vt-slot"><canvas width="16" height="16" data-icon="furnace" aria-hidden="true"></canvas></div>
+                    <div class="vt-machine-id">
+                      <div class="vt-machine-name">砖炉 <span>#1</span></div>
+                      <div class="vt-machine-sub">
+                        <span class="vt-mini" id="vt-machine-tier">LV</span>
+                        <span class="vt-sep">·</span>
+                        <span id="vt-machine-mat">钢 · 共享基地网络</span>
+                      </div>
+                    </div>
+                    <div class="vt-detail-box" aria-hidden="true"><div class="vt-detail" data-detail="coil"></div></div>
+                    <div class="vt-machine-state"><span class="vt-led" aria-hidden="true"></span><span>RUN</span></div>
+                  </div>
+
+                  <div class="vt-sigline" aria-hidden="true"></div>
+
+                  <div class="vt-recipe">
+                    <span class="vt-recipe-label">运行配方</span>
+                    <span class="vt-recipe-val">冶炼铁 · 8s</span>
+                    <i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </div>
+
+                  <div class="vt-io">
+                    <div class="vt-item">
+                      <span class="vt-item-slot"><canvas width="16" height="16" data-icon="iron-dust" aria-hidden="true"></canvas></span>
+                      <span class="vt-item-name">铁粉</span><span class="vt-item-count">×2</span>
+                    </div>
+                    <div class="vt-item">
+                      <span class="vt-item-slot"><canvas width="16" height="16" data-icon="coal-dust" aria-hidden="true"></canvas></span>
+                      <span class="vt-item-name">煤粉</span><span class="vt-item-count">×1</span>
+                    </div>
+                    <span class="vt-arrow" aria-hidden="true"></span>
+                    <div class="vt-item">
+                      <span class="vt-item-slot"><canvas width="16" height="16" data-icon="iron-ingot" aria-hidden="true"></canvas></span>
+                      <span class="vt-item-name">铁锭</span><span class="vt-item-count">×2</span>
+                    </div>
+                  </div>
+
+                  <div class="vt-progress-row">
+                    <div class="vt-progress" role="img" aria-label="砖炉 #1 加工进度 47%">
+                      <i style="width:47%"></i>
+                    </div>
+                    <span class="vt-pct">47%</span>
+                  </div>
+
+                  <div class="vt-machine-foot">
+                    <div class="vt-run"><span class="vt-led" aria-hidden="true"></span>运行中</div>
+                    <div class="vt-actions">
+                      <button class="vt-btn" type="button"><i data-lucide="pause" aria-hidden="true"></i>暂停</button>
+                      <button class="vt-btn vt-btn-danger" type="button"><i data-lucide="trash-2" aria-hidden="true"></i>拆除</button>
+                    </div>
+                  </div>
+                </article>
+
+                <aside class="vt-side">
+                  <div class="vt-side-head">
+                    <span class="vt-tick" aria-hidden="true"></span>
+                    <span>基地电网</span>
+                    <em>POWER GRID</em>
+                  </div>
+                  <div class="vt-lcd">
+                    <div class="vt-lcd-top"><span>EU / EU·t⁻¹</span><span id="vt-lcd-tier">LV</span></div>
+                    <div class="vt-lcd-main"><b>0</b><span>/ 19.2k EU</span></div>
+                    <div class="vt-cells" aria-hidden="true"></div>
+                    <div class="vt-lcd-foot"><span>STANDBY</span><span>0.0%</span></div>
+                  </div>
+                  <div class="vt-side-rows">
+                    <div><span>机壳</span><b id="vt-side-mat">钢</b></div>
+                    <div><span>电压</span><b id="vt-side-v">32 EU/t</b></div>
+                    <div><span>时代</span><b id="vt-side-era">基础工业</b></div>
+                  </div>
+                </aside>
+
+                <div class="vt-queue">
+                  <div class="vt-q-head"><span>设备队列</span><em>QUEUE</em></div>
+                  <div class="vt-qitems">
+                    <span class="vt-qitem"><span class="vt-led" aria-hidden="true"></span>砖炉 #1 <em>RUN</em></span>
+                    <span class="vt-qitem"><span class="vt-led" aria-hidden="true"></span>工作台 #2 <em>RUN</em></span>
+                    <span class="vt-qitem is-idle"><span class="vt-led" aria-hidden="true"></span>工作台 #3 <em>IDLE</em></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vt-window-foot">
+            <span>外壳 <b id="vt-foot-shell">钢</b></span>
+            <span>特征 <b id="vt-foot-motif">铜母线</b></span>
+            <span>光源 <b id="vt-foot-light">铜绿</b></span>
+            <span class="vt-foot-right" id="vt-foot-tier">TIER 02 / 15</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="vt-dna" aria-label="风格参数">
+        <div class="vt-dna-head">
+          <span class="vt-dna-kicker">STYLE DNA</span>
+          <span class="vt-dna-index" id="vt-dna-index" aria-live="polite">02 / 15</span>
+        </div>
+
+        <div class="vt-dna-grid">
+          <div class="vt-material">
+            <div class="vt-material-code" id="vt-material-code">LV</div>
+            <div class="vt-material-detail" aria-hidden="true"><div class="vt-detail" data-detail="coil"></div></div>
+            <div class="vt-material-spec" id="vt-material-spec">32 EU/t · STEEL</div>
+          </div>
+
+          <div class="vt-dna-main">
+            <div class="vt-dna-title"><b id="vt-code">LV</b><span id="vt-name">铜线电气</span></div>
+            <div class="vt-dna-sub"><span id="vt-full">Low Voltage</span><em id="vt-v">32 EU/t</em></div>
+            <p class="vt-desc" id="vt-desc">墨绿漆钢壳、铜母线和瓷瓶绝缘子。功率不大，但已经有真正的工厂秩序：保险丝、指示灯与黄铜铭牌。</p>
+          </div>
+
+          <div class="vt-dna-extra">
+            <div class="vt-swatches" id="vt-swatches"></div>
+            <div class="vt-specs">
+              <div class="vt-spec-row"><span>外壳</span><b id="vt-spec-mat">钢 / Steel</b></div>
+              <div class="vt-spec-row"><span>纹理</span><b id="vt-spec-tex">墨绿漆 · 铜缝</b></div>
+              <div class="vt-spec-row"><span>光源</span><b id="vt-spec-glow">铜绿指示灯</b></div>
+              <div class="vt-spec-row"><span>进度</span><b id="vt-spec-prog">分段铜绿</b></div>
+            </div>
+            <div class="vt-tags" id="vt-tags"></div>
+          </div>
+        </div>
+
+        <div class="vt-dna-foot">
+          <button class="vt-navbtn" id="vt-prev" type="button" aria-label="上一个电压阶段">
+            <i data-lucide="arrow-left" aria-hidden="true"></i><span id="vt-prev-label">ULV</span>
+          </button>
+          <button class="vt-navbtn" id="vt-next" type="button" aria-label="下一个电压阶段">
+            <span id="vt-next-label">MV</span><i data-lucide="arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="vt-footer">
+      <div class="vt-rules">
+        <span class="vt-rule"><b>01</b>颜色只负责识别电压</span>
+        <span class="vt-rule"><b>02</b>外壳材质随阶段升级</span>
+        <span class="vt-rule"><b>03</b>铆钉减少，光效增加</span>
+      </div>
+      <div class="vt-copy">GTNH 2.9.0 · UI SYSTEM 02</div>
+    </footer>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('vt-tier-system');
+  if (!root) return;
+
+  var ERAS = [
+    { name: '基础工业', range: '8 – 512 EU/t' },
+    { name: '精密高压', range: '2k – 131k EU/t' },
+    { name: '终极星体', range: '524k – 8.4M EU/t' },
+    { name: '超越极限', range: '33M – MAX' }
+  ];
+
+  var TIERS = [
+    {
+      code: 'ULV', idx: 0, era: 0, name: '锻铁时代', full: 'Ultra Low Voltage',
+      v: '8 EU/t', vShort: '8 EU/t', material: '锻铁', materialEn: 'Wrought Iron',
+      a: '#d47a4f', a2: '#f0b48a',
+      c: ['#433a33', '#2f2924', '#1d1916'], p: ['#2b2723', '#191613'],
+      bg: '#0d0b09', lcdBg: '#140d08', tex: 'hammer', detail: 'gauge',
+      tags: ['锻铁', '外露铆钉', '琥珀表'],
+      specTex: '粗锻 · 外露铆钉', specGlow: '琥珀白炽灯', specProg: '机械刻度',
+      desc: '粗锻铁板、外露铆钉和琥珀色机械表。边框厚重，读数靠指针而不是数码管——这是第一代电气的样子。'
+    },
+    {
+      code: 'LV', idx: 1, era: 0, name: '铜线电气', full: 'Low Voltage',
+      v: '32 EU/t', vShort: '32 EU/t', material: '钢', materialEn: 'Steel',
+      a: '#7fae6a', a2: '#b87333',
+      c: ['#33423a', '#24312a', '#151d18'], p: ['#243026', '#121a15'],
+      bg: '#0a0f0b', lcdBg: '#07110a', tex: 'paint', detail: 'coil',
+      tags: ['墨绿漆', '铜母线', '瓷瓶'],
+      specTex: '墨绿漆 · 铜缝', specGlow: '铜绿指示灯', specProg: '分段铜绿',
+      desc: '墨绿漆钢壳、铜母线和瓷瓶绝缘子。功率不大，但已经有真正的工厂秩序：保险丝、指示灯与黄铜铭牌。'
+    },
+    {
+      code: 'MV', idx: 2, era: 0, name: '铝制工厂', full: 'Medium Voltage',
+      v: '128 EU/t', vShort: '128 EU/t', material: '铝', materialEn: 'Aluminium',
+      a: '#d8ae4e', a2: '#e6d7b0',
+      c: ['#4d565a', '#394145', '#252c2f'], p: ['#2b3336', '#171d20'],
+      bg: '#0d0f10', lcdBg: '#101308', tex: 'brushed', detail: 'vent',
+      tags: ['拉丝铝', '百叶', '安全金'],
+      specTex: '拉丝 · 冲压百叶', specGlow: '金色安全灯', specProg: '金色分段',
+      desc: '拉丝铝板、冲压百叶窗和金色安全标牌。机器开始标准化、模块化，像一条可以被复制的产线。'
+    },
+    {
+      code: 'HV', idx: 3, era: 0, name: '陶瓷与警示', full: 'High Voltage',
+      v: '512 EU/t', vShort: '512 EU/t', material: '不锈钢', materialEn: 'Stainless Steel',
+      a: '#e6c93f', a2: '#e8e3d5',
+      c: ['#454f54', '#343d42', '#22292d'], p: ['#2a3236', '#171d20'],
+      bg: '#0e0f0b', lcdBg: '#0d1008', tex: 'brushed', detail: 'hazard',
+      tags: ['厚不锈钢', '陶瓷', '警示带'],
+      specTex: '厚板 · 警示带', specGlow: '黄黑警示灯', specProg: '警示条纹',
+      desc: '厚不锈钢、白色陶瓷绝缘子和黄黑警示带。高压第一次变得危险：粗边框、大标牌、明确的断电区。'
+    },
+    {
+      code: 'EV', idx: 4, era: 1, name: '真空精密', full: 'Extreme Voltage',
+      v: '2,048 EU/t', vShort: '2k EU/t', material: '钛', materialEn: 'Titanium',
+      a: '#b9c6cd', a2: '#b58cff',
+      c: ['#3f4a50', '#2f383d', '#1d252a'], p: ['#242c31', '#12181c'],
+      bg: '#0b0e10', lcdBg: '#081014', tex: 'glass', detail: 'viewport',
+      tags: ['钛', '真空视窗', '冷弧'],
+      specTex: '密封 · 真空视窗', specGlow: '冷白电弧', specProg: '细白光条',
+      desc: '钛壳、圆形真空视窗和一道冷白电弧。铆钉退场，螺栓变细，颜色收敛到只剩光和影。'
+    },
+    {
+      code: 'IV', idx: 5, era: 1, name: '等离子工业', full: 'Insane Voltage',
+      v: '8,192 EU/t', vShort: '8k EU/t', material: '钨钢', materialEn: 'Tungstensteel',
+      a: '#5b9dff', a2: '#6fe6ff',
+      c: ['#353e45', '#252d33', '#141a1f'], p: ['#1f272e', '#0e1419'],
+      bg: '#090d12', lcdBg: '#061018', tex: 'hex', detail: 'plasma',
+      tags: ['钨钢', '等离子管', '六角网'],
+      specTex: '六角网 · 等离子', specGlow: '钴蓝等离子', specProg: '蓝色光段',
+      desc: '钨钢骨架、蓝色等离子导管和六角散热网。机械连杆让位给细长的光路，能量开始成为结构本身。'
+    },
+    {
+      code: 'LuV', idx: 6, era: 1, name: '镜面校准', full: 'Ludicrous Voltage',
+      v: '32,768 EU/t', vShort: '32k EU/t', material: '铑钯', materialEn: 'Rhodium-Plated Palladium',
+      a: '#cf8aff', a2: '#ff9bd8',
+      c: ['#4b4655', '#37323f', '#221e29'], p: ['#272330', '#14111b'],
+      bg: '#0d0a10', lcdBg: '#100a16', tex: 'mirror', detail: 'halo',
+      tags: ['铑钯镜面', '品红光环', '蚀刻'],
+      specTex: '镜面 · 蚀刻', specGlow: '品红光环', specProg: '品红渐变',
+      desc: '镜面铑钯、品红光环和极细的蚀刻字。它不再像一台机器，更像一件被校准过的仪器——冷、贵、精确。'
+    },
+    {
+      code: 'ZPM', idx: 7, era: 1, name: '零点核心', full: 'Zero Point Module',
+      v: '131,072 EU/t', vShort: '131k EU/t', material: '铱', materialEn: 'Iridium',
+      a: '#4fd6c9', a2: '#a5f5ec',
+      c: ['#36403f', '#242d2c', '#121817'], p: ['#1d2524', '#0d1413'],
+      bg: '#080f0e', lcdBg: '#04110f', tex: 'vein', detail: 'core',
+      tags: ['铱', '能量脉', '核心'],
+      specTex: '黑镜 · 能量脉', specGlow: '青色核心', specProg: '青色脉冲',
+      desc: '铱黑外壳、青色能量脉和一枚看不见起点的核心。铆钉完全消失，接缝像晶体自己生长出来的。'
+    },
+    {
+      code: 'UV', idx: 8, era: 2, name: '锇晶折射', full: 'Ultimate Voltage',
+      v: '524,288 EU/t', vShort: '524k EU/t', material: '锇', materialEn: 'Osmium',
+      a: '#5fd98a', a2: '#b0ffd0',
+      c: ['#3e4f53', '#2c3a3d', '#1a2527'], p: ['#223032', '#101a1b'],
+      bg: '#080e0a', lcdBg: '#04120c', tex: 'crystal', detail: 'crystal',
+      tags: ['锇', '晶体窗', '悬浮环'],
+      specTex: '晶体 · 折射', specGlow: '翠绿晶体', specProg: '晶体光条',
+      desc: '锇蓝银、翠绿晶体窗和悬浮环。机壳开始折射环境光，像是从矿石里长出来的设备。'
+    },
+    {
+      code: 'UHV', idx: 9, era: 2, name: '中子星环', full: 'Ultimate High Voltage',
+      v: '2,097,152 EU/t', vShort: '2M EU/t', material: '中子素', materialEn: 'Neutronium',
+      a: '#ff6b6b', a2: '#ffb0a0',
+      c: ['#262b30', '#181d21', '#0c0f12'], p: ['#1b2024', '#0b0f11'],
+      bg: '#0e0909', lcdBg: '#120606', tex: 'star', detail: 'orbit',
+      tags: ['中子素', '赤红星环', '重力'],
+      specTex: '致密 · 星环', specGlow: '赤红事件视界', specProg: '星环轨道',
+      desc: '中子素黑壳、赤红星环和重力甲板。物质被压到极限，界面只剩下最少的线和一个事件视界。'
+    },
+    {
+      code: 'UEV', idx: 10, era: 2, name: '基岩折层', full: 'Ultimate Extreme Voltage',
+      v: '8,388,608 EU/t', vShort: '8M EU/t', material: '基岩', materialEn: 'Bedrockium',
+      a: '#9b6bff', a2: '#d6b0ff',
+      c: ['#2b2520', '#1b1612', '#0d0a08'], p: ['#211c18', '#100d0b'],
+      bg: '#0c090f', lcdBg: '#0c0614', tex: 'fold', detail: 'fold',
+      tags: ['基岩', '紫外折层', '暗面'],
+      specTex: '暗面 · 折层', specGlow: '紫外折光', specProg: '折层光带',
+      desc: '基岩般的暗壳被紫外光折成斜切面。边框不再是矩形，像空间本身被折叠了一角。'
+    },
+    {
+      code: 'UIV', idx: 11, era: 3, name: '黑钚巨石', full: 'Ultimate Insane Voltage',
+      v: '33,554,432 EU/t', vShort: '33M EU/t', material: '黑钚', materialEn: 'Black Plutonium',
+      a: '#6b7cff', a2: '#b0c0ff',
+      c: ['#1f1d27', '#14121b', '#08070c'], p: ['#18161f', '#0a090f'],
+      bg: '#090910', lcdBg: '#060814', tex: 'monolith', detail: 'seam',
+      tags: ['黑钚', '靛蓝接缝', '巨石'],
+      specTex: '巨石 · 接缝', specGlow: '靛蓝接缝', specProg: '靛蓝脉冲',
+      desc: '黑钚巨石般的整块外壳，只有一条靛蓝接缝发光。它看起来不可拆解，也不打算被拆解。'
+    },
+    {
+      code: 'UMV', idx: 12, era: 3, name: '时空编织', full: 'Ultimate Mega Voltage',
+      v: '134,217,728 EU/t', vShort: '134M EU/t', material: '时空', materialEn: 'SpaceTime',
+      a: '#ff5fa2', a2: '#6bffd8',
+      c: ['#25222c', '#17141d', '#0a090e'], p: ['#1d1a23', '#0d0b11'],
+      bg: '#0c080d', lcdBg: '#120510', tex: 'weave', detail: 'weave',
+      tags: ['时空合金', '油膜虹彩', '编织'],
+      specTex: '油膜 · 编织', specGlow: '虹彩边缘', specProg: '虹彩流线',
+      desc: '时空合金的油膜虹彩，品红边缘在缓慢移动。没有螺丝、没有焊缝，只有编织般流动的金属。'
+    },
+    {
+      code: 'UXV', idx: 13, era: 3, name: '星物质', full: 'Ultimate eXtended Mega Voltage',
+      v: '536,870,912 EU/t', vShort: '536M EU/t', material: '星物质', materialEn: 'Star Matter',
+      a: '#ff7a4f', a2: '#4fe8ff',
+      c: ['#131318', '#09090c', '#030304'], p: ['#101014', '#050507'],
+      bg: '#0d090b', lcdBg: '#0d0508', tex: 'plasma', detail: 'star',
+      tags: ['星物质', '霓虹', '负空间'],
+      specTex: '黑壳 · 等离子', specGlow: '珊瑚 / 青双色', specProg: '双色霓虹',
+      desc: '黑壳里关着一小片恒星物质，霓虹珊瑚与青色等离子交替呼吸。界面几乎只剩下光。'
+    },
+    {
+      code: 'MAX', idx: 14, era: 3, name: '创造全谱', full: 'Maximum Voltage',
+      v: '∞ EU/t', vShort: '∞ EU/t', material: '创造', materialEn: 'Creative',
+      a: '#b8862f', a2: '#7a5cff', light: true,
+      c: ['#f7f4ec', '#e7e2d6', '#d3cec0'], p: ['#f4f1e8', '#dcd7ca'],
+      bg: '#e7e3d7', lcdBg: '#171207', tex: 'prism', detail: 'prism',
+      tags: ['创造外壳', '金色包边', '全光谱'],
+      specTex: '白金 · 全光谱', specGlow: '金色包边', specProg: '彩虹全谱',
+      desc: '创造外壳、金色包边和全光谱流光。它不再遵守前十四级的材质规则——所有风格在这里被合成。'
+    }
+  ];
+
+  var ladder = document.getElementById('vt-ladder');
+  var preview = root.querySelector('.vt-preview');
+  var dna = root.querySelector('.vt-dna');
+  var prevBtn = document.getElementById('vt-prev');
+  var nextBtn = document.getElementById('vt-next');
+  var prevLabel = document.getElementById('vt-prev-label');
+  var nextLabel = document.getElementById('vt-next-label');
+  var flashTimer = 0;
+
+  function pad(n) {
+    return n < 10 ? '0' + n : String(n);
+  }
+  function setText(id, text) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+  function hexToRgba(hex, alpha) {
+    var h = hex.replace('#', '');
+    if (h.length === 3) {
+      h = h.charAt(0) + h.charAt(0) + h.charAt(1) + h.charAt(1) + h.charAt(2) + h.charAt(2);
+    }
+    var r = parseInt(h.substring(0, 2), 16);
+    var g = parseInt(h.substring(2, 4), 16);
+    var b = parseInt(h.substring(4, 6), 16);
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+  }
+
+  function buildLadder() {
+    if (!ladder) return;
+    for (var e = 0; e < ERAS.length; e++) {
+      var tiers = TIERS.filter(function (t) { return t.era === e; });
+      var block = document.createElement('div');
+      block.className = 'vt-era';
+      block.setAttribute('data-count', String(tiers.length));
+
+      var head = document.createElement('div');
+      head.className = 'vt-era-head';
+      head.innerHTML = '<span class="vt-era-idx">' + pad(e) + '</span>' +
+        '<span class="vt-era-name">' + ERAS[e].name + '</span>';
+
+      var grid = document.createElement('div');
+      grid.className = 'vt-era-grid';
+      grid.style.gridTemplateColumns = 'repeat(' + tiers.length + ',minmax(0,1fr))';
+
+      for (var i = 0; i < tiers.length; i++) {
+        (function (t) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'vt-tier';
+          btn.setAttribute('data-tier', t.code);
+          btn.setAttribute('aria-pressed', 'false');
+          btn.setAttribute('aria-label', t.code + ' ' + t.name + '，' + t.v);
+          btn.style.setProperty('--ta', t.a);
+          btn.style.setProperty('--ta2', t.a2);
+          btn.style.setProperty('--tc1', t.c[0]);
+          btn.style.setProperty('--tc2', t.c[1]);
+          btn.style.setProperty('--tc3', t.c[2]);
+          btn.innerHTML = '<span class="vt-tier-top"><span class="vt-tier-code">' + t.code + '</span>' +
+            '<span class="vt-tier-v">' + t.vShort + '</span></span>' +
+            '<span class="vt-tier-swatch" aria-hidden="true"></span>' +
+            '<span class="vt-tier-mat">' + t.material + '</span>';
+          grid.appendChild(btn);
+        })(tiers[i]);
+      }
+
+      block.appendChild(head);
+      block.appendChild(grid);
+      ladder.appendChild(block);
+    }
+  }
+
+  function flash() {
+    clearTimeout(flashTimer);
+    [preview, dna].forEach(function (el) {
+      if (!el) return;
+      el.classList.remove('is-swap');
+      void el.offsetWidth;
+      el.classList.add('is-swap');
+    });
+    flashTimer = setTimeout(function () {
+      [preview, dna].forEach(function (el) {
+        if (el) el.classList.remove('is-swap');
+      });
+    }, 300);
+  }
+
+  function applyTier(code, animate) {
+    var t = TIERS.filter(function (x) { return x.code === code; })[0];
+    if (!t) t = TIERS[1];
+    var light = !!t.light;
+
+    root.setAttribute('data-tier', t.code);
+    root.setAttribute('data-era', String(t.era));
+    root.setAttribute('data-tex', t.tex);
+    root.setAttribute('data-detail', t.detail);
+    root.setAttribute('data-light', light ? 'true' : 'false');
+
+    root.style.setProperty('--a', t.a);
+    root.style.setProperty('--a2', t.a2);
+    root.style.setProperty('--a-ink', light ? '#7a5418' : t.a);
+    root.style.setProperty('--glow', hexToRgba(t.a, 0.36));
+    root.style.setProperty('--wash', hexToRgba(t.a, 0.1));
+    root.style.setProperty('--c1', t.c[0]);
+    root.style.setProperty('--c2', t.c[1]);
+    root.style.setProperty('--c3', t.c[2]);
+    root.style.setProperty('--p1', t.p[0]);
+    root.style.setProperty('--p2', t.p[1]);
+    root.style.setProperty('--bg', t.bg);
+    root.style.setProperty('--lcd-bg', t.lcdBg);
+    root.style.setProperty('--lcd-tx', t.a);
+    root.style.setProperty('--ink', light ? '#26231d' : '#dde5e0');
+    root.style.setProperty('--dim', light ? '#6b665a' : '#aab5ae');
+    root.style.setProperty('--line', light ? 'rgba(0,0,0,0.16)' : 'rgba(255,255,255,0.09)');
+    root.style.setProperty('--inset', light ? '#cdc7b8' : '#070a0b');
+
+    var detailEls = root.querySelectorAll('.vt-detail');
+    for (var d = 0; d < detailEls.length; d++) {
+      detailEls[d].setAttribute('data-detail', t.detail);
+    }
+
+    var tiles = ladder.querySelectorAll('.vt-tier');
+    for (var i = 0; i < tiles.length; i++) {
+      var on = tiles[i].getAttribute('data-tier') === t.code;
+      tiles[i].classList.toggle('is-active', on);
+      tiles[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+
+    var indexText = pad(t.idx + 1) + ' / ' + TIERS.length;
+    setText('vt-mast-code', t.code);
+    setText('vt-mast-index', indexText);
+    setText('vt-win-tier', t.code);
+    setText('vt-chip-tier', t.code);
+    setText('vt-chip-v', t.v);
+    setText('vt-eyebrow', 'FACTORY OPERATIONS · TIER ' + pad(t.idx + 1));
+    setText('vt-stamp', t.code + ' / ' + t.material);
+    setText('vt-subline', t.tags.join(' · '));
+    setText('vt-machine-tier', t.code);
+    setText('vt-machine-mat', t.material + ' · 共享基地网络');
+    setText('vt-lcd-tier', t.code);
+    setText('vt-side-mat', t.material);
+    setText('vt-side-v', t.v);
+    setText('vt-side-era', ERAS[t.era].name);
+    setText('vt-foot-shell', t.tags[0]);
+    setText('vt-foot-motif', t.tags[1]);
+    setText('vt-foot-light', t.tags[2]);
+    setText('vt-foot-tier', 'TIER ' + pad(t.idx + 1) + ' / ' + TIERS.length);
+    setText('vt-dna-index', indexText);
+    setText('vt-material-code', t.code);
+    setText('vt-material-spec', t.v + ' · ' + t.materialEn.toUpperCase());
+    setText('vt-code', t.code);
+    setText('vt-name', t.name);
+    setText('vt-full', t.full);
+    setText('vt-v', t.v);
+    setText('vt-desc', t.desc);
+    setText('vt-spec-mat', t.material + ' / ' + t.materialEn);
+    setText('vt-spec-tex', t.specTex);
+    setText('vt-spec-glow', t.specGlow);
+    setText('vt-spec-prog', t.specProg);
+
+    var swatchData = [
+      ['ACCENT', t.a],
+      ['SECOND', t.a2],
+      ['CASE', t.c[0]],
+      ['PANEL', t.p[0]]
+    ];
+    var swatches = document.getElementById('vt-swatches');
+    if (swatches) {
+      swatches.innerHTML = swatchData.map(function (s) {
+        return '<div class="vt-swatch"><i style="background:' + s[1] + '"></i>' +
+          '<span>' + s[0] + '</span><em>' + s[1].toUpperCase() + '</em></div>';
+      }).join('');
+    }
+
+    var tagsEl = document.getElementById('vt-tags');
+    if (tagsEl) {
+      tagsEl.innerHTML = t.tags.map(function (tag) {
+        return '<span class="vt-tag">' + tag + '</span>';
+      }).join('');
+    }
+
+    var prev = TIERS[t.idx - 1];
+    var next = TIERS[t.idx + 1];
+    if (prevBtn) {
+      prevBtn.disabled = !prev;
+      prevBtn.setAttribute('aria-label', prev ? '上一个阶段：' + prev.code : '已经是第一个阶段');
+    }
+    if (nextBtn) {
+      nextBtn.disabled = !next;
+      nextBtn.setAttribute('aria-label', next ? '下一个阶段：' + next.code : '已经是最后一个阶段');
+    }
+    if (prevLabel) prevLabel.textContent = prev ? prev.code : '—';
+    if (nextLabel) nextLabel.textContent = next ? next.code : '—';
+
+    if (animate) flash();
+  }
+
+  /* ---------- 16x16 pixel item / machine icons ---------- */
+  function makeRng(seed) {
+    var s = seed >>> 0;
+    return function () {
+      s = (s * 1664525 + 1013904223) >>> 0;
+      return s / 4294967296;
+    };
+  }
+  function px(ctx, x, y, w, h, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w, h);
+  }
+  function iconDust(ctx, p) {
+    var rows = [
+      [7, 7, 8], [8, 5, 10], [9, 4, 11], [10, 3, 12],
+      [11, 3, 12], [12, 2, 13], [13, 2, 13], [14, 2, 13], [15, 2, 13]
+    ];
+    var inner = [
+      [8, 7, 8], [9, 6, 9], [10, 5, 10], [11, 4, 11],
+      [12, 4, 11], [13, 3, 12], [14, 3, 12], [15, 3, 12]
+    ];
+    for (var i = 0; i < rows.length; i++) {
+      px(ctx, rows[i][1], rows[i][0], rows[i][2] - rows[i][1] + 1, 1, p.edge);
+    }
+    for (var j = 0; j < inner.length; j++) {
+      px(ctx, inner[j][1], inner[j][0], inner[j][2] - inner[j][1] + 1, 1, p.mid);
+    }
+    px(ctx, 3, 15, 10, 1, p.dark);
+    px(ctx, 7, 8, 2, 1, p.light);
+    px(ctx, 6, 9, 2, 1, p.light);
+    px(ctx, 5, 10, 2, 1, p.light);
+    px(ctx, 8, 12, 3, 1, p.dark);
+    px(ctx, 7, 13, 3, 1, p.dark);
+    px(ctx, 6, 14, 4, 1, p.dark);
+    px(ctx, 11, 14, 2, 1, p.edge);
+    px(ctx, 6, 6, 1, 1, p.mid);
+    px(ctx, 10, 4, 1, 1, p.light);
+    px(ctx, 13, 8, 1, 1, p.mid);
+    px(ctx, 3, 12, 1, 1, p.mid);
+  }
+  function iconIronDust(ctx) {
+    iconDust(ctx, { edge: '#4b524f', mid: '#b3bab9', light: '#e6ecea', dark: '#7f8886' });
+  }
+  function iconCoalDust(ctx) {
+    iconDust(ctx, { edge: '#0f1314', mid: '#4e5658', light: '#858e91', dark: '#303739' });
+  }
+  function iconIronIngot(ctx) {
+    var rows = [
+      [4, 5, 10], [5, 4, 11], [6, 4, 11], [7, 3, 12], [8, 3, 12],
+      [9, 2, 13], [10, 2, 13], [11, 2, 13], [12, 2, 13], [13, 2, 13], [14, 2, 13]
+    ];
+    var i;
+    for (i = 0; i < rows.length; i++) {
+      px(ctx, rows[i][1], rows[i][0], rows[i][2] - rows[i][1] + 1, 1, '#2f3639');
+    }
+    for (i = 0; i < rows.length; i++) {
+      px(ctx, rows[i][1] + 1, rows[i][0], rows[i][2] - rows[i][1] - 1, 1, '#9da8ac');
+    }
+    px(ctx, 6, 4, 4, 1, '#e4ecee');
+    px(ctx, 5, 5, 6, 1, '#d3dcdf');
+    px(ctx, 5, 6, 6, 1, '#c2cccf');
+    px(ctx, 4, 7, 8, 1, '#7b868a');
+    for (var y = 8; y <= 13; y++) {
+      px(ctx, 3, y, 1, 1, '#d5dfe2');
+      px(ctx, 12, y, 1, 1, '#788387');
+    }
+    px(ctx, 3, 14, 10, 1, '#4c5559');
+    px(ctx, 6, 9, 2, 1, '#eef4f6');
+    px(ctx, 9, 8, 1, 1, '#f2f7f8');
+  }
+  function iconFurnace(ctx) {
+    var rnd = makeRng(23);
+    for (var y = 0; y < 16; y++) {
+      var row = Math.floor(y / 3);
+      var offset = row % 2 ? 2 : 0;
+      for (var x = 0; x < 16; x++) {
+        var mortar = (y % 3 === 2) || ((x + offset) % 6 === 0);
+        var c = mortar ? '#33201a' : (rnd() > 0.5 ? '#7c3f30' : '#8a493a');
+        px(ctx, x, y, 1, 1, c);
+      }
+    }
+    px(ctx, 0, 0, 16, 1, '#1b1f21');
+    px(ctx, 0, 1, 16, 3, '#4a5458');
+    px(ctx, 0, 1, 16, 1, '#7d888c');
+    px(ctx, 0, 4, 16, 1, '#262d30');
+    px(ctx, 3, 2, 1, 1, '#c3cccf');
+    px(ctx, 12, 2, 1, 1, '#c3cccf');
+    px(ctx, 4, 6, 8, 2, '#2a1a12');
+    px(ctx, 4, 8, 8, 7, '#140d0a');
+    px(ctx, 5, 7, 6, 1, '#3a2218');
+    px(ctx, 5, 12, 6, 2, '#b3541d');
+    px(ctx, 6, 11, 4, 2, '#e0802f');
+    px(ctx, 7, 10, 2, 2, '#f2b348');
+    px(ctx, 8, 13, 2, 1, '#ffd36b');
+    px(ctx, 0, 0, 1, 16, '#2a1a15');
+    px(ctx, 15, 0, 1, 16, '#2a1a15');
+  }
+
+  var painters = {
+    'iron-dust': iconIronDust,
+    'coal-dust': iconCoalDust,
+    'iron-ingot': iconIronIngot,
+    'furnace': iconFurnace
+  };
+  var canvases = root.querySelectorAll('canvas[data-icon]');
+  for (var ci = 0; ci < canvases.length; ci++) {
+    var cv = canvases[ci];
+    var painter = painters[cv.getAttribute('data-icon')];
+    if (!painter) continue;
+    var ctx = cv.getContext('2d');
+    if (!ctx) continue;
+    ctx.imageSmoothingEnabled = false;
+    ctx.clearRect(0, 0, 16, 16);
+    painter(ctx);
+  }
+
+  buildLadder();
+
+  if (ladder) {
+    ladder.addEventListener('click', function (event) {
+      var btn = event.target.closest('.vt-tier');
+      if (!btn) return;
+      applyTier(btn.getAttribute('data-tier'), true);
+    });
+  }
+
+  function step(direction) {
+    var current = root.getAttribute('data-tier');
+    var idx = -1;
+    for (var i = 0; i < TIERS.length; i++) {
+      if (TIERS[i].code === current) { idx = i; break; }
+    }
+    var next = TIERS[idx + direction];
+    if (next) applyTier(next.code, true);
+  }
+  if (prevBtn) prevBtn.addEventListener('click', function () { step(-1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { step(1); });
+
+  var initial = 'LV';
+  var hash = '';
+  try {
+    hash = decodeURIComponent((window.location.hash || '').replace('#', '')).toUpperCase();
+  } catch (err) {
+    hash = '';
+  }
+  if (hash) {
+    for (var hi = 0; hi < TIERS.length; hi++) {
+      if (TIERS[hi].code.toUpperCase() === hash) {
+        initial = TIERS[hi].code;
+        break;
+      }
+    }
+  }
+  applyTier(initial, false);
+})();
+</script>

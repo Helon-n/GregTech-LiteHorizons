@@ -1,7 +1,9 @@
 # GTNH 图标资源
 
 从用户本地 GTNH 2.9.0 实例只读提取，运行应用无需安装 Minecraft。
-`sources.json` 记录每个图标的源模组、资源包路径和材质染色；优先采用实例已启用的资源包。
+`sources.json` 记录每个图标的原始 jar、贴图路径和材质染色。只读取 Minecraft 与模组自带资源，**不读取 options.txt 或 resourcepacks，不应用额外材质包覆盖**。
+
+界面的物品、机器、导航及整合包标志均使用 SVG。原图是像素素材，导入时将同色像素段逐行转成矢量路径，保留像素轮廓及透明度；SVG 内没有 image、base64 或外链位图。放大后保持像素风，不凭空添加原图不存在的细节。199 个图标条目中 spacetime／spaceTime 共用同一个材质；Windows 不区分大小写，因此实际有 198 个 SVG 文件。程序窗口及 EXE 图标使用 Windows 要求的 ICO 格式。
 
 - 材料：读取已安装 GregTech 的材质集合和 RGB 颜色，叠加原始材质和覆盖层；矿石使用石质底层。
 - 电路与元件：读取 GregTech 元物品枚举 ID，使用对应图标。
