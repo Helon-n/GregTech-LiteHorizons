@@ -1,6 +1,6 @@
 {
   "name": "gregtech-litehorizons",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "type": "module",
   "description": "GTNH-inspired offline idle factory game for Windows",

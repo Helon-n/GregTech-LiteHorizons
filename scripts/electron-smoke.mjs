@@ -54,8 +54,8 @@ try{
   });
   await win.addInitScript(value=>localStorage.setItem('gtnh-long-road-v2',value),factoryFixture);
   await win.reload();await win.locator('.nav [data-page="factory"]').click();
-  await expect(win.locator('[data-factory-select] option')).toHaveCount(3);
-  await pickOption(win,'[data-factory-select]','furnace');
+  await expect(win.locator('[data-factory-type]')).toHaveCount(3);
+  await win.locator('[data-factory-type="furnace"]').click();
   await expect(win.locator('[data-machine-group]')).toHaveCount(2);await expect(win.locator('[data-device]')).toHaveCount(2);
   await expect(win.locator('[data-assign]').first()).toBeDisabled();
   await win.locator('[data-force-stop]').first().click();await expect(win.locator('[data-assign]').first()).toBeEnabled();

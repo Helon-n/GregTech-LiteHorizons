@@ -10,6 +10,7 @@ const COMMON={highlight:'#ffffff',shadow:'#000000',
   'spectrum-wash':'conic-gradient(from 200deg, rgba(255,0,0,.09), rgba(255,200,0,.09), rgba(0,255,120,.09), rgba(0,200,255,.09), rgba(160,0,255,.09), rgba(255,0,120,.09), rgba(255,0,0,.09))'
 };
 const KEY='glh-voltage-appearance';
+const appliedTiers=new WeakMap();
 export function tierFor(code){return VOLTAGE_TIERS.find(t=>t.code.toUpperCase()===String(code).toUpperCase())||VOLTAGE_TIERS[0];}
 export function tierTokens(code){
   const t=tierFor(code),n=NEUTRALS[t.light?'light':'dark'];
@@ -20,9 +21,11 @@ export function tierTokens(code){
 }
 export function applyTier(element,code){
   const tier=tierFor(code);
+  if(appliedTiers.get(element)===tier.code)return tier;
   element.classList.add('tier-skin');
   Object.assign(element.dataset,{tier:tier.code,era:String(tier.era),tex:tier.texture,detail:tier.detail,light:String(tier.light)});
   for(const [key,value] of Object.entries(tierTokens(tier.code)))element.style.setProperty('--'+key,value);
+  appliedTiers.set(element,tier.code);
   return tier;
 }
 export function readAppearance(storage){

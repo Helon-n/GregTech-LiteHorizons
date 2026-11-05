@@ -9,7 +9,18 @@ try{
   page.on('pageerror',e=>errors.push('page: '+e.message));
   const go=async name=>{await page.locator(`[data-page="${name==='fluids'?'inventory':name}"]`).first().click();if(name==='fluids'||name==='inventory')await page.locator(`[data-inventory-tab="${name==='fluids'?'containers':'items'}"]`).click();};
   const clickNode=async(id,count)=>{await revealResource(page,id);for(let i=0;i<count;i++)await page.locator(`[data-gather="${id}"]`).click();};
-  const stock=async(id,amount,node)=>{await revealResource(page,node);for(let i=0;i<100;i++){if(Number((await page.locator(`[data-qty="${id}"]`).innerText()).replaceAll(',',''))>=amount)return;await clickNode(node,4);}throw Error('Insufficient gathered material: '+id);};
+  const stock=async(id,amount,node)=>{
+    for(let i=0;i<100;i++){
+      // Resource cards show the main output only; check byproducts in storage.
+      await go('inventory');
+      const quantity=page.locator(`[data-inventory-item="${id}"] [data-qty]`);
+      const have=await quantity.count()?Number((await quantity.innerText()).replaceAll(',','')):0;
+      await go('resources');
+      if(have>=amount)return;
+      await clickNode(node,4);
+    }
+    throw Error('Insufficient gathered material: '+id);
+  };
   await page.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
   await page.screenshot({path:'artifacts/ui-overview.png',fullPage:true});
   for(const name of ['resources','workshop','factory','inventory','fluids','research','space','settings']){
