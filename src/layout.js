@@ -10,7 +10,7 @@ export const LAYOUT=Object.freeze({
     inventory:{width:260,rowHeight:82,gap:10},
     research:{width:370,rowHeight:160,gap:12},
     book:{width:112,rowHeight:128,gap:6},
-    containers:{width:520,rowHeight:126,gap:12},
+    containers:{width:520,rowHeight:156,gap:12},
     categories:{width:170,rowHeight:44,gap:8},
     choice:{width:205,rowHeight:140,gap:10},
     recipeChoice:{width:205,rowHeight:220,gap:10}

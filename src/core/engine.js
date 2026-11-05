@@ -1,7 +1,9 @@
 import { CATALOG } from '../data/catalog.js';
 import {isFluid,containerCapacity,acceptsFluid,drainFluid,planFluids} from './fluids.js';
+import {findGroup,endpointId,endpointMembers,devicePeers,includesEndpoint,fluidEntries,deviceEntries,bindFluid,takeFluid,putFluid,saveGroup,dissolveGroup,validateGroups} from './groups.js';
 import {ENERGY_REFERENCE as ENERGY} from '../data/energy-reference.js';
 import {energySpec,energyCapacity,initializeEnergy,runtime,sourceOptions,setSupply,tickMachines,batteryItem} from './energy.js';
+import {migrateMaterialRecipes} from './material-migration.js';
 
 export const SCHEMA=4;
 export const OFFLINE_LIMIT=12*3600;
@@ -11,7 +13,7 @@ export class Game {
   constructor(saved=null,catalog=CATALOG){
     this.catalog=catalog;
     this.recipeById=new Map(catalog.recipes.map(r=>[r.id,r]));
-    this.state={schema:SCHEMA,stage:0,inventory:{},earned:{},devices:[],containers:[],collectors:{},manual:null,gatherProgress:{},lootSeed:Math.floor(Math.random()*4294967296),queue:[],energy:0,produced:0,playtime:0,lastSeen:Date.now(),nextId:1,completed:false,speed:1,log:[]};
+    this.state={schema:SCHEMA,materialRulesVersion:catalog.materialRulesVersion??0,stage:0,inventory:{},earned:{},devices:[],containers:[],groups:[],collectors:{},manual:null,gatherProgress:{},lootSeed:Math.floor(Math.random()*4294967296),queue:[],energy:0,produced:0,playtime:0,lastSeen:Date.now(),nextId:1,completed:false,speed:1,log:[]};
     if(saved)this.restore(saved);
   }
   quantity(id){return isFluid(this.catalog,id)?this.state.containers.reduce((n,c)=>n+(c.fluid===id?c.amount:0),0):this.state.inventory[id]||0;}
@@ -20,16 +22,65 @@ export class Game {
   deviceRuntime(d,r=this.recipeById.get(d.recipe)){return runtime(this,d,r);}
   supplyOptions(d,mode=d.supply.mode){return sourceOptions(this,d,mode);}
   setSupply(id,mode,source){return setSupply(this,id,mode,source);}
+  groupFor(id){return findGroup(this,id);}
+  members(id){return endpointMembers(this,id);}
+  containerEntries(){return fluidEntries(this);}
+  deviceEntries(){return deviceEntries(this);}
+  saveGroup(kind,name,members,id=null){return saveGroup(this,kind,name,members,id);}
+  dissolveGroup(id){return dissolveGroup(this,id);}
+  reserveFluid(id,fluid){return bindFluid(this,id,fluid);}
+  takeFluid(id,fluid,amount){return takeFluid(this,id,fluid,amount);}
+  putFluid(id,fluid,amount){return putFluid(this,id,fluid,amount);}
+
+  renameDevice(id,alias){
+    const d=this.state.devices.find(d=>d.id===id);
+    if(!d)return {ok:false,message:'设备不存在'};
+    if(typeof alias!=='string'||alias.trim().length>24||/[\u0000-\u001f\u007f]/.test(alias))return {ok:false,message:'别名最多 24 个字，不能包含换行'};
+    d.alias=alias.trim();return {ok:true};
+  }
+  setEnergyOutput(id,target){
+    target=target?endpointId(this,target):null;
+    const peers=devicePeers(this,id),d=peers[0],kind=d&&energySpec(this,d)?.kind;
+    if(kind==='boiler')return this.setSteamOutput(id,target);
+    if(!['generator','dyson'].includes(kind))return {ok:false,message:'此设备没有电力输出'};
+    const source=endpointId(this,id),boxes=target?endpointMembers(this,target):[];
+    if(target&&(!boxes.length||boxes.some(b=>energySpec(this,b)?.kind!=='battery'||ENERGY.voltage[d.energyTier]>ENERGY.voltage[b.energyTier])))return {ok:false,message:'请选择兼容电压的电池箱或电池组'};
+    for(const b of this.state.devices.filter(b=>energySpec(this,b)?.kind==='battery')){
+      if(peers.some(p=>includesEndpoint(this,b.supply.source,p.id)))b.supply.source=null;
+    }
+    if(target)for(const p of this.state.devices)if(!peers.includes(p)&&boxes.some(b=>includesEndpoint(this,p.output,b.id)))p.output=null;
+    for(const p of peers)p.output=target||null;
+    for(const b of boxes)b.supply={mode:'direct',source};
+    return {ok:true};
+  }
+  setFluidOutput(id,fluid,target){
+    target=target?endpointId(this,target):null;
+    const peers=devicePeers(this,id);
+    if(!peers.length||!this.fluidOutputTypes(id).includes(fluid))return {ok:false,message:'此设备没有已解锁的这种流体产物'};
+    if(target&&!bindFluid(this,target,fluid))return {ok:false,message:'请选择兼容的输出储罐或储罐组'};
+    for(const d of peers){if(target)d.fluidOutputs[fluid]=target;else delete d.fluidOutputs[fluid];}
+    return {ok:true};
+  }
+  fluidOutputTypes(id){
+    const d=devicePeers(this,id)[0],m=d&&this.catalog.machines[d.type];
+    if(!m||energySpec(this,d)?.kind==='boiler')return [];
+    const current=this.recipeById.get(d.recipe),fluids=new Set(Object.keys(current?.outputs||{}).filter(id=>isFluid(this.catalog,id)));
+    for(const r of this.catalog.recipes)if(r.stage<=this.state.stage&&m.processes.includes(r.process)){
+      for(const fluid of Object.keys(r.outputs))if(isFluid(this.catalog,fluid))fluids.add(fluid);
+    }
+    return [...fluids];
+  }
   setSteamOutput(id,target){
-    const d=this.state.devices.find(d=>d.id===id),c=this.state.containers.find(c=>c.id===target);
-    if(!d||energySpec(this,d)?.kind!=='boiler'||(target&&(!c||!this.acceptsFluid(c,'steam')||(c.fluid&&c.fluid!=='steam'))))return {ok:false,message:'请选择可接收蒸汽的储罐'};
-    d.output=target||null;return {ok:true};
+    target=target?endpointId(this,target):null;
+    const peers=devicePeers(this,id);
+    if(!peers.length||peers.some(d=>energySpec(this,d)?.kind!=='boiler')||(target&&!bindFluid(this,target,'steam')))return {ok:false,message:'请选择可接收蒸汽的储罐或储罐组'};
+    for(const d of peers)d.output=target||null;return {ok:true};
   }
   loadCoal(id,count=1){
-    const d=this.state.devices.find(d=>d.id===id);
-    if(!d||energySpec(this,d)?.kind!=='boiler'||![1,16].includes(count)||d.coal+count>64)return {ok:false,message:'锅炉燃料槽最多放 64 块煤'};
-    if(!this.pay({coal:count}))return {ok:false,message:'煤炭不足'};
-    d.coal+=count;return {ok:true};
+    const peers=devicePeers(this,id);
+    if(!peers.length||![1,16].includes(count)||peers.some(d=>energySpec(this,d)?.kind!=='boiler'||d.coal+count>64))return {ok:false,message:'每台锅炉燃料槽最多放 64 块煤'};
+    if(!this.pay({coal:count*peers.length}))return {ok:false,message:'煤炭不足'};
+    for(const d of peers)d.coal+=count;return {ok:true};
   }
   changeBattery(id,insert){
     const d=this.state.devices.find(d=>d.id===id);if(!d||energySpec(this,d)?.kind!=='battery')return {ok:false,message:'电池箱不存在'};
@@ -62,6 +113,7 @@ export class Game {
   }
   upgradeEnergy(id){
     const d=this.state.devices.find(d=>d.id===id),spec=d&&energySpec(this,d);
+    if(findGroup(this,id))return {ok:false,message:'请先将设备移出组，再单独升级电压'};
     if(!spec?.maxTier||d.energyTier>=spec.maxTier)return {ok:false,message:'已达到该机型最高电压'};
     const next=d.energyTier+1;
     if(next+1>this.state.stage)return {ok:false,message:'尚未解锁下一级电压'};
@@ -75,46 +127,49 @@ export class Game {
     const tier=d.energyTier+1;return {[metals[tier]+'Plate']:8,[tier<=3?'basicCircuit':tier<=6?'advancedCircuit':tier<=9?'quantumCircuit':'exoticCircuit']:2,motor:2};
   }
   installModule(id){const d=this.state.devices.find(d=>d.id===id);if(!d||energySpec(this,d)?.kind!=='dyson'||d.modules>=ENERGY.dyson.maxModules)return {ok:false,message:'无法装入更多戴森模块'};if(!this.pay({dyson:1}))return {ok:false,message:'需要戴森模块'};d.modules++;return {ok:true};}
-  add(stacks,track=true){
+  add(stacks,track=true,targets={}){
     for(const[id,n]of Object.entries(stacks))if(!Object.hasOwn(this.catalog.items,id)||!finite(n))throw Error('物品数量无效');
-    const plan=planFluids(this.catalog,this.state.containers,stacks);if(!plan)return false;
+    const plan=planFluids(this.catalog,this.state.containers,stacks,{},targets,this.state.groups);if(!plan)return false;
     this.state.containers=plan;
     for(const[id,n]of Object.entries(stacks)){if(!isFluid(this.catalog,id))this.state.inventory[id]=this.quantity(id)+n;if(track)this.state.earned[id]=(this.state.earned[id]||0)+n;}
     return true;
   }
   canPay(stacks){return Object.entries(stacks).every(([id,n])=>this.quantity(id)+1e-9>=n);}
   pay(stacks){if(!this.canPay(stacks))return false;for(const[id,n]of Object.entries(stacks)){if(isFluid(this.catalog,id))drainFluid(this.state.containers,id,n);else this.state.inventory[id]=Math.max(0,this.quantity(id)-n);}return true;}
-  containerCapacity(c){return containerCapacity(this.catalog,c);}
-  acceptsFluid(c,id){return acceptsFluid(this.catalog,c,id);}
-  fluidRoom(id){return this.state.containers.reduce((n,c)=>n+((!c.fluid||c.fluid===id)&&this.acceptsFluid(c,id)?Math.max(0,this.containerCapacity(c)-c.amount):0),0);}
-  canStore(stacks,inputs={}){return !!planFluids(this.catalog,this.state.containers,stacks,inputs);}
-  placeContainer(type){
+  containerCapacity(c){return c.group?c.capacity:containerCapacity(this.catalog,c);}
+  acceptsFluid(c,id){return c.group?endpointMembers(this,c.id).every(c=>acceptsFluid(this.catalog,c,id)):acceptsFluid(this.catalog,c,id);}
+  fluidRoom(id){return fluidEntries(this).reduce((n,c)=>n+((!c.fluid||c.fluid===id)&&this.acceptsFluid(c,id)?Math.max(0,this.containerCapacity(c)-c.amount):0),0);}
+  canStore(stacks,inputs={},targets={}){return !!planFluids(this.catalog,this.state.containers,stacks,inputs,targets,this.state.groups);}
+  placeContainer(type,count=1){
     const spec=this.catalog.containerTypes[type];
     if(!Object.hasOwn(this.catalog.containerTypes,type)||!spec||spec.migrationOnly||spec.stage>this.state.stage)return {ok:false,message:'容器尚未解锁'};
-    if(this.state.containers.length>=10000)return {ok:false,message:'容器数量已达上限'};
-    if(!this.pay({[type]:1}))return {ok:false,message:'先在工作台合成空桶或储罐'};
-    const container={id:'c'+this.state.nextId++,type,fluid:null,amount:0};this.state.containers.push(container);return {ok:true,container};
+    if(!Number.isInteger(count)||count<1||count>10000)return {ok:false,message:'放置数量必须为 1–10000 的整数'};
+    if(this.state.containers.length+count>10000)return {ok:false,message:'放置后容器总数不能超过 10000'};
+    if(!this.pay({[type]:count}))return {ok:false,message:'空容器不足，请先在工作台合成'};
+    const containers=Array.from({length:count},()=>({id:'c'+this.state.nextId++,type,fluid:null,amount:0}));
+    this.state.containers.push(...containers);return {ok:true,container:containers[0],containers,count};
   }
   reserveContainer(id,fluid){
-    const c=this.state.containers.find(c=>c.id===id);
-    if(!c||c.amount>0)return {ok:false,message:'只能更改空容器的流体类型'};
-    if(fluid&&!this.acceptsFluid(c,fluid))return {ok:false,message:'此容器不能储存这种流体'};
-    c.fluid=fluid||null;return {ok:true};
+    const members=endpointMembers(this,endpointId(this,id));
+    if(!members.length||members.some(c=>!this.catalog.containerTypes[c.type]||c.amount>0))return {ok:false,message:'只能更改空容器或全空容器组的流体类型'};
+    if(fluid&&members.some(c=>!this.acceptsFluid(c,fluid)))return {ok:false,message:'组内存在不能储存这种流体的容器'};
+    for(const c of members)c.fluid=fluid||null;return {ok:true};
   }
   removeContainer(id){
+    if(findGroup(this,id))return {ok:false,message:'请先将容器移出组或解散分组，再收起空容器'};
     const c=this.state.containers.find(c=>c.id===id);if(!c)return {ok:false,message:'容器不存在'};
     if(c.amount>0)return {ok:false,message:'请先使用或转移容器内的流体'};
     if(c.type!=='legacyTank')this.add({[c.type]:1},false);
     this.state.containers=this.state.containers.filter(x=>x.id!==id);
-    for(const d of this.state.devices){if(d.supply.source===id)d.supply.source=null;if(d.output===id)d.output=null;}
+    for(const d of this.state.devices){if(d.supply.source===id)d.supply.source=null;if(d.output===id)d.output=null;for(const [fluid,target]of Object.entries(d.fluidOutputs))if(target===id)delete d.fluidOutputs[fluid];}
     return {ok:true};
   }
   transferFluid(from,to){
-    const src=this.state.containers.find(c=>c.id===from),dst=this.state.containers.find(c=>c.id===to);
-    if(!src||!dst||src===dst||!src.fluid||src.amount<=0)return {ok:false,message:'请选择有流体的来源和另一个容器'};
-    if(!this.acceptsFluid(dst,src.fluid)||(dst.fluid&&dst.fluid!==src.fluid))return {ok:false,message:'容器类型不兼容，不能混装流体'};
+    const entries=fluidEntries(this),src=entries.find(c=>c.id===from),dst=entries.find(c=>c.id===to);
+    if(!src||!dst||src===dst||!src.fluid||src.amount<=0)return {ok:false,message:'请选择有流体的来源和另一个容器或组'};
+    if(!bindFluid(this,to,src.fluid))return {ok:false,message:'容器类型不兼容，不能混装流体'};
     const amount=Math.min(src.amount,this.containerCapacity(dst)-dst.amount);if(amount<=0)return {ok:false,message:'目标容器已满'};
-    dst.fluid=src.fluid;dst.amount+=amount;src.amount-=amount;return {ok:true,amount};
+    const moved=putFluid(this,to,src.fluid,amount);takeFluid(this,from,src.fluid,moved);return {ok:true,amount:moved};
   }
   collectDrops(node,batches=1){
     const drops={},skipped={},totals={},ranges=Object.entries(this.dropRanges(node));
@@ -155,23 +210,29 @@ export class Game {
   missing(stacks){return Object.entries(stacks).filter(([id,n])=>this.quantity(id)<n).map(([id,n])=>({id,need:n,have:this.quantity(id)}));}
   canBuild(type){const m=this.catalog.machines[type];return !!m&&m.stage<=this.state.stage&&this.canPay(m.cost);}
   build(type){const m=this.catalog.machines[type];if(!m||m.stage>this.state.stage)return{ok:false,message:'机器科技尚未解锁'};if(this.state.devices.length>=500)return{ok:false,message:'设备数量已达上限'};if(!this.pay(m.cost))return{ok:false,message:'建造材料不足'};const device={id:'d'+this.state.nextId++,type,recipe:null,job:null,enabled:true,blocked:'请选择配方'};initializeEnergy(this,device);if(m.energy?.kind==='dyson')device.modules=m.cost.dyson||0;this.state.devices.push(device);this.state.earned[type]=(this.state.earned[type]||0)+1;this.note('建成：'+m.name);return{ok:true,device};}
-  assign(deviceId,recipeId){const d=this.state.devices.find(x=>x.id===deviceId),r=this.recipeById.get(recipeId);if(!d)return{ok:false,message:'机器不存在'};if(d.job)return{ok:false,message:'请先强制停止或等待当前批次完成'};if(recipeId===''){d.recipe=null;d.blocked=d.enabled?'请选择配方':'已停止';return{ok:true};}if(!r||r.stage>this.state.stage||!this.catalog.machines[d.type].processes.includes(r.process))return{ok:false,message:'此机器不能执行该配方'};if(d.recipe!==recipeId)d.ignited=false;d.recipe=recipeId;d.blocked=d.enabled?'就绪':'已暂停';return{ok:true};}
+  assign(deviceId,recipeId){
+    const peers=devicePeers(this,deviceId),r=this.recipeById.get(recipeId);
+    if(!peers.length)return {ok:false,message:'机器不存在'};
+    if(peers.some(d=>d.job))return {ok:false,message:'请先强制停止或等待组内当前批次完成'};
+    if(recipeId!==''&&(!r||r.stage>this.state.stage||peers.some(d=>!this.catalog.machines[d.type].processes.includes(r.process))))return {ok:false,message:'此设备不能执行该配方'};
+    for(const d of peers){if(d.recipe!==recipeId)d.ignited=false;d.recipe=recipeId||null;d.blocked=d.enabled?(recipeId?'就绪':'请选择配方'):'已暂停';}
+    return {ok:true};
+  }
   dispatch(recipeId,deviceId){
-    const d=this.state.devices.find(x=>x.id===deviceId);
-    if(!d)return {ok:false,message:'请选择空闲设备'};
-    if(d.job||d.recipe)return {ok:false,message:'设备已有任务，请选择空闲设备或先强制停止'};
+    const peers=devicePeers(this,deviceId);
+    if(!peers.length)return {ok:false,message:'请选择空闲设备或设备组'};
+    if(peers.some(d=>d.job||d.recipe))return {ok:false,message:'设备或组内成员已有任务，请先强制停止'};
     const result=this.assign(deviceId,recipeId);if(!result.ok)return result;
-    d.enabled=true;d.blocked='就绪';return {ok:true,device:d};
+    for(const d of peers){d.enabled=true;d.blocked='就绪';}
+    return {ok:true,device:deviceEntries(this).find(d=>d.id===endpointId(this,deviceId))};
   }
-  toggle(id){const d=this.state.devices.find(x=>x.id===id);if(d)d.enabled=!d.enabled;}
+  toggle(id){const peers=devicePeers(this,id),enabled=!peers.every(d=>d.enabled);for(const d of peers)d.enabled=enabled;}
   forceStop(id){
-    const d=this.state.devices.find(x=>x.id===id);if(!d)return{ok:false,message:'机器不存在'};
-    // Paid inputs and spent energy remain consumed, including fuel that already generated power.
-    d.job=null;d.recipe=null;d.enabled=false;d.ignited=false;d.blocked='已停止';
-    if(energySpec(this,d)?.kind==='dyson'){d.cycleRemaining=0;d.cyclePower=0;}
-    return{ok:true};
+    const peers=devicePeers(this,id);if(!peers.length)return {ok:false,message:'机器不存在'};
+    for(const d of peers){d.job=null;d.recipe=null;d.enabled=false;d.ignited=false;d.blocked='已停止';if(energySpec(this,d)?.kind==='dyson'){d.cycleRemaining=0;d.cyclePower=0;}}
+    return {ok:true};
   }
-  dismantle(id){const d=this.state.devices.find(x=>x.id===id);if(!d)return{ok:false,message:'机器不存在'};if(d.job)return{ok:false,message:'请先完成当前批次'};if(d.eu>1e-8||d.batteries||d.fuel>1e-8||d.steam>1e-8||d.heat>0||d.temperature>100||d.cycleRemaining>0)return {ok:false,message:'请先用掉机内能源、取出电池并等待设备冷却'};const refund={...this.catalog.machines[d.type].cost};if(d.water)refund.water=d.water;if(d.coal)refund.coal=d.coal;if(d.type==='dysonGenerator')refund.dyson=d.modules;if(!this.add(refund,false))return {ok:false,message:'退料需要空余流体容器'};this.state.devices=this.state.devices.filter(x=>x!==d);for(const target of this.state.devices)if(target.supply?.source===id)target.supply.source=null;return{ok:true};}
+  dismantle(id){if(findGroup(this,id))return {ok:false,message:'请先将设备移出组或解散分组，再拆除'};const d=this.state.devices.find(x=>x.id===id);if(!d)return{ok:false,message:'机器不存在'};if(d.job)return{ok:false,message:'请先完成当前批次'};if(d.eu>1e-8||d.batteries||d.fuel>1e-8||d.steam>1e-8||d.heat>0||d.temperature>100||d.cycleRemaining>0)return {ok:false,message:'请先用掉机内能源、取出电池并等待设备冷却'};const refund={...this.catalog.machines[d.type].cost};if(d.water)refund.water=d.water;if(d.coal)refund.coal=d.coal;if(d.type==='dysonGenerator')refund.dyson=d.modules;if(!this.add(refund,false))return {ok:false,message:'退料需要空余流体容器'};this.state.devices=this.state.devices.filter(x=>x!==d);for(const target of this.state.devices){if(target.supply?.source===id)target.supply.source=null;if(target.output===id)target.output=null;}return{ok:true};}
   canCraft(r){return r&&r.stage<=this.state.stage&&this.canPay(r.inputs)&&this.canPay(r.tools||{});}
   craft(id,amount=1){const r=this.recipeById.get(id);if(!r||r.process!=='craft'||r.stage>this.state.stage)return{ok:false,message:'需要对应机器执行此配方'};if(this.state.queue.length>=20)return{ok:false,message:'手工队列已满'};if(![1,5,10].includes(amount))return{ok:false,message:'批次数量无效'};const inputs=Object.fromEntries(Object.entries(r.inputs).map(([id,n])=>[id,n*amount]));if(!this.canPay(r.tools||{}))return{ok:false,message:'缺少可重复使用的工具'};if(!this.pay(inputs))return{ok:false,message:'制作材料不足'};this.state.queue.push({recipe:id,remaining:r.seconds,amount});return{ok:true};}
   cancelQueue(index){const q=this.state.queue[index],r=q&&this.recipeById.get(q.recipe);if(!r)return{ok:false,message:'任务不存在'};const refund=Object.fromEntries(Object.entries(r.inputs).map(([id,n])=>[id,n*q.amount]));if(!this.add(refund,false))return {ok:false,message:'流体退料需要足够容器容量'};this.state.queue.splice(index,1);return{ok:true};}
@@ -187,7 +248,7 @@ export class Game {
     value=Math.imul(value^(value>>>15),value|1);value^=value+Math.imul(value^(value>>>7),value|61);
     return ((value^(value>>>14))>>>0)/4294967296;
   }
-  finish(r){if(!this.add(r.outputs))return false;this.state.produced+=Object.values(r.outputs).reduce((a,b)=>a+b,0);return true;}
+  finish(r,d=null){if(!this.add(r.outputs,true,d?.fluidOutputs))return false;this.state.produced+=Object.values(r.outputs).reduce((a,b)=>a+b,0);return true;}
   tick(dt){
     if(!finite(dt,0,1))throw Error('单步时间必须为 0–1 秒');
     this.state.playtime+=dt;
@@ -205,6 +266,7 @@ export class Game {
   snapshot(){this.state.lastSeen=Date.now();return clone(this.state);}
   restore(raw){
     if(!raw||![2,3,SCHEMA].includes(raw.schema))throw Error('存档版本不兼容');
+    raw=migrateMaterialRecipes(raw,this.catalog);
     if(!Number.isInteger(raw.stage)||raw.stage<0||raw.stage>=this.catalog.stages.length)throw Error('科技阶段无效');
     const checkStacks=obj=>obj&&typeof obj==='object'&&!Array.isArray(obj)&&Object.entries(obj).every(([id,n])=>Object.hasOwn(this.catalog.items,id)&&finite(n));
     if(!checkStacks(raw.inventory)||!checkStacks(raw.earned)||!Array.isArray(raw.devices)||raw.devices.length>500||!Array.isArray(raw.queue)||raw.queue.length>20)throw Error('存档物品或机器数据无效');
@@ -212,6 +274,8 @@ export class Game {
       const m=this.catalog.machines[d.type];
       if(!m||typeof d.id!=='string'||!/^d\d+$/.test(d.id)||ids.has(d.id)||typeof d.enabled!=='boolean')throw Error('存档机器无效');
       ids.add(d.id);const r=d.recipe&&this.recipeById.get(d.recipe);
+      if(d.alias!==undefined&&(typeof d.alias!=='string'||d.alias.length>24||/[\u0000-\u001f\u007f]/.test(d.alias)))throw Error('设备别名无效');
+      if(d.fluidOutputs!==undefined&&(!d.fluidOutputs||typeof d.fluidOutputs!=='object'||Array.isArray(d.fluidOutputs)||Object.entries(d.fluidOutputs).some(([fluid,target])=>!isFluid(this.catalog,fluid)||typeof target!=='string'||!/^[cg]\d+$/.test(target))))throw Error('流体输出连接无效');
       if(d.recipe&&(!r||!m.processes.includes(r.process)||r.stage>raw.stage))throw Error('存档配方无效');
       if(d.job&&(!r||!finite(d.job.remaining,0,raw.schema<4?Math.max(20,r.seconds):d.job.duration)||raw.schema===4&&(!finite(d.job.duration,.05,Math.max(r.seconds*2,.05)))))throw Error('存档生产批次无效');
       if(raw.schema===4){
@@ -244,8 +308,10 @@ export class Game {
       if(c.amount>this.containerCapacity(c)||(!c.fluid&&c.amount>0)||(c.fluid!==null&&!this.acceptsFluid(c,c.fluid)))throw Error('容器流体或容量无效');
     }
     if(raw.schema>=3&&Object.keys(raw.inventory).some(id=>isFluid(this.catalog,id)))throw Error('流体必须存放在容器中');
-    this.state={...this.state,...clone(raw),schema:SCHEMA,containers,manual:null,gatherProgress,speed:1,log:raw.log.slice(0,40)};
-    this.state.nextId=Math.max(1,Math.ceil(this.state.nextId),...[...ids].filter(id=>/^[cd]\d+$/.test(id)).map(id=>Number(id.slice(1))+1));
+    const groups=clone(raw.groups??[]);validateGroups(this.catalog,groups,raw.devices,containers);
+    for(const g of groups)ids.add(g.id);
+    this.state={...this.state,...clone(raw),schema:SCHEMA,containers,groups,manual:null,gatherProgress,speed:1,log:raw.log.slice(0,40)};
+    this.state.nextId=Math.max(1,Math.ceil(this.state.nextId),...[...ids].filter(id=>/^[cdg]\d+$/.test(id)).map(id=>Number(id.slice(1))+1));
     const migrateFluid=(fluid,amount)=>{
       if(amount<=0)return;
       const tank=this.state.containers.find(c=>c.type==='legacyTank'&&c.fluid===fluid);
@@ -283,9 +349,9 @@ export class Game {
       if(this.state.containers.length)this.note('旧版散装流体已装入迁移储罐，数量保留。');
     }
     const usedIds=new Set([...ids,...this.state.devices.map(d=>d.id),...this.state.containers.map(c=>c.id)]);
-    this.state.nextId=Math.max(1,Math.ceil(this.state.nextId),...[...usedIds].filter(id=>/^[cd]\d+$/.test(id)).map(id=>Number(id.slice(1))+1));
-    const connectedIds=new Set([...this.state.devices,...this.state.containers].map(x=>x.id));
-    for(const d of this.state.devices){if(!connectedIds.has(d.supply.source))d.supply.source=null;if(!connectedIds.has(d.output))d.output=null;}
+    this.state.nextId=Math.max(1,Math.ceil(this.state.nextId),...[...usedIds].filter(id=>/^[cdg]\d+$/.test(id)).map(id=>Number(id.slice(1))+1));
+    const connectedIds=new Set([...this.state.devices,...this.state.containers,...this.state.groups].map(x=>x.id));
+    for(const d of this.state.devices){if(!connectedIds.has(d.supply.source))d.supply.source=null;if(!connectedIds.has(d.output))d.output=null;for(const [fluid,target]of Object.entries(d.fluidOutputs))if(!connectedIds.has(target))delete d.fluidOutputs[fluid];}
     if(raw.schema<4){this.state.legacyEnergy=(this.state.legacyEnergy||0)+raw.energy;this.note('能源连接已更新：旧电量保留为待转存电量，请装入电池后转存，并为机器指定供能来源。');}
     this.state.energy=this.state.devices.reduce((n,d)=>n+d.eu,0);
   }

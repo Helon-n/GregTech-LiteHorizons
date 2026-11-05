@@ -2195,6 +2195,274 @@
           "texture": "assets/gregtech/textures/blocks/fluids/fluid.tritium.png"
         }
       ]
+    },
+    "bender": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/basicmachines/bender/OVERLAY_FRONT.png"
+        }
+      ]
+    },
+    "lathe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/basicmachines/lathe/OVERLAY_FRONT.png"
+        }
+      ]
+    },
+    "forgeHammer": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/OVERLAY_FRONT_STEAM_HAMMER.png"
+        }
+      ]
+    },
+    "file": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadFile.png",
+          "tint": "#c8c8c8"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ]
+    },
+    "screwdriver": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadScrewdriver.png",
+          "tint": "#c8c8c8"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ]
+    },
+    "wireCutter": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolWireCutter.png",
+          "tint": "#c8c8c8"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolWireCutter_OVERLAY.png"
+        }
+      ]
+    },
+    "ironBolt": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/bolt.png",
+          "tint": "#c8c8c8"
+        }
+      ]
+    },
+    "ironScrew": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/screw.png",
+          "tint": "#c8c8c8"
+        }
+      ]
+    },
+    "copperDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustSmall.png",
+          "tint": "#ff6400"
+        }
+      ]
+    },
+    "tinDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustSmall.png",
+          "tint": "#dcdcdc"
+        }
+      ]
+    },
+    "ironDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dustSmall.png",
+          "tint": "#c8c8c8"
+        }
+      ]
+    },
+    "bronzeDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dustSmall.png",
+          "tint": "#ff8000"
+        }
+      ]
+    },
+    "steelDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dustSmall.png",
+          "tint": "#808080"
+        }
+      ]
+    },
+    "aluminiumDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustSmall.png",
+          "tint": "#80c8f0"
+        }
+      ]
+    },
+    "stainlessDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/dustSmall.png",
+          "tint": "#c8c8dc"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/dustSmall_OVERLAY.png"
+        }
+      ]
+    },
+    "titaniumDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dustSmall.png",
+          "tint": "#dca0f0"
+        }
+      ]
+    },
+    "tungstensteelDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dustSmall.png",
+          "tint": "#6464a0"
+        }
+      ]
+    },
+    "iridiumDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustSmall.png",
+          "tint": "#f0f0f5"
+        }
+      ]
+    },
+    "europiumDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/dustSmall.png",
+          "tint": "#f6b5ff"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/dustSmall_OVERLAY.png"
+        }
+      ]
+    },
+    "neutroniumDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustSmall.png",
+          "tint": "#fafafa"
+        }
+      ]
+    },
+    "cosmicDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustSmall.png",
+          "tint": "#323237"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/cosmicneutronium/dustSmall_OVERLAY.png"
+        }
+      ]
+    },
+    "catalystDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/dustSmall.png",
+          "tint": "#ffffff"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/dustSmall_OVERLAY.png"
+        }
+      ]
+    },
+    "infinityDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/dustSmall.png",
+          "tint": "#ffffff"
+        }
+      ]
+    },
+    "spacetimeDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/dustSmall.png",
+          "tint": "#ffffff"
+        }
+      ]
+    },
+    "eternityDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/dustSmall.png",
+          "tint": "#ffffff"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/dustSmall_OVERLAY.png"
+        }
+      ]
     }
   }
 }

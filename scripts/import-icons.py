@@ -331,7 +331,7 @@ class Importer:
                  'dysonGenerator':r'gregtech/textures/blocks/iconsets/OVERLAY_FRONT_DYSONSPHERE\.png$',
                  'cosmicFabricator':r'gregtech/textures/blocks/iconsets/EM_OUTER_SPACETIME_REINFORCED_EOH_CASING\.png$'}
         for item in catalog['machines']:
-            if item in ['gasTurbine','batteryBuffer','centrifuge']:
+            if item in ['gasTurbine','batteryBuffer','centrifuge','bender','lathe','forgeHammer']:
                 continue  # Imported with the energy items below.
             if item == 'workbench':
                 continue
@@ -376,6 +376,7 @@ class Importer:
         if missing:
             import sys
             subprocess.run([sys.executable, str(PROJECT/'scripts/import-energy-icons.py'), '--instance', str(self.instance), '--output', str(self.output)], check=True)
+            subprocess.run([sys.executable, str(PROJECT/'scripts/import-material-icons.py'), '--instance', str(self.instance), '--output', str(self.output)], check=True)
             energy_icons=json.loads((self.output/'sources.json').read_text(encoding='utf-8'))['icons']
             for item in missing:
                 if item in energy_icons:self.manifest[item]=energy_icons[item]

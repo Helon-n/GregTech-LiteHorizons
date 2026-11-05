@@ -6,7 +6,7 @@ export function applyEnergyCatalog({items,machines,recipes}){
   for(const m of Object.values(machines))if(m.power>0)m.energy={kind:'consumer',tier:Math.max(1,m.stage-1),maxTier:14};
   machines.fusion.energy={kind:'consumer',tier:6,maxTier:8,fusion:true};
   machines.boiler.energy={kind:'boiler'};
-  for(const id of ['steamMacerator','alloySmelter','compressor'])machines[id].energy={kind:'steam'};
+  for(const id of ['steamMacerator','alloySmelter','compressor','forgeHammer'])machines[id].energy={kind:'steam'};
   machines.turbine.energy={kind:'generator',fuel:'steam',tier:1,maxTier:3};
   machines.dieselGenerator.energy={kind:'generator',fuel:'diesel',tier:2,maxTier:3};
   machines.dieselGenerator.power=-128;

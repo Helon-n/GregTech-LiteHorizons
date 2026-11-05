@@ -1,0 +1,100 @@
+{
+  "pack": "GTNH 2.9.0",
+  "gregtech": "5.09.54.265",
+  "installedJar": {
+    "name": "gregtech-5.09.54.265.jar",
+    "sha256": "b969e11625a0298416a75b6e39703da795233edb71cb66f25fb9bbf654d75528"
+  },
+  "sourceArchiveSha256": "4c0c8c510884595002963aba2746ebfddc7361b0247181f21b0f6a90a2bfc370",
+  "sources": [
+    {
+      "path": "gregtech/loaders/materials/MaterialsInit.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/materials/MaterialsInit.java",
+      "sha256": "2db9eec4174b6ccb1a08bf4faba23ecd93e393a3cadbcebe2977c69caba41f43"
+    },
+    {
+      "path": "gregtech/api/enums/Materials.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/enums/Materials.java",
+      "sha256": "2348e3058b2ea21f33828698febbd4aa2d61322d9e672d94e406254809223792"
+    },
+    {
+      "path": "gregtech/api/enums/Element.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/enums/Element.java",
+      "sha256": "514f305d02e7bc2ec550fa0f9657b8ed08c9d014c3ffe9283f0c74a5dc0a5260"
+    },
+    {
+      "path": "gregtech/api/enums/GTValues.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/enums/GTValues.java",
+      "sha256": "58f8dc56e15d03689632aec9c6e8494c795aaa0c8dd54975a2cbd111969aaa16"
+    },
+    {
+      "path": "gregtech/api/util/GTUtility.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/util/GTUtility.java",
+      "sha256": "0a4aaf5797fe0e435279bac914c9b05ae9bfe22333bb6e569ddd3c5ecbaa16b0"
+    },
+    {
+      "path": "gregtech/api/util/GTRecipeRegistrator.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/api/util/GTRecipeRegistrator.java",
+      "sha256": "b011f29a8bdf4cf3e5015396d5342443f300b5afcecd7aa4cd800d79c91016ca"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingPlate.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingPlate.java",
+      "sha256": "79ba64c9bc8a5307caa52b23ef51d69efc82a4f978b9e50a85e03dd451d73bcf"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingIngot.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingIngot.java",
+      "sha256": "2632242b9817e936694a39bf7fe010fa727121497d8575728292eacf09c7f714"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingStick.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingStick.java",
+      "sha256": "8772efc36a2531f4b6b21f88aed2a6925ba09b9f0ba6a90e5325349d3a151ef4"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingWire.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingWire.java",
+      "sha256": "2872f80c97b88eb92a89cb618fd3052999ccd1d3c0ebde18b48d8a5e0c535ef4"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingFineWire.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingFineWire.java",
+      "sha256": "580f55ec03308fca9289e386b153c8ba97eb452e2c70bc8e9ceda28b98f8f32c"
+    },
+    {
+      "path": "gregtech/loaders/postload/recipes/WiremillRecipes.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/postload/recipes/WiremillRecipes.java",
+      "sha256": "8057c557e72b6a569c1c7d12aa8edacb29a692d1fcebb6433e8dcb08e7925627"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingToolHead.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingToolHead.java",
+      "sha256": "c17e5cc383008ff830fde6022715c3ba28c2436eb4931c8a191bd34b49fed2e9"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingToolOther.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingToolOther.java",
+      "sha256": "63a8835d0d245aee8f244080985a442978824ccc924ad283d8bd1ebe3f6645b8"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingBolt.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingBolt.java",
+      "sha256": "e04c480e53d1903c89772acfaf65b708ac0511913e8f1804a4c6530167f19a73"
+    },
+    {
+      "path": "gregtech/loaders/oreprocessing/ProcessingScrew.java",
+      "url": "https://github.com/GTNewHorizons/GT5-Unofficial/blob/5.09.54.265/src/main/java/gregtech/loaders/oreprocessing/ProcessingScrew.java",
+      "sha256": "a37133addd1c565725bee9df2b4349d103374913046d949591912f0247ce4025"
+    }
+  ],
+  "scope": "Plate/rod/wire processing eligibility, input/output ratios, processing EU and machine duration. Source inspection; no runtime recipe export.",
+  "boundaries": "Unlock stages, construction and material production remain adapted. Existing Wire items aggregate the project wire forms; this is not a complete runtime ore-dictionary export. Hand crafting time and reusable tool durability are adapted.",
+  "notes": [
+    "TungstenSteel, Iridium and Europium have processingEU=0; do not infer a hand-crafting ban from progression stage.",
+    "GTUtility.calculateRecipeEU uses processingEU when nonzero, otherwise the route base EU/t.",
+    "SpaceTime has an explicit wiremill duration of 168 ticks; its processingEU still overrides the LuV base.",
+    "Machine plate route: bender, 1 ingot -> 1 plate, circuit 1. Forge hammer: 3 ingots -> 2 plates, only processing tier < IV.",
+    "Lathe: 1 ingot -> 1 rod + 2 small dusts. Manual wire: 1 plate -> 1 wire, wire cutter."
+  ]
+}

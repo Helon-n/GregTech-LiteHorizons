@@ -1,4 +1,5 @@
 import {applyEnergyCatalog} from './energy-catalog.js';
+import {MATERIAL_PROCESSING} from './material-processing.js';
 // Gameplay adaptation of GTNH progression. Exact original recipes come from the
 // optional runtime exporter; these authored recipes are deliberately labelled.
 export const STAGES = [
@@ -30,12 +31,14 @@ export const MATERIALS = [
 ];
 for(const [id,name,stage,color] of MATERIALS){
   item(id,name+(id==='catalyst'?'':'锭'),'金属',color);
-  for(const [suffix,title]of [['Plate','板'],['Dust','粉'],['Rod','杆'],['Wire','导线']])item(id+suffix,name+title,'加工材料',color);
+  for(const [suffix,title]of [['Plate','板'],['Dust','粉'],['DustSmall','小撮粉'],['Rod','杆'],['Wire','导线']])item(id+suffix,name+title,'加工材料',color);
   if(stage===0)item(id+'Ore',name+'矿石','资源',color);
 }
 for(const [id,name,color]of [['chrome','铬','#c1c7c7'],['nickel','镍','#c8bd92'],['platinum','铂','#d0d2ba']])item(id,name+'锭','金属',color);
 for(const [id,name,color]of [['water','水','#75a5d0'],['steam','蒸汽','#b1c8c9'],['creosote','杂酚油','#ac895e'],['oxygen','氧气','#95d7e0'],['hydrogen','氢气','#d3c6df'],['oil','原油','#8a8677'],['diesel','柴油','#d9bb63'],['sulfuricAcid','硫酸','#d6d784'],['chlorine','氯气','#a4bd79'],['titaniumTetrachloride','四氯化钛','#cabcd8'],['helium','氦气','#ddca9f'],['plasma','等离子体','#b3a3ea']])item(id,name,'流体',color,'fluid');
 for(const [id,name]of [['flintPick','燧石镐'],['hammer','锻造锤'],['wrench','扳手'],['saw','锯']])item(id,name,'工具');
+for(const [id,name]of [['file','锉刀'],['wireCutter','剪线钳'],['screwdriver','螺丝刀']])item(id,name,'工具');
+item('ironBolt','铁螺栓','加工材料');item('ironScrew','铁螺丝','加工材料');
 export const containerTypes={
   woodBucket:{name:'木桶',capacity:1000,accepts:['water'],stage:0},
   ironBucket:{name:'铁桶',capacity:1000,accepts:['water','creosote','oil','diesel'],stage:0},
@@ -57,6 +60,9 @@ machine('boiler','小型燃煤锅炉',1,['boil'],{bronzePlate:6,brick:6},0,'煤�
 machine('steamMacerator','蒸汽研磨机',1,['grind'],{bronzePlate:8,iron:4},0,'蒸汽供能，矿物粉碎');
 machine('alloySmelter','蒸汽合金炉',1,['alloy'],{bronzePlate:6,brick:8});
 machine('compressor','蒸汽压缩机',1,['compress'],{bronzePlate:6,ironPlate:4});
+machine('forgeHammer','蒸汽锻造锤',1,['forgeHammer'],{bronzePlate:6,ironPlate:4});
+machine('bender','卷板机',2,['bend'],{steelPlate:6,basicCircuit:1,motor:2},24,'单锭轧板；可更换高压机组');
+machine('lathe','车床',2,['lathe'],{steelPlate:6,basicCircuit:1,motor:2},16,'车制金属杆并回收小撮粉');
 machine('bbf','砖高炉',1,['blast'],{brick:32,ironPlate:8},0,'焦煤还原，制取钢');
 machine('turbine','基础蒸汽轮机',2,['generateSteam'],{steelPlate:6,basicCircuit:1,motor:1},-32);
 machine('assembler','基础装配机',2,['assemble','circuit'],{steelPlate:6,basicCircuit:1,motor:2},8);
@@ -83,6 +89,12 @@ const recipe=(id,name,process,stage,inputs,outputs,seconds=5,extra={})=>recipes.
 recipe('sticks','拆分木棍','craft',0,{wood:1},{stick:4},1);
 recipe('pick','制作燧石镐','craft',0,{flint:3,stick:2},{flintPick:1},3);
 recipe('hammer','制作锻造锤','craft',0,{iron:6,stick:1},{hammer:1},5);
+recipe('file','锉刀','craft',0,{ironPlate:2,stick:1},{file:1},4);
+recipe('saw','锯','craft',0,{ironPlate:2,stick:1},{saw:1},4,{tools:{hammer:1,file:1}});
+recipe('screwdriver','螺丝刀','craft',0,{ironRod:2,stick:1},{screwdriver:1},4,{tools:{hammer:1,file:1}});
+recipe('ironBolt','锯制铁螺栓','craft',0,{ironRod:1},{ironBolt:2},4,{tools:{saw:1}});
+recipe('ironScrew','锉制铁螺丝','craft',0,{ironBolt:2},{ironScrew:1},4,{tools:{file:1}});
+recipe('wireCutter','剪线钳','craft',0,{ironPlate:3,ironRod:2,ironScrew:1},{wireCutter:1},4,{tools:{hammer:1,file:1,screwdriver:1}});
 recipe('woodBucket','木桶','craft',0,{wood:3},{woodBucket:1},2);
 recipe('ironBucket','铁桶','craft',0,{iron:3},{ironBucket:1},3);
 recipe('fluidTank','密封储罐','craft',1,{bronzePlate:6,glass:2},{fluidTank:1},5);
@@ -101,14 +113,18 @@ recipe('resistor','电阻','craft',1,{coal:1,copperWire:2},{resistor:2},5);
 recipe('board','覆膜电路板','craft',1,{wood:2,resin:2,copperPlate:1},{coatedBoard:1},8);
 recipe('basicCircuit','基础电路','craft',1,{vacuumTube:2,resistor:2,coatedBoard:1,copperWire:2},{basicCircuit:1},12);
 recipe('motor','电动马达','craft',1,{steelRod:2,copperWire:4,tinWire:2},{motor:1},10);
-recipe('steelRodEarly','手工锻造钢杆','craft',1,{steel:1},{steelRod:1},6,{tools:{hammer:1}});
 recipe('pump','电动泵','craft',1,{motor:1,rubber:2,ironPlate:2},{pump:1},10);
 for(const[id,name,stage]of MATERIALS){
-  recipe(id+'PlateHand','锻造'+name+'板','craft',stage,{[id]:2},{[id+'Plate']:1},4,{tools:{hammer:1}});
-  recipe(id+'RodHand','锻造'+name+'杆','craft',stage,{[id]:1},{[id+'Rod']:1},4,{tools:{hammer:1}});
-  recipe(id+'WireHand','剪制'+name+'导线','craft',stage,{[id+'Plate']:1},{[id+'Wire']:2},4,{tools:{hammer:1}});
-  recipe(id+'Plate','压制'+name+'板','compress',Math.max(1,stage),{[id]:1,steam:160},{[id+'Plate']:1},3);
-  recipe(id+'Wire','轧制'+name+'导线','wire',Math.max(2,stage),{[id]:1},{[id+'Wire']:2},3,{power:8});
+  const rule=MATERIAL_PROCESSING[id],unlock=id==='steel'?1:stage;
+  const route=(extra={})=>({source:'gtnh-material-processing',material:id,...extra});
+  if(rule.handPlate)recipe(id+'PlateHand','锤制'+name+'板','craft',unlock,{[id]:2},{[id+'Plate']:1},4,route({tools:{hammer:1}}));
+  if(rule.handRod)recipe(id+'RodHand','锉制'+name+'杆','craft',unlock,{[id]:1},{[id+'Rod']:1},4,route({tools:{file:1}}));
+  if(rule.handWire)recipe(id+'WireHand','剪制'+name+'导线','craft',unlock,{[id+'Plate']:1},{[id+'Wire']:1},4,route({tools:{wireCutter:1}}));
+  if(rule.handPlate)recipe(id+'PlateHammer','锻锤制'+name+'板','forgeHammer',Math.max(1,unlock),{[id]:3},{[id+'Plate']:2},rule.mass/20,route({power:rule.processingEU||16}));
+  recipe(id+'Plate','轧制'+name+'板','bend',Math.max(2,unlock),{[id]:1},{[id+'Plate']:1},rule.mass/20,route({power:rule.processingEU||24,circuit:1}));
+  recipe(id+'Rod','车制'+name+'杆','lathe',Math.max(2,unlock),{[id]:1},{[id+'Rod']:1,[id+'DustSmall']:2},rule.mass*5/20,route({power:rule.processingEU||16}));
+  recipe(id+'Wire','轧制'+name+'导线','wire',Math.max(2,unlock),{[id]:1},{[id+'Wire']:2},rule.wireTicks/20,route({power:rule.processingEU||4,circuit:1}));
+  recipe(id+'DustPack','合并'+name+'粉','craft',unlock,{[id+'DustSmall']:4},{[id+'Dust']:1},1,route());
   if(stage===0){
     recipe(id+'Dust','研磨'+name+'矿石','craft',0,{[id+'Ore']:1},{[id+'Dust']:1},4,{tools:{flintPick:1}});
     recipe(id+'Smelt','冶炼'+name,'smelt',0,{[id+'Dust']:2,coal:1},{[id]:2},8);
@@ -177,4 +193,4 @@ export const milestones=[
  {flintPick:1,brick:8},{steel:4,basicCircuit:1,motor:1},{goodCircuit:2,electrolyzer:1},{aluminium:4,chemical:1},{stainless:4,advancedCircuit:2},{titanium:4,processor:2,rocket:1,moonRock:4},{tungstensteel:4,nanoCircuit:2},{iridium:4,quantumCircuit:2},{europium:4,wetwareCircuit:2},{neutronium:4,biowareCircuit:2},{cosmic:4,opticalCircuit:2},{catalyst:4,exoticCircuit:2},{infinity:4,cosmicCircuit:2},{spacetime:4,transcendentCircuit:2},{eternity:4,spacetimeCircuit:2},{stargate:1}
 ];
 applyEnergyCatalog({items,machines,recipes});
-export const CATALOG={version:4,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};
+export const CATALOG={version:4,materialRulesVersion:1,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};

@@ -19,12 +19,15 @@ export const ENERGY_REFERENCE=Object.freeze({
 
 export function recipeEnergyText(r){
   const E=ENERGY_REFERENCE;
+  if(r.process==='build')return '不耗能';
+  if(r.process==='craft')return `不耗能 · ${r.seconds} 秒/批`;
   if(r.process==='boil')return '额定 120 mB/s · 1 mB 水 → 160 mB 蒸汽 · 需要煤炭与升温';
   if(r.process==='generateSteam')return 'LV：7 mB 蒸汽 → 3 EU · 额定 32 EU/t';
   if(r.process==='generateDiesel')return '柴油热值 480 EU/mB · 输出与效率由机组等级决定';
   if(r.process==='generateGas')return '氢气热值 20 EU/mB · 输出与效率由机组等级决定';
   if(r.process==='generatePlasma')return '氦等离子体热值 81920 EU/mB · 输出与效率由机组等级决定';
   if(r.process==='generateStellar')return '每模块 10000000 EU/t · 冷却液按小时消耗';
-  if(['grind','alloy','compress'].includes(r.process))return `青铜机器：${r.seconds*E.steamMachine.durationMultiplier} 秒/批 · ${r.power*20*E.steamMachine.steamPerEU} mB 蒸汽/s`;
-  return (r.seconds?`${r.seconds} 秒/批`:'')+(r.power?` · ${r.power} EU/t`:'')+(r.startup?` · 启动 ${r.startup} EU`:'');
+  if(['grind','alloy','compress','forgeHammer'].includes(r.process))return `蒸汽 · ${r.seconds*E.steamMachine.durationMultiplier} 秒/批 · ${r.power*20*E.steamMachine.steamPerEU} mB/s`;
+  const tier=r.power?E.codes[E.voltage.findIndex(v=>v>=r.power)]:'';
+  return (r.power?`${r.power} EU/t · 最低 ${tier} · `:'不耗电 · ')+(r.seconds?`${r.seconds} 秒/批`:'')+(r.startup?` · 启动 ${r.startup} EU`:'');
 }

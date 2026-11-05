@@ -99,6 +99,10 @@ html,body{height:100%;overflow:clip;scrollbar-gutter:auto}
 .bench-heading{flex-direction:row;align-items:center;gap:10px}
 .bench-heading h2{font-size:20px;margin:5px 0}
 .bench-meta{font-size:14px;margin:0}
+.recipe-facts{display:flex;flex-wrap:wrap;gap:5px 18px;align-items:baseline}
+.recipe-facts>span{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:baseline}
+.recipe-facts b{font-weight:400;color:var(--muted)}
+.recipe-facts strong{font-weight:600;color:var(--text)}
 .bench-layout{display:grid;grid-template-columns:max-content 24px max-content;align-items:center;padding:12px 0;gap:var(--recipe-gap)}
 .bench-grid{grid-template-columns:repeat(3,var(--slot-size));grid-auto-rows:var(--slot-size);gap:var(--slot-gap);padding:7px}
 .bench-slot{width:var(--slot-size);height:var(--slot-size);min-width:0;min-height:0;padding:9px 2px 2px}
@@ -241,6 +245,9 @@ dialog h2{margin:0 30px 12px 0}
 .worker-stepper{display:flex;align-items:center;gap:6px}
 .worker-stepper strong{min-width:46px;text-align:center;font:17px Consolas,monospace}
 .worker-stepper .button{min-width:36px;padding:4px 8px}
+.container-option>.container-placement{display:flex;flex:1 0 100%;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.container-placement .worker-stepper{flex-wrap:wrap}
+.container-placement .worker-stepper strong{min-width:64px;white-space:nowrap}
 .worker-control small{font-size:13px;color:var(--muted)}
 .collector-deploy{display:flex;align-items:center;gap:10px;padding-top:8px;margin-top:8px;border-top:1px solid var(--line)}
 .collector-deploy>.collector-cost{flex:1;min-width:0;border:0;padding:0;margin:0}
@@ -262,6 +269,37 @@ dialog h2{margin:0 30px 12px 0}
 .device-tabs,.energy-modes,.energy-actions{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
 .device-tabs .filter,.energy-modes .filter{font-size:14px;padding:5px 9px;min-height:32px}
 .energy-readout{font:14px/1.6 Consolas,'Microsoft YaHei UI',monospace;color:var(--text);overflow-wrap:anywhere;margin:8px 0}
+.machine-readout{margin:8px 0;min-width:0}
+.machine-gauges{display:flex;flex-wrap:wrap;gap:8px;align-items:start;justify-content:flex-start}
+.machine-gauge{width:72px;flex:0 0 72px;display:flex;align-items:center;flex-direction:column;gap:3px;min-width:0;color:var(--text);text-align:center}
+.machine-gauge-label{font-size:14px;line-height:1.3;font-weight:600}
+.machine-gauge-label>small{display:block;font-size:12px;font-weight:400;color:var(--muted)}
+.machine-gauge-body{height:66px;display:flex;align-items:center;justify-content:center}
+.machine-gauge-well{position:relative;isolation:isolate;width:34px;height:66px;border:2px solid var(--frame);background:var(--lcd-bg,var(--p1));box-shadow:inset 2px 2px var(--shadow),1px 1px var(--highlight);overflow:hidden}
+.machine-gauge-well:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+.machine-gauge-fill{position:absolute;inset:auto 0 0;background:var(--gauge-color);min-height:0;overflow:hidden}
+.machine-gauge-fill>img{position:absolute;bottom:0;left:0;width:100%;height:62px;object-fit:cover;image-rendering:pixelated;opacity:.55}
+.machine-gauge-ticks{position:absolute;inset:0;background:repeating-linear-gradient(to top,transparent 0 11px,color-mix(in srgb,var(--text) 30%,transparent) 11px 12px);pointer-events:none}
+.machine-gauge-well:after{content:'';position:absolute;inset:0;box-shadow:inset 2px 0 color-mix(in srgb,var(--shadow) 35%,transparent),inset -2px 0 color-mix(in srgb,var(--highlight) 28%,transparent);pointer-events:none}
+.machine-gauge[data-gauge-kind="temperature"] .machine-gauge-well{width:16px}
+.machine-gauge[data-gauge-kind="power"] .machine-gauge-well{width:22px}
+.machine-gauge>strong{font:600 15px/1.35 Consolas,'Microsoft YaHei UI',monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.machine-gauge-capacity{font:12px/1.4 Consolas,'Microsoft YaHei UI',monospace;color:var(--muted);white-space:nowrap}
+.machine-item-slot{position:relative;width:48px;height:48px;display:grid;place-items:center;border:2px solid var(--frame);background:var(--lcd-bg,var(--p1));box-shadow:inset 2px 2px var(--shadow),1px 1px var(--highlight)}
+.machine-item-slot>img{width:36px;height:36px;image-rendering:pixelated}
+.machine-item-slot>b{position:absolute;right:2px;bottom:1px;font:600 14px Consolas,monospace;color:var(--text);text-shadow:1px 1px var(--shadow),-1px -1px var(--shadow)}
+.machine-gauge[data-gauge-kind="item"]>strong{visibility:hidden}
+.machine-readout-note{font-size:14px;line-height:1.45;color:var(--muted);margin-top:6px;overflow-wrap:anywhere}
+.machine-readout.compact .machine-gauge{width:auto;flex:1 1 120px;display:grid;grid-template-columns:22px minmax(0,1fr);column-gap:8px;row-gap:0;text-align:left;align-items:center}
+.machine-readout.compact .machine-gauge-label{grid-column:2;grid-row:1}
+.machine-readout.compact .machine-gauge-label>small{display:inline;margin-left:5px}
+.machine-readout.compact .machine-gauge-body{grid-column:1;grid-row:1/4;height:48px}
+.machine-readout.compact .machine-gauge-well{width:22px;height:48px}
+.machine-readout.compact .machine-gauge-fill>img{height:44px}
+.machine-readout.compact .machine-gauge>strong{grid-column:2;grid-row:2}
+.machine-readout.compact .machine-gauge-capacity{grid-column:2;grid-row:3}
+.machine-readout.compact .machine-gauge[data-gauge-kind="item"]{grid-template-columns:48px minmax(0,1fr)}
+.machine-readout.compact .machine-gauge[data-gauge-kind="item"]>strong{visibility:visible}
 .battery-slots{display:grid;grid-template-columns:repeat(4,48px);gap:8px;margin:8px 0}
 .battery-slot{width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--line);background:var(--raised);color:var(--muted)}
 .battery-slot.occupied{border-color:var(--accent)}
@@ -312,6 +350,23 @@ dialog h2{margin:0 30px 12px 0}
 .choice-trigger:after{display:none}
 .choice-trigger>img{width:30px;height:30px;object-fit:contain;flex:none}
 .choice-label{flex:1;min-width:0;overflow-wrap:anywhere}
+.choice-label>span,.choice-label>small{display:block}
+.choice-label>small{font-size:14px;line-height:1.4;color:var(--muted)}
+.choice-label>small:empty,.choice-option>small:empty{display:none}
+[data-rename-form] .search{width:100%;max-width:100%}
+[data-rename-form] .energy-actions{margin-top:16px;justify-content:flex-end;flex-wrap:wrap}
+.group-editor{width:min(980px,calc(100vw - 48px));padding:20px;overflow:clip}
+.group-editor .choice-heading,.group-editor-actions,.group-pick-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.group-editor .choice-heading{justify-content:space-between}
+.group-editor .choice-heading h2{margin:0}
+.group-editor [name="groupName"]{flex:1;min-width:120px;max-width:100%}
+.group-pick-tools .search{flex:1;min-width:120px;max-width:100%}
+.group-editor .choice-options{margin-block:10px}
+.group-editor .choice-pages{margin-block:8px}
+.group-editor-actions{justify-content:flex-end}
+.group-editor-actions .danger{margin-right:auto}
+.group-editor .choice-option:disabled{opacity:.45}
+.container-tabs{flex-wrap:wrap}
 .choice-action{font-size:14px;color:var(--a);flex:none}
 .choice-options{grid-template-columns:repeat(var(--columns),minmax(0,min(100%,var(--tile-width))));gap:var(--grid-gap);align-items:start;justify-content:start}
 .choice-option{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:7px;padding:12px;min-height:var(--tile-min-height);min-width:0}
