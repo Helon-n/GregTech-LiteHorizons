@@ -1,0 +1,47 @@
+{
+  "name": "gtnh-idle-desktop",
+  "version": "0.1.1",
+  "private": true,
+  "type": "module",
+  "description": "GTNH-inspired offline idle factory game for Windows",
+  "author": "GTNH Idle Project",
+  "main": "src/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.js",
+    "test:ui": "node scripts/ui-smoke.mjs",
+    "test:desktop": "node scripts/electron-smoke.mjs",
+    "dev:web": "node scripts/serve.mjs",
+    "dist": "electron-builder --win nsis --x64",
+    "pack": "electron-builder --win --dir --x64",
+    "release:windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/release-windows.ps1",
+    "import:instance": "python scripts/import-instance.py"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "electron": "^34.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "dev.gtnh.idle",
+    "productName": "格雷的长路",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "signExecutable": false,
+      "icon": "src/assets/app-icon.ico",
+      "artifactName": "GTNH-Idle-${version}-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  }
+}

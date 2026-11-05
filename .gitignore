@@ -1,0 +1,10 @@
+node_modules/
+release/
+artifacts/
+electron-runtime.zip
+*.log
+.local/
+.local-*
+bridge/build/
+bridge/*.jar
+__pycache__/

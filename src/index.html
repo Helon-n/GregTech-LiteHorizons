@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101512">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>格雷的长路</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="interaction.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand"><div class="brandmark">G</div><div><strong>格雷的长路</strong><small>AN IDLE FACTORY</small></div></div>
+      <div class="nav-label">基地</div>
+      <nav class="nav" aria-label="主导航">
+        <button class="active" data-page="overview"><span class="navicon">⌂</span>总览</button>
+        <button data-page="resources"><span class="navicon">◈</span>资源采集</button>
+        <button data-page="workshop"><span class="navicon">⚒</span>制造与建造</button>
+        <button data-page="factory"><span class="navicon">⚙</span>生产工厂</button>
+        <button data-page="inventory"><span class="navicon">▦</span>物品仓库</button>
+        <button data-page="research"><span class="navicon">⌬</span>科技阶段</button>
+        <button data-page="space"><span class="navicon">✦</span>星际远征</button>
+        <button data-page="reference"><span class="navicon">▤</span>原版资料</button>
+        <button data-page="settings"><span class="navicon">☷</span>存档与设置</button>
+      </nav>
+      <div class="side-foot"><div class="status-line"><i></i>GTNH 2.9.0 · 工艺改编</div><div id="saveStatus" class="version">v0.1.1 · 本地世界</div><button data-page="settings" class="text-button">存档管理 →</button></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="location"><span class="location-dot"></span><span id="pageLocation">地球 · 主基地</span><span class="divider">/</span><strong id="pageName">总览</strong></div><div class="stats"><span>阶段 <strong id="headerStage">石器时代</strong></span><span class="stat-eu">⚡ <strong id="headerEu">0 EU</strong></span><span class="save-dot" title="已保存"></span></div></header>
+      <section id="page" class="workspace"></section>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <dialog id="modal"><div id="modalContent"></div></dialog>
+  <input id="importFile" type="file" accept="application/json,.json" hidden>
+  <input id="recipeFile" type="file" accept="application/json,.json" hidden>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
