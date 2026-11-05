@@ -8,4 +8,6 @@ if($LASTEXITCODE -ne 0){throw 'Tests failed; no build produced'}
 if($LASTEXITCODE -ne 0){throw 'Windows build failed'}
 & node scripts/electron-smoke.mjs --packaged
 if($LASTEXITCODE -ne 0){throw 'Packaged application checks failed; old releases retained'}
+& node scripts/electron-smoke.mjs --portable
+if($LASTEXITCODE -ne 0){throw 'Portable executable checks failed; old releases retained'}
 & (Join-Path $PSScriptRoot 'finalize-release.ps1')

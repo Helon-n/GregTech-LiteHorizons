@@ -1,6 +1,6 @@
 {
   "name": "gtnh-idle-desktop",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "description": "GTNH-inspired offline idle factory game for Windows",
@@ -12,7 +12,7 @@
     "test:ui": "node scripts/ui-smoke.mjs",
     "test:desktop": "node scripts/electron-smoke.mjs",
     "dev:web": "node scripts/serve.mjs",
-    "dist": "electron-builder --win nsis --x64",
+    "dist": "electron-builder --win nsis portable --x64",
     "pack": "electron-builder --win --dir --x64",
     "release:windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/release-windows.ps1",
     "import:instance": "python scripts/import-instance.py"
@@ -33,10 +33,14 @@
       "package.json"
     ],
     "win": {
-      "target": "nsis",
+      "target": ["nsis", "portable"],
       "signExecutable": false,
       "icon": "src/assets/app-icon.ico",
       "artifactName": "GTNH-Idle-${version}-Setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "GTNH-Idle-${version}-Portable.exe",
+      "requestExecutionLevel": "user"
     },
     "nsis": {
       "oneClick": false,

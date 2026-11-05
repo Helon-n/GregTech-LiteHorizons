@@ -10,7 +10,7 @@ try{
   const clickNode=async(id,count)=>{for(let i=0;i<count;i++)await page.locator(`[data-gather="${id}"]`).click();};
   await page.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
   await page.screenshot({path:'artifacts/ui-overview.png',fullPage:true});
-  for(const name of ['resources','workshop','factory','inventory','research','space','reference','settings']){
+  for(const name of ['resources','workshop','factory','inventory','fluids','research','space','reference','settings']){
     await go(name);await expect(page.locator('#page')).not.toBeEmpty();
   }
 
@@ -27,7 +27,7 @@ try{
   await clickNode('surface',4);await clickNode('river',3);
   await expect(page.locator('[data-qty="clay"]')).toHaveText('2');
   await go('inventory');
-  for(const name of ['原木','黏性树脂','圆石','燧石','沙砾','黏土','沙子','水'])await expect(page.locator('#page')).toContainText(name);
+  for(const name of ['原木','黏性树脂','圆石','燧石','沙砾','黏土','沙子'])await expect(page.locator('#page')).toContainText(name);
 
   await go('workshop');
   await expect(page.locator('.bench-grid > .bench-slot')).toHaveCount(9);
@@ -36,13 +36,13 @@ try{
   await page.locator('[data-fill="sticks"]').click();
   await expect(page.locator('[data-craft="sticks"][data-count="1"]')).toBeEnabled();
   await page.locator('[data-craft="sticks"][data-count="1"]').click();
-  await expect(page.locator('#queuePanel')).toContainText('拆分木棍');
+  await expect(page.locator('#queuePanel')).toContainText('木棍');
   await expect(page.locator('#queuePanel')).toContainText('队列为空',{timeout:3000});
-  await page.locator('[data-select-recipe="pick"]').click();
+  await page.locator('[data-book-item="flintPick"]').click();
   await expect(page.locator('[data-fill="pick"]')).toBeDisabled();
   await expect(page.locator('[data-bench-status]')).toContainText('燧石');
   await go('resources');await clickNode('surface',8);
-  await go('workshop');await page.locator('[data-select-recipe="pick"]').click();
+  await go('workshop');await page.locator('[data-book-item="flintPick"]').click();
   await expect(page.locator('.bench-grid [data-slot-item="flint"]')).toHaveCount(3);
   await expect(page.locator('.bench-grid [data-slot-item="stick"]')).toHaveCount(2);
   await page.locator('[data-fill="pick"]').click();
@@ -54,23 +54,75 @@ try{
   await page.locator('[data-craft="pick"][data-count="1"]').click();
   await expect(page.locator('#queuePanel')).toContainText('队列为空',{timeout:5000});
   await go('inventory');await expect(page.locator('#page')).toContainText('燧石镐');
+  // NEI-style product names and recipe/usage lookup via keyboard and ingredients.
+  await go('workshop');await page.locator('[data-book-item="stick"]').hover();await page.keyboard.press('u');
+  await expect(page.locator('[data-recipe-mode="uses"]')).toHaveClass(/active/);
+  await expect(page.locator('.bench-heading h2')).toHaveText('燧石镐');
+  await page.locator('.bench-grid [data-lookup-item="flint"]').first().click();
+  await expect(page.locator('.workbench')).toContainText('获取地点：地表石层');
+  await page.locator('[data-book-item="stick"]').hover();await page.keyboard.press('r');
+  await expect(page.locator('.bench-heading h2')).toHaveText('木棍');
+  await expect(page.locator('.recipe-book')).not.toContainText('制作');
+
+  // Craft, enable and fill a bucket; there is no loose water inventory item.
+  await go('resources');await clickNode('forest',4);
+  await go('workshop');await page.locator('[data-tab="craft"]').click();await page.locator('[data-book-item="woodBucket"]').click();
+  await page.locator('[data-fill="woodBucket"]').click();await page.locator('[data-craft="woodBucket"][data-count="1"]').click();
+  await expect(page.locator('#queuePanel')).toContainText('队列为空',{timeout:4000});
+  await go('fluids');await page.locator('[data-place-container="woodBucket"]').click();
+  await expect(page.locator('[data-container]')).toHaveCount(1);
+  await go('resources');await clickNode('river',4);
+  await go('fluids');await expect(page.locator('[data-container-amount]')).toHaveText('1,000');
+  await expect(page.locator('[data-container-reserve]')).toBeDisabled();
+  await expect(page.locator('[data-remove-container]')).toBeDisabled();
+  await page.screenshot({path:'artifacts/ui-fluid-bucket.png',fullPage:true});
+  await go('inventory');await expect(page.locator('[data-inventory-item="water"]')).toHaveCount(0);
   await go('settings');await page.screenshot({path:'artifacts/ui-settings.png',fullPage:true});
 
   // Clearly isolated browser fixture for construction and machine configuration.
   const fixture=await page.evaluate(async()=>{const {Game}=await import('/core/engine.js');const g=new Game();g.add({stone:20,clay:20,coal:20});return JSON.stringify(g.snapshot());});
   await page.addInitScript(value=>localStorage.setItem('gtnh-long-road-v2',value),fixture);
   await page.reload({waitUntil:'networkidle'});await go('workshop');
-  await page.locator('[data-tab="machines"]').click();await page.locator('[data-select-recipe="build:furnace"]').click();
+  await page.locator('[data-tab="machines"]').click();await page.locator('[data-book-item="furnace"]').click();
   await expect(page.locator('[data-build="furnace"]')).toBeDisabled();
   await page.locator('[data-fill="build:furnace"]').click();await page.locator('[data-build="furnace"]').click();
   await go('factory');await page.locator('[data-assign]').selectOption('bricks');
   await page.waitForTimeout(5300);await expect(page.locator('[data-device-state]').first()).not.toHaveText('请选择配方');
   await page.screenshot({path:'artifacts/ui-factory.png',fullPage:true});
   await page.setViewportSize({width:1040,height:720});
-  for(const name of ['overview','resources','workshop','factory','research']){
+  for(const name of ['overview','resources','workshop','factory','fluids','research']){
     await go(name);if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Horizontal overflow at 1040px: '+name);
     if(name==='workshop')await page.screenshot({path:'artifacts/ui-workbench-1040.png',fullPage:true});
   }
+  // Independent steam fixture: full tank blocks production; transfer makes room.
+  const steamFixture=await page.evaluate(async()=>{
+    const {Game}=await import('/core/engine.js');const g=new Game();g.state.stage=1;
+    g.add({woodBucket:1,fluidTank:2,bronzePlate:6,brick:6,coal:3});
+    g.placeContainer('woodBucket');g.placeContainer('fluidTank');g.placeContainer('fluidTank');
+    g.reserveContainer('c2','steam');g.reserveContainer('c3','oil');g.add({water:1000,steam:64000});
+    const {device}=g.build('boiler');g.assign(device.id,'steam');return JSON.stringify(g.snapshot());
+  });
+  const context=await browser.newContext({viewport:{width:1040,height:720}});
+  await context.addInitScript(value=>localStorage.setItem('gtnh-long-road-v2',value),steamFixture);
+  const steamPage=await context.newPage();steamPage.on('pageerror',e=>errors.push(e.message));
+  await steamPage.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
+  await steamPage.locator('[data-page="factory"]').first().click();
+  await expect(steamPage.locator('[data-device-state]')).toHaveText('流体输出空间不足');
+  await steamPage.locator('[data-page="fluids"]').first().click();
+  await steamPage.locator('[data-container-reserve="c3"]').selectOption('');
+  await steamPage.locator('[data-transfer-target="c2"]').selectOption('c3');await steamPage.locator('[data-transfer="c2"]').click();
+  await expect(steamPage.locator('[data-container-amount="c3"]')).toHaveText('64.0k');
+  await expect(steamPage.locator('[data-container-amount="c2"]')).toHaveText('16.0k',{timeout:10000});
+  if(await steamPage.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Container overflow at 1040px');
+  await steamPage.screenshot({path:'artifacts/ui-fluid-tanks-1040.png',fullPage:true});
+  await steamPage.locator('[data-page="workshop"]').first().click();await steamPage.locator('[data-tab="recipes"]').click();
+  await steamPage.locator('[data-book-item="copperPlate"]').click();
+  await expect(steamPage.locator('[data-recipe-step="1"]')).toBeEnabled();
+  const first=await steamPage.locator('[data-bench-recipe]').getAttribute('data-bench-recipe');
+  await steamPage.locator('[data-recipe-step="1"]').click();
+  await expect(steamPage.locator('[data-bench-recipe]')).not.toHaveAttribute('data-bench-recipe',first);
+  await steamPage.screenshot({path:'artifacts/ui-nei-machine-recipe.png',fullPage:true});
+  await context.close();
   if(errors.length)throw Error(errors.join('\n'));
-  console.log('UI smoke OK: click-only progress, drops, recipe book, workbench, missing materials, crafting, construction, machines, 1040px layout');
+  console.log('UI smoke OK: NEI item recipes/usages, recipe navigation, click gathering, bucket storage, full-tank pause and transfer, construction, 1040px layout');
 }finally{await browser.close();}

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Game} from '../src/core/engine.js';
 import {CATALOG,recipes,machines,STAGES} from '../src/data/catalog.js';
+function tanks(g,count=3){g.add({largeTank:count});for(let i=0;i<count;i++)assert.equal(g.placeContainer('largeTank').ok,true);}
 
 test('catalog IDs and all costs / recipes refer to known items',()=>{
   assert.equal(new Set(recipes.map(r=>r.id)).size,recipes.length);
@@ -13,7 +14,7 @@ test('every chapter goal and machine can be reached without future-stage ingredi
   const known=new Set(),built=new Set();
   for(let stage=0;stage<STAGES.length;stage++){
     let changed=true;
-    while(changed){changed=false;const add=id=>{if(!known.has(id)){known.add(id);changed=true;}};
+    while(changed){changed=false;const add=id=>{if(CATALOG.items[id].kind==='fluid'&&!Object.entries(CATALOG.containerTypes).some(([type,c])=>known.has(type)&&(!c.accepts||c.accepts.includes(id))))return;if(!known.has(id)){known.add(id);changed=true;}};
       for(const n of CATALOG.gatherNodes){if(n.stage>stage)continue;if(n.id==='belt'&&!known.has('advancedRocket'))continue;if(['moon','mars'].includes(n.id)&&!known.has('rocket'))continue;if(n.stage===0&&!['forest','surface','river'].includes(n.id)&&!known.has('flintPick'))continue;Object.keys(CATALOG.nodeDrops[n.id]||{[n.output]:n.amount}).forEach(add);}
       for(const m of Object.values(machines)){if(m.stage<=stage&&Object.keys(m.cost).every(id=>known.has(id))&&!built.has(m.id)){built.add(m.id);add(m.id);}}
       for(const r of recipes){if(r.stage<=stage&&Object.keys({...r.inputs,...r.tools}).every(id=>known.has(id))&&(r.process==='craft'||[...built].some(id=>machines[id].processes.includes(r.process))))Object.keys(r.outputs).forEach(add);}
@@ -45,10 +46,10 @@ test('click progress survives saves and old timers migrate without advancing dur
 });
 
 test('all unlocked resource nodes award their declared drops after the required number of clicks',()=>{
-  const g=new Game();g.state.stage=15;g.add({flintPick:1,rocket:1,advancedRocket:1});
+  const g=new Game();g.state.stage=15;tanks(g,8);g.add({flintPick:1,rocket:1,advancedRocket:1});
   for(const node of CATALOG.gatherNodes){
-    const before={...g.state.inventory},expected=g.drops(node);
-    for(let i=1;i<g.gatherClicks(node);i++){assert.equal(g.gather(node.id).completed,false);assert.deepEqual(g.state.inventory,before);}
+    const before=Object.fromEntries(Object.keys(CATALOG.items).map(id=>[id,g.quantity(id)])),expected=g.drops(node);
+    for(let i=1;i<g.gatherClicks(node);i++){assert.equal(g.gather(node.id).completed,false);for(const id of Object.keys(expected))assert.equal(g.quantity(id),before[id]);}
     const outcome=g.gather(node.id);assert.equal(outcome.completed,true);assert.deepEqual(outcome.drops,expected);
     for(const[id,count]of Object.entries(expected))assert.equal(g.quantity(id),(before[id]||0)+count,node.id+' '+id);
   }
@@ -64,11 +65,11 @@ test('one machine cannot auto-run several recipes; times and input conservation 
 });
 
 test('powered machines pause without losing prepaid input or producing free output',()=>{
-  const g=new Game();g.state.stage=2;g.add({steelPlate:6,basicCircuit:2,pump:1,water:1000});const {device}=g.build('electrolyzer');g.assign(device.id,'waterElectrolysis');g.simulate(4);assert.equal(g.quantity('water'),0);assert.equal(g.quantity('hydrogen'),0);assert.equal(device.blocked,'电力不足');const job=JSON.stringify(device.job);g.simulate(2);assert.equal(JSON.stringify(device.job),job);g.state.energy=10000;g.simulate(8);assert.equal(g.quantity('hydrogen'),2000);assert.equal(g.quantity('oxygen'),1000);assert.equal(g.state.energy,10000-16*20*8);
+  const g=new Game();g.state.stage=2;tanks(g);g.add({steelPlate:6,basicCircuit:2,pump:1,water:1000});const {device}=g.build('electrolyzer');g.assign(device.id,'waterElectrolysis');g.simulate(4);assert.equal(g.quantity('water'),0);assert.equal(g.quantity('hydrogen'),0);assert.equal(device.blocked,'电力不足');const job=JSON.stringify(device.job);g.simulate(2);assert.equal(JSON.stringify(device.job),job);g.state.energy=10000;g.simulate(8);assert.equal(g.quantity('hydrogen'),2000);assert.equal(g.quantity('oxygen'),1000);assert.equal(g.state.energy,10000-16*20*8);
 });
 
 test('generator consumes fuel and adds bounded energy over time',()=>{
-  const g=new Game();g.state.stage=2;g.add({steelPlate:6,basicCircuit:1,motor:1,steam:3200});const {device}=g.build('turbine');g.assign(device.id,'steamPower');g.simulate(5);assert.equal(g.quantity('steam'),0);assert.equal(g.state.energy,3200);
+  const g=new Game();g.state.stage=2;tanks(g,1);g.add({steelPlate:6,basicCircuit:1,motor:1,steam:3200});const {device}=g.build('turbine');g.assign(device.id,'steamPower');g.simulate(5);assert.equal(g.quantity('steam'),0);assert.equal(g.state.energy,3200);
 });
 
 test('offline simulation matches online steps and survives save roundtrip',()=>{

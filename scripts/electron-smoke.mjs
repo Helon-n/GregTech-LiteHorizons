@@ -1,9 +1,13 @@
 import {_electron as electron,expect} from '@playwright/test';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {launchPortable} from './launch-portable.mjs';
 const dataDir=path.resolve('artifacts','electron-test-'+Date.now());
 const packaged=process.argv.includes('--packaged');
-const app=await electron.launch({...(packaged?{executablePath:path.resolve('release/win-unpacked/格雷的长路.exe'),args:[]}:{args:['.']}),env:{...process.env,GTNH_TEST_DATA:dataDir}});
+const portable=process.argv.includes('--portable');
+const version=JSON.parse(await fs.readFile('package.json','utf8')).version;
+const testEnv={...process.env,GTNH_TEST_DATA:dataDir};
+const app=portable?await launchPortable(path.resolve(`release/GTNH-Idle-${version}-Portable.exe`),testEnv):await electron.launch({...(packaged?{executablePath:path.resolve('release/win-unpacked/格雷的长路.exe'),args:[]}:{args:['.']}),env:testEnv,timeout:60000});
 try{
   const win=await app.firstWindow();const errors=[];win.on('pageerror',x=>errors.push(x.message));
   await win.waitForSelector('[data-page="resources"]');
@@ -13,13 +17,28 @@ try{
   await expect(win.locator('[data-qty="wood"]')).toHaveText('2');
   await expect(win.locator('[data-last-drops]')).toContainText('黏性树脂');
   await win.locator('[data-page="workshop"]').first().click();
+  await expect(win.locator('[data-book-item="flintPick"]')).toContainText('燧石镐');
+  await expect(win.locator('.recipe-book')).not.toContainText('制作');
   await expect(win.locator('.bench-grid > .bench-slot')).toHaveCount(9);
   await win.locator('[data-fill="sticks"]').click();await win.locator('[data-craft="sticks"][data-count="1"]').click();
   await expect(win.locator('#queuePanel')).toContainText('队列为空',{timeout:3000});
+  await win.locator('[data-book-item="stick"]').hover();await win.keyboard.press('u');
+  await expect(win.locator('[data-recipe-mode="uses"]')).toHaveClass(/active/);
+  await expect(win.locator('.bench-heading h2')).toHaveText('燧石镐');
+  await win.locator('[data-page="resources"]').first().click();for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();
+  await expect(win.locator('[data-last-drops]')).toContainText('需要兼容的空桶');
+  for(let i=0;i<4;i++)await win.locator('[data-gather="forest"]').click();
+  await win.locator('[data-page="workshop"]').first().click();await win.locator('[data-tab="craft"]').click();
+  await win.locator('[data-book-item="woodBucket"]').click();await win.locator('[data-fill="woodBucket"]').click();await win.locator('[data-craft="woodBucket"][data-count="1"]').click();
+  await expect(win.locator('#queuePanel')).toContainText('队列为空',{timeout:4000});
+  await win.locator('[data-page="fluids"]').first().click();await win.locator('[data-place-container="woodBucket"]').click();
+  await win.locator('[data-page="resources"]').first().click();for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();
+  await win.locator('[data-page="fluids"]').first().click();await expect(win.locator('[data-container-amount]')).toHaveText('1,000');
+  await win.locator('[data-page="inventory"]').first().click();await expect(win.locator('[data-inventory-item="water"]')).toHaveCount(0);
   await win.locator('[data-page="reference"]').first().click();await win.waitForSelector('.quest-card');
   const content=await win.locator('#page').innerText();if(!content.includes('3814'))throw Error('Local reference failed to load');
   await win.locator('.quest-card').first().click();if(!await win.locator('#modal').isVisible())throw Error('Quest dialog not visible');await win.locator('[data-action="close-modal"]').click();
   await win.locator('[data-page="overview"]').first().click();await win.screenshot({path:'artifacts/electron-overview.png',fullPage:true});
   if(errors.length)throw Error(errors.join('\n'));
-  console.log((packaged?'Packaged exe':'Electron')+' smoke OK: click gathering, item drops, workbench crafting, local reference fetch, quest dialog, render');
+  console.log((portable?'Portable single exe':packaged?'Packaged exe':'Electron')+' smoke OK: item recipe/usage lookup, click gathering, bucket crafting and water storage, local reference, quest dialog');
 }finally{await app.close();}

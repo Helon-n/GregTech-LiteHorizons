@@ -35,6 +35,14 @@ for(const [id,name,stage,color] of MATERIALS){
 for(const [id,name,color]of [['chrome','铬','#c1c7c7'],['nickel','镍','#c8bd92'],['platinum','铂','#d0d2ba']])item(id,name+'锭','金属',color);
 for(const [id,name,color]of [['water','水','#75a5d0'],['steam','蒸汽','#b1c8c9'],['creosote','杂酚油','#ac895e'],['oxygen','氧气','#95d7e0'],['hydrogen','氢气','#d3c6df'],['oil','原油','#8a8677'],['diesel','柴油','#d9bb63'],['sulfuricAcid','硫酸','#d6d784'],['chlorine','氯气','#a4bd79'],['titaniumTetrachloride','四氯化钛','#cabcd8'],['helium','氦气','#ddca9f'],['plasma','等离子体','#b3a3ea']])item(id,name,'流体',color,'fluid');
 for(const [id,name]of [['flintPick','燧石镐'],['hammer','锻造锤'],['wrench','扳手'],['saw','锯']])item(id,name,'工具');
+export const containerTypes={
+  woodBucket:{name:'木桶',capacity:1000,accepts:['water'],stage:0},
+  ironBucket:{name:'铁桶',capacity:1000,accepts:['water','creosote','oil','diesel'],stage:0},
+  fluidTank:{name:'密封储罐',capacity:64000,accepts:null,stage:1},
+  largeTank:{name:'大型储罐',capacity:1024000,accepts:null,stage:2},
+  legacyTank:{name:'迁移储罐',capacity:0,accepts:null,stage:0,migrationOnly:true}
+};
+for(const[id,c]of Object.entries(containerTypes))item(id,c.name,'流体容器','#a8b7ac');
 for(const [id,name]of [['vacuumTube','真空管'],['resistor','电阻'],['coatedBoard','覆膜电路板'],['basicCircuit','基础电路'],['goodCircuit','进阶电路'],['advancedCircuit','高级电路'],['processor','处理器'],['nanoCircuit','纳米电路'],['quantumCircuit','量子电路'],['crystalCircuit','晶体电路'],['wetwareCircuit','湿件电路'],['biowareCircuit','生物电路'],['opticalCircuit','光学电路'],['exoticCircuit','异域电路'],['cosmicCircuit','宇宙电路'],['transcendentCircuit','超越电路'],['spacetimeCircuit','时空电路'],['ultimateCircuit','终极电路'],['motor','电动马达'],['pump','电动泵'],['rocket','一级火箭'],['advancedRocket','深空火箭'],['fusionCore','聚变核心'],['dyson','戴森集群'],['starCore','恒星核心'],['fieldGenerator','力场发生器']])item(id,name,'元件');
 
 export const machines = {};
@@ -74,6 +82,10 @@ const recipe=(id,name,process,stage,inputs,outputs,seconds=5,extra={})=>recipes.
 recipe('sticks','拆分木棍','craft',0,{wood:1},{stick:4},1);
 recipe('pick','制作燧石镐','craft',0,{flint:3,stick:2},{flintPick:1},3);
 recipe('hammer','制作锻造锤','craft',0,{iron:6,stick:1},{hammer:1},5);
+recipe('woodBucket','木桶','craft',0,{wood:3},{woodBucket:1},2);
+recipe('ironBucket','铁桶','craft',0,{iron:3},{ironBucket:1},3);
+recipe('fluidTank','密封储罐','craft',1,{bronzePlate:6,glass:2},{fluidTank:1},5);
+recipe('largeTank','大型储罐','craft',2,{steelPlate:12,glass:4},{largeTank:1},8);
 recipe('bricks','烧制红砖','smelt',0,{clay:1,coal:1},{brick:4},5);
 recipe('charcoal','烧制木炭','smelt',0,{wood:4},{coal:3},6);
 recipe('glass','熔炼玻璃','smelt',0,{sand:4,coal:1},{glass:4},6);
@@ -163,4 +175,4 @@ export const nodeDrops={forest:{wood:2,resin:1},surface:{stone:2,flint:1,gravel:
 export const milestones=[
  {flintPick:1,brick:8},{steel:4,basicCircuit:1,motor:1},{goodCircuit:2,electrolyzer:1},{aluminium:4,chemical:1},{stainless:4,advancedCircuit:2},{titanium:4,processor:2,rocket:1,moonRock:4},{tungstensteel:4,nanoCircuit:2},{iridium:4,quantumCircuit:2},{europium:4,wetwareCircuit:2},{neutronium:4,biowareCircuit:2},{cosmic:4,opticalCircuit:2},{catalyst:4,exoticCircuit:2},{infinity:4,cosmicCircuit:2},{spacetime:4,transcendentCircuit:2},{eternity:4,spacetimeCircuit:2},{stargate:1}
 ];
-export const CATALOG={version:2,items,recipes,machines,stages:STAGES,gatherNodes,nodeDrops,milestones};
+export const CATALOG={version:3,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};
