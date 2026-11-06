@@ -1,3 +1,4 @@
+param([switch]$TestPackaged)
 $ErrorActionPreference='Stop'
 $projectRoot=(Resolve-Path -LiteralPath (Split-Path $PSScriptRoot -Parent)).Path
 Set-Location -LiteralPath $projectRoot
@@ -9,6 +10,12 @@ $tag="v$version"
 if($LASTEXITCODE -eq 0){throw "$tag already exists. Increment the version before a new release; tags are never overwritten."}
 if($LASTEXITCODE -ne 1){throw 'Could not check Git version tags'}
 & (Join-Path $PSScriptRoot 'build-windows.ps1')
+if($TestPackaged){
+    & node scripts/electron-smoke.mjs --packaged
+    if($LASTEXITCODE -ne 0){throw 'Packaged desktop smoke test failed'}
+    & node scripts/electron-smoke.mjs --portable
+    if($LASTEXITCODE -ne 0){throw 'Portable desktop smoke test failed'}
+}
 & git add --all
 if($LASTEXITCODE -ne 0){throw 'Git staging failed'}
 & git diff --cached --quiet

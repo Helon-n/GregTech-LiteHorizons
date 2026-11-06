@@ -1,4 +1,5 @@
 import {MATERIAL_PROCESSING} from '../data/material-processing.js';
+import {machineSupportsRecipe} from './technology.js';
 
 // Retired routes must not reject an entire world or finish with changed yields.
 // Refund paid material for cancelled batches; already spent energy is not restored.
@@ -31,7 +32,7 @@ export function migrateMaterialRecipes(saved,catalog){
     if(!d)throw Error('旧存档设备无效');
     const route=oldRoute(d.recipe);if(!route)continue;
     if(d.job&&(!Number.isFinite(d.job.remaining)||d.job.remaining<0||raw.schema===4&&(!Number.isFinite(d.job.duration)||d.job.duration<=0||d.job.remaining>d.job.duration)))throw Error('旧存档生产批次无效');
-    const r=recipeById.get(route.replacement),compatible=r&&catalog.machines[d.type]?.processes.includes(r.process);
+    const r=recipeById.get(route.replacement),compatible=r&&machineSupportsRecipe(catalog.machines[d.type],r);
     if(!compatible||route.form==='WireHand'){
       if(d.job)refund(route,1);
       d.job=null;d.recipe=compatible?r.id:null;d.blocked=d.recipe?'就绪':'请选择配方';

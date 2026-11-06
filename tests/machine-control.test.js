@@ -22,22 +22,22 @@ test('force stop unlocks a paused batch, survives reload, and allows another pro
 
 test('force stop works for a completed batch blocked by a full tank without phantom products or returned fuel',()=>{
   const g=new Game();g.state.stage=1;
-  tank(g,'fluidTank');g.add({creosote:63000,coal:8});
-  const a=build(g,'cokeOven'),b=build(g,'cokeOven');g.assign(a.id,'coke');g.assign(b.id,'coke');g.simulate(15);
+  tank(g,'fluidTank');g.add({creosote:63500,coal:2});
+  const a=build(g,'cokeOven'),b=build(g,'cokeOven');g.assign(a.id,'gt29:0be510620aeeb4');g.assign(b.id,'gt29:0be510620aeeb4');g.simulate(90);
   assert.equal(b.job.remaining,0);assert.equal(b.blocked,'流体输出空间不足');
   assert.equal(g.forceStop(b.id).ok,true);assert.equal(g.quantity('creosote'),64000);assert.equal(g.quantity('coal'),0);
-  g.pay({creosote:1000});g.simulate(10);assert.equal(g.quantity('creosote'),63000);assert.equal(g.state.produced,1004);
-  assert.equal(g.assign(b.id,'coke').ok,true);assert.equal(b.job,null);assert.equal(b.enabled,false);
+  g.pay({creosote:1000});g.simulate(10);assert.equal(g.quantity('creosote'),63000);assert.equal(g.state.produced,501);
+  assert.equal(g.assign(b.id,'gt29:0be510620aeeb4').ok,true);assert.equal(b.job,null);assert.equal(b.enabled,false);
 });
 
 test('force stop preserves spent electricity and cannot turn partly burned generator fuel into free energy',()=>{
   const g=new Game();g.state.stage=2;
-  const electrolyzer=build(g,'electrolyzer');g.add({sand:4});electrolyzer.eu=1000;
-  g.assign(electrolyzer.id,'silicon');g.simulate(1);const remainingEnergy=g.state.energy;
-  assert.equal(remainingEnergy,680);g.forceStop(electrolyzer.id);
-  assert.equal(g.state.energy,remainingEnergy);assert.equal(g.quantity('sand'),0);assert.equal(g.quantity('silicon'),0);
+  const electrolyzer=build(g,'electrolyzer');tank(g,'fluidTank');tank(g,'fluidTank');tank(g,'fluidTank');g.add({water:1000});electrolyzer.eu=1000;
+  g.assign(electrolyzer.id,'gt29:50dd451fc96eee');g.simulate(1);const remainingEnergy=g.state.energy;
+  assert.equal(remainingEnergy,400);g.forceStop(electrolyzer.id);
+  assert.equal(g.state.energy,remainingEnergy);assert.equal(g.quantity('water'),0);assert.equal(g.quantity('hydrogen'),0);
   tank(g,'fluidTank');g.add({steam:3200});const generator=build(g,'turbine');
-  g.assign(generator.id,'steamPower');g.setSupply(generator.id,'storage',g.state.containers[0].id);g.simulate(1);const generatedEnergy=g.state.energy;
+  g.assign(generator.id,'steamPower');g.setSupply(generator.id,'storage',g.state.containers.find(c=>c.fluid==='steam').id);g.simulate(1);const generatedEnergy=g.state.energy;
   assert.equal(generatedEnergy,remainingEnergy+1371);assert.equal(g.quantity('steam'),0);assert.equal(generator.fuel,1);
   g.forceStop(generator.id);g.simulate(20);
   assert.equal(g.state.energy,generatedEnergy);assert.equal(g.quantity('steam'),0);

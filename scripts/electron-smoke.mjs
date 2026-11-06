@@ -35,7 +35,7 @@ try{
   await checkLastDrop(win,expect,'需要兼容的空桶');
   await revealResource(win,'forest');for(let round=0;round<3;round++)for(let i=0;i<4;i++)await win.locator('[data-gather="forest"]').click();
   await win.locator('[data-page="workshop"]').first().click();await win.locator('[data-tab="craft"]').click();
-  await win.locator('[data-book-item="woodBucket"]').click();await win.locator('[data-fill="woodBucket"]').click();await win.locator('[data-craft="woodBucket"][data-count="1"]').click();
+  await win.locator('#search').fill('木桶');await win.locator('[data-book-item="woodBucket"]').click();await win.locator('#search').fill('');await win.locator('[data-fill="woodBucket"]').click();await win.locator('[data-craft="woodBucket"][data-count="1"]').click();
   await expect(win.locator('[data-queue-count]')).toHaveText('0',{timeout:4000});
   await win.locator('[data-page="inventory"]').first().click();await win.locator('[data-inventory-tab="containers"]').click();await win.locator('[data-container-view="catalog"]').click();await win.locator('[data-place-container="woodBucket"]').click();
   await win.locator('[data-page="resources"]').first().click();await revealResource(win,'river');for(let i=0;i<4;i++)await win.locator('[data-gather="river"]').click();

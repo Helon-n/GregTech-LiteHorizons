@@ -1,0 +1,2311 @@
+{
+  "pack": "GTNH 2.9.0",
+  "gregtech": "5.09.54.265",
+  "jar": "gregtech-5.09.54.265.jar",
+  "sha256": "b969e11625a0298416a75b6e39703da795233edb71cb66f25fb9bbf654d75528",
+  "source": "https://github.com/GTNewHorizons/GT5-Unofficial/tree/5.09.54.265/src/main/java",
+  "configuration": [
+    {
+      "path": "config/GregTech/MachineStats.cfg",
+      "sha256": "d25c9fde2f5ea3a9837fae45163ebe7f246cd81df494529c6ac2e234e30670ed"
+    },
+    {
+      "path": "config/GregTech/GregTech.cfg",
+      "sha256": "ae692bd75f0b4ad49f8451d641c04b1abb8490898a288babe8af7c5ba4f73b84"
+    }
+  ],
+  "sourceFiles": {
+    "gregtech/api/enums/OreMixes.java": "cfefa4044396691afb430b187a822fa19fa292e8582c03e43cd67d652eb72384",
+    "gregtech/loaders/materials/MaterialsInit.java": "2db9eec4174b6ccb1a08bf4faba23ecd93e393a3cadbcebe2977c69caba41f43",
+    "gregtech/loaders/oreprocessing/ProcessingAll.java": "7584dca1f55d89f1fdfc57cc6ac18b7ecf3203e8efc8550bf4df642179e13631",
+    "gregtech/loaders/oreprocessing/ProcessingBlock.java": "96ed683b373e7ef0bc3a2b178007e83e533189e573b63dd3912f139ad0e84e31",
+    "gregtech/loaders/oreprocessing/ProcessingBolt.java": "e04c480e53d1903c89772acfaf65b708ac0511913e8f1804a4c6530167f19a73",
+    "gregtech/loaders/oreprocessing/ProcessingCell.java": "664c6e1f66f08a7ad89c710b9e9300eee60e5e889077109c77e8d189830c60b8",
+    "gregtech/loaders/oreprocessing/ProcessingCircuit.java": "43ed0505e1c4dfecb6c74a4645c3dfe340d3ff82ef7d6b04978dcc5a0e38941c",
+    "gregtech/loaders/oreprocessing/ProcessingCompressed.java": "b63ff80cf280740da905b14555357b267845399aa57c784f067f2fab87559211",
+    "gregtech/loaders/oreprocessing/ProcessingCrop.java": "ca5fc6e30c1363fe3f73565576667f8d4b0bdba0d137f6030e6925bfae2ea7da",
+    "gregtech/loaders/oreprocessing/ProcessingCrushedOre.java": "205e429db27c24052603a8f706d4b51166f12d41a8d2c170e60ca5c4f5335487",
+    "gregtech/loaders/oreprocessing/ProcessingCrystallized.java": "af088822b1371cbc4c8624d829efdeb23aa33507f7f1efb6a4c261fa58a6c1f1",
+    "gregtech/loaders/oreprocessing/ProcessingDirty.java": "dae2910c2b500a6a4499bf93407b05b1ca108ab455ac020f9d9ee8744917adf5",
+    "gregtech/loaders/oreprocessing/ProcessingDust.java": "6875805bf3aa7f9ab80a56f55d48589b196f05527ba95983f22c986a74903d22",
+    "gregtech/loaders/oreprocessing/ProcessingFineWire.java": "580f55ec03308fca9289e386b153c8ba97eb452e2c70bc8e9ceda28b98f8f32c",
+    "gregtech/loaders/oreprocessing/ProcessingFoil.java": "fc1d3d52c52cdf8d1431cc4585663b397fc0e8d9d0944c9536800b6da66f8295",
+    "gregtech/loaders/oreprocessing/ProcessingGear.java": "1b381817881ac752c3e069c25d2376974184e0e71dba7f53a3bf379fbbb98617",
+    "gregtech/loaders/oreprocessing/ProcessingGem.java": "7774d7448c2f67ddfae303467ca1b6a32e01542b4a7cb6698638bea18a81d975",
+    "gregtech/loaders/oreprocessing/ProcessingIceOre.java": "e21048427017a4635c034e3411a02e10763182dffc4291a2815bcbdf61753ee8",
+    "gregtech/loaders/oreprocessing/ProcessingIngot.java": "2632242b9817e936694a39bf7fe010fa727121497d8575728292eacf09c7f714",
+    "gregtech/loaders/oreprocessing/ProcessingItem.java": "1f7b0fd70b07f884462d916ea6a04945298ceedb1d38b5d4cff53134db480e69",
+    "gregtech/loaders/oreprocessing/ProcessingLens.java": "5ffaee6ab99036c9954a885158f532d32bad351914644ea8b2d0db328aba6d3e",
+    "gregtech/loaders/oreprocessing/ProcessingLog.java": "bc7b976a0393da8dc5f99eed1984c11160b315159038f23e7aa4f2877eb9f038",
+    "gregtech/loaders/oreprocessing/ProcessingNugget.java": "ac45cee7a0b9db5b90165a7d66862d0b3db154209967c7bcb3ceac1dd8bb4e13",
+    "gregtech/loaders/oreprocessing/ProcessingOre.java": "65ede3770948f33ede4565c02575f6237031b03b7811de3c4a31cfe52e75fdd7",
+    "gregtech/loaders/oreprocessing/ProcessingOrePoor.java": "819641ee89a94bc2b7f307511898e7527d2f4fcd8fe711c9fb7dcdccae2c9a02",
+    "gregtech/loaders/oreprocessing/ProcessingOreSmelting.java": "b492ee3ae7ea28827bce093b4f58cc9f8ef1943112607795a4924176b3cafbb6",
+    "gregtech/loaders/oreprocessing/ProcessingPipe.java": "d6aaf51abb76a73436fc8c89af8d3054bb0026ff67042255756b8776c98a6ec1",
+    "gregtech/loaders/oreprocessing/ProcessingPlank.java": "5e6843c1480c545b34f644708fa2492f3491bd6bd1198de2b2638545885a9b1d",
+    "gregtech/loaders/oreprocessing/ProcessingPlate.java": "79ba64c9bc8a5307caa52b23ef51d69efc82a4f978b9e50a85e03dd451d73bcf",
+    "gregtech/loaders/oreprocessing/ProcessingPure.java": "a69806a9444a44e774521ebf5263139d068d21d0a84fcdcb9813818eede5cf9f",
+    "gregtech/loaders/oreprocessing/ProcessingRawOre.java": "53cf8cbaf6f1139f760623648c4a7f01441a0cb4e927b4d89de384e7701e8724",
+    "gregtech/loaders/oreprocessing/ProcessingRecycling.java": "560d2d0d534de7e4ed49e1b2ae7dcbeca95c499efd41abb40b0f3d6ead4ab792",
+    "gregtech/loaders/oreprocessing/ProcessingRotor.java": "0a1e3c6a8d11b8bd47ba84f3085b44482dd92920c36965d55639b6039027bb82",
+    "gregtech/loaders/oreprocessing/ProcessingRound.java": "e4587f1c3293e64b840baa92d4c6dc484679433ac18a4883ac748116f6973e8f",
+    "gregtech/loaders/oreprocessing/ProcessingScrew.java": "a37133addd1c565725bee9df2b4349d103374913046d949591912f0247ce4025",
+    "gregtech/loaders/oreprocessing/ProcessingShaping.java": "19637435816baff45881ac93fb72fdb0117d89cfaca05bf276b588cdb7006196",
+    "gregtech/loaders/oreprocessing/ProcessingSlab.java": "801f581648c5db49ea308ba34d12e10a9d58a4d47f43685d235399963e044425",
+    "gregtech/loaders/oreprocessing/ProcessingStick.java": "8772efc36a2531f4b6b21f88aed2a6925ba09b9f0ba6a90e5325349d3a151ef4",
+    "gregtech/loaders/oreprocessing/ProcessingStickLong.java": "31794f1802c253c53921a5cc2c325c2b0da630790496509c8df1527bf3bf37dc",
+    "gregtech/loaders/oreprocessing/ProcessingStoneVarious.java": "04c7abc635fb35dc8b54b97c522d2efff9ea0fab4fe8708f2c3fdb5b3ccca977",
+    "gregtech/loaders/oreprocessing/ProcessingToolHead.java": "c17e5cc383008ff830fde6022715c3ba28c2436eb4931c8a191bd34b49fed2e9",
+    "gregtech/loaders/oreprocessing/ProcessingToolOther.java": "63a8835d0d245aee8f244080985a442978824ccc924ad283d8bd1ebe3f6645b8",
+    "gregtech/loaders/oreprocessing/ProcessingTransforming.java": "c737985d6c41f97ab619f945f9a6a5140c2a903fe543fa9a0ca1e967b3d3652d",
+    "gregtech/loaders/oreprocessing/ProcessingUtils.java": "d27ed4ed673814bc266c3fc7a93f7c36827580efdf0acf9a6f551507d1c60427",
+    "gregtech/loaders/oreprocessing/ProcessingWire.java": "2872f80c97b88eb92a89cb618fd3052999ccd1d3c0ebde18b48d8a5e0c535ef4",
+    "gregtech/loaders/postload/recipes/AlloySmelterRecipes.java": "1d29a99190542014a3252d6fec4694dde7c0f64eaf35283c55590736d1f3a793",
+    "gregtech/loaders/postload/recipes/ArcFurnaceRecipes.java": "494185ba468c5002ae733d9f574c3ffcf41588afe08d15399de81af992798720",
+    "gregtech/loaders/postload/recipes/AssemblerRecipes.java": "2c535bdd602be5874ef855106a5b08d8b98b8f6e10129ea035730339c7e331ea",
+    "gregtech/loaders/postload/recipes/AssemblyLineRecipes.java": "be21ea58162dae8bcb68a6bda7ebd4d7dfafd79962b490b400531afc3c96d3f0",
+    "gregtech/loaders/postload/recipes/AutoclaveRecipes.java": "b7d5661e73d744c266bae70dfda779dbc010c5687aa6e035ded8ab6ed4ca8e9d",
+    "gregtech/loaders/postload/recipes/BECMetaMaterialRecipes.java": "93db86c9063cf97e29fc2d9963e1ecf95720c3dca6b0f0f6954dad289f391c2c",
+    "gregtech/loaders/postload/recipes/BECRecipes.java": "ad3ede419dbbae8ab42ad45a21f451f39347ee8dd7d9b4817cd058d84c2c2c31",
+    "gregtech/loaders/postload/recipes/BenderRecipes.java": "8da8228835e8b10b1e9f0abc4a4ed6e656ea22427eeb63f40712d5a70f76e994",
+    "gregtech/loaders/postload/recipes/BlastFurnaceRecipes.java": "40b23384a6792920c742733c456a2e531f7ed799b68c39387994d0ff80c83834",
+    "gregtech/loaders/postload/recipes/BreweryRecipes.java": "7f5a805077d193df94a6110060c1af6dab85980e876a4d7f038fe754cdfdd401",
+    "gregtech/loaders/postload/recipes/CannerRecipes.java": "7a2f50a710c8c7306306508cc81b502cec2cd2fd77ed0d9f0a6039638cdf18c5",
+    "gregtech/loaders/postload/recipes/CentrifugeRecipes.java": "502da5de8eb6a742cde7a38e479cee79998f691d8f56da59b8e63caac2c4143d",
+    "gregtech/loaders/postload/recipes/ChemicalBathRecipes.java": "2feb7a1ef3a2b2752fb2200986dc4bbb027995f52832985b134986975ef78a78",
+    "gregtech/loaders/postload/recipes/ChemicalRecipes.java": "f01e26a5345ff11b95d00c2d0562bf9abec1e23de44262de9dc46d9a6fbce4ee",
+    "gregtech/loaders/postload/recipes/CircuitAssemblerRecipes.java": "935baed591c635eb3d044a42e7a9ebd67133ec6b9481739f817b5476cfb45967",
+    "gregtech/loaders/postload/recipes/CokeAndPyrolyseOven.java": "88cddffa6e98a7e07fc20a9392e4bfd6d20e95ef3d9cc67eff8acb11203b486f",
+    "gregtech/loaders/postload/recipes/CokeOvenRecipes.java": "0038b1a71dca1c4da2e8f0c1920a2ae10170a0ded7561ca3c8bdf30401653639",
+    "gregtech/loaders/postload/recipes/CompressorRecipes.java": "8c2eb681c316591206bd5877f276d73392bc3ef6b5ea1d7867aa0744443c6eda",
+    "gregtech/loaders/postload/recipes/CuttingRecipes.java": "a198f9c068fa08678852668f9290d1d1f5c165a5debbe7d27fc51c376c5e6694",
+    "gregtech/loaders/postload/recipes/DistilleryRecipes.java": "1e01d6af69be22c44f1f7468ac55ec07f9a9e540a7c13c91ecb27f5bdcc02ef2",
+    "gregtech/loaders/postload/recipes/ElectrolyzerRecipes.java": "b82c5027d65609df098a8fd59a2dd450db87878b19421bc5ff02cc60d06f752e",
+    "gregtech/loaders/postload/recipes/ElectromagneticSeparatorRecipes.java": "def752d207cf692ae994ee41ec3bb3d453204de26b839c9e4af199dbfbdf5296",
+    "gregtech/loaders/postload/recipes/ExtractorRecipes.java": "beb7bd6ab727ae29eb06a200a2bbbe16cf95f44b60dd738d824d28a70f770925",
+    "gregtech/loaders/postload/recipes/ExtruderRecipes.java": "9993ebfc45451a0579e0132b6e7b24491197a95d36b4beb8cde1b27c2c021695",
+    "gregtech/loaders/postload/recipes/FakeCuttingRecipes.java": "99d11b7405bb1659484a87d9176ba4ed8bc7ce93f1607b5c4b4a46234eaea0de",
+    "gregtech/loaders/postload/recipes/FakeCuttingSpecialInfo.java": "5268725f49cadb8c5297eb5e99d62beb41135155b671aaf0c756a4a73cf06a01",
+    "gregtech/loaders/postload/recipes/FermenterRecipes.java": "670f98ba339a857776ff09eab8af23836bf4fe4c93b7dbceb6b8f470a6a7ed32",
+    "gregtech/loaders/postload/recipes/FluidCannerRecipes.java": "96b18e91dfe2bb60ff163a78e2caf7284751fcf2338baa8265efc0572ef95aa1",
+    "gregtech/loaders/postload/recipes/FluidExtractorRecipes.java": "e9223fc3205f062900d3c889374cbb10fa78a62d18105d088fbc742c99fcff65",
+    "gregtech/loaders/postload/recipes/FluidHeaterRecipes.java": "4b874839ee212bfacbd97c4010b40256c63183d7591c4baf329b6450ed0ee2f1",
+    "gregtech/loaders/postload/recipes/FluidSolidifierRecipes.java": "6e5f604652cb06143643f7ae6c14b34e8d66c242d8e5e5ae769e07eb5190daed",
+    "gregtech/loaders/postload/recipes/ForgeHammerRecipes.java": "3628f88fc6732083e8f142c8d445c3f5e1a421f39d779be1a2941cc5515cc391",
+    "gregtech/loaders/postload/recipes/FormingPressRecipes.java": "a0aadb99780563db42aad9a5dacf77533aa659b8591820e8040f39d4b5b65708",
+    "gregtech/loaders/postload/recipes/FuelRecipes.java": "9c42e95fa948d22d6e0f14802b7fb323d60860acb67f50ef1465b6c77da6edfb",
+    "gregtech/loaders/postload/recipes/FusionReactorRecipes.java": "5a38556d0f1022a9626d18a25ed4c44b014c41a8cd42d08ec76a0fd37ff2ba1e",
+    "gregtech/loaders/postload/recipes/IceCreamMachineRecipes.java": "dca5016c649d2bb1f637bebe4dee45950e1d8c9a600b2bb4ce2915701d1dfbe6",
+    "gregtech/loaders/postload/recipes/ImplosionCompressorRecipes.java": "f729443c2d6a91245335bde6c6bcec2695942929875d740f2d47b16c834e8b3d",
+    "gregtech/loaders/postload/recipes/LaserEngraverRecipes.java": "fa9505ebd234b100554af01f30e9a32d4699dfe33f7b59d7ce1355fc3acd86e0",
+    "gregtech/loaders/postload/recipes/LatheRecipes.java": "164cde36df3c964387421d9d40aa5d41747ee44408829bbfdc474d132cdaff0e",
+    "gregtech/loaders/postload/recipes/MatterAmplifierRecipes.java": "1d831cbbf703e90c6708eeb8a015712a5de87426f2581d9078ca588abdd52f82",
+    "gregtech/loaders/postload/recipes/MixerRecipes.java": "ec0a8b2dc11a79eab940fbe7a47394456dbc8c46c994cd604b0bf2092ff16d72",
+    "gregtech/loaders/postload/recipes/NEIHiding.java": "d9fcb899d93e4ec298eca54539c0ea61f19803598e28171ad229c8ccc3beafab",
+    "gregtech/loaders/postload/recipes/OreDictUnification.java": "c1a218893072c71057a09bdab6e8dc493caa6c6d87c04ad1e6dc168cb7f1bca2",
+    "gregtech/loaders/postload/recipes/PackagerRecipes.java": "520da064a35d0d1e3327d9deba5e1f109527601380cfc10dcbd93c448b669a95",
+    "gregtech/loaders/postload/recipes/PlasmaForgeRecipes.java": "f3f9d2fee373ac6c028e48af9e244988fbaa8240ad3e2b58bfa245ee241647b8",
+    "gregtech/loaders/postload/recipes/PrinterRecipes.java": "2fb839c19470390457751e11191567f48328c366370c3a51e41d230c40419965",
+    "gregtech/loaders/postload/recipes/Pulverizer.java": "5610568e4ba504ef858cd5ab2a7dd7a16e4bed38322c589880358ea294f48714",
+    "gregtech/loaders/postload/recipes/PyrolyseRecipes.java": "65b04d0c45446c96da02e8ccafa4f305a0e2f6e30b69119ecb165f991843c3f0",
+    "gregtech/loaders/postload/recipes/RecipeRemover.java": "3afad85505bb68f1bac0797cb1f4d0cea26f3a4b0c0b03fc621656ab24cc64a9",
+    "gregtech/loaders/postload/recipes/SifterRecipes.java": "0b47a0ce2984ed5d0390a3e416923505f0751fdcd5a4e26b7d45d3ecb3742460",
+    "gregtech/loaders/postload/recipes/SmelterRecipes.java": "98db8443b11f6219e36a7272b625b8093cd72be9c34cc574792c99a07f842afb",
+    "gregtech/loaders/postload/recipes/ThaumcraftRecipes.java": "9e8ade79f24c05ffae5777e734a6b9f6aea36b383b9fc838eac20109b723b458",
+    "gregtech/loaders/postload/recipes/ThermalCentrifugeRecipes.java": "5418cbdf8c55f5d12cbd6390bff5dc9107340332eec54fd43c51cf202ef832bd",
+    "gregtech/loaders/postload/recipes/TranscendentPlasmaMixerRecipes.java": "95eea4e5d20ef01e64bdfa675c36fc5f129a10c2351a154f9ba042da5f403d66",
+    "gregtech/loaders/postload/recipes/VacuumFreezerRecipes.java": "1526cf3f547880265a712953600e5ec1bc5219523f849cb6345b58706d17f0ee",
+    "gregtech/loaders/postload/recipes/WiremillRecipes.java": "8057c557e72b6a569c1c7d12aa8edacb29a692d1fcebb6433e8dcb08e7925627"
+  },
+  "recipes": 4965,
+  "maps": {
+    "chemistry": 340,
+    "largeChemistry": 168,
+    "electrolyze": 154,
+    "centrifuge": 555,
+    "mix": 30,
+    "distillery": 337,
+    "distill": 101,
+    "chemicalBath": 36,
+    "thermalCentrifuge": 499,
+    "electromagnetic": 25,
+    "fluidHeat": 9,
+    "pyrolyse": 16,
+    "coke": 2,
+    "electricSmelt": 102,
+    "grind": 992,
+    "forgeHammer": 992,
+    "oreWash": 496,
+    "sift": 45,
+    "crack": 66
+  },
+  "fuels": 115,
+  "unresolved": [
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 61,
+      "reason": "unresolved stack newOreDictItemStack(dye.name(),1)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 74,
+      "reason": "unresolved stack newItemStack(Items.paper,1)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 82,
+      "reason": "unresolved stack newFluidStack(ItemList.sIndiumConcentrate,8_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 92,
+      "reason": "unresolved stack newFluidStack(ItemList.sIndiumConcentrate,72_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 104,
+      "reason": "unresolved stack newFluidStack(ItemList.sNickelSulfate,2_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 114,
+      "reason": "unresolved stack newFluidStack(ItemList.sBlueVitriol,2_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 135,
+      "reason": "unresolved stack GTModHandler.getIC2Coolant(1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 145,
+      "reason": "unresolved stack getModItem(GalaxySpace.ID,\"item.UnknowCrystal\",4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 154,
+      "reason": "unresolved stack ItemList.Circuit_Chip_Stemcell.get(32)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 165,
+      "reason": "unresolved stack newFluidStack(ItemList.sToluene,1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 175,
+      "reason": "unresolved stack ItemList.GelledToluene.get(4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 184,
+      "reason": "unresolved stack ItemList.GelledToluene.get(4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 304,
+      "reason": "unresolved stack Materials.Polycaprolactam.getMolten(9*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 314,
+      "reason": "unresolved stack Materials.Polycaprolactam.getMolten(1*STACKS+17*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 437,
+      "reason": "nonfluid cell Carbon"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 491,
+      "reason": "unresolved stack Materials.Rubber.getMolten(9*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 500,
+      "reason": "unresolved stack Materials.Rubber.getMolten(1*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 511,
+      "reason": "unresolved stack newItemStack(Items.melon,1,32767)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 520,
+      "reason": "unresolved stack newItemStack(Items.carrot,1,32767)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 529,
+      "reason": "unresolved stack newItemStack(Items.apple,1,32767)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 538,
+      "reason": "unresolved stack newItemStack(Items.apple,1,32767)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 556,
+      "reason": "unresolved stack newItemStack(Items.slime_ball,1,32767)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 1997,
+      "reason": "unresolved stack Materials.Epoxid.getMolten(1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 2295,
+      "reason": "unresolved stack Materials.RubberSilicone.getMolten(9*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 2496,
+      "reason": "unresolved stack Materials.Polybenzimidazole.getMolten(1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 2504,
+      "reason": "unresolved stack Materials.Glass.getMolten(6*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3265,
+      "reason": "unresolved stack ItemList.Cell_Air.get(1)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3321,
+      "reason": "unresolved stack Materials.StyreneButadieneRubber.getMolten(9*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3360,
+      "reason": "unresolved stack ItemList.Cell_Air.get(8)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3369,
+      "reason": "unresolved stack Materials.PolyphenyleneSulfide.getMolten(1_500)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3753,
+      "reason": "unresolved stack newItemStack(WerkstoffLoader.items.get(OrePrefixes.dust),3,63)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3767,
+      "reason": "unresolved stack newItemStack(WerkstoffLoader.items.get(OrePrefixes.dust),6,10052)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3780,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"butanol\"),1000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3793,
+      "reason": "unresolved stack getFilledCellFromFluidName(Formaldehyde,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3808,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.formaldehyde\"),4_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3823,
+      "reason": "unresolved stack GregtechItemList.CalciumHydroxideDust.get(5)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3835,
+      "reason": "unresolved stack SODIUM_NITRATE.getDust(10)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3848,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.AMERICIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3856,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.AMERICIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3864,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.AMERICIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3872,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.AMERICIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3880,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.AMERICIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3890,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.EUROPIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3898,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.EUROPIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3906,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.EUROPIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3914,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.EUROPIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3922,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.EUROPIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3930,
+      "reason": "unresolved stack GTBees.combs.getStackForType(CombType.INDIUM,4)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3942,
+      "reason": "unresolved stack ItemList.Cell_Air.get(1)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3952,
+      "reason": "unresolved stack newFluidStack(aBasicMaterial,1*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3962,
+      "reason": "unresolved stack ItemList.Cell_Air.get(8)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3972,
+      "reason": "unresolved stack newFluidStack(aBasicMaterial,8*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3982,
+      "reason": "unresolved stack newFluidStack(aBasicMaterial,15*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 3993,
+      "reason": "unresolved stack newFluidStack(aBasicMaterial,15*INGOTS)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 4199,
+      "reason": "unresolved stack newFluidStack(ItemList.sIndiumConcentrate,8_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 4480,
+      "reason": "unresolved stack ItemList.Cell_Air.get(5)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 4496,
+      "reason": "unresolved stack ItemList.Cell_Air.get(15)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 4667,
+      "reason": "dynamic number:  GTValues.VP[7]"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 4684,
+      "reason": "dynamic number:  GTValues.VP[7]"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 4709,
+      "reason": "unresolved stack newFluidStack(ItemList.sIndiumConcentrate,8_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 4720,
+      "reason": "unresolved stack newFluidStack(ItemList.sIndiumConcentrate,72_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 4731,
+      "reason": "unresolved stack newFluidStack(ItemList.sNickelSulfate,18_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 4741,
+      "reason": "unresolved stack newFluidStack(ItemList.sBlueVitriol,18_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5122,
+      "reason": "unresolved stack GTUtility.copyAmount(0,Materials.Calcium.getDust(1))"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5136,
+      "reason": "unresolved stack GTUtility.copyAmount(0,Materials.Quicklime.getDust(1))"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5148,
+      "reason": "unresolved stack GTUtility.copyAmount(0,Materials.Calcite.getDust(1))"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5327,
+      "reason": "unresolved stack Materials.Epoxid.getMolten(1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5840,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.formaldehyde\"),1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5853,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"nitrobenzene\"),9000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5866,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"nitrobenzene\"),5_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5882,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"phosgene\"),2_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5892,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"butanol\"),9_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5901,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"butanol\"),2_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5913,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"butanol\"),18_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5927,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"propionicacid\"),1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5939,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"propionicacid\"),9_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5953,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"aniline\"),1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5964,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"aniline\"),9_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 5992,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"1,4-butanediol\"),1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6001,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"1,4-butanediol\"),9_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6012,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.formaldehyde\"),2_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6026,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.formaldehyde\"),18_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6044,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"1,4-butanediol\"),1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6055,
+      "reason": "unresolved stack WerkstoffLoader.CalciumChloride.get(OrePrefixes.dust,1)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6069,
+      "reason": "unresolved stack WerkstoffLoader.CalciumChloride.get(OrePrefixes.dust,7)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6085,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"boricacid\"),4_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6097,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"boricacid\"),1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6108,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"boricacid\"),9_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6141,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.hydrazine\"),1_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6151,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.hydrazine\"),9_000)"
+    },
+    {
+      "file": "ChemicalRecipes.java",
+      "line": 6162,
+      "reason": "unresolved stack GTUtility.copyAmount(0,GTOreDictUnificator.get(OrePrefixes.nanite,Materials.MagMatter,1))"
+    },
+    {
+      "file": "ElectrolyzerRecipes.java",
+      "line": 78,
+      "reason": "unresolved stack ItemList.Dye_Bonemeal.get(3L)"
+    },
+    {
+      "file": "ElectrolyzerRecipes.java",
+      "line": 85,
+      "reason": "unresolved stack newItemStack(Blocks.sand,8,0)"
+    },
+    {
+      "file": "ElectrolyzerRecipes.java",
+      "line": 92,
+      "reason": "unresolved stack newItemStack(Blocks.sand,8,1)"
+    },
+    {
+      "file": "ElectrolyzerRecipes.java",
+      "line": 807,
+      "reason": "unresolved stack newFluidStack(ItemList.sLeadZincSolution,8000)"
+    },
+    {
+      "file": "ElectrolyzerRecipes.java",
+      "line": 819,
+      "reason": "unresolved stack newFluidStack(ItemList.sBlueVitriol,2000)"
+    },
+    {
+      "file": "ElectrolyzerRecipes.java",
+      "line": 830,
+      "reason": "unresolved stack newFluidStack(ItemList.sNickelSulfate,2000)"
+    },
+    {
+      "file": "ElectrolyzerRecipes.java",
+      "line": 841,
+      "reason": "unresolved stack newFluidStack(ItemList.sGreenVitriol,2000)"
+    },
+    {
+      "file": "ElectrolyzerRecipes.java",
+      "line": 864,
+      "reason": "unresolved stack CalciumChloride.getFluidOrGas(3_000)"
+    },
+    {
+      "file": "ElectrolyzerRecipes.java",
+      "line": 872,
+      "reason": "unresolved stack CalciumFluoride.getFluidOrGas(3_000)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 51,
+      "reason": "unresolved stack newOreDictItemStack(\"logRubber\",1)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 65,
+      "reason": "duplicate independent chance output"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 86,
+      "reason": "unresolved stack WerkstoffLoader.PTMetallicPowder.get(OrePrefixes.dust,6)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 117,
+      "reason": "unresolved stack newItemStack(Items.golden_apple,1,1)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 126,
+      "reason": "unresolved stack newItemStack(Items.golden_apple,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 135,
+      "reason": "unresolved stack newItemStack(Items.golden_carrot,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 144,
+      "reason": "unresolved stack newItemStack(Items.speckled_melon,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 153,
+      "reason": "unresolved stack newItemStack(Items.mushroom_stew,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 162,
+      "reason": "unresolved stack newItemStack(Items.apple,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 170,
+      "reason": "unresolved stack newItemStack(Items.bread,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 178,
+      "reason": "unresolved stack newItemStack(Items.porkchop,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 186,
+      "reason": "unresolved stack newItemStack(Items.cooked_porkchop,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 194,
+      "reason": "unresolved stack newItemStack(Items.beef,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 202,
+      "reason": "unresolved stack newItemStack(Items.cooked_beef,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 210,
+      "reason": "unresolved stack newItemStack(Items.fish,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 218,
+      "reason": "unresolved stack newItemStack(Items.cooked_fished,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 226,
+      "reason": "unresolved stack newItemStack(Items.chicken,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 234,
+      "reason": "unresolved stack newItemStack(Items.cooked_chicken,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 242,
+      "reason": "unresolved stack newItemStack(Items.melon,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 250,
+      "reason": "unresolved stack newItemStack(Blocks.pumpkin,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 258,
+      "reason": "unresolved stack newItemStack(Items.rotten_flesh,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 266,
+      "reason": "unresolved stack newItemStack(Items.spider_eye,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 274,
+      "reason": "unresolved stack newItemStack(Items.carrot,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 282,
+      "reason": "unresolved stack ItemList.Food_Raw_Potato.get(1)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 290,
+      "reason": "unresolved stack ItemList.Food_Poisonous_Potato.get(1)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 298,
+      "reason": "unresolved stack ItemList.Food_Baked_Potato.get(24)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 306,
+      "reason": "unresolved stack newItemStack(Items.cookie,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 314,
+      "reason": "unresolved stack newItemStack(Items.cake,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 322,
+      "reason": "unresolved stack newItemStack(Blocks.brown_mushroom_block,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 330,
+      "reason": "unresolved stack newItemStack(Blocks.red_mushroom_block,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 338,
+      "reason": "unresolved stack newItemStack(Blocks.brown_mushroom,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 346,
+      "reason": "unresolved stack newItemStack(Blocks.red_mushroom,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 354,
+      "reason": "unresolved stack newItemStack(Items.nether_wart,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 362,
+      "reason": "unresolved stack getModItem(TwilightForest.ID,\"item.meefRaw\",1L,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 370,
+      "reason": "unresolved stack getModItem(TwilightForest.ID,\"item.meefSteak\",1L,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 378,
+      "reason": "unresolved stack getModItem(TwilightForest.ID,\"item.venisonRaw\",1L,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 386,
+      "reason": "unresolved stack getModItem(TwilightForest.ID,\"item.venisonCooked\",1L,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 394,
+      "reason": "unresolved stack newItemStack(Blocks.sand,1,1)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 405,
+      "reason": "unresolved stack newItemStack(Blocks.dirt,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 416,
+      "reason": "unresolved stack newItemStack(Blocks.grass,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 427,
+      "reason": "unresolved stack newItemStack(Blocks.mycelium,1,32767)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 439,
+      "reason": "unresolved stack ItemList.IC2_Resin.get(1)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 484,
+      "reason": "unresolved stack GGMaterial.enrichedNaquadahEarth.get(OrePrefixes.dust,2)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 494,
+      "reason": "unresolved stack GGMaterial.naquadriaEarth.get(OrePrefixes.dust,2)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 534,
+      "reason": "unresolved stack WerkstoffLoader.PTMetallicPowder.get(OrePrefixes.dust,2)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 558,
+      "reason": "unresolved stack Materials.Gold.getNuggets(4)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 573,
+      "reason": "unresolved stack Materials.Gold.getIngots(1)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 588,
+      "reason": "unresolved stack newItemStack(Blocks.soul_sand,1)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 600,
+      "reason": "unresolved stack getFluidStack(\"ic2pahoehoelava\",100)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 615,
+      "reason": "unresolved stack getFluidStack(\"ic2pahoehoelava\",3_600)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 630,
+      "reason": "unresolved stack getModItem(AppliedEnergistics2.ID,\"item.ItemMultiMaterial\",1L,45)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 645,
+      "reason": "unresolved stack getModItem(AppliedEnergistics2.ID,\"item.ItemMultiMaterial\",36L,45)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 729,
+      "reason": "unresolved stack newItemStack(Items.magma_cream,1)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 736,
+      "reason": "unresolved stack newItemStack(Items.gunpowder,6)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 749,
+      "reason": "unresolved stack newItemStack(combs,1,144)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 759,
+      "reason": "unresolved stack newItemStack(combs,1,146)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 769,
+      "reason": "unresolved stack newItemStack(combs,1,147)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 779,
+      "reason": "unresolved stack newItemStack(combs,1,145)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 789,
+      "reason": "unresolved stack newItemStack(combs,1,148)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 799,
+      "reason": "unresolved stack newItemStack(combs,1,149)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 809,
+      "reason": "unresolved stack newItemStack(combs,1,152)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 819,
+      "reason": "unresolved stack newItemStack(combs,1,153)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 831,
+      "reason": "unresolved stack newItemStack(combs,1,154)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 847,
+      "reason": "unresolved stack newItemStack(combs,1,155)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 862,
+      "reason": "unresolved stack newItemStack(combs,1,156)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 924,
+      "reason": "unsupported conditions: metadata"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 934,
+      "reason": "unresolved stack newItemStack(Blocks.sand,1,0)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 943,
+      "reason": "unresolved stack MaterialsElements.getInstance().TECHNETIUM.getDust(4)"
+    },
+    {
+      "file": "CentrifugeRecipes.java",
+      "line": 956,
+      "reason": "unresolved stack WerkstoffLoader.Ruridit.get(OrePrefixes.dust,7)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 52,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.EnderEye,OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 62,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Electrum,2L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 72,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Invar,3L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 82,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.TinAlloy,2L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 92,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.StainlessSteel,9L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 105,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Kanthal,3L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 116,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Brass,4L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 126,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Bronze,4L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 136,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Cupronickel,2L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 146,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.SterlingSilver,5L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 157,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.BlackBronze,5L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 167,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.BismuthBronze,5L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 178,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.BlackSteel,5L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 189,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.RedSteel,8L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 201,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.BlueSteel,8L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 213,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.BlackSteel,25L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 226,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.RedSteel,40L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 240,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.BlueSteel,64L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 257,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Ultimet,9L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 269,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.CobaltBrass,9L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 280,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Gunpowder,6L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 291,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Gunpowder,6L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 302,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Gunpowder,6L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 313,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.IndiumGalliumPhosphide,3L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 326,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Fireclay,2L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 335,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Nichrome,5L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 345,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.Osmiridium,4L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 355,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.NiobiumTitanium,2L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 366,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.VanadiumGallium,4L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 377,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.TungstenCarbide,2L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 388,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.TungstenSteel,2L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 399,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.TPV,7L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 410,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.HSSG,9L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 422,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.HSSE,9L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 434,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.HSSS,9L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 445,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.FerriteMixture,6L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 457,
+      "reason": "unresolved stack GTOreDictUnificator.getDust(Materials.BorosilicateGlass,8L*OrePrefixes.dust.getMaterialAmount())"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 467,
+      "reason": "unresolved stack MaterialsAlloy.EGLIN_STEEL.getDust(48)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 495,
+      "reason": "unresolved stack newItemStack(Items.rotten_flesh,1,0)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 508,
+      "reason": "unresolved stack ItemList.Food_Dough.get(2)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 516,
+      "reason": "unresolved stack ItemList.Food_PotatoChips.get(1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 523,
+      "reason": "unresolved stack ItemList.IC2_Energium_Dust.get(1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 532,
+      "reason": "unresolved stack ItemList.IC2_Energium_Dust.get(9)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 541,
+      "reason": "unresolved stack newItemStack(Blocks.brown_mushroom,1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 571,
+      "reason": "unresolved stack getModItem(AppliedEnergistics2.ID,\"item.ItemMultiMaterial\",1L,1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 582,
+      "reason": "unresolved stack getModItem(AppliedEnergistics2.ID,\"item.ItemMultiMaterial\",1L,1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 640,
+      "reason": "unresolved stack newFluidStack(ItemList.sDrillingFluid,5_000)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 651,
+      "reason": "unresolved stack GTModHandler.getIC2Coolant(125)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 660,
+      "reason": "unresolved stack GTModHandler.getIC2Coolant(1_000)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 669,
+      "reason": "unresolved stack ItemList.SFMixture.get(4)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 681,
+      "reason": "unresolved stack ItemList.SFMixture.get(8)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 693,
+      "reason": "unresolved stack ItemList.SFMixture.get(12)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 707,
+      "reason": "unresolved stack ItemList.SFMixture.get(64)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 719,
+      "reason": "unresolved stack ItemList.SFMixture.get(64)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 731,
+      "reason": "unresolved stack ItemList.SFMixture.get(64)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 744,
+      "reason": "unresolved stack Materials.GraniteRed.getMolten(1*INGOTS)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 754,
+      "reason": "unresolved stack Materials.GraniteBlack.getMolten(1*INGOTS)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 764,
+      "reason": "unresolved stack ItemList.SFMixture.get(2)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 772,
+      "reason": "unresolved stack ItemList.SFMixture.get(1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 780,
+      "reason": "unresolved stack ItemList.MSFMixture.get(24)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 792,
+      "reason": "unresolved stack ItemList.MSFMixture.get(16)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 804,
+      "reason": "unresolved stack ItemList.MSFMixture.get(8)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 816,
+      "reason": "unresolved stack ItemList.MSFMixture.get(24)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 828,
+      "reason": "unresolved stack ItemList.MSFMixture.get(16)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 840,
+      "reason": "unresolved stack ItemList.MSFMixture.get(8)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 853,
+      "reason": "unresolved stack ItemList.SFMixture.get(20)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 864,
+      "reason": "unresolved stack ItemList.SFMixture.get(20)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 875,
+      "reason": "unresolved stack ItemList.SFMixture.get(20)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 886,
+      "reason": "unresolved stack ItemList.SFMixture.get(20)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 897,
+      "reason": "unresolved stack ItemList.SFMixture.get(20)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 908,
+      "reason": "unresolved stack ItemList.SFMixture.get(20)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 921,
+      "reason": "unresolved stack ItemList.SFMixture.get(30)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 932,
+      "reason": "unresolved stack ItemList.SFMixture.get(30)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 943,
+      "reason": "unresolved stack ItemList.SFMixture.get(30)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 954,
+      "reason": "unresolved stack ItemList.SFMixture.get(30)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 965,
+      "reason": "unresolved stack ItemList.SFMixture.get(30)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 976,
+      "reason": "unresolved stack ItemList.SFMixture.get(30)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 987,
+      "reason": "unresolved stack ItemList.MSFMixture.get(6)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 999,
+      "reason": "unresolved stack ItemList.MSFMixture.get(4)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1011,
+      "reason": "unresolved stack ItemList.MSFMixture.get(2)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1023,
+      "reason": "unresolved stack ItemList.MSFMixture.get(6)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1035,
+      "reason": "unresolved stack ItemList.MSFMixture.get(4)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1047,
+      "reason": "unresolved stack ItemList.MSFMixture.get(2)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1061,
+      "reason": "unresolved stack ItemList.SFMixture.get(6)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1070,
+      "reason": "unresolved stack ItemList.SFMixture.get(4)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1079,
+      "reason": "unresolved stack ItemList.SFMixture.get(2)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1088,
+      "reason": "unresolved stack ItemList.SFMixture.get(6)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1097,
+      "reason": "unresolved stack ItemList.SFMixture.get(4)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1106,
+      "reason": "unresolved stack ItemList.SFMixture.get(2)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1115,
+      "reason": "unresolved stack newFluidStack(ItemList.sNitrationMixture,2_000)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1135,
+      "reason": "unresolved stack newItemStack(Blocks.dirt,1,32767)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1144,
+      "reason": "unresolved stack newItemStack(Blocks.dirt,1,32767)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1153,
+      "reason": "unresolved stack newItemStack(Blocks.dirt,1,32767)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1162,
+      "reason": "unresolved stack newItemStack(Blocks.dirt,1,32767)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1171,
+      "reason": "unresolved stack newItemStack(Blocks.dirt,1,32767)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1180,
+      "reason": "unresolved stack newItemStack(Blocks.dirt,1,32767)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1189,
+      "reason": "unresolved stack newItemStack(Blocks.dirt,1,32767)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1432,
+      "reason": "unresolved stack EnumCube.COKE_BLOCK.getItem()"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1441,
+      "reason": "unresolved stack EnumCube.COKE_BLOCK.getItem(4)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1453,
+      "reason": "unresolved stack EnumCube.COKE_BLOCK.getItem()"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1464,
+      "reason": "unresolved stack EnumCube.COKE_BLOCK.getItem()"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1476,
+      "reason": "unresolved stack EnumCube.COKE_BLOCK.getItem()"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1490,
+      "reason": "unresolved stack newOreDictItemStack(\"foodDough\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1499,
+      "reason": "unresolved stack newOreDictItemStack(\"foodDough\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1508,
+      "reason": "unresolved stack newOreDictItemStack(\"foodDough\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1518,
+      "reason": "unresolved stack newOreDictItemStack(\"cropTea\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1527,
+      "reason": "unresolved stack newOreDictItemStack(\"cropTea\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1537,
+      "reason": "unresolved stack newOreDictItemStack(\"cropGrape\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1546,
+      "reason": "unresolved stack newOreDictItemStack(\"cropGrape\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1556,
+      "reason": "unresolved stack newOreDictItemStack(\"cropPotato\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1565,
+      "reason": "unresolved stack newOreDictItemStack(\"cropPotato\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1575,
+      "reason": "unresolved stack newOreDictItemStack(\"cropLemon\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1584,
+      "reason": "unresolved stack newOreDictItemStack(\"cropLemon\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1597,
+      "reason": "unresolved stack newOreDictItemStack(dye.name(),1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1617,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"potion.\"+aName),750)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1625,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"potion.\"+aName+\".strong\"),750)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1633,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"potion.\"+aName+\".long\"),750)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1651,
+      "reason": "unresolved stack MaterialsElements.getInstance().TECHNETIUM.getDust(4)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1665,
+      "reason": "unresolved stack WerkstoffLoader.Ruridit.get(OrePrefixes.dust,7)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1681,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1693,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1706,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1719,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1732,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1747,
+      "reason": "unresolved stack getModItem(Mods.CropsNH.ID,\"weedEX\",1)"
+    },
+    {
+      "file": "MixerRecipes.java",
+      "line": 1756,
+      "reason": "unresolved stack GGMaterial.orundum.get(OrePrefixes.dust,8)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 105,
+      "reason": "unresolved stack getFluidStack(\"potion.potatojuice\",2)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 113,
+      "reason": "unresolved stack getFluidStack(\"potion.lemonade\",2)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 176,
+      "reason": "unresolved stack fertOutput"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 185,
+      "reason": "unresolved stack fertOutput"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 194,
+      "reason": "unresolved stack fertOutput"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 203,
+      "reason": "unresolved stack fertOutput"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 212,
+      "reason": "unresolved stack fertOutput"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 221,
+      "reason": "unresolved stack fertOutput"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 230,
+      "reason": "unresolved stack fertOutput"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 239,
+      "reason": "unresolved stack fertOutput"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 248,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2biogas\"),300)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 281,
+      "reason": "unresolved stack newFluidStack(ItemList.sOilExtraHeavy,10)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 289,
+      "reason": "unresolved stack newFluidStack(ItemList.sToluene,4)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 297,
+      "reason": "unresolved stack newFluidStack(ItemList.sToluene,30)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 305,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2biomass\"),20)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 313,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2biomass\"),4)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 321,
+      "reason": "unresolved stack getFluidStack(\"potion.wheatyjuice\",75)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 591,
+      "reason": "unresolved stack fertOutput"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 606,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2biomass\"),3_000)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 613,
+      "reason": "unresolved stack newFluidStack(ItemList.sOilExtraHeavy,1_000)"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 1209,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 1221,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 1245,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 1256,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "DistilleryRecipes.java",
+      "line": 699,
+      "reason": "unresolved stack getFluidStack(\"potion.vinegar\",40)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 39,
+      "reason": "unresolved stack GTModHandler.getModItem(Railcraft.ID,\"cube\",1L,8)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 48,
+      "reason": "unresolved stack ItemList.Food_Raw_Fries.get(1)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 56,
+      "reason": "unresolved stack GTModHandler.getIC2Item(\"dynamite\",1)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 64,
+      "reason": "unsupported form frameGt"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 84,
+      "reason": "unresolved stack paperSource"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 92,
+      "reason": "unresolved stack paperSource"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 111,
+      "reason": "unresolved stack newItemStack(Blocks.wool,1,i)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 120,
+      "reason": "unresolved stack newItemStack(Blocks.carpet,1,i)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 130,
+      "reason": "unresolved stack newItemStack(Blocks.stained_hardened_clay,1,32767)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 139,
+      "reason": "unresolved stack newItemStack(Blocks.stained_glass,1,32767)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 148,
+      "reason": "unresolved stack newItemStack(Blocks.stained_glass_pane,1,32767)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 158,
+      "reason": "unresolved stack newItemStack(GregTechAPI.sBlockConcretes,1,i+8)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 166,
+      "reason": "unresolved stack newItemStack(GregTechAPI.sBlockConcretes,1,i+8)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 177,
+      "reason": "unsupported form frameGt"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 185,
+      "reason": "unsupported form frameGt"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 193,
+      "reason": "unsupported form frameGt"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 201,
+      "reason": "unsupported form frameGt"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 209,
+      "reason": "unsupported form frameGt"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 217,
+      "reason": "unsupported form frameGt"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 225,
+      "reason": "unsupported form frameGt"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 233,
+      "reason": "unsupported form frameGt"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 243,
+      "reason": "unresolved stack newFluidStack(dyeFluid,72)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 253,
+      "reason": "unresolved stack newFluidStack(dyeFluid,72)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 263,
+      "reason": "unresolved stack newFluidStack(dyeFluid,72)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 273,
+      "reason": "unresolved stack newFluidStack(dyeFluid,72)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 285,
+      "reason": "unresolved stack newItemStack(Blocks.wool,1,0)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 294,
+      "reason": "unresolved stack newItemStack(Blocks.glass,1,0)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 302,
+      "reason": "unresolved stack newItemStack(Blocks.hardened_clay,1,0)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 313,
+      "reason": "unresolved stack ItemList.QuantumEye.get(1)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 321,
+      "reason": "unresolved stack ItemList.QuantumStar.get(1)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 329,
+      "reason": "unresolved stack ItemList.WovenKevlar.get(1)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 337,
+      "reason": "unresolved stack WerkstoffLoader.CubicZirconia.get(OrePrefixes.gemExquisite,1)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 436,
+      "reason": "unresolved stack newItemStack(ItemRegistry.bw_glasses[1],1,1)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 444,
+      "reason": "unresolved stack newItemStack(ItemRegistry.bw_glasses[1],1,2)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 452,
+      "reason": "unresolved stack newItemStack(ItemRegistry.bw_glasses[1],1,3)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 460,
+      "reason": "unresolved stack newItemStack(ItemRegistry.bw_glasses[1],1,4)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 468,
+      "reason": "unresolved stack newItemStack(ItemRegistry.bw_glasses[1],1,5)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 502,
+      "reason": "unresolved stack GTOreDictUnificator.get(prefix,Materials.Infinity,multiplier)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 510,
+      "reason": "unresolved stack GTOreDictUnificator.get(prefix,Materials.Creon,multiplier)"
+    },
+    {
+      "file": "ChemicalBathRecipes.java",
+      "line": 518,
+      "reason": "unresolved stack GTOreDictUnificator.get(prefix,Materials.Mellion,multiplier)"
+    },
+    {
+      "file": "ThermalCentrifugeRecipes.java",
+      "line": 20,
+      "reason": "unresolved stack getIC2Item(\"RTGPellets\",1)"
+    },
+    {
+      "file": "SifterRecipes.java",
+      "line": 24,
+      "reason": "unresolved stack newItemStack(Blocks.gravel,1,0)"
+    },
+    {
+      "file": "SifterRecipes.java",
+      "line": 38,
+      "reason": "unresolved stack newItemStack(Items.coal,1,0)"
+    },
+    {
+      "file": "SifterRecipes.java",
+      "line": 51,
+      "reason": "unresolved stack ItemList.ElectronicsLump.get(1)"
+    },
+    {
+      "file": "PyrolyseRecipes.java",
+      "line": 147,
+      "reason": "unresolved stack EnumCube.COKE_BLOCK.getItem(8)"
+    },
+    {
+      "file": "PyrolyseRecipes.java",
+      "line": 156,
+      "reason": "unresolved stack EnumCube.COKE_BLOCK.getItem(8)"
+    },
+    {
+      "file": "PyrolyseRecipes.java",
+      "line": 168,
+      "reason": "unresolved stack getModItem(Forestry.ID,\"fertilizerBio\",4)"
+    },
+    {
+      "file": "PyrolyseRecipes.java",
+      "line": 177,
+      "reason": "unresolved stack getModItem(Forestry.ID,\"mulch\",32)"
+    },
+    {
+      "file": "PyrolyseRecipes.java",
+      "line": 187,
+      "reason": "unresolved stack GTModHandler.getIC2Item(\"biochaff\",4)"
+    },
+    {
+      "file": "PyrolyseRecipes.java",
+      "line": 196,
+      "reason": "unresolved stack GTModHandler.getIC2Item(\"biochaff\",1)"
+    },
+    {
+      "file": "PyrolyseRecipes.java",
+      "line": 205,
+      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2biomass\"),1_000)"
+    },
+    {
+      "file": "PyrolyseRecipes.java",
+      "line": 240,
+      "reason": "unresolved stack newFluidStack(FluidLoader.Kerogen,1_000)"
+    },
+    {
+      "file": "CokeOvenRecipes.java",
+      "line": 34,
+      "reason": "unresolved stack Materials.Coal.getBlocks(1)"
+    },
+    {
+      "file": "CokeOvenRecipes.java",
+      "line": 42,
+      "reason": "unresolved stack newItemStack(Blocks.cactus)"
+    },
+    {
+      "file": "CokeOvenRecipes.java",
+      "line": 50,
+      "reason": "unresolved stack GregtechItemList.CactusCharcoal.get(1)"
+    },
+    {
+      "file": "CokeOvenRecipes.java",
+      "line": 58,
+      "reason": "unresolved stack newItemStack(Items.reeds)"
+    },
+    {
+      "file": "CokeOvenRecipes.java",
+      "line": 66,
+      "reason": "unresolved stack GregtechItemList.SugarCharcoal.get(1)"
+    },
+    {
+      "file": "CokeOvenRecipes.java",
+      "line": 74,
+      "reason": "unresolved stack GregtechItemList.WoodPellet.get(2)"
+    },
+    {
+      "file": "CokeAndPyrolyseOven.java",
+      "line": 29,
+      "reason": "unresolved stack newFluidStack(GTPPFluids.CoalGas,1440)"
+    },
+    {
+      "file": "CokeAndPyrolyseOven.java",
+      "line": 40,
+      "reason": "unresolved stack newFluidStack(GTPPFluids.CoalGas,20*INGOTS)"
+    },
+    {
+      "file": "CokeAndPyrolyseOven.java",
+      "line": 62,
+      "reason": "unsupported recipe map"
+    },
+    {
+      "file": "CokeAndPyrolyseOven.java",
+      "line": 76,
+      "reason": "unresolved stack plant"
+    },
+    {
+      "file": "CokeAndPyrolyseOven.java",
+      "line": 85,
+      "reason": "unresolved stack plant"
+    },
+    {
+      "file": "CokeAndPyrolyseOven.java",
+      "line": 96,
+      "reason": "unresolved stack charcoal"
+    },
+    {
+      "file": "CokeAndPyrolyseOven.java",
+      "line": 105,
+      "reason": "unresolved stack charcoal"
+    },
+    {
+      "file": "CokeAndPyrolyseOven.java",
+      "line": 116,
+      "reason": "unresolved stack coke"
+    },
+    {
+      "file": "CokeAndPyrolyseOven.java",
+      "line": 126,
+      "reason": "unresolved stack coke"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 23,
+      "reason": "unresolved stack newOreDictItemStack(\"logRubber\",1)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 52,
+      "reason": "unresolved stack ItemList.Battery_SU_LV_SulfuricAcid.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 58,
+      "reason": "unresolved stack ItemList.Battery_SU_LV_Mercury.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 64,
+      "reason": "unresolved stack ItemList.Battery_SU_MV_SulfuricAcid.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 70,
+      "reason": "unresolved stack ItemList.Battery_SU_MV_Mercury.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 76,
+      "reason": "unresolved stack ItemList.Battery_SU_HV_SulfuricAcid.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 82,
+      "reason": "unresolved stack ItemList.Battery_SU_HV_Mercury.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 88,
+      "reason": "unresolved stack ItemList.Battery_RE_LV_Cadmium.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 94,
+      "reason": "unresolved stack ItemList.Battery_RE_LV_Lithium.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 100,
+      "reason": "unresolved stack ItemList.Battery_RE_LV_Sodium.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 106,
+      "reason": "unresolved stack ItemList.Battery_RE_MV_Cadmium.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 112,
+      "reason": "unresolved stack ItemList.Battery_RE_MV_Lithium.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 118,
+      "reason": "unresolved stack ItemList.Battery_RE_MV_Sodium.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 124,
+      "reason": "unresolved stack ItemList.Battery_RE_HV_Cadmium.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 130,
+      "reason": "unresolved stack ItemList.Battery_RE_HV_Lithium.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 136,
+      "reason": "unresolved stack ItemList.Battery_RE_HV_Sodium.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 143,
+      "reason": "unresolved stack ItemList.BatteryHull_EV_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 149,
+      "reason": "unresolved stack ItemList.BatteryHull_IV_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 155,
+      "reason": "unresolved stack ItemList.BatteryHull_LuV_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 161,
+      "reason": "unresolved stack ItemList.BatteryHull_ZPM_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 167,
+      "reason": "unresolved stack ItemList.BatteryHull_UV_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 173,
+      "reason": "unresolved stack ItemList.BatteryHull_UHV_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 179,
+      "reason": "unresolved stack ItemList.BatteryHull_UEV_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 185,
+      "reason": "unresolved stack ItemList.BatteryHull_UIV_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 191,
+      "reason": "unresolved stack ItemList.BatteryHull_UMV_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 197,
+      "reason": "unresolved stack ItemList.BatteryHull_UxV_Full.get(1L)"
+    },
+    {
+      "file": "ExtractorRecipes.java",
+      "line": 207,
+      "reason": "unresolved stack input"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Cerium",
+      "reason": "addon output overrides: Cerium"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Iridium",
+      "reason": "addon output overrides: Iridium,Osmium,Platinum"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "MeteoricIron",
+      "reason": "addon output overrides: Iridium,Platinum"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Naquadah",
+      "reason": "addon output overrides: Naquadah,NaquadahEnriched"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Nickel",
+      "reason": "addon output overrides: Platinum"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Osmium",
+      "reason": "addon output overrides: Iridium,Osmium"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Palladium",
+      "reason": "addon output overrides: Palladium"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Platinum",
+      "reason": "addon output overrides: Iridium,Platinum"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Samarium",
+      "reason": "addon output overrides: Samarium"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "NaquadahEnriched",
+      "reason": "addon output overrides: Naquadah,NaquadahEnriched,Naquadria"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Naquadria",
+      "reason": "addon output overrides: Naquadria"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Oilsands",
+      "reason": "special ore conversion requires runtime registry"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Rubracium",
+      "reason": "addon output overrides: Samarium"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Cooperite",
+      "reason": "addon output overrides: Iridium,Palladium"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "PigIron",
+      "reason": "special ore conversion requires runtime registry"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Redstone",
+      "reason": "special ore conversion requires runtime registry"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Mytryl",
+      "reason": "addon output overrides: Samarium"
+    },
+    {
+      "file": "oreprocessing/*",
+      "material": "Mithril",
+      "reason": "addon output overrides: Platinum"
+    }
+  ],
+  "limits": [
+    "Static subset, not a runtime registry snapshot.",
+    "Cell transport is normalized to physical fluid ports; no free fluid storage.",
+    "NBT, research, heat, vacuum, cleanroom, mod-conditional and dynamic expressions are not silently executed.",
+    "Ore material templates require override exclusions; runtime exporter remains authoritative."
+  ]
+}

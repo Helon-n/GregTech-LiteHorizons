@@ -79,11 +79,11 @@ try{
 
   // Craft, enable and fill a bucket; there is no loose water inventory item.
   await go('resources');await stock('wood',3,'forest');
-  await go('workshop');await page.locator('[data-tab="craft"]').click();await page.locator('[data-book-item="woodBucket"]').click();
+  await go('workshop');await page.locator('[data-tab="craft"]').click();await page.locator('#search').fill('木桶');await page.locator('[data-book-item="woodBucket"]').click();await page.locator('#search').fill('');
   await page.locator('[data-fill="woodBucket"]').click();await page.locator('[data-craft="woodBucket"][data-count="1"]').click();
   await expect(page.locator('[data-queue-count]')).toHaveText('0',{timeout:4000});
   await go('fluids');await page.locator('[data-container-view="catalog"]').click();await page.locator('[data-place-container="woodBucket"]').click();
-  await expect(page.locator('[data-container]')).toHaveCount(1);
+  await expect(page.locator('[data-container-view="catalog"]')).toHaveClass(/active/);await page.locator('[data-container-view="placed"]').click();await expect(page.locator('[data-container]')).toHaveCount(1);
   await go('resources');await clickNode('river',4);
   await go('fluids');await expect(page.locator('[data-container-amount]')).toHaveText('1,000');
   await expect(page.locator('[data-container-reserve]')).toBeDisabled();
@@ -121,7 +121,7 @@ try{
   const steamPage=await context.newPage();steamPage.on('pageerror',e=>errors.push(e.message));
   await steamPage.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
   await steamPage.locator('[data-page="factory"]').first().click();
-  await expect(steamPage.locator('[data-device-energy]')).toContainText('°C');
+  await expect(steamPage.locator('[data-machine-readout]')).toContainText('°C');
   await steamPage.locator('[data-page="inventory"]').first().click();await steamPage.locator('[data-inventory-tab="containers"]').click();
   await steamPage.locator('[data-pagination="fluids"] button').last().click();
   await pickOption(steamPage,'[data-container-reserve="c3"]','');

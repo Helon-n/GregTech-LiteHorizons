@@ -18,7 +18,15 @@ export async function pickOption(page,selector,value){
     return {index,text:select.options[index].text};
   },value);
   await page.locator(selector+'+button').click();
-  await page.locator('#choiceSearch').fill(target.text);
+  await page.locator('#choiceSearch').fill(target.text.split(' #')[0]);
+  // Entity cards separate their live quantities from the display name. The
+  // select's legacy text can include those quantities and cannot be searched.
+  // Walk the displayed pages by the option's stable index instead.
+  for(let i=0;i<1000&&!await page.locator('[data-choice-option="'+target.index+'"]').count();i++){
+    const next=page.locator('[data-choice-step="1"]');
+    if(await next.isDisabled())throw Error('Choice is unavailable: '+value);
+    await next.click();
+  }
   await page.locator('[data-choice-option="'+target.index+'"]').click();
 }
 export async function checkLastDrop(page,expect,text){

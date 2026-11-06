@@ -465,6 +465,24 @@ dialog h2{margin:0 30px 12px 0}
 .dashboard-events{display:flex;flex-direction:column;gap:0}
 .dashboard-events p{font-size:15px;line-height:1.6;color:var(--muted);margin:0;padding:12px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
 .dashboard-events p:last-child{border-bottom:0}
+.workbench.extreme-bench{--slot-size:34px;--slot-gap:3px}
+.nuclear-panel{display:grid;gap:8px;min-width:0}
+.nuclear-layout{display:grid;grid-template-columns:repeat(9,30px);gap:3px;justify-content:center}
+.nuclear-slot{position:relative;width:30px;height:30px;padding:1px;background:var(--slot-bg,var(--surface));border:1px solid var(--line);border-radius:3px;cursor:pointer}
+.nuclear-slot.active{border-color:var(--a);outline:1px solid var(--a)}
+.nuclear-slot:disabled{opacity:.2;cursor:default}
+.nuclear-slot .item-art{width:26px;height:26px;flex-basis:26px}
+.nuclear-wear{position:absolute;bottom:1px;left:1px;width:var(--remaining);max-width:calc(100% - 2px);height:3px;background:var(--a)}
+.nuclear-parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.nuclear-parts .button{min-width:0;padding:6px;justify-content:flex-start;text-align:left;font-size:13px}
+.nuclear-parts .button span{min-width:0;overflow-wrap:anywhere}
+.nuclear-parts .button small{display:block;color:var(--muted);font-size:12px}
+.extreme-bench>.bench-layout{grid-template-columns:max-content;justify-items:center;gap:8px}
+.extreme-bench .bench-grid{grid-template-columns:repeat(9,var(--slot-size))}
+.extreme-bench .bench-slot{padding:1px}
+.extreme-bench .bench-slot .item-art{width:28px;height:28px;flex-basis:28px}
+.extreme-bench .bench-slot>b{font-size:12px;top:auto;bottom:0;right:2px}
+.extreme-bench .bench-arrow{transform:rotate(90deg);font-size:18px;line-height:1}
 @media(max-width:1150px){
   .dashboard-top,.dashboard-bottom{gap:12px;grid-template-columns:minmax(0,1fr) minmax(280px,1fr)}
   .dashboard-summary .factory-illustration{display:none}

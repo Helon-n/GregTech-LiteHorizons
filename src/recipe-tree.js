@@ -1,4 +1,6 @@
+import {outputRolls} from './core/recipe-yields.js';
 import {createProductionPlan,planRecipe,planRoutes,planGatherNodes,planSupplyMachines,recipeMachines,planInFlight} from './core/production-plan.js';
+import {machineSupportsRecipe} from './core/technology.js';
 
 // Preview calculations run only after explicit actions, never on the UI clock.
 // The active plan refreshes text/progress in place without rebuilding the tree.
@@ -27,7 +29,7 @@ export function createRecipeTreeView(h){
     return `<div class="tree-rows" data-fit-list="recipe-tree" role="group" aria-label="配方材料依赖">${list.entries.map(n=>{
       const r=n.recipe&&planRecipe(game(),n.recipe),routes=planRoutes(game(),n.item),gathers=planGatherNodes(game(),n.item),supply=planSupplyMachines(game(),n.item);
       const routeCount=routes.length+(gathers.length?1:0),label=r?`${method(r)} · ${num(n.batches)} 批`:n.shortage>0?n.reason:'已有材料';
-      const needs=r&&r.process!=='craft'&&r.process!=='build'&&!game().state.devices.some(d=>game().catalog.machines[d.type].processes.includes(r.process));
+      const needs=r&&r.process!=='craft'&&r.process!=='build'&&!game().state.devices.some(d=>machineSupportsRecipe(game().catalog.machines[d.type],r));
       return `<div class="tree-row ${n.shortage>0&&!r?'tree-shortage':''}" style="--tree-depth:${Math.min(4,n.depth)}"><button class="tree-fold" data-tree-fold="${n.key}" aria-label="${collapsed.has(n.key)?'展开':'收起'}${e(name(n.item))}的材料" aria-expanded="${!collapsed.has(n.key)}" ${!hasChild.has(n.key)?'disabled':''}>${hasChild.has(n.key)?collapsed.has(n.key)?'＋':'−':'·'}</button><button class="tree-item" data-tree-open="${e(r?.id||'')}" data-tree-item="${e(n.item)}" title="查看${e(name(n.item))}配方 · 第 ${n.depth+1} 层">${icon(n.item)}<span><strong>${e(name(n.item))}${n.tool?' · 工具保留':''}</strong><small>${n.depth?'需求 '+num(n.amount)+unit(n.item)+' · 已有 '+num(n.have):'本次制作 '+num(n.amount)+unit(n.item)}${n.shortage>0?' · 补足 '+num(n.shortage):''}</small></span></button><div class="tree-route"><span>${e(label)}</span>${needs?'<small>需要部署加工机器</small>':''}${n.depth&&n.shortage>0&&routeCount>1?`<button class="text-link" data-tree-routes="${e(n.item)}">更换路线 (${routeCount})</button>`:''}${gathers.length&&!r&&n.shortage>0?'<button class="text-link" data-page="resources">前往采集 →</button>':''}${supply.length&&!r&&n.shortage>0?'<button class="text-link" data-page="factory">配置产能 →</button>':''}</div></div>`;
     }).join('')}${list.controls}</div>`;
   }
@@ -58,7 +60,7 @@ export function createRecipeTreeView(h){
     if((r?.id||'')!==rootId||game()!==previewGame){rootId=r?.id||'';batches=1;choices={};calculate();if(view==='routes')view='tree';}
     else if(previewStage!==game().state.stage)calculate();
     const p=game().state.productionPlan,busy=p&&!p.cancelled&&p.steps.some(s=>s.done<s.batches)||planInFlight(game());
-    const header=r?`<div class="tree-target"><div>${icon(Object.keys(r.outputs)[0]||'workbench')}<span><h2>${e(r.name)}</h2><small>制作指定批次；原料扣除库存，工具不消耗。</small></span></div><div class="tree-quantity"><button class="button" data-tree-quantity="-1" aria-label="减少一批" ${batches<=1?'disabled':''}>−</button><label><input type="number" min="1" max="999" step="1" value="${batches}" data-tree-amount aria-label="目标制作批数"> 批</label><button class="button" data-tree-quantity="1" aria-label="增加一批" ${batches>=999?'disabled':''}>＋</button></div></div>`:'<p class="muted">请选择一个有产物的配方作为制作目标。</p>';
+    const header=r?`<div class="tree-target"><div>${icon(Object.keys(r.outputs)[0]||'workbench')}<span><h2>${e(r.name)}</h2><small>${outputRolls(r).some(s=>s.chance<10000)?'按批次制作，概率产物数量不保证。':'制作指定批次；原料扣除库存，工具不消耗。'}</small></span></div><div class="tree-quantity"><button class="button" data-tree-quantity="-1" aria-label="减少一批" ${batches<=1?'disabled':''}>−</button><label><input type="number" min="1" max="999" step="1" value="${batches}" data-tree-amount aria-label="目标制作批数"> 批</label><button class="button" data-tree-quantity="1" aria-label="增加一批" ${batches>=999?'disabled':''}>＋</button></div></div>`:'<p class="muted">请选择一个有产物的配方作为制作目标。</p>';
     const action=`<div class="tree-actions"><button class="button" data-tree-action="refresh" ${!r?'disabled':''}>按当前库存重算</button><button class="button primary" data-tree-action="start" ${!preview||busy?'disabled':''}>安排制作</button><small data-tree-preview-summary>${preview?`库存快照 · 缺料 ${preview.missing.length} 项 · 工序 ${preview.steps.length} 道`:''}</small></div>`;
     return `<section class="surface recipe-tree">${activeHeader()}${view==='plan'?'':header+action}${tabs()}<div data-tree-content>${content()}</div><p class="tree-note">缺料时等待，机器沿用现有供能与容器。暂停或取消后，已投料的当前批次继续完成。</p></section>`;
   }

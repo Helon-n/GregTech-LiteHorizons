@@ -12,11 +12,11 @@ export function drainFluid(containers,id,amount){
 }
 
 // Simulate the entire batch before mutating; two products cannot claim one empty tank.
-export function planFluids(catalog,containers,stacks,inputs={},targets={},groups=[]){
+export function planFluids(catalog,containers,stacks,inputs={},targets={},groups=[],inputTargets={}){
   const draft=containers.map(c=>({...c}));
   const byId=new Map(draft.map(c=>[c.id,c])),targetGroups=new Map(),memberGroups=new Map();
   for(const g of groups.filter(g=>g.kind==='fluid')){const members=g.members.map(id=>byId.get(id)).filter(Boolean);targetGroups.set(g.id,members);for(const c of members)memberGroups.set(c.id,members);}
-  for(const[id,n]of Object.entries(inputs))if(isFluid(catalog,id))drainFluid(draft,id,n);
+  for(const[id,n]of Object.entries(inputs))if(isFluid(catalog,id))drainFluid(inputTargets[id]?(targetGroups.get(inputTargets[id])||draft.filter(c=>c.id===inputTargets[id])):draft,id,n);
   // Explicit destinations claim their space before automatically routed products.
   for(const[id,n]of Object.entries(stacks).sort(([a],[b])=>Number(!!targets[b])-Number(!!targets[a]))){
     if(!isFluid(catalog,id)||!n)continue;

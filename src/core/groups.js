@@ -31,7 +31,9 @@ export function deviceEntries(game){
     const members=endpointMembers(game,g.id),first=members[0];if(!first)continue;
     const d={...first,id:g.id,alias:g.name,group:g,job:members.find(d=>d.job)?.job||null,
       enabled:members.every(d=>d.enabled),hasTask:members.some(d=>d.recipe||d.job),recipe:members.every(d=>d.recipe===first.recipe)?first.recipe:null};
-    for(const key of ['eu','steam','water','coal','fuel','batteries','modules','cyclePower'])d[key]=members.reduce((n,d)=>n+d[key],0);
+    for(const key of ['eu','steam','water','coal','fuel','batteries','modules','cyclePower','isotopePellets'])d[key]=members.reduce((n,d)=>n+(d[key]??0),0);
+    d.calcification=Math.max(...members.map(d=>d.calcification));
+    if(first.rtgVoltage!==undefined)d.rtgVoltage=Math.max(...members.map(d=>d.rtgVoltage??0));
     result.push(d);
   }
   return result;
@@ -64,11 +66,11 @@ function rewriteLinks(game,from,to){
   for(const d of game.state.devices){
     if(from.has(d.supply.source))d.supply.source=to;
     if(from.has(d.output))d.output=to;
-    for(const fluid of Object.keys(d.fluidOutputs))if(from.has(d.fluidOutputs[fluid]))d.fluidOutputs[fluid]=to;
+    for(const ports of [d.fluidOutputs,d.fluidInputs])for(const fluid of Object.keys(ports))if(from.has(ports[fluid]))ports[fluid]=to;
   }
 }
 function reconcilePorts(game){
-  for(const p of game.state.devices.filter(d=>['generator','dyson'].includes(game.catalog.machines[d.type].energy?.kind))){
+  for(const p of game.state.devices.filter(d=>['generator','dyson','solar'].includes(game.catalog.machines[d.type].energy?.kind))){
     if(p.output&&endpointMembers(game,p.output).some(b=>!includesEndpoint(game,b.supply?.source,p.id)))p.output=null;
   }
   for(const b of game.state.devices.filter(d=>game.catalog.machines[d.type].energy?.kind==='battery')){
@@ -89,8 +91,20 @@ export function saveGroup(game,kind,name,ids,id=null){
     if(fluids.size>1||fluid&&members.some(c=>!game.acceptsFluid(c,fluid)))return {ok:false,message:'同组容器只能储存同一种兼容流体'};
     if(fluid)for(const c of members)c.fluid=fluid;
   }else{
+    if(members.some(d=>game.catalog.machines[d.type]?.energy?.cycle==='nuclear'))return {ok:false,message:'核反应堆需要逐台管理布局和冷却'};
+    if(members.some(d=>game.catalog.machines[d.type]?.godforge==='host'))return {ok:false,message:'造物主主机独立管理，请将模块连接到主机'};
+    if(members.some(d=>game.catalog.machines[d.type]?.purification==='host'))return {ok:false,message:'纯净水厂主控独立管理，请连接处理单元'};
+    if(members.some(d=>game.catalog.machines[d.type]?.godforge||game.catalog.machines[d.type]?.purification))return {ok:false,message:'处理单元与造物主模块需分别配置主控、配料及处理状态'};
     if(members.some(d=>d.type!==first.type||d.energyTier!==first.energyTier))return {ok:false,message:'设备组需要相同机型和电压等级'};
-    for(const d of members){d.supply={...first.supply};d.output=first.output;d.fluidOutputs={...first.fluidOutputs};}
+    if(members.some(d=>d.coil!==first.coil||d.location!==first.location))return {ok:false,message:'请先统一设备的线圈和部署地点'};
+    const fuels=new Set(members.filter(d=>d.coal>0).map(d=>d.solidFuel));
+    if(fuels.size>1)return {ok:false,message:'请先统一组内的固体燃料种类'};
+    const liquids=new Set(members.filter(d=>d.fuel>0).map(d=>d.fuelType));
+    const waters=new Set(members.filter(d=>d.water>0).map(d=>d.waterFluid));
+    if(liquids.size>1||waters.size>1)return {ok:false,message:'请先统一机内燃料和水种，或排空后再编组'};
+    const solidFuel=[...fuels][0]??first.solidFuel;
+    const waterFluid=[...waters][0]??first.waterFluid,fuelType=[...liquids][0]??first.fuelType;
+    for(const d of members){d.supply={...first.supply};d.output=first.output;d.fluidOutputs={...first.fluidOutputs};d.fluidInputs={...first.fluidInputs};d.solidFuel=solidFuel;d.waterFluid=waterFluid;if(!d.fuel)d.fuelType=fuelType;}
   }
   const group={id:id||'g'+game.state.nextId++,kind,name:name.trim(),members:members.map(x=>x.id)};
   game.state.groups=[...game.state.groups.filter(g=>g.id!==id),group];
@@ -112,9 +126,13 @@ export function validateGroups(catalog,groups,devices,containers){
     const members=g.members.map(id=>entities.get(id));
     for(const x of members){if(!x||used.has(x.id)||(g.kind==='fluid'?!catalog.containerTypes[x.type]:!catalog.machines[x.type]))throw Error('分组成员无效');used.add(x.id);}
     const first=members[0];
+    if(g.kind==='device'&&members.some(d=>catalog.machines[d.type]?.godforge==='host'))throw Error('造物主主机不能编组');
+    if(g.kind==='device'&&members.some(d=>catalog.machines[d.type]?.purification==='host'))throw Error('纯净水厂主控不能编组');
+    if(g.kind==='device'&&members.some(d=>catalog.machines[d.type]?.energy?.cycle==='nuclear'))throw Error('核反应堆布局需要单独管理');
+    if(g.kind==='device'&&members.some(d=>catalog.machines[d.type]?.godforge||catalog.machines[d.type]?.purification))throw Error('处理单元与造物主模块不能编组');
     if(g.kind==='fluid'){
       const fluids=new Set(members.map(c=>c.fluid).filter(Boolean)),fluid=[...fluids][0];
       if(fluids.size>1||fluid&&members.some(c=>catalog.containerTypes[c.type].accepts&&!catalog.containerTypes[c.type].accepts.includes(fluid)))throw Error('容器组流体不兼容');
-    }else if(members.some(d=>d.type!==first.type||d.energyTier!==first.energyTier||JSON.stringify(d.supply)!==JSON.stringify(first.supply)||d.output!==first.output||JSON.stringify(d.fluidOutputs||{})!==JSON.stringify(first.fluidOutputs||{})))throw Error('设备组端口或机型不一致');
+    }else if(members.some(d=>d.type!==first.type||d.energyTier!==first.energyTier||(d.coil??null)!==(first.coil??null)||(d.location??'ground')!==(first.location??'ground')||JSON.stringify(d.supply)!==JSON.stringify(first.supply)||d.output!==first.output||JSON.stringify(d.fluidOutputs||{})!==JSON.stringify(first.fluidOutputs||{})||JSON.stringify(d.fluidInputs||{})!==JSON.stringify(first.fluidInputs||{})||d.solidFuel!==first.solidFuel))throw Error('设备组端口或机型不一致');
   }
 }

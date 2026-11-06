@@ -25,13 +25,13 @@ test('boiler surplus goes to its selected tank and full internal steam vents wit
 
 test('bronze machines use the same continuous steam through direct and tank connections',()=>{
   for(const mode of ['direct','storage']){
-    const g=world(),d=build(g,'steamMacerator','copperGrind');g.add({copperOre:1});
+    const g=world(),d=build(g,'steamMacerator','gt29:77c21e83e9e5d4');g.add({copperOre:1});
     let source;
     if(mode==='direct'){const b=build(g,'boiler');b.enabled=false;b.steam=5000;source=b.id;}
     else source=tank(g,'steam',5000);
     assert.equal(g.setSupply(d.id,mode,source).ok,true);
     assert.deepEqual(g.deviceRuntime(d),{seconds:40,power:2,steamPerSecond:80,valid:true});
-    g.simulate(40);assert.equal(g.quantity('copperDust'),2);assert.equal(d.steam,1800);assert.equal(g.quantity('copperOre'),0);
+    g.simulate(40);assert.equal(g.quantity('copperCrushed'),2);assert.equal(d.steam,1800);assert.equal(g.quantity('copperOre'),0);
   }
 });
 
@@ -47,10 +47,10 @@ test('generator operations conserve fuel and EU across all four fuel families',(
 
 test('a generator output is shared, and disconnected global summary EU cannot power devices',()=>{
   const g=world(),source=build(g,'turbine');source.eu=2000;
-  const a=build(g,'assembler','goodCircuit'),b=build(g,'assembler','goodCircuit');
-  for(const d of [a,b]){g.add(g.recipeById.get('goodCircuit').inputs);assert.equal(g.setSupply(d.id,'direct',source.id).ok,true);}
+  const a=build(g,'assembler','tech29:49193d890804ec2a'),b=build(g,'assembler','tech29:49193d890804ec2a');
+  for(const d of [a,b]){g.add(g.recipeById.get('tech29:49193d890804ec2a').inputs);assert.equal(g.setSupply(d.id,'direct',source.id).ok,true);}
   g.tick(.5);assert.equal(source.eu,1680);assert.equal(g.state.energy,1920);assert.equal([a,b].filter(d=>d.job).length,1);
-  const h=world(),d=build(h,'assembler','goodCircuit');h.add(h.recipeById.get('goodCircuit').inputs);h.state.energy=1e8;h.tick(.5);
+  const h=world(),d=build(h,'assembler','tech29:49193d890804ec2a');h.add(h.recipeById.get('tech29:49193d890804ec2a').inputs);h.state.energy=1e8;h.tick(.5);
   assert.equal(d.job,null);assert.equal(h.state.energy,0);
 });
 
@@ -68,16 +68,16 @@ test('physical batteries gate charge capacity, match tier, and cannot duplicate 
 test('battery output scales with inserted cells and is shared by consumers',()=>{
   for(const count of [1,2,4]){
     const g=world(),s=battery(g,1,count,50000),consumers=[];
-    for(let i=0;i<4;i++){const d=build(g,'assembler','goodCircuit');g.add(g.recipeById.get('goodCircuit').inputs);g.setSupply(d.id,'storage',s.id);consumers.push(d);}
+    for(let i=0;i<4;i++){const d=build(g,'assembler','tech29:49193d890804ec2a');g.add(g.recipeById.get('tech29:49193d890804ec2a').inputs);g.setSupply(d.id,'storage',s.id);consumers.push(d);}
     g.tick(.5);assert.equal(50000-s.eu,320*count);assert.equal(consumers.filter(d=>d.job).length,count);
   }
 });
 
 test('overvoltage is rejected and ordinary upgrades require payment and unlocks',()=>{
-  const g=world(),source=build(g,'dieselGenerator'),d=build(g,'assembler','goodCircuit');
+  const g=world(),source=build(g,'dieselGenerator'),d=build(g,'assembler','tech29:49193d890804ec2a');
   assert.equal(g.setSupply(d.id,'direct',source.id).ok,false);assert.equal(g.supplyOptions(d,'direct').some(s=>s.id===source.id),false);
   assert.equal(g.upgradeEnergy(d.id).ok,false);g.add(g.energyUpgradeCost(d));assert.equal(g.upgradeEnergy(d.id).ok,true);assert.equal(voltage(d),128);
-  assert.equal(g.setSupply(d.id,'direct',source.id).ok,true);assert.equal(g.deviceRuntime(d).power,32);assert.equal(g.deviceRuntime(d).seconds,6);
+  assert.equal(g.setSupply(d.id,'direct',source.id).ok,true);assert.equal(g.deviceRuntime(d).power,32);assert.equal(g.deviceRuntime(d).seconds,3.75);
   g.state.stage=2;g.add(g.energyUpgradeCost(d));assert.equal(g.upgradeEnergy(d.id).ok,false);
 });
 
@@ -92,10 +92,10 @@ test('fusion pays startup once, keeps its batch across pause, and requires start
 });
 
 test('same-step fluid output does not leave consumers or boiler output writing stale tanks',()=>{
-  const g=world(),c=build(g,'cokeOven','coke'),d=build(g,'steamMacerator','copperGrind');
+  const g=world(),c=build(g,'cokeOven','gt29:0be510620aeeb4'),d=build(g,'steamMacerator','gt29:77c21e83e9e5d4');
   tank(g,'creosote');const id=tank(g,'steam',5000);g.add({coal:4,copperOre:1});g.setSupply(d.id,'storage',id);
   c.job={remaining:.5,duration:15};g.pay({coal:4});g.state.playtime=.5;
-  g.tick(.5);assert.equal(g.quantity('creosote'),1000);assert.equal(g.quantity('steam'),0);assert.equal(d.steam,4960);
+  g.tick(.5);assert.equal(g.quantity('creosote'),500);assert.equal(g.quantity('steam'),0);assert.equal(d.steam,4960);
   assert.equal(g.quantity('steam')+d.steam,4960);
 });
 

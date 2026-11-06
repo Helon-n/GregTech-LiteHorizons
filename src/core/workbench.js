@@ -7,8 +7,8 @@ const patterns={
   'build:furnace':['stone','stone','stone','stone','clay','stone','stone','stone','stone']
 };
 
-export function craftingGrid(id,inputs){
-  const pattern=patterns[id];
+export function craftingGrid(id,inputs,nativePattern=null){
+  const pattern=nativePattern??patterns[id];
   if(pattern){
     const occurrences={};
     for(const item of pattern)if(item)occurrences[item]=(occurrences[item]||0)+1;

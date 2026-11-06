@@ -39,20 +39,20 @@ test('multi-fluid output planning is atomic and does not allocate a single empty
 });
 
 test('machines wait before consuming inputs when fluid output has no compatible container',()=>{
-  const g=new Game();g.state.stage=1;g.add({...g.catalog.machines.cokeOven.cost,coal:4});place(g,'woodBucket');
-  const {device}=g.build('cokeOven');g.assign(device.id,'coke');g.simulate(15);
-  assert.equal(device.blocked,'流体输出空间不足');assert.equal(g.quantity('coal'),4);assert.equal(device.job,null);
-  place(g,'fluidTank');g.simulate(15);assert.equal(g.quantity('creosote'),1000);assert.equal(g.quantity('coal'),0);assert.equal(g.quantity('coke'),4);
+  const g=new Game();g.state.stage=1;g.add({...g.catalog.machines.cokeOven.cost,coal:1});place(g,'woodBucket');
+  const {device}=g.build('cokeOven');g.assign(device.id,'gt29:0be510620aeeb4');g.simulate(90);
+  assert.equal(device.blocked,'流体输出空间不足');assert.equal(g.quantity('coal'),1);assert.equal(device.job,null);
+  place(g,'fluidTank');g.simulate(90);assert.equal(g.quantity('creosote'),500);assert.equal(g.quantity('coal'),0);assert.equal(g.quantity('coke'),1);
 });
 
 test('competing producers retain completed batches when a tank fills; reloading and draining release output exactly once',()=>{
-  const g=new Game();g.state.stage=1;g.add({brick:48,clay:24,coal:8});
-  place(g,'fluidTank');g.add({creosote:63000});
-  const a=g.build('cokeOven').device,b=g.build('cokeOven').device;g.assign(a.id,'coke');g.assign(b.id,'coke');g.simulate(15);
+  const g=new Game();g.state.stage=1;g.add({brick:48,clay:24,coal:2});
+  place(g,'fluidTank');g.add({creosote:63500});
+  const a=g.build('cokeOven').device,b=g.build('cokeOven').device;g.assign(a.id,'gt29:0be510620aeeb4');g.assign(b.id,'gt29:0be510620aeeb4');g.simulate(90);
   assert.equal(g.quantity('creosote'),64000);assert.equal(b.job.remaining,0);assert.equal(b.blocked,'流体输出空间不足');
   const loaded=new Game(g.snapshot());loaded.simulate(30);assert.equal(loaded.quantity('creosote'),64000);assert.equal(loaded.quantity('coal'),0);
-  loaded.pay({creosote:1000});loaded.tick(.5);assert.equal(loaded.quantity('creosote'),64000);assert.equal(loaded.state.devices[1].job,null);
-  loaded.simulate(20);assert.equal(loaded.quantity('creosote'),64000);assert.equal(loaded.state.produced,2008);
+  loaded.pay({creosote:500});loaded.tick(.5);assert.equal(loaded.quantity('creosote'),64000);assert.equal(loaded.state.devices[1].job,null);
+  loaded.simulate(20);assert.equal(loaded.quantity('creosote'),64000);assert.equal(loaded.state.produced,1002);
 });
 
 test('offline collectors respect container capacity and do not store uncollected fluids for later',()=>{

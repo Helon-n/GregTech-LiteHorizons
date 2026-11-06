@@ -2,6 +2,7 @@
 import {updateText,updateDisabled,updateAttribute} from './live-view.js';
 import {items,recipes,STAGES} from './data/catalog.js';
 import {planGrid,gridStyle,fitPageLimits} from './layout.js';
+import {productName} from './core/recipe-browser.js';
 import {recipeEnergyText} from './data/energy-reference.js';
 const recipeById=new Map(recipes.map(recipe=>[recipe.id,recipe]));
 let nextId=0, source=null, query='', index=0, pageSize=0, rowLimit=Infinity;
@@ -15,7 +16,7 @@ const escape=text=>String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','
 const art=id=>`<img src="assets/gtnh/${escape(items[id]?.icon||id)}.svg" alt="" draggable="false">`;
 function details(select,option){
   if(!option.value)return {icon:'ui-inventory',label:option.text,meta:'',recipe:null};
-  if(select.dataset.assign){const recipe=recipeById.get(option.value);return {icon:Object.keys(recipe?.outputs||{})[0]||'turbine',label:recipe?Object.keys(recipe.outputs).map(id=>items[id]?.name||id).join('、')||'电力':option.text,meta:recipe?`解锁 ${STAGES[recipe.stage].code} · 耗能 ${recipeEnergyText(recipe)}`:'',recipe};}
+  if(select.dataset.assign){const recipe=recipeById.get(option.value);return {icon:recipe?.fuel||Object.keys(recipe?.outputs||{})[0]||'turbine',label:recipe?productName({items},recipe):option.text,meta:recipe?`解锁 ${STAGES[recipe.stage].code} · 耗能 ${recipeEnergyText(recipe)}`:'',recipe};}
   const entity=resolveEntity(option.value);
   if(entity)return {...entity,recipe:null};
   const container=document.querySelector(`[data-container="${option.value}"]`);
@@ -23,7 +24,7 @@ function details(select,option){
   const icon=option.dataset.icon||(items[option.value]?option.value:container?.querySelector('[data-item]')?.dataset.item||device?.querySelector('[data-item]')?.dataset.item||'ui-inventory');
   return {icon,label:option.text,meta:items[option.value]?.kind==='fluid'?'限定储存此流体':'',recipe:null};
 }
-function title(select){return select.dataset.assign?'选择生产配方':select.dataset.energySource?'选择供给设备':select.dataset.energyOutput?'选择充电电池箱':select.dataset.fluidOutput?'选择产物储罐':select.dataset.steamOutput?'选择蒸汽储罐':select.dataset.containerReserve?'限定储存流体':select.dataset.transferTarget?'转移到容器':select.dataset.dispatchTarget?'选择派工设备':'选择项目';}
+function title(select){return select.dataset.assign?'选择生产配方':select.dataset.energySource?'选择供给设备':select.dataset.energyOutput?'选择充电电池箱':select.dataset.fluidOutput?'选择产物储罐':select.dataset.fluidInput?'选择原料容器':select.dataset.steamOutput?'选择蒸汽储罐':select.dataset.containerReserve?'限定储存流体':select.dataset.transferTarget?'转移到容器':select.dataset.dispatchTarget?'选择派工设备':'选择项目';}
 
 export function enhanceChoices(root){
   for(const select of root.querySelectorAll('select:not([data-choice-id])')){

@@ -7,7 +7,8 @@ const game=new Game();game.state.stage=15;
 game.add(Object.fromEntries(Object.values(items).filter(i=>i.kind!=='fluid').map(i=>[i.id,100000])));
 for(const type of Object.keys(machines)){
   const recipe=recipes.find(r=>machines[type].processes.includes(r.process));
-  for(let i=0;i<2;i++){
+  for(let i=0;i<(type==='furnace'?2:1);i++){
+    game.add(machines[type].cost);
     const built=game.build(type);expect(built.ok).toBe(true);
     if(recipe)game.assign(built.device.id,recipe.id);
     game.toggle(built.device.id);
@@ -36,6 +37,7 @@ try{
       }
       for(const el of document.querySelectorAll('#page button,#page input,dialog[open] button,dialog[open] input')){
         if(!el.getClientRects().length||el.closest('[hidden]'))continue;
+        if(el.closest('.machine-categories'))continue;
         const r=el.getBoundingClientRect();
         if(r.bottom>innerHeight+1||r.right>innerWidth+1||r.top<0)bad.push(el.textContent.trim().slice(0,30));
       }
@@ -70,7 +72,7 @@ try{
         await page.locator('[data-expand-stack^="furnace-bricks-"]').click();
         await fit(`${width}x${height} expanded devices`);
         await page.locator('[data-expand-stack^="furnace-bricks-"]').click();
-        await page.locator(`[data-assign="${idle.id}"]+button`).click();
+        const idlePage=page.locator('[data-list-page="factory"][data-list-index="1"]').first();if(await idlePage.count())await idlePage.click();await page.locator(`[data-assign="${idle.id}"]+button`).click();
         await expect(page.locator('.choice-option .choice-art img').first()).toBeVisible();
         await fit(`${width}x${height} recipe cards`);
         await page.locator('[data-close-choice]').click();

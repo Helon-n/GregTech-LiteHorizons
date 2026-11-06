@@ -7,7 +7,7 @@ test('item lookup finds all production routes, byproducts, constructions and reu
   const entries=recipeEntries(CATALOG,2);
   assert.equal(productName(CATALOG,entries.find(r=>r.id==='pick')),'燧石镐');
   assert.equal(productName(CATALOG,entries.find(r=>r.id==='sticks')),'木棍');
-  assert.ok(recipesForItem(entries,'creosote').some(r=>r.id==='coke'));
+  assert.ok(recipesForItem(entries,'creosote').some(r=>r.process==='coke'&&r.outputs.creosote===500));
   assert.ok(recipesForItem(entries,'furnace').some(r=>r.id==='build:furnace'));
   assert.ok(recipesForItem(entries,'hammer','uses').some(r=>r.id==='ironPlateHand'));
   assert.ok(recipesForItem(entries,'water','uses').some(r=>r.id==='steam'));

@@ -1,5 +1,9 @@
 import {applyEnergyCatalog} from './energy-catalog.js';
 import {MATERIAL_PROCESSING} from './material-processing.js';
+import {applyIndustryCatalog,INDUSTRY_VERSION} from './industry-catalog.js';
+import {applyTechnologyCatalog} from './technology-catalog.js';
+import {applyLargeEnergyCatalog} from './large-energy-catalog.js';
+import {applyCircuitProgression,CIRCUIT_MIGRATIONS} from './circuit-progression.js';
 // Gameplay adaptation of GTNH progression. Exact original recipes come from the
 // optional runtime exporter; these authored recipes are deliberately labelled.
 export const STAGES = [
@@ -193,4 +197,13 @@ export const milestones=[
  {flintPick:1,brick:8},{steel:4,basicCircuit:1,motor:1},{goodCircuit:2,electrolyzer:1},{aluminium:4,chemical:1},{stainless:4,advancedCircuit:2},{titanium:4,processor:2,rocket:1,moonRock:4},{tungstensteel:4,nanoCircuit:2},{iridium:4,quantumCircuit:2},{europium:4,wetwareCircuit:2},{neutronium:4,biowareCircuit:2},{cosmic:4,opticalCircuit:2},{catalyst:4,exoticCircuit:2},{infinity:4,cosmicCircuit:2},{spacetime:4,transcendentCircuit:2},{eternity:4,spacetimeCircuit:2},{stargate:1}
 ];
 applyEnergyCatalog({items,machines,recipes});
-export const CATALOG={version:4,materialRulesVersion:1,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};
+const industry=applyIndustryCatalog({items,machines,recipes,gatherNodes});
+applyTechnologyCatalog({items,machines,recipes,legacy:industry.legacy,gatherNodes});
+// Steam-capable recipes unlock with the bronze machines even when their
+// original EU/t exceeds ULV. Unlock chapter and operating voltage are distinct.
+const steamProcesses=new Set(Object.values(machines).filter(m=>m.stage===1&&m.energy?.kind==='steam').flatMap(m=>m.processes));
+for(const r of recipes)if(r.stage===2&&r.power<=16&&steamProcesses.has(r.process))r.stage=1;
+gatherNodes.find(n=>n.id==='redstoneVein').stage=1;
+applyLargeEnergyCatalog({items,machines,recipes,fuels:industry.fuels});
+applyCircuitProgression({items,machines,recipes,milestones});
+export const CATALOG={version:4,materialRulesVersion:1,industryRulesVersion:INDUSTRY_VERSION,itemMigrations:CIRCUIT_MIGRATIONS,industryLegacyRecipes:industry.legacy,fuels:industry.fuels,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};

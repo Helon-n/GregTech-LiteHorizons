@@ -1,0 +1,1405 @@
+{
+  "jar": "industrialcraft-2-2.2.828-experimental.jar",
+  "sha256": "de1d4597972be036eccd1c3b37e9980c3c9d9cdb92f52df2bf470971873893f6",
+  "sourceSHA256": "f36f253c93464706ae967a72f6cf577631046754430ddf79c6800f252ed803b8",
+  "description": "Literal BlocksItems and resource subtype aliases from IC2 2.2.828 bytecode decompiled by CFR 0.152; no game startup.",
+  "resourceSHA256": {
+    "ItemIngot": "4ce9b7fd8074cc19e4fd797518b893b40067b1fd92db9c57f8ba08f7965b235f",
+    "ItemDust": "e23dff0c40d64048d2a93977adf3e605c01315373193906393c390bd5a09156b",
+    "ItemDust2": "07a1ce48fcac6ab9eec8040b6b98df86a805b825de9ae8d651334c1e40e762f7",
+    "ItemRecipePart": "b65829de717d8994bebf5660301a027aaf5bf6627008cd4a3de8dde17e759e31",
+    "ItemCell": "77ee971454c7d7f58f79e984d286c25ebfc1be8b42c9f2f854ab6b6add9498a4"
+  },
+  "entries": {
+    "resin": {
+      "name": "粘性树脂",
+      "registry": "IC2:itemHarz",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemHarz.png"
+    },
+    "rubber": {
+      "name": "橡胶",
+      "registry": "IC2:itemRubber",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemRubber.png"
+    },
+    "reactorLithiumCell": {
+      "name": "燃料棒(锂)",
+      "registry": "IC2:reactorLithiumCell",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorLithiumCell.png"
+    },
+    "TritiumCell": {
+      "name": "燃料棒(氚)",
+      "registry": "IC2:itemTritiumCell",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTritiumCell.png"
+    },
+    "UranFuel": {
+      "name": "浓缩铀核燃料",
+      "registry": "IC2:itemUran",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemUran.png"
+    },
+    "MOXFuel": {
+      "name": "钚铀混合氧化物核燃料(MOX)",
+      "registry": "IC2:itemMOX",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemMOX.png"
+    },
+    "Plutonium": {
+      "name": "钚",
+      "registry": "IC2:itemPlutonium",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPlutonium.png"
+    },
+    "smallPlutonium": {
+      "name": "小撮钚",
+      "registry": "IC2:itemPlutoniumSmall",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPlutoniumSmall.png"
+    },
+    "Uran235": {
+      "name": "铀-235",
+      "registry": "IC2:itemUran235",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemUran235.png"
+    },
+    "smallUran235": {
+      "name": "小撮铀-235",
+      "registry": "IC2:itemUran235small",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemUran235small.png"
+    },
+    "Uran238": {
+      "name": "铀-238",
+      "registry": "IC2:itemUran238",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemUran238.png"
+    },
+    "fuelRod": {
+      "name": "itemFuelRod",
+      "registry": "IC2:itemFuelRod",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemFuelRod.png"
+    },
+    "RTGPellets": {
+      "name": "放射性同位素燃料靶丸",
+      "registry": "IC2:itemRTGPellet",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemRTGPellet.png"
+    },
+    "electronicCircuit": {
+      "name": "电路板",
+      "registry": "IC2:itemPartCircuit",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartCircuit.png"
+    },
+    "advancedCircuit": {
+      "name": "高级电路板",
+      "registry": "IC2:itemPartCircuitAdv",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartCircuitAdv.png"
+    },
+    "advancedAlloy": {
+      "name": "高级合金",
+      "registry": "IC2:itemPartAlloy",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartAlloy.png"
+    },
+    "carbonFiber": {
+      "name": "生碳纤维",
+      "registry": "IC2:itemPartCarbonFibre",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartCarbonFibre.png"
+    },
+    "carbonMesh": {
+      "name": "生碳网",
+      "registry": "IC2:itemPartCarbonMesh",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartCarbonMesh.png"
+    },
+    "carbonPlate": {
+      "name": "碳板",
+      "registry": "IC2:itemPartCarbonPlate",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartCarbonPlate.png"
+    },
+    "iridiumOre": {
+      "name": "铱矿",
+      "registry": "IC2:itemOreIridium",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemOreIridium.png"
+    },
+    "iridiumPlate": {
+      "name": "强化铱板",
+      "registry": "IC2:itemPartIridium",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartIridium.png"
+    },
+    "iridiumShard": {
+      "name": "Iridium Shard",
+      "registry": "IC2:itemShardIridium",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemShardIridium.png"
+    },
+    "treetap": {
+      "name": "木龙头",
+      "registry": "IC2:itemTreetap",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTreetap.png"
+    },
+    "bronzePickaxe": {
+      "name": "青铜镐",
+      "registry": "IC2:itemToolBronzePickaxe",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolBronzePickaxe.png"
+    },
+    "bronzeAxe": {
+      "name": "青铜斧",
+      "registry": "IC2:itemToolBronzeAxe",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolBronzeAxe.png"
+    },
+    "bronzeSword": {
+      "name": "青铜剑",
+      "registry": "IC2:itemToolBronzeSword",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolBronzeSword.png"
+    },
+    "bronzeShovel": {
+      "name": "青铜铲",
+      "registry": "IC2:itemToolBronzeSpade",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolBronzeSpade.png"
+    },
+    "bronzeHoe": {
+      "name": "青铜锄",
+      "registry": "IC2:itemToolBronzeHoe",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolBronzeHoe.png"
+    },
+    "wrench": {
+      "name": "扳手",
+      "registry": "IC2:itemToolWrench",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolWrench.png"
+    },
+    "cutter": {
+      "name": "板材切割剪刀",
+      "registry": "IC2:itemToolCutter",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolCutter.png"
+    },
+    "constructionFoamSprayer": {
+      "name": "建筑泡沫喷枪",
+      "registry": "IC2:itemFoamSprayer",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemFoamSprayer.png"
+    },
+    "toolbox": {
+      "name": "工具盒",
+      "registry": "IC2:itemToolbox",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolbox.png"
+    },
+    "containmentbox": {
+      "name": "防辐射容纳盒",
+      "registry": "IC2:itemContainmentbox",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemContainmentbox.png"
+    },
+    "ForgeHammer": {
+      "name": "锻造锤",
+      "registry": "IC2:itemToolForgeHammer",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolForgeHammer.png"
+    },
+    "LathingTool": {
+      "name": "车床工具",
+      "registry": "IC2:itemLathingTool",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemLathingTool.png"
+    },
+    "chainsaw": {
+      "name": "链锯",
+      "registry": "IC2:itemToolChainsaw",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolChainsaw.png"
+    },
+    "electricWrench": {
+      "name": "电动扳手",
+      "registry": "IC2:itemToolWrenchElectric",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolWrenchElectric.png"
+    },
+    "electricTreetap": {
+      "name": "电动树脂提取器",
+      "registry": "IC2:itemTreetapElectric",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTreetapElectric.png"
+    },
+    "miningLaser": {
+      "name": "采矿镭射枪",
+      "registry": "IC2:itemToolMiningLaser",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolMiningLaser.png"
+    },
+    "ecMeter": {
+      "name": "EU电表",
+      "registry": "IC2:itemToolMEter",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolMEter.png"
+    },
+    "odScanner": {
+      "name": "OD扫描器",
+      "registry": "IC2:itemScanner",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemScanner.png"
+    },
+    "ovScanner": {
+      "name": "OV扫描器",
+      "registry": "IC2:itemScannerAdv",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemScannerAdv.png"
+    },
+    "obscurator": {
+      "name": "拟态板",
+      "registry": "IC2:obscurator",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/obscurator.png"
+    },
+    "frequencyTransmitter": {
+      "name": "传送频率遥控器",
+      "registry": "IC2:itemFreq",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemFreq.png"
+    },
+    "plasmaLauncher": {
+      "name": "plasmaLauncher",
+      "registry": "IC2:plasmaLauncher",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/plasmaLauncher.png"
+    },
+    "windmeter": {
+      "name": "风力计",
+      "registry": "IC2:windmeter",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/windmeter.png"
+    },
+    "hazmatHelmet": {
+      "name": "防化头盔",
+      "registry": "IC2:itemArmorHazmatHelmet",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorHazmatHelmet.png"
+    },
+    "hazmatChestplate": {
+      "name": "防化服",
+      "registry": "IC2:itemArmorHazmatChestplate",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorHazmatChestplate.png"
+    },
+    "hazmatLeggings": {
+      "name": "防化裤",
+      "registry": "IC2:itemArmorHazmatLeggings",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorHazmatLeggings.png"
+    },
+    "hazmatBoots": {
+      "name": "橡胶靴",
+      "registry": "IC2:itemArmorRubBoots",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorRubBoots.png"
+    },
+    "nanoHelmet": {
+      "name": "纳米头盔",
+      "registry": "IC2:itemArmorNanoHelmet",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorNanoHelmet.png"
+    },
+    "nanoBodyarmor": {
+      "name": "纳米护甲",
+      "registry": "IC2:itemArmorNanoChestplate",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorNanoChestplate.png"
+    },
+    "nanoLeggings": {
+      "name": "纳米护腿",
+      "registry": "IC2:itemArmorNanoLegs",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorNanoLegs.png"
+    },
+    "nanoBoots": {
+      "name": "纳米靴子",
+      "registry": "IC2:itemArmorNanoBoots",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorNanoBoots.png"
+    },
+    "quantumHelmet": {
+      "name": "量子头盔",
+      "registry": "IC2:itemArmorQuantumHelmet",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorQuantumHelmet.png"
+    },
+    "quantumBodyarmor": {
+      "name": "量子护甲",
+      "registry": "IC2:itemArmorQuantumChestplate",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorQuantumChestplate.png"
+    },
+    "quantumLeggings": {
+      "name": "量子护腿",
+      "registry": "IC2:itemArmorQuantumLegs",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorQuantumLegs.png"
+    },
+    "quantumBoots": {
+      "name": "量子靴子",
+      "registry": "IC2:itemArmorQuantumBoots",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorQuantumBoots.png"
+    },
+    "jetpack": {
+      "name": "喷气背包",
+      "registry": "IC2:itemArmorJetpack",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorJetpack.png"
+    },
+    "electricJetpack": {
+      "name": "电力喷气背包",
+      "registry": "IC2:itemArmorJetpackElectric",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorJetpackElectric.png"
+    },
+    "batPack": {
+      "name": "储电背包",
+      "registry": "IC2:itemArmorBatpack",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorBatpack.png"
+    },
+    "advbatPack": {
+      "name": "强化储电背包",
+      "registry": "IC2:itemArmorAdvBatpack",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorAdvBatpack.png"
+    },
+    "energyPack": {
+      "name": "能量水晶储电背包",
+      "registry": "IC2:itemArmorEnergypack",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorEnergypack.png"
+    },
+    "cfPack": {
+      "name": "建筑泡沫背包",
+      "registry": "IC2:itemArmorCFPack",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemArmorCFPack.png"
+    },
+    "solarHelmet": {
+      "name": "太阳能头盔",
+      "registry": "IC2:itemSolarHelmet",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemSolarHelmet.png"
+    },
+    "staticBoots": {
+      "name": "静电靴",
+      "registry": "IC2:itemStaticBoots",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemStaticBoots.png"
+    },
+    "nightvisionGoggles": {
+      "name": "夜视镜",
+      "registry": "IC2:itemNightvisionGoggles",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemNightvisionGoggles.png"
+    },
+    "suBattery": {
+      "name": "一次性电池",
+      "registry": "IC2:itemBatSU",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemBatSU.png"
+    },
+    "tinCan": {
+      "name": "锡罐",
+      "registry": "IC2:itemTinCan",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTinCan.png"
+    },
+    "filledTinCan": {
+      "name": "锡罐(满)",
+      "registry": "IC2:itemTinCanFilled",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTinCanFilled.png"
+    },
+    "reactorMOXSimple": {
+      "name": "燃料棒(MOX)",
+      "registry": "IC2:reactorMOXSimple",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorMOXSimple.png"
+    },
+    "reactorMOXDual": {
+      "name": "双联燃料棒(MOX)",
+      "registry": "IC2:reactorMOXDual",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorMOXDual.png"
+    },
+    "reactorMOXQuad": {
+      "name": "四联燃料棒(MOX)",
+      "registry": "IC2:reactorMOXQuad",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorMOXQuad.png"
+    },
+    "reactorUraniumSimple": {
+      "name": "燃料棒(铀)",
+      "registry": "IC2:reactorUraniumSimple",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorUraniumSimple.png"
+    },
+    "reactorUraniumDual": {
+      "name": "双联燃料棒(铀)",
+      "registry": "IC2:reactorUraniumDual",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorUraniumDual.png"
+    },
+    "reactorUraniumQuad": {
+      "name": "四联燃料棒(铀)",
+      "registry": "IC2:reactorUraniumQuad",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorUraniumQuad.png"
+    },
+    "reactorDepletedMOXSimple": {
+      "name": "燃料棒(枯竭MOX)",
+      "registry": "IC2:reactorMOXSimpledepleted",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorMOXSimpledepleted.png"
+    },
+    "reactorDepletedMOXDual": {
+      "name": "双联燃料棒(枯竭MOX)",
+      "registry": "IC2:reactorMOXDualdepleted",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorMOXDualdepleted.png"
+    },
+    "reactorDepletedMOXQuad": {
+      "name": "四联燃料棒(枯竭MOX)",
+      "registry": "IC2:reactorMOXQuaddepleted",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorMOXQuaddepleted.png"
+    },
+    "reactorDepletedUraniumSimple": {
+      "name": "燃料棒(枯竭铀)",
+      "registry": "IC2:reactorUraniumSimpledepleted",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorUraniumSimpledepleted.png"
+    },
+    "reactorDepletedUraniumDual": {
+      "name": "双联燃料棒(枯竭铀)",
+      "registry": "IC2:reactorUraniumDualdepleted",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorUraniumDualdepleted.png"
+    },
+    "reactorDepletedUraniumQuad": {
+      "name": "四联燃料棒(枯竭铀)",
+      "registry": "IC2:reactorUraniumQuaddepleted",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorUraniumQuaddepleted.png"
+    },
+    "reactorCoolantSimple": {
+      "name": "10k冷却单元",
+      "registry": "IC2:reactorCoolantSimple",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorCoolantSimple.png"
+    },
+    "reactorCoolantTriple": {
+      "name": "30k冷却单元",
+      "registry": "IC2:reactorCoolantTriple",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorCoolantTriple.png"
+    },
+    "reactorCoolantSix": {
+      "name": "60k冷却单元",
+      "registry": "IC2:reactorCoolantSix",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorCoolantSix.png"
+    },
+    "reactorPlating": {
+      "name": "反应堆隔板",
+      "registry": "IC2:reactorPlating",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorPlating.png"
+    },
+    "reactorPlatingHeat": {
+      "name": "高热容反应堆隔板",
+      "registry": "IC2:reactorPlatingHeat",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorPlatingHeat.png"
+    },
+    "reactorPlatingExplosive": {
+      "name": "密封反应堆隔板",
+      "registry": "IC2:reactorPlatingExplosive",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorPlatingExplosive.png"
+    },
+    "reactorHeatSwitch": {
+      "name": "热交换器",
+      "registry": "IC2:reactorHeatSwitch",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorHeatSwitch.png"
+    },
+    "reactorHeatSwitchCore": {
+      "name": "反应堆热交换器",
+      "registry": "IC2:reactorHeatSwitchCore",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorHeatSwitchCore.png"
+    },
+    "reactorHeatSwitchSpread": {
+      "name": "元件热交换器",
+      "registry": "IC2:reactorHeatSwitchSpread",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorHeatSwitchSpread.png"
+    },
+    "reactorHeatSwitchDiamond": {
+      "name": "高级热交换器",
+      "registry": "IC2:reactorHeatSwitchDiamond",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorHeatSwitchDiamond.png"
+    },
+    "reactorVent": {
+      "name": "散热片",
+      "registry": "IC2:reactorVent",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorVent.png"
+    },
+    "reactorVentCore": {
+      "name": "反应堆散热片",
+      "registry": "IC2:reactorVentCore",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorVentCore.png"
+    },
+    "reactorVentGold": {
+      "name": "超频散热片",
+      "registry": "IC2:reactorVentGold",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorVentGold.png"
+    },
+    "reactorVentSpread": {
+      "name": "元件散热片",
+      "registry": "IC2:reactorVentSpread",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorVentSpread.png"
+    },
+    "reactorVentDiamond": {
+      "name": "高级散热片",
+      "registry": "IC2:reactorVentDiamond",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorVentDiamond.png"
+    },
+    "reactorReflector": {
+      "name": "中子反射板",
+      "registry": "IC2:reactorReflector",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorReflector.png"
+    },
+    "reactorReflectorThick": {
+      "name": "加厚中子反射板",
+      "registry": "IC2:reactorReflectorThick",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorReflectorThick.png"
+    },
+    "reactorCondensator": {
+      "name": "红石冷却单元",
+      "registry": "IC2:reactorCondensator",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorCondensator.png"
+    },
+    "reactorCondensatorLap": {
+      "name": "青金石冷却单元",
+      "registry": "IC2:reactorCondensatorLap",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/reactorCondensatorLap.png"
+    },
+    "terraformerBlueprint": {
+      "name": "地形转换模板-空白",
+      "registry": "IC2:itemTFBP",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTFBP.png"
+    },
+    "cultivationTerraformerBlueprint": {
+      "name": "地形转换模板-耕地",
+      "registry": "IC2:itemTFBPCultivation",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTFBPCultivation.png"
+    },
+    "irrigationTerraformerBlueprint": {
+      "name": "地形转换模板-灌溉",
+      "registry": "IC2:itemTFBPIrrigation",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTFBPIrrigation.png"
+    },
+    "chillingTerraformerBlueprint": {
+      "name": "地形转换模板-冰原",
+      "registry": "IC2:itemTFBPChilling",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTFBPChilling.png"
+    },
+    "desertificationTerraformerBlueprint": {
+      "name": "地形转换模板-沙漠",
+      "registry": "IC2:itemTFBPDesertification",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTFBPDesertification.png"
+    },
+    "flatificatorTerraformerBlueprint": {
+      "name": "地形转换模板-平地",
+      "registry": "IC2:itemTFBPFlatification",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTFBPFlatification.png"
+    },
+    "mushroomTerraformerBlueprint": {
+      "name": "地形转换模板-蘑菇",
+      "registry": "IC2:itemTFBPMushroom",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTFBPMushroom.png"
+    },
+    "coalBall": {
+      "name": "煤球",
+      "registry": "IC2:itemPartCoalBall",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartCoalBall.png"
+    },
+    "compressedCoalBall": {
+      "name": "压缩煤球",
+      "registry": "IC2:itemPartCoalBlock",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartCoalBlock.png"
+    },
+    "coalChunk": {
+      "name": "煤块",
+      "registry": "IC2:itemPartCoalChunk",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartCoalChunk.png"
+    },
+    "industrialDiamond": {
+      "name": "工业钻石",
+      "registry": "IC2:itemPartIndustrialDiamond",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartIndustrialDiamond.png"
+    },
+    "slag": {
+      "name": "炉渣",
+      "registry": "IC2:itemSlag",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemSlag.png"
+    },
+    "scrap": {
+      "name": "废料",
+      "registry": "IC2:itemScrap",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemScrap.png"
+    },
+    "scrapBox": {
+      "name": "废料盒",
+      "registry": "IC2:itemScrapbox",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemScrapbox.png"
+    },
+    "plantBall": {
+      "name": "植物球",
+      "registry": "IC2:itemFuelPlantBall",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemFuelPlantBall.png"
+    },
+    "biochaff": {
+      "name": "糠",
+      "registry": "IC2:itemBiochaff",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemBiochaff.png"
+    },
+    "painter": {
+      "name": "刷子",
+      "registry": "IC2:itemToolPainter",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainter.png"
+    },
+    "blackPainter": {
+      "name": "黑色刷子",
+      "registry": "IC2:itemToolPainterBlack",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterBlack.png"
+    },
+    "redPainter": {
+      "name": "红色刷子",
+      "registry": "IC2:itemToolPainterRed",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterRed.png"
+    },
+    "greenPainter": {
+      "name": "绿色刷子",
+      "registry": "IC2:itemToolPainterGreen",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterGreen.png"
+    },
+    "brownPainter": {
+      "name": "棕色刷子",
+      "registry": "IC2:itemToolPainterBrown",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterBrown.png"
+    },
+    "bluePainter": {
+      "name": "蓝色刷子",
+      "registry": "IC2:itemToolPainterBlue",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterBlue.png"
+    },
+    "purplePainter": {
+      "name": "紫色刷子",
+      "registry": "IC2:itemToolPainterPurple",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterPurple.png"
+    },
+    "cyanPainter": {
+      "name": "青色刷子",
+      "registry": "IC2:itemToolPainterCyan",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterCyan.png"
+    },
+    "lightGreyPainter": {
+      "name": "浅灰色刷子",
+      "registry": "IC2:itemToolPainterLightGrey",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterLightGrey.png"
+    },
+    "darkGreyPainter": {
+      "name": "灰色刷子",
+      "registry": "IC2:itemToolPainterDarkGrey",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterDarkGrey.png"
+    },
+    "pinkPainter": {
+      "name": "粉色刷子",
+      "registry": "IC2:itemToolPainterPink",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterPink.png"
+    },
+    "limePainter": {
+      "name": "柠檬色刷子",
+      "registry": "IC2:itemToolPainterLime",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterLime.png"
+    },
+    "yellowPainter": {
+      "name": "黄色刷子",
+      "registry": "IC2:itemToolPainterYellow",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterYellow.png"
+    },
+    "cloudPainter": {
+      "name": "浅蓝色刷子",
+      "registry": "IC2:itemToolPainterCloud",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterCloud.png"
+    },
+    "magentaPainter": {
+      "name": "品红色刷子",
+      "registry": "IC2:itemToolPainterMagenta",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterMagenta.png"
+    },
+    "orangePainter": {
+      "name": "橙色刷子",
+      "registry": "IC2:itemToolPainterOrange",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterOrange.png"
+    },
+    "whitePainter": {
+      "name": "白色刷子",
+      "registry": "IC2:itemToolPainterWhite",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolPainterWhite.png"
+    },
+    "dynamite": {
+      "name": "炸药",
+      "registry": "IC2:itemDynamite",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemDynamite.png"
+    },
+    "stickyDynamite": {
+      "name": "粘性炸药",
+      "registry": "IC2:itemDynamiteSticky",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemDynamiteSticky.png"
+    },
+    "remote": {
+      "name": "遥控引爆器",
+      "registry": "IC2:itemRemote",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemRemote.png"
+    },
+    "coin": {
+      "name": "工业铁币",
+      "registry": "IC2:itemCoin",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemCoin.png"
+    },
+    "reinforcedDoor": {
+      "name": "防爆门",
+      "registry": "IC2:itemDoorAlloy",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemDoorAlloy.png"
+    },
+    "constructionFoamPowder": {
+      "name": "建筑泡沫",
+      "registry": "IC2:itemPartCFPowder",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemPartCFPowder.png"
+    },
+    "grinPowder": {
+      "name": "蛤蛤粉",
+      "registry": "IC2:itemGrinPowder",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemGrinPowder.png"
+    },
+    "weedingTrowel": {
+      "name": "除草剪",
+      "registry": "IC2:itemWeedingTrowel",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemWeedingTrowel.png"
+    },
+    "weed": {
+      "name": "杂草",
+      "registry": "IC2:itemWeed",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemWeed.png"
+    },
+    "cropSeed": {
+      "name": "itemCropSeed",
+      "registry": "IC2:itemCropSeed",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemCropSeed.png"
+    },
+    "cropnalyzer": {
+      "name": "作物分析仪",
+      "registry": "IC2:itemCropnalyzer",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemCropnalyzer.png"
+    },
+    "fertilizer": {
+      "name": "肥料",
+      "registry": "IC2:itemFertilizer",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemFertilizer.png"
+    },
+    "hydratingCell": {
+      "name": "水化单元",
+      "registry": "IC2:itemCellHydrant",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemCellHydrant.png"
+    },
+    "electricHoe": {
+      "name": "电动锄",
+      "registry": "IC2:itemToolHoe",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemToolHoe.png"
+    },
+    "terraWart": {
+      "name": "大地疣",
+      "registry": "IC2:itemTerraWart",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemTerraWart.png"
+    },
+    "weedEx": {
+      "name": "除草剂",
+      "registry": "IC2:itemWeedEx",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemWeedEx.png"
+    },
+    "mugEmpty": {
+      "name": "石杯",
+      "registry": "IC2:itemMugEmpty",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemMugEmpty.png"
+    },
+    "coffeeBeans": {
+      "name": "咖啡豆",
+      "registry": "IC2:itemCofeeBeans",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemCofeeBeans.png"
+    },
+    "coffeePowder": {
+      "name": "咖啡粉",
+      "registry": "IC2:itemCofeePowder",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemCofeePowder.png"
+    },
+    "hops": {
+      "name": "啤酒花",
+      "registry": "IC2:itemHops",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemHops.png"
+    },
+    "barrel": {
+      "name": "itemBarrel",
+      "registry": "IC2:itemBarrel",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemBarrel.png"
+    },
+    "steamturbine": {
+      "name": "蒸汽涡轮",
+      "registry": "IC2:itemSteamTurbine",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemSteamTurbine.png"
+    },
+    "steamturbineblade": {
+      "name": "蒸汽涡轮扇叶",
+      "registry": "IC2:itemSteamTurbineBlade",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemSteamTurbineBlade.png"
+    },
+    "copperIngot": {
+      "name": "铜锭",
+      "registry": "IC2:itemIngot",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/resources/itemIngotCopper.png"
+    },
+    "tinIngot": {
+      "name": "锡锭",
+      "registry": "IC2:itemIngot",
+      "meta": 1,
+      "texture": "assets/ic2/textures/items/resources/itemIngotTin.png"
+    },
+    "bronzeIngot": {
+      "name": "青铜锭",
+      "registry": "IC2:itemIngot",
+      "meta": 2,
+      "texture": "assets/ic2/textures/items/resources/itemIngotBronze.png"
+    },
+    "advIronIngot": {
+      "name": "精炼铁锭",
+      "registry": "IC2:itemIngot",
+      "meta": 3,
+      "texture": "assets/ic2/textures/items/resources/itemIngotAdvIron.png"
+    },
+    "mixedMetalIngot": {
+      "name": "合金锭",
+      "registry": "IC2:itemIngot",
+      "meta": 4,
+      "texture": "assets/ic2/textures/items/resources/itemIngotAlloy.png"
+    },
+    "leadIngot": {
+      "name": "铅锭",
+      "registry": "IC2:itemIngot",
+      "meta": 5,
+      "texture": "assets/ic2/textures/items/resources/itemIngotLead.png"
+    },
+    "silverIngot": {
+      "name": "银锭",
+      "registry": "IC2:itemIngot",
+      "meta": 6,
+      "texture": "assets/ic2/textures/items/resources/itemIngotSilver.png"
+    },
+    "bronzeDust": {
+      "name": "青铜粉",
+      "registry": "IC2:itemDust",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/resources/itemDustBronze.png"
+    },
+    "clayDust": {
+      "name": "粘土粉",
+      "registry": "IC2:itemDust",
+      "meta": 1,
+      "texture": "assets/ic2/textures/items/resources/itemDustClay.png"
+    },
+    "coalDust": {
+      "name": "煤粉",
+      "registry": "IC2:itemDust",
+      "meta": 2,
+      "texture": "assets/ic2/textures/items/resources/itemDustCoal.png"
+    },
+    "copperDust": {
+      "name": "铜粉",
+      "registry": "IC2:itemDust",
+      "meta": 3,
+      "texture": "assets/ic2/textures/items/resources/itemDustCopper.png"
+    },
+    "goldDust": {
+      "name": "金粉",
+      "registry": "IC2:itemDust",
+      "meta": 4,
+      "texture": "assets/ic2/textures/items/resources/itemDustGold.png"
+    },
+    "ironDust": {
+      "name": "铁粉",
+      "registry": "IC2:itemDust",
+      "meta": 5,
+      "texture": "assets/ic2/textures/items/resources/itemDustIron.png"
+    },
+    "silverDust": {
+      "name": "银粉",
+      "registry": "IC2:itemDust",
+      "meta": 6,
+      "texture": "assets/ic2/textures/items/resources/itemDustSilver.png"
+    },
+    "tinDust": {
+      "name": "锡粉",
+      "registry": "IC2:itemDust",
+      "meta": 7,
+      "texture": "assets/ic2/textures/items/resources/itemDustTin.png"
+    },
+    "hydratedCoalDust": {
+      "name": "湿润煤粉",
+      "registry": "IC2:itemDust",
+      "meta": 8,
+      "texture": "assets/ic2/textures/items/resources/itemFuelCoalDust.png"
+    },
+    "stoneDust": {
+      "name": "石粉",
+      "registry": "IC2:itemDust",
+      "meta": 9,
+      "texture": "assets/ic2/textures/items/resources/itemDustStone.png"
+    },
+    "leadDust": {
+      "name": "铅粉",
+      "registry": "IC2:itemDust",
+      "meta": 10,
+      "texture": "assets/ic2/textures/items/resources/itemDustLead.png"
+    },
+    "obsidianDust": {
+      "name": "黑曜石粉",
+      "registry": "IC2:itemDust",
+      "meta": 11,
+      "texture": "assets/ic2/textures/items/resources/itemDustObsidian.png"
+    },
+    "lapiDust": {
+      "name": "青金石粉",
+      "registry": "IC2:itemDust",
+      "meta": 12,
+      "texture": "assets/ic2/textures/items/resources/itemDustLapi.png"
+    },
+    "sulfurDust": {
+      "name": "硫粉",
+      "registry": "IC2:itemDust",
+      "meta": 13,
+      "texture": "assets/ic2/textures/items/resources/itemDustSulfur.png"
+    },
+    "lithiumDust": {
+      "name": "锂粉",
+      "registry": "IC2:itemDust",
+      "meta": 14,
+      "texture": "assets/ic2/textures/items/resources/itemDustLithium.png"
+    },
+    "silicondioxideDust": {
+      "name": "二氧化硅粉",
+      "registry": "IC2:itemDust2",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/resources/itemDustsilicondioxide.png"
+    },
+    "diamondDust": {
+      "name": "钻石粉",
+      "registry": "IC2:itemDust2",
+      "meta": 1,
+      "texture": "assets/ic2/textures/items/resources/itemDustdiamond.png"
+    },
+    "energiumDust": {
+      "name": "能量水晶粉",
+      "registry": "IC2:itemDust2",
+      "meta": 2,
+      "texture": "assets/ic2/textures/items/resources/itemDustenergium.png"
+    },
+    "AshesDust": {
+      "name": "灰烬",
+      "registry": "IC2:itemDust2",
+      "meta": 3,
+      "texture": "assets/ic2/textures/items/resources/itemAshes.png"
+    },
+    "coil": {
+      "name": "线圈",
+      "registry": "IC2:itemRecipePart",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/resources/itemPartCoil.png"
+    },
+    "elemotor": {
+      "name": "电动马达",
+      "registry": "IC2:itemRecipePart",
+      "meta": 1,
+      "texture": "assets/ic2/textures/items/resources/itemPartEleMotor.png"
+    },
+    "powerunit": {
+      "name": "驱动把手",
+      "registry": "IC2:itemRecipePart",
+      "meta": 2,
+      "texture": "assets/ic2/textures/items/resources/itempowerunit.png"
+    },
+    "powerunitsmall": {
+      "name": "小型驱动把手",
+      "registry": "IC2:itemRecipePart",
+      "meta": 3,
+      "texture": "assets/ic2/textures/items/resources/itempowerunitsmall.png"
+    },
+    "rawcrystalmemory": {
+      "name": "(粗制)模式存储水晶",
+      "registry": "IC2:itemRecipePart",
+      "meta": 4,
+      "texture": "assets/ic2/textures/items/resources/itemrawcrystalmemory.png"
+    },
+    "heatconductor": {
+      "name": "热传导器",
+      "registry": "IC2:itemRecipePart",
+      "meta": 5,
+      "texture": "assets/ic2/textures/items/resources/itemheatconductor.png"
+    },
+    "copperboiler": {
+      "name": "铜锅炉",
+      "registry": "IC2:itemRecipePart",
+      "meta": 6,
+      "texture": "assets/ic2/textures/items/resources/itemcopperboiler.png"
+    },
+    "woodrotorblade": {
+      "name": "木扇叶",
+      "registry": "IC2:itemRecipePart",
+      "meta": 7,
+      "texture": "assets/ic2/textures/items/resources/itemwoodrotorblade.png"
+    },
+    "ironrotorblade": {
+      "name": "铁扇叶",
+      "registry": "IC2:itemRecipePart",
+      "meta": 8,
+      "texture": "assets/ic2/textures/items/resources/itemironrotorblade.png"
+    },
+    "carbonrotorblade": {
+      "name": "碳扇叶",
+      "registry": "IC2:itemRecipePart",
+      "meta": 9,
+      "texture": "assets/ic2/textures/items/resources/itemcarbonrotorblade.png"
+    },
+    "steelrotorblade": {
+      "name": "钢扇叶",
+      "registry": "IC2:itemRecipePart",
+      "meta": 10,
+      "texture": "assets/ic2/textures/items/resources/itemsteelrotorblade.png"
+    },
+    "ironshaft": {
+      "name": "铁柄",
+      "registry": "IC2:itemRecipePart",
+      "meta": 11,
+      "texture": "assets/ic2/textures/items/resources/itemironshaft.png"
+    },
+    "steelshaft": {
+      "name": "精炼铁柄",
+      "registry": "IC2:itemRecipePart",
+      "meta": 12,
+      "texture": "assets/ic2/textures/items/resources/itemsteelshaft.png"
+    },
+    "miningPipe": {
+      "name": "采矿管道",
+      "registry": "IC2:blockMiningPipe",
+      "meta": 0,
+      "texture": "assets/ic2/textures/blocks/machine/blockMiningPipe.png"
+    },
+    "cell": {
+      "name": "空单元",
+      "registry": "IC2:itemCellEmpty",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/cell/itemCellEmpty.png"
+    }
+  },
+  "unresolved": [
+    {
+      "alias": "copperOre",
+      "expression": "new BlockMetaData(InternalName.blockOreCopper, Material.field_151576_e).func_149711_c(3.0f).func_149752_b(5.0f)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "tinOre",
+      "expression": "new BlockMetaData(InternalName.blockOreTin, Material.field_151576_e).func_149711_c(3.0f).func_149752_b(5.0f)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "uraniumOre",
+      "expression": "new BlockMetaData(InternalName.blockOreUran, Material.field_151576_e).func_149711_c(4.0f).func_149752_b(6.0f)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "leadOre",
+      "expression": "new BlockMetaData(InternalName.blockOreLead, Material.field_151576_e).func_149711_c(2.0f).func_149752_b(4.0f)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "reinforcedStone",
+      "expression": "new BlockMetaData(InternalName.blockAlloy, Material.field_151573_f).func_149711_c(80.0f).func_149752_b(180.0f).func_149672_a(Block.field_149777_j)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "basaltBlock",
+      "expression": "new BlockMetaData(InternalName.blockBasalt, Material.field_151576_e).func_149711_c(20.0f).func_149752_b(45.0f).func_149672_a(Block.field_149769_e)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "reinforcedGlass",
+      "expression": "(Block)new BlockTexGlass(InternalName.blockAlloyGlass)"
+    },
+    {
+      "alias": "reinforcedDoorBlock",
+      "expression": "(Block)new BlockIC2Door(InternalName.blockDoorAlloy)"
+    },
+    {
+      "alias": "luminator",
+      "expression": "(Block)new BlockLuminator(InternalName.blockLuminatorDark)"
+    },
+    {
+      "alias": "activeLuminator",
+      "expression": "(Block)new BlockLuminator(InternalName.blockLuminator)"
+    },
+    {
+      "alias": "industrialTnt",
+      "expression": "(Block)new BlockITNT(InternalName.blockITNT)"
+    },
+    {
+      "alias": "nuke",
+      "expression": "(Block)new BlockITNT(InternalName.blockNuke)"
+    },
+    {
+      "alias": "dynamiteStick",
+      "expression": "(Block)new BlockDynamite(InternalName.blockDynamite)"
+    },
+    {
+      "alias": "dynamiteStickWithRemote",
+      "expression": "(Block)new BlockDynamite(InternalName.blockDynamiteRemote)"
+    },
+    {
+      "alias": "FluidCell",
+      "expression": "(Item)new ItemFluidCell(InternalName.itemFluidCell)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "turningBlankIron",
+      "expression": "(Item)new ItemLatheDefault(ItemLatheDefault.LatheMaterial.IRON)"
+    },
+    {
+      "alias": "turningBlankWood",
+      "expression": "(Item)new ItemLatheDefault(ItemLatheDefault.LatheMaterial.WOOD)"
+    },
+    {
+      "alias": "crystalmemory",
+      "expression": "(Item)new ItemCrystalMemory(InternalName.itemcrystalmemory)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "nanoSaber",
+      "expression": "(Item)new ItemNanoSaber(InternalName.itemNanoSaber)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "bronzeHelmet",
+      "expression": "(Item)new ItemArmorIC2(InternalName.itemArmorBronzeHelmet, bronzeArmorMaterial, InternalName.bronze, 0, \"ingotBronze\")"
+    },
+    {
+      "alias": "bronzeChestplate",
+      "expression": "(Item)new ItemArmorIC2(InternalName.itemArmorBronzeChestplate, bronzeArmorMaterial, InternalName.bronze, 1, \"ingotBronze\")"
+    },
+    {
+      "alias": "bronzeLeggings",
+      "expression": "(Item)new ItemArmorIC2(InternalName.itemArmorBronzeLegs, bronzeArmorMaterial, InternalName.bronze, 2, \"ingotBronze\")"
+    },
+    {
+      "alias": "bronzeBoots",
+      "expression": "(Item)new ItemArmorIC2(InternalName.itemArmorBronzeBoots, bronzeArmorMaterial, InternalName.bronze, 3, \"ingotBronze\")"
+    },
+    {
+      "alias": "compositeArmor",
+      "expression": "(Item)new ItemArmorIC2(InternalName.itemArmorAlloyChestplate, alloyArmorMaterial, InternalName.alloy, 1, Ic2Items.advancedAlloy)"
+    },
+    {
+      "alias": "reBattery",
+      "expression": "(Item)new ItemBatteryDischarged(InternalName.itemBatREDischarged, 10000, 100, 1)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "chargedReBattery",
+      "expression": "(Item)new ItemBattery(InternalName.itemBatRE, 10000.0, 32.0, 1)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "advBattery",
+      "expression": "(Item)new ItemBattery(InternalName.itemAdvBat, 100000.0, 256.0, 2)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "energyCrystal",
+      "expression": "(Item)new ItemBattery(InternalName.itemBatCrystal, 1000000.0, 2048.0, 3)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "lapotronCrystal",
+      "expression": "(Item)new ItemBattery(InternalName.itemBatLamaCrystal, 1.0E7, 8092.0, 4).setRarity(1)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "chargingREBattery",
+      "expression": "(Item)new ItemBatteryChargeHotbar(InternalName.itemBatChargeRE, 40000.0, 128.0, 1)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "chargingAdvBattery",
+      "expression": "(Item)new ItemBatteryChargeHotbar(InternalName.itemBatChargeAdv, 400000.0, 1024.0, 2)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "chargingEnergyCrystal",
+      "expression": "(Item)new ItemBatteryChargeHotbar(InternalName.itemBatChargeCrystal, 4000000.0, 8192.0, 3)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "chargingLapotronCrystal",
+      "expression": "(Item)new ItemBatteryChargeHotbar(InternalName.itemBatChargeLamaCrystal, 4.0E7, 32768.0, 4).setRarity(1)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "debug",
+      "expression": "(Item)new ItemDebug(InternalName.itemDebug)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "mugCoffee",
+      "expression": "(Item)new ItemMugCoffee(InternalName.itemMugCoffee)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "mugBooze",
+      "expression": "(Item)new ItemBooze(InternalName.itemMugBooze)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "woodrotor",
+      "expression": "(Item)new ItemWindRotor(InternalName.itemwoodrotor, 5, 10800, 0.25f, 10, 60, new ResourceLocation(IC2.textureDomain, \"textures/items/rotors/rotorWoodmodel.png\"))",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "ironrotor",
+      "expression": "(Item)new ItemWindRotor(InternalName.itemironrotor, 7, 86400, 0.5f, 14, 75, new ResourceLocation(IC2.textureDomain, \"textures/items/rotors/rotorIronmodel.png\"))",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "steelrotor",
+      "expression": "(Item)new ItemWindRotor(InternalName.itemsteelrotor, 9, 172800, 0.75f, 17, 90, new ResourceLocation(IC2.textureDomain, \"textures/items/rotors/rotorSteelmodel.png\"))",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "carbonrotor",
+      "expression": "(Item)new ItemWindRotor(InternalName.itemwcarbonrotor, 11, 604800, 1.0f, 20, 110, new ResourceLocation(IC2.textureDomain, \"textures/items/rotors/rotorCarbonmodel.png\"))",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "ironblockcuttingblade",
+      "expression": "(Item)new ItemBlockCuttingBlade(InternalName.itemIronBlockCuttingBlade, 3)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "advironblockcuttingblade",
+      "expression": "(Item)new ItemBlockCuttingBlade(InternalName.itemAdvIronBlockCuttingBlade, 6)",
+      "reason": "not an item with a direct registered texture"
+    },
+    {
+      "alias": "diamondblockcuttingblade",
+      "expression": "(Item)new ItemBlockCuttingBlade(InternalName.itemDiamondBlockCuttingBlade, 9)",
+      "reason": "not an item with a direct registered texture"
+    }
+  ]
+}

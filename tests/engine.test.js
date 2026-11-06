@@ -67,7 +67,7 @@ test('one machine cannot auto-run several recipes; times and input conservation 
 
 test('powered machines pause without losing prepaid input or producing free output',()=>{
   const g=new Game();g.state.stage=2;tanks(g);g.add({...machines.electrolyzer.cost,water:1000});
-  const {device}=g.build('electrolyzer');g.assign(device.id,'waterElectrolysis');g.state.energy=10000;
+  const {device}=g.build('electrolyzer');g.assign(device.id,'gt29:50dd451fc96eee');g.state.energy=10000;
   g.simulate(4);assert.equal(g.quantity('water'),1000);assert.equal(device.job,null);assert.equal(g.state.energy,0);
   device.eu=300;g.tick(.5);assert.equal(g.quantity('water'),0);assert.equal(g.quantity('hydrogen'),0);
   const job=JSON.stringify(device.job);g.simulate(2);assert.equal(device.blocked,'电力不足');assert.equal(JSON.stringify(device.job),job);

@@ -21,7 +21,8 @@ public final class RecipeExportMod {
             Path target=dir.resolve("recipes.json"), temp=dir.resolve("recipes.json.tmp");
             int count=0;
             try(BufferedWriter out=Files.newBufferedWriter(temp,StandardCharsets.UTF_8)) {
-                out.write("{\"schema\":1,\"source\":\"GTNH runtime registry\",\"exporter\":\"0.1.0\",\"recipes\":[");
+                errors.clear();
+                out.write("{\"schema\":2,\"source\":\"GTNH runtime registry\",\"exporter\":\"0.1.0\",\"recipes\":[");
                 Class<?> mapClass=Class.forName("gregtech.api.recipe.RecipeMap");
                 Map<?,?> maps=(Map<?,?>)mapClass.getField("ALL_RECIPE_MAPS").get(null);
                 List<Map.Entry<?,?>> entries=new ArrayList<Map.Entry<?,?>>(maps.entrySet());
@@ -50,7 +51,8 @@ public final class RecipeExportMod {
                         if(count++>0)out.write(',');out.write(json(data));
                     }
                 }catch(Exception ex){errors.add("assembly_line: "+ex.toString());}
-                out.write("],\"count\":"+count+",\"errors\":"+json(errors)+",\"limitations\":[\"Includes GregTech RecipeMaps and assembly-line registry only; vanilla crafting, furnace and other mod-specific registries are not included.\",\"Special values, metadata and NBT must be interpreted by the importing game; exported records are reference data.\",\"Names follow the active game language.\"]}");
+                out.write("],\"crafting\":"+json(craftingRecipes())+",\"furnace\":"+json(furnaceRecipes()));
+                out.write(",\"count\":"+count+",\"errors\":"+json(errors)+",\"limitations\":[\"Includes GT RecipeMaps, assembly lines, CraftingManager and FurnaceRecipes; independent addon registries may remain.\",\"Special values, metadata and NBT require an explicit gameplay implementation; exporting does not enable a recipe.\",\"Unknown custom ingredient or metadata types retain their Java class and description.\",\"Names follow the active game language.\"]}");
             }
             Files.move(temp,target,StandardCopyOption.REPLACE_EXISTING);
             System.out.println("[GTNH Idle Export] Exported "+count+" recipes to "+target.toAbsolutePath()+" ("+errors.size()+" errors)");
@@ -71,12 +73,77 @@ public final class RecipeExportMod {
         data.put("outputChances",array(field(r,"mOutputChances")));
         data.put("fluidInputChances",array(field(r,"mFluidInputChances")));
         data.put("fluidOutputChances",array(field(r,"mFluidOutputChances")));
+        data.put("metadata",metadata(r));
         Object special=field(r,"mSpecialItems");if(special!=null)data.put("specialItemDescription",String.valueOf(special));
         return data;
     }
+    private static List<Object> metadata(Object recipe) {
+        List<Object> result=new ArrayList<Object>();
+        Object storage=call(recipe,"getMetadataStorage"), entries=call(storage,"getEntries");
+        if(entries instanceof Iterable)for(Object entry:(Iterable<?>)entries) {
+            Map.Entry<?,?> pair=(Map.Entry<?,?>)entry;
+            Map<String,Object> row=new LinkedHashMap<String,Object>();
+            row.put("key",String.valueOf(pair.getKey()));
+            row.put("identifier",field(pair.getKey(),"identifier"));
+            row.put("value",referenceValue(pair.getValue(),0));result.add(row);
+        }
+        Collections.sort(result,new Comparator<Object>(){public int compare(Object a,Object b){return json(a).compareTo(json(b));}});
+        return result;
+    }
+    private static Object referenceValue(Object value,int depth) {
+        if(value==null||value instanceof Number||value instanceof Boolean||value instanceof String)return value;
+        if(value instanceof Enum)return ((Enum<?>)value).name();
+        if(depth>6)return String.valueOf(value);
+        if(value.getClass().isArray()){List<Object> result=new ArrayList<Object>();for(Object v:array(value))result.add(referenceValue(v,depth+1));return result;}
+        if(value instanceof Iterable){List<Object> result=new ArrayList<Object>();for(Object v:(Iterable<?>)value)result.add(referenceValue(v,depth+1));return result;}
+        if(value instanceof Map){Map<String,Object> result=new LinkedHashMap<String,Object>();for(Map.Entry<?,?> e:((Map<?,?>)value).entrySet())result.put(String.valueOf(e.getKey()),referenceValue(e.getValue(),depth+1));return result;}
+        try{if(Class.forName("net.minecraft.item.ItemStack").isInstance(value))return stack(value);}catch(ClassNotFoundException ignored){}
+        try{if(Class.forName("net.minecraftforge.fluids.FluidStack").isInstance(value))return fluids(new Object[]{value}).get(0);}catch(ClassNotFoundException ignored){}
+        Map<String,Object> result=new LinkedHashMap<String,Object>();result.put("javaType",value.getClass().getName());result.put("description",String.valueOf(value));
+        for(String key:new String[]{"mName","time","voltage","tier","duration","eut"}){Object v=field(value,key);if(v instanceof Number||v instanceof String||v instanceof Boolean)result.put(key,v);}
+        return result;
+    }
+    private static List<Object> craftingRecipes() {
+        List<Object> result=new ArrayList<Object>();
+        try {
+            Class<?> type=Class.forName("net.minecraft.item.crafting.CraftingManager");
+            Object manager=staticCall(type,"getInstance","func_77594_a");
+            Object recipes=call(manager,"getRecipeList","func_77592_b");
+            if(!(recipes instanceof Iterable))throw new IllegalStateException("CraftingManager list unavailable");
+            int index=0;
+            for(Object recipe:(Iterable<?>)recipes)try {
+                Map<String,Object> row=new LinkedHashMap<String,Object>();row.put("index",index++);row.put("javaType",recipe.getClass().getName());
+                row.put("output",stack(call(recipe,"getRecipeOutput","func_77571_b")));
+                Object input=call(recipe,"getInput");
+                if(input==null)input=field(recipe,"recipeXY","recipeItems","field_77574_d","field_77579_b","input");
+                row.put("inputs",referenceValue(input,0));
+                row.put("width",field(recipe,"recipeWidth","field_77576_b","width"));row.put("height",field(recipe,"recipeHeight","field_77577_c","height"));
+                row.put("shapeless",recipe.getClass().getName().toLowerCase(Locale.ROOT).contains("shapeless"));
+                if(input==null)row.put("dynamic",true);
+                result.add(row);
+            }catch(Exception ex){errors.add("crafting: "+ex.toString());}
+        }catch(Exception ex){errors.add("crafting registry: "+ex.toString());}
+        return result;
+    }
+    private static List<Object> furnaceRecipes() {
+        List<Object> result=new ArrayList<Object>();
+        try {
+            Class<?> type=Class.forName("net.minecraft.item.crafting.FurnaceRecipes");
+            Object manager=staticCall(type,"smelting","func_77602_a"), recipes=call(manager,"getSmeltingList","func_77599_b");
+            if(!(recipes instanceof Map))throw new IllegalStateException("FurnaceRecipes map unavailable");
+            for(Map.Entry<?,?> entry:((Map<?,?>)recipes).entrySet()) {
+                Map<String,Object> row=new LinkedHashMap<String,Object>();row.put("input",stack(entry.getKey()));row.put("output",stack(entry.getValue()));result.add(row);
+            }
+        }catch(Exception ex){errors.add("furnace registry: "+ex.toString());}
+        return result;
+    }
+    private static Object staticCall(Class<?> type,String...names) {
+        for(String name:names)try{return type.getMethod(name).invoke(null);}catch(Exception ignored){}
+        return null;
+    }
     private static Object field(Object o,String...names) {
         if(o==null)return null;
-        for(String n:names)try{return o.getClass().getField(n).get(o);}catch(Exception ignored){}
+        for(String n:names)for(Class<?> c=o.getClass();c!=null;c=c.getSuperclass())try{Field f=c.getDeclaredField(n);f.setAccessible(true);return f.get(o);}catch(Exception ignored){}
         return null;
     }
     private static Object call(Object o,String...names) {
