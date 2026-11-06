@@ -11,7 +11,7 @@ import {loadWorld,saveWorld,exportWorld,replaceWorld} from './core/storage.js';
 import {CATALOG,STAGES,items,recipes,machines,gatherNodes,containerTypes} from './data/catalog.js';
 import {craftingGrid} from './core/workbench.js';
 import {recipeEntries,recipesForItem,productName} from './core/recipe-browser.js';
-import {fitRows,planGrid,gridStyle,fitPageLimits} from './layout.js';
+import {LAYOUT,fitRows,planGrid,gridStyle,fitPageLimits,factoryContentWidth} from './layout.js';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -42,6 +42,9 @@ const containerPlaceCount=id=>Math.max(1,Math.min(containerPlaceCounts[id]||1,co
 let overviewTab='main',benchView='recipe',containerView='placed';
 let appearanceOpen=false,appearanceCode='',appearanceView='ladder',appearanceEraPage=0;
 let appearanceMode=readAppearance(localStorage);
+const FAVORITES_KEY='gtnh-recipe-favorites-v1';
+let recipeFavorites=(()=>{try{const value=JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]');return Array.isArray(value)?value.filter(x=>x&&typeof x.key==='string'&&typeof x.recipeId==='string'&&typeof x.itemId==='string'&&['craft','machines','recipes'].includes(x.tab)&&['uses','recipes'].includes(x.mode)):[];}catch{return [];}})();
+let bookView='items';
 function syncTheme(){const tier=applyTier(document.documentElement,appearanceMode||game.stage.code);updateAttribute($('meta[name="theme-color"]'),'content',tier.background);}
 function appearance(){
   const preview=`<div data-preview-part="energy">${energyPanel()}</div><div data-preview-part="production">${panel('生产现场',`${game.state.devices.length} 台机器`,deviceSummary())}</div>`;
@@ -72,10 +75,13 @@ function gridPlan(key,reserved=100,width=viewport.width){
 }
 function gridAttrs(key){return `data-fit-grid="${key}" style="${gridStyle(gridPlans.get(key))}"`;}
 const expandedDeviceStacks=new Set();
+let factorySelectorScroll=0,factorySelectorType='',focusFactorySelector=false;
 const selectedRecipes={craft:'sticks',machines:'build:workbench',recipes:'bricks'};
 let filledRecipe='',lastDrops=null,recipeMode='recipes',hoveredItem='',containerSignature='';
 const selectedItems={craft:'stick',machines:'workbench',recipes:'brick'};
+const allRecipeEntries=recipeEntries(CATALOG,STAGES.length-1);
 const recipeName=r=>productName(CATALOG,r);
+const favoriteKey=r=>r?.id||'';
 const icon=(id,large=false)=>`<span data-item="${id}" class="item-art ${large?'large':''}"><img src="assets/gtnh/${items[id]?.icon||id}.svg" alt="" draggable="false"></span>`;
 const qty=id=>`<span data-qty="${id}">${num(game.quantity(id))}</span>`;
 const heading=(title,action='')=>`<div class="heading"><h1>${title}</h1>${action?`<div class="heading-actions">${action}</div>`:''}</div>`;
@@ -134,7 +140,7 @@ function listPage(key,list,size){
   const previous=listSizes.get(key);
   if(previous&&previous!==size)listPages[key]=Math.floor((listAnchors.get(key)??(listPages[key]||0)*previous)/size);
   listSizes.set(key,size);
-  const compact=['book','goals'].includes(key);
+  const compact=['book','goals','recipe-favorites'].includes(key);
   const count=Math.max(1,Math.ceil(list.length/size));
   const index=listPages[key]=Math.max(0,Math.min(listPages[key]||0,count-1));
   const button=(target,label,disabled=false)=>`<button class="button ${target===index?'current':''}" data-list-page="${key}" data-list-index="${target}" ${disabled?'disabled':''} ${target===index?'aria-current="page"':''}>${label}</button>`;
@@ -150,12 +156,38 @@ function workshopEntries(){
   const all=recipeEntries(CATALOG,game.state.stage);
   return workshopTab==='machines'?all.filter(r=>r.process==='build'):workshopTab==='craft'?all.filter(r=>r.process==='craft'):all;
 }
-function currentRecipes(){return recipesForItem(workshopEntries(),selectedItems[workshopTab],recipeMode);}
+function currentRecipes(){return recipesForItem(workshopEntries(),selectedItems[workshopTab],recipeMode,CATALOG);}
 function selectedEntry(){return currentRecipes().find(r=>r.id===selectedRecipes[workshopTab])||currentRecipes()[0];}
 function lookupItem(id,mode='recipes'){
   if(!items[id])return;
   benchView='recipe';workshopTab='recipes';recipeMode=mode;selectedItems.recipes=id;selectedRecipes.recipes='';filledRecipe='';filter='';
   page='workshop';listPages.book=0;render();
+}
+function saveRecipeFavorites(){
+  try{localStorage.setItem(FAVORITES_KEY,JSON.stringify(recipeFavorites));}
+  catch{notify('收藏已更新，但无法写入本机设置');}
+}
+function toggleRecipeFavorite(){
+  const r=selectedEntry();if(!r)return;
+  const key=favoriteKey(r),index=recipeFavorites.findIndex(f=>f.key===key);
+  if(index>=0)recipeFavorites.splice(index,1);
+  else{
+    recipeFavorites.unshift({key,recipeId:r.id,itemId:selectedItems[workshopTab],tab:workshopTab,mode:recipeMode});
+    bookView='favorites';listPages['recipe-favorites']=0;
+  }
+  saveRecipeFavorites();render();$('[data-favorite-toggle]')?.focus({preventScroll:true});
+}
+function removeRecipeFavorite(key){
+  recipeFavorites=recipeFavorites.filter(f=>f.key!==key);saveRecipeFavorites();render();
+  $('[data-book-view="favorites"]')?.focus({preventScroll:true});
+}
+function openRecipeFavorite(key){
+  const favorite=recipeFavorites.find(f=>f.key===key),r=allRecipeEntries.find(x=>x.id===favorite?.recipeId);
+  if(!favorite||!r)return;
+  if(r.stage>game.state.stage){notify('需要解锁 '+STAGES[r.stage].code+' 阶段');return;}
+  workshopTab=favorite.tab;recipeMode=favorite.mode;selectedItems[workshopTab]=favorite.itemId;selectedRecipes[workshopTab]=r.id;
+  bookView='favorites';benchView='recipe';filledRecipe='';filter='';listPages.book=0;render();
+  $('[data-favorite-toggle]')?.focus({preventScroll:true});
 }
 function recipeTile(id){return `<button class="book-item ${id===selectedItems[workshopTab]?'selected':''}" data-book-item="${id}" aria-pressed="${id===selectedItems[workshopTab]}" title="${e(name(id))} · R 配方 / U 用途">${icon(id)}<span>${e(name(id))}</span></button>`;}
 function benchSlot(id,count,output=false){
@@ -170,7 +202,8 @@ function dispatchControls(r){
 function workbench(r){
   if(!r){const id=selectedItems[workshopTab],nodes=gatherNodes.filter(n=>game.nodeAvailable(n)&&Object.hasOwn(game.drops(n),id));return `<section class="surface workbench"><h2>${e(name(id))}</h2>${empty(recipeMode==='uses'?'当前阶段没有已解锁的用途。':nodes.length?'获取地点：'+nodes.map(n=>n.name).join('、'):'当前阶段没有已解锁的配方。',nodes.length?'<button class="button" data-page="resources">前往采集 →</button>':'')}</section>`;}
   const manual=r.process==='craft',build=r.process==='build',filled=filledRecipe===r.id,alternatives=currentRecipes(),index=alternatives.findIndex(x=>x.id===r.id);
-  return `<section class="surface workbench" data-bench-recipe="${r.id}"><div class="nei-recipe-nav"><button class="button" data-recipe-step="-1" ${alternatives.length<2?'disabled':''} aria-label="上一配方">‹</button><span>${recipeMode==='uses'?'用途':'配方'} ${index+1} / ${alternatives.length}</span><button class="button" data-recipe-step="1" ${alternatives.length<2?'disabled':''} aria-label="下一配方">›</button></div><div class="bench-heading"><div><h2>${e(recipeName(r))}</h2></div><span class="pill">${manual?'工作台':build?'机器建造':processName(r.process)}</span></div><div class="bench-meta recipe-facts"><span><b>解锁阶段</b><strong>${STAGES[r.stage].code}</strong></span><span><b>加工方式</b><strong>${manual?'工作台手工':build?'机器建造':e(processName(r.process))}</strong></span><span><b>耗能</b><strong>${e(recipeEnergyText(r))}</strong></span>${r.circuit?`<span><b>设备设定</b><strong>编程电路 ${r.circuit} · 不消耗</strong></span>`:''}</div><div class="bench-layout ${filled?'filled':'ghost'}" style="--input-columns:${Math.max(1,Math.min(3,Object.keys(r.inputs).length))};--output-columns:${Math.max(1,Math.min(2,Object.keys(r.outputs).length))}"><div class="${manual||build?'bench-grid':'process-slots'}" role="group" aria-label="${manual||build?'九宫格原料配方':'机器投入原料'}">${(manual||build?craftingGrid(r.id,r.inputs):Object.entries(r.inputs).map(([id,count])=>({id,count}))).map(slot=>slot?benchSlot(slot.id,slot.count):'<div class="bench-slot vacant" aria-hidden="true"></div>').join('')}</div><span class="bench-arrow" aria-hidden="true">➜</span><div class="bench-outputs" aria-label="产物">${Object.entries(r.outputs).map(([id,count])=>benchSlot(id,count,true)).join('')||`<div class="bench-slot output-slot">${icon('turbine')}<span>向连接设备供能</span></div>`}</div></div>${r.tools?`<div class="bench-tools"><span>工具 · 保留</span>${stacks(r.tools)}</div>`:''}<p class="bench-status" data-bench-status role="status"></p><div class="bench-actions">${manual||build?`<button class="button" data-fill="${r.id}">${filled?'重新放入材料':'放入材料'}</button>${manual?`<button class="button" data-craft="${r.id}" data-count="5">合成 ×5 批</button><button class="button primary" data-craft="${r.id}" data-count="1">合成</button>`:`<button class="button primary" data-build="${r.machine}">建造</button>`}`:''}</div></section>`;
+  const favoriteActive=recipeFavorites.some(f=>f.key===favoriteKey(r));
+  return `<section class="surface workbench" data-bench-recipe="${r.id}"><div class="nei-recipe-nav"><button class="button" data-recipe-step="-1" ${alternatives.length<2?'disabled':''} aria-label="上一配方">‹</button><span>${recipeMode==='uses'?'用途':'配方'} ${index+1} / ${alternatives.length}</span><button class="button" data-recipe-step="1" ${alternatives.length<2?'disabled':''} aria-label="下一配方">›</button><button class="button recipe-favorite-toggle ${favoriteActive?'active':''}" data-favorite-toggle aria-pressed="${favoriteActive}" aria-label="${favoriteActive?'取消收藏':'收藏'}当前配方" title="${favoriteActive?'取消收藏':'收藏当前配方'}">${favoriteActive?'★':'☆'}</button></div><div class="bench-heading"><div><h2>${e(recipeName(r))}</h2></div><span class="pill">${manual?'工作台':build?'机器建造':processName(r.process)}</span></div><div class="bench-meta recipe-facts"><span><b>解锁阶段</b><strong>${STAGES[r.stage].code}</strong></span><span><b>加工方式</b><strong>${manual?'工作台手工':build?'机器建造':e(processName(r.process))}</strong></span><span><b>耗能</b><strong>${e(recipeEnergyText(r))}</strong></span>${r.circuit?`<span><b>设备设定</b><strong>编程电路 ${r.circuit} · 不消耗</strong></span>`:''}</div><div class="bench-layout ${filled?'filled':'ghost'}" style="--input-columns:${Math.max(1,Math.min(3,Object.keys(r.inputs).length))};--output-columns:${Math.max(1,Math.min(2,Object.keys(r.outputs).length))}"><div class="${manual||build?'bench-grid':'process-slots'}" role="group" aria-label="${manual||build?'九宫格原料配方':'机器投入原料'}">${(manual||build?craftingGrid(r.id,r.inputs):Object.entries(r.inputs).map(([id,count])=>({id,count}))).map(slot=>slot?benchSlot(slot.id,slot.count):'<div class="bench-slot vacant" aria-hidden="true"></div>').join('')}</div><span class="bench-arrow" aria-hidden="true">➜</span><div class="bench-outputs" aria-label="产物">${Object.entries(r.outputs).map(([id,count])=>benchSlot(id,count,true)).join('')||`<div class="bench-slot output-slot">${icon('turbine')}<span>向连接设备供能</span></div>`}</div></div>${r.tools?`<div class="bench-tools"><span>工具 · 保留</span>${stacks(r.tools)}</div>`:''}<p class="bench-status" data-bench-status role="status"></p><div class="bench-actions">${manual||build?`<button class="button" data-fill="${r.id}">${filled?'重新放入材料':'放入材料'}</button>${manual?`<button class="button" data-craft="${r.id}" data-count="5">合成 ×5 批</button><button class="button primary" data-craft="${r.id}" data-count="1">合成</button>`:`<button class="button primary" data-build="${r.machine}">建造</button>`}`:''}</div></section>`;
 }
 function roomyWorkbench(){return viewport.width>=1350&&viewport.height>=900;}
 function recipeMaterials(r){
@@ -183,13 +216,19 @@ function workshop(){
   const selected=selectedEntry();if(selected)selectedRecipes[workshopTab]=selected.id;
   const canDispatch=!!selected&&selected.process!=='build';
   if(benchView==='dispatch'&&!canDispatch)benchView='recipe';
-  const bookWidth=Math.min(410,Math.max(262,viewport.width*.24)),bookPlan=gridPlan('book',220,bookWidth-26);
+  const bookWidth=Math.min(410,Math.max(262,viewport.width*.24)),bookPlan=gridPlan('book',270,bookWidth-26);
   const visible=ids.filter(id=>!query||(name(id)+' '+id).toLowerCase().includes(query)),list=listPage('book',visible,bookPlan.size);
+  const favoriteEntries=recipeFavorites.map(f=>({favorite:f,recipe:allRecipeEntries.find(r=>r.id===f.recipeId)})).filter(x=>x.recipe&&(!query||(x.recipe.name+' '+recipeName(x.recipe)+' '+x.recipe.id).toLowerCase().includes(query)));
+  const favoriteList=listPage('recipe-favorites',favoriteEntries,Math.max(1,Math.floor((viewport.height-270)/63)));
   const switches=`<div class="subtabs bench-switch">${[['recipe','配方'],...(canDispatch?[['dispatch','工厂派工']]:[]),['queue',`手工队列 <span data-queue-count>${game.state.queue.length}</span>`]].map(([id,label])=>`<button class="filter ${benchView===id?'active':''}" data-bench-view="${id}">${label}</button>`).join('')}</div>`;
   const roomy=roomyWorkbench()&&benchView==='recipe'&&selected;
   const recipeDetail=roomy?`<div class="bench-content"><div class="bench-primary">${workbench(selected)}${panel('手工队列','',`<div id="queuePanel">${queuePanel()}</div>`)}</div><aside class="bench-rail">${recipeMaterials(selected)}${canDispatch?`<section class="surface section">${dispatchControls(selected)}</section>`:''}</aside></div>`:workbench(selected);
   const detail=benchView==='queue'?panel('手工队列','',`<div id="queuePanel">${queuePanel()}</div>`):benchView==='dispatch'&&canDispatch?`<section class="surface workbench"><h2>${e(recipeName(selected))}</h2>${dispatchControls(selected)}</section>`:recipeDetail;
-  return heading('配方与工作台',`<input class="search" id="search" placeholder="搜索物品" value="${e(filter)}">`)+`<div class="subtabs workshop-tabs">${[['craft','工作台'],['machines','机器建造'],['recipes','全部配方']].map(([id,label])=>`<button class="filter ${workshopTab===id?'active':''}" data-tab="${id}">${label}</button>`).join('')}<span class="nei-tab-spacer"></span><button class="filter ${recipeMode==='recipes'?'active':''}" data-recipe-mode="recipes">获取配方 R</button><button class="filter ${recipeMode==='uses'?'active':''}" data-recipe-mode="uses">用途 U</button></div><div class="workshop-layout" style="--book-width:${bookWidth}px"><section class="surface recipe-book"><div class="section-head"><h3>配方图鉴</h3><span>${visible.length} 项</span></div><div class="book-items" ${gridAttrs('book')}>${list.entries.map(recipeTile).join('')||'<p class="muted small">没有匹配的物品。</p>'}</div>${list.controls}</section><div class="bench-column">${switches}${detail}</div></div>`;
+  const bookContent=bookView==='items'?`<div class="book-items" ${gridAttrs('book')}>${list.entries.map(recipeTile).join('')||'<p class="muted small">没有匹配的物品。</p>'}</div>${list.controls}`:`<div class="recipe-favorite-list" data-fit-list="recipe-favorites">${favoriteList.entries.map(({favorite,recipe})=>{
+    const active=selected?.id===recipe.id,locked=recipe.stage>game.state.stage;
+    return `<div class="recipe-favorite-card"><button class="recipe-favorite ${active?'active':''} ${locked?'locked':''}" data-favorite-open="${e(favorite.key)}" ${active?'aria-current="true"':''} aria-disabled="${locked}" title="${e(recipe.name)} · ${locked?'尚未解锁':e(recipe.process==='craft'?'工作台':recipe.process==='build'?'机器建造':processName(recipe.process))}">${icon(Object.keys(recipe.outputs)[0]||favorite.itemId)}<span><strong>${e(recipe.name)}</strong><small>${locked?'未解锁 · '+STAGES[recipe.stage].code:e(recipe.process==='craft'?'工作台':recipe.process==='build'?'机器建造':processName(recipe.process))}</small></span></button><button class="favorite-remove" data-favorite-remove="${e(favorite.key)}" aria-label="取消收藏${e(recipe.name)}" title="取消收藏">×</button></div>`;
+  }).join('')||(query?'<p class="muted small">没有匹配的收藏。</p>':'<p class="muted small">点击配方上方的 ☆ 收藏。</p>')}</div>${favoriteList.controls}`;
+  return heading('配方与工作台',`<input class="search" id="search" placeholder="搜索物品" value="${e(filter)}">`)+`<div class="subtabs workshop-tabs">${[['craft','工作台'],['machines','机器建造'],['recipes','全部配方']].map(([id,label])=>`<button class="filter ${workshopTab===id?'active':''}" data-tab="${id}">${label}</button>`).join('')}<span class="nei-tab-spacer"></span><button class="filter ${recipeMode==='recipes'?'active':''}" data-recipe-mode="recipes">获取配方 R</button><button class="filter ${recipeMode==='uses'?'active':''}" data-recipe-mode="uses">用途 U</button></div><div class="workshop-layout" style="--book-width:${bookWidth}px"><section class="surface recipe-book"><div class="section-head"><h3>${bookView==='items'?'配方图鉴':'收藏'}</h3><span>${bookView==='items'?visible.length+' 项':recipeFavorites.length+' 条'}</span></div><div class="subtabs recipe-book-switch"><button class="filter ${bookView==='items'?'active':''}" data-book-view="items" aria-pressed="${bookView==='items'}">图鉴</button><button class="filter ${bookView==='favorites'?'active':''}" data-book-view="favorites" aria-pressed="${bookView==='favorites'}">收藏 ${recipeFavorites.length}</button></div>${bookContent}</section><div class="bench-column">${switches}${detail}</div></div>`;
 }
 
 function queuePanel(){const size=page==='workshop'&&benchView==='recipe'&&roomyWorkbench()?(viewport.height>=1100?2:1):rows(260,100);const list=listPage('queue',game.state.queue.map((q,index)=>({q,index})),size);return '<div data-fit-list="queue">'+(list.entries.map(({q,index:i})=>{const r=game.recipeById.get(q.recipe);return `<div class="queue-row"><div>${icon(Object.keys(r.outputs)[0])}<span><b>${e(recipeName(r))}</b><small data-queue-time="${i}">${time(q.remaining)} · 剩余 ${q.amount} 批</small></span><button class="text-button" data-cancel="${i}">取消</button></div>${progress((1-q.remaining/r.seconds)*100,`data-queue-bar="${i}"`)}</div>`;}).join('')+list.controls||empty('队列为空'))+'</div>';}
@@ -256,19 +295,19 @@ function deviceStackCard(entry){
   const {key,devices}=entry;
   if(devices[0]?.group){
     const d=devices[0];if(!expandedDeviceStacks.has(key))return deviceCard(d);
-    const plan=gridPlan('stack',238),list=listPage('stack:'+key,game.members(d.id),plan.size);
+    const plan=gridPlan('stack',194,factoryContentWidth(viewport.width)),list=listPage('stack:'+key,game.members(d.id),plan.size);
     return `<article class="device-stack expanded" data-device-stack="${key}"><div class="stack-footer"><h3>${e(d.alias)} · ${d.group.members.length} 台</h3><button class="button" data-edit-group="${d.id}">管理组</button><button class="button" data-expand-stack="${key}">收起成员</button></div><p class="small muted">成员共用组的输入输出设置；电池和机内物料逐台管理。</p><div class="device-grid stack-devices" ${gridAttrs('stack')}>${list.entries.map(deviceCard).join('')}</div>${list.controls}</article>`;
   }
   if(devices.length===1&&!expandedDeviceStacks.has(key))return deviceCard(devices[0]);
   const d=devices[0],r=game.recipeById.get(d.recipe),expanded=expandedDeviceStacks.has(key),contentId=`stack-${key}`;
-  if(expanded){const plan=gridPlan('stack',238),list=listPage('stack:'+key,devices,plan.size);return `<article class="device-stack expanded" data-device-stack="${key}"><div class="stack-footer"><h3>${e(recipeName(r))} · ${devices.length} 台</h3><button class="button" data-expand-stack="${key}" aria-expanded="true" aria-controls="${contentId}">收起设备</button></div><div id="${contentId}" class="device-grid stack-devices" ${gridAttrs('stack')}>${list.entries.map(deviceCard).join('')}</div>${list.controls}</article>`;}
+  if(expanded){const plan=gridPlan('stack',194,factoryContentWidth(viewport.width)),list=listPage('stack:'+key,devices,plan.size);return `<article class="device-stack expanded" data-device-stack="${key}"><div class="stack-footer"><h3>${e(recipeName(r))} · ${devices.length} 台</h3><button class="button" data-expand-stack="${key}" aria-expanded="true" aria-controls="${contentId}">收起设备</button></div><div id="${contentId}" class="device-grid stack-devices" ${gridAttrs('stack')}>${list.entries.map(deviceCard).join('')}</div>${list.controls}</article>`;}
   return `<article class="surface device-stack" data-device-stack="${key}"><div class="card-top">${icon(d.type)}<div><h3>${e(recipeName(r))}</h3><p>${machines[d.type].name}</p></div><span class="pill">×${devices.length} 台</span></div><div class="stack-recipe"><small>每台每批 · ${["generator","boiler","dyson"].includes(energySpec(game,d)?.kind)?e(recipeEnergyText(r)):game.deviceRuntime(d,r).seconds+" 秒 · "+(d.energyTier?ENERGY.codes[d.energyTier]:"蒸汽")}</small><div class="device-io"><div>${stacks(r.inputs)}</div><span>→</span><div>${stacks(r.outputs,false)}</div></div></div><div class="stack-footer"><span class="device-status" data-stack-status="${devices.map(d=>d.id).join(',')}">${e(deviceStackStatus(devices))}</span>${game.fluidOutputTypes(d.id).length?`<button class="button" data-expand-stack="${key}" data-stack-output="${devices.map(d=>d.id).join(',')}">输出容器</button>`:''}<button class="button" data-expand-stack="${key}" aria-expanded="false" aria-controls="${contentId}">展开设备</button></div></article>`;
 }
 
 function factory(){
   const endpoints=game.deviceEntries();
   const groups=Object.keys(machines).map(type=>({type,devices:endpoints.filter(d=>d.type===type)})).filter(group=>group.devices.length);
-  if(!groups.some(group=>group.type===factoryType)){factoryType=groups[0]?.type||'';listPages.factory=0;listPages['machine-types']=0;expandedDeviceStacks.clear();}
+  if(!groups.some(group=>group.type===factoryType)){factoryType=groups[0]?.type||'';listPages.factory=0;expandedDeviceStacks.clear();}
   const matching=groups.filter(group=>group.type===factoryType);
   const sections=[true,false].flatMap(task=>matching.map(group=>{
     const devices=group.devices.filter(d=>task===null||Boolean(d.hasTask||d.recipe||d.job)===task),entries=[];
@@ -285,12 +324,14 @@ function factory(){
   }).filter(group=>group.devices.length));
   const entries=sections.flatMap(group=>group.entries);
   for(const key of expandedDeviceStacks)if(!entries.some(entry=>entry.key===key))expandedDeviceStacks.delete(key);
-  const plan=gridPlan('factory',180);
+  const plan=gridPlan('factory',124,factoryContentWidth(viewport.width));
   const list=expandedDeviceStacks.size?{entries:entries.filter(entry=>expandedDeviceStacks.has(entry.key)),controls:''}:listPage('factory',entries,plan.size),shown=sections.map(group=>({...group,visible:group.entries.filter(entry=>list.entries.includes(entry))})).filter(group=>group.visible.length);
-  const typePlan=gridPlan('categories',180,viewport.width-90),types=listPage('machine-types',groups,typePlan.columns);
-  const typeButton=(type,label,count)=>`<button class="filter machine-type ${factoryType===type?'active':''}" data-factory-type="${type}" aria-pressed="${factoryType===type}">${icon(type)}<span>${label}</span><b>${count}</b></button>`;
-
-  return heading('生产工厂','<button class="button" data-create-group="device">创建设备组</button><button class="button primary" data-workshop="machines">＋ 建造设备</button>')+`<div class="factory-toolbar"><span class="muted">运行 <b data-running>0</b> · 待料 / 待电 <b data-waiting>0</b> · ${game.state.devices.length} 台设备</span><span class="stat-eu">${icon('turbine')}<strong data-energy>${num(game.state.energy)}</strong> EU</span></div><div class="machine-categories" role="group" aria-label="机器分类"><div class="machine-type-buttons" style="--category-width:${typePlan.width}px">${types.entries.map(g=>typeButton(g.type,machines[g.type].name,g.devices.reduce((n,d)=>n+(d.group?.members.length||1),0))).join('')}</div>${types.controls}</div><div class="factory-groups ${expandedDeviceStacks.size?'has-expanded':''}" ${gridAttrs('factory')}>${shown.flatMap(group=>group.visible.map(entry=>`<section class="factory-entry" data-machine-group="${group.type}">${deviceStackCard(entry)}</section>`)).join('')||empty('暂无生产设备')}</div>${list.controls}`;
+  const rail=LAYOUT.factorySidebar,railWidth=viewport.width<rail.compactAt?rail.compactWidth:rail.width;
+  const typeButton=g=>{
+    const count=g.devices.reduce((n,d)=>n+(d.group?.members.length||1),0),active=g.type===factoryType;
+    return `<button class="filter machine-type ${active?'active':''}" data-factory-type="${g.type}" aria-pressed="${active}" aria-controls="factoryDevices">${icon(g.type)}<span>${e(machines[g.type].name)}</span><b>${count}</b></button>`;
+  };
+  return heading('生产工厂','<button class="button" data-create-group="device">创建设备组</button><button class="button primary" data-workshop="machines">＋ 建造设备</button>')+`<div class="factory-toolbar"><span class="muted">运行 <b data-running>0</b> · 待料 / 待电 <b data-waiting>0</b> · ${game.state.devices.length} 台设备</span><span class="stat-eu">${icon('turbine')}<strong data-energy>${num(game.state.energy)}</strong> EU</span></div><div class="factory-layout" style="--factory-rail-width:${railWidth}px;--factory-gap:${rail.gap}px"><aside class="surface factory-machine-picker" aria-label="选择机器"><h3>机器分类 <small>${groups.length} 类</small></h3><div class="machine-categories" role="group" aria-label="机器分类" data-factory-selector>${groups.map(typeButton).join('')||'<p class="muted small">尚未建造机器</p>'}</div></aside><div class="factory-content" id="factoryDevices" role="region" aria-label="${e(machines[factoryType]?.name||'生产设备')}"><div class="factory-groups ${expandedDeviceStacks.size?'has-expanded':''}" ${gridAttrs('factory')}>${shown.flatMap(group=>group.visible.map(entry=>`<section class="factory-entry" data-machine-group="${group.type}">${deviceStackCard(entry)}</section>`)).join('')||empty('暂无生产设备')}</div>${list.controls}</div></div>`;
 
 }
 function inventory(){
@@ -321,6 +362,8 @@ function containerStateSignature(){return JSON.stringify(game.state.containers.m
 function render(){
   syncChoiceEntities();
   syncTheme();hoveredItem='';
+  const previousSelector=$('[data-factory-selector]');
+  if(previousSelector)factorySelectorScroll=previousSelector.scrollTop;
   const root=$('#page'),style=getComputedStyle(root);
   viewport={width:root.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight),height:root.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)};
   listAnchors=new Map(Object.entries(listPages).map(([key,index])=>[key,index*(listSizes.get(key)||1)]));
@@ -334,6 +377,19 @@ function render(){
     initAppearance();enhanceChoices(root);refresh();
     needsFit=fitPageLimits(root,gridPlans,gridRowLimits,listSizeLimits);
   }while(needsFit);
+  const selector=$('[data-factory-selector]');
+  if(selector){
+    selector.scrollTop=factorySelectorScroll;
+    const selected=selector.querySelector('[aria-pressed="true"]');
+    if(selected&&(factorySelectorType!==factoryType||focusFactorySelector)){
+      const box=selector.getBoundingClientRect(),button=selected.getBoundingClientRect();
+      if(button.top<box.top)selector.scrollTop-=box.top-button.top;
+      else if(button.bottom>box.bottom)selector.scrollTop+=button.bottom-box.bottom;
+    }
+    if(focusFactorySelector)selected?.focus({preventScroll:true});
+    factorySelectorScroll=selector.scrollTop;factorySelectorType=factoryType;
+  }
+  focusFactorySelector=false;
   updateText($('#pageName'),titleMap[page]);updateText($('#headerStage'),game.stage.code);
   $$('.nav [data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
 }
@@ -426,7 +482,7 @@ function gatherAction(id){
   refresh();
 }
 document.addEventListener('click',ev=>{const t=ev.target.closest('button');if(!t)return;if(t.hasAttribute('data-appearance-open')){appearanceOpen=true;appearanceCode=appearanceMode||tierFor(game.stage.code).code;appearanceEraPage=tierFor(appearanceCode).era;page='settings';render();$('[data-tier-step]:not(:disabled)')?.focus({preventScroll:true});}else if(t.hasAttribute('data-appearance-close')){appearanceOpen=false;render();$('#page [data-appearance-open]')?.focus({preventScroll:true});}});
-document.addEventListener('click',ev=>{const t=ev.target.closest('button');if(!t||t.disabled)return;if(t.dataset.listPage){listPages[t.dataset.listPage]=Number(t.dataset.listIndex);render();return;}if(t.hasAttribute('data-show-drops'))return showModal('<h2>最近掉落</h2><div data-last-drops role="status" aria-live="polite">'+dropSummary()+'</div>');if(t.dataset.overviewTab){overviewTab=t.dataset.overviewTab;return render();}if(t.dataset.benchView){benchView=t.dataset.benchView;return render();}if(t.dataset.nodeView){nodeViews[t.dataset.nodeId]=t.dataset.nodeView;return render();}if(t.dataset.containerView){containerView=t.dataset.containerView;return render();}if(t.dataset.expandStack){const key=t.dataset.expandStack;if(t.dataset.stackOutput){for(const id of t.dataset.stackOutput.split(','))deviceViews[id]='output';expandedDeviceStacks.clear();expandedDeviceStacks.add(key);}else if(expandedDeviceStacks.has(key))expandedDeviceStacks.delete(key);else{expandedDeviceStacks.clear();expandedDeviceStacks.add(key);}render();return;}if(t.dataset.inventoryTab){inventoryTab=t.dataset.inventoryTab;filter='';render();return;}if(t.dataset.workerNode)return result(game.setCollectorWorkers(t.dataset.workerNode,Number(t.dataset.workerCount)));if(t.dataset.toggleCollector)return result(game.toggleCollector(t.dataset.toggleCollector));if(t.dataset.dispatch){const target=$('[data-dispatch-target="'+t.dataset.dispatch+'"]').value;const outcome=game.dispatch(t.dataset.dispatch,target);if(outcome.ok){factoryType=outcome.device.type;listPages.factory=0;}return result(outcome,outcome.ok?'已派工至'+deviceName(outcome.device)+' #'+target.slice(1):'');}if(t.dataset.buildFor){workshopTab='machines';selectedItems.machines=t.dataset.buildFor;selectedRecipes.machines='build:'+t.dataset.buildFor;filledRecipe='';listPages.book=0;return navigate('workshop');}if(t.dataset.page)return navigate(t.dataset.page);if(t.dataset.factoryType){factoryType=t.dataset.factoryType;listPages.factory=0;expandedDeviceStacks.clear();render();return;}if(t.dataset.workshop){workshopTab=t.dataset.workshop;return navigate('workshop');}if(t.dataset.tab){benchView='recipe';listPages.book=0;workshopTab=t.dataset.tab;recipeMode='recipes';filter='';filledRecipe='';return render();}if(t.dataset.bookItem){benchView='recipe';selectedItems[workshopTab]=t.dataset.bookItem;selectedRecipes[workshopTab]='';filledRecipe='';return render();}if(t.dataset.lookupItem||t.dataset.recipeItem)return lookupItem(t.dataset.lookupItem||t.dataset.recipeItem);if(t.dataset.recipeMode){listPages.book=0;recipeMode=t.dataset.recipeMode;selectedRecipes[workshopTab]='';filledRecipe='';return render();}if(t.dataset.recipeStep){const list=currentRecipes(),at=list.findIndex(r=>r.id===selectedEntry()?.id);selectedRecipes[workshopTab]=list[(at+Number(t.dataset.recipeStep)+list.length)%list.length]?.id;filledRecipe='';return render();}if(t.dataset.placeContainer){const count=containerPlaceCount(t.dataset.placeContainer),outcome=game.placeContainer(t.dataset.placeContainer,count);return result(outcome,`已放置 ${count} 个${name(t.dataset.placeContainer)}`);}if(t.dataset.removeContainer)return result(game.removeContainer(t.dataset.removeContainer),'空容器已收起');if(t.dataset.transfer){const target=$(`[data-transfer-target="${t.dataset.transfer}"]`).value;return result(game.transferFluid(t.dataset.transfer,target),'流体已转移');}if(t.dataset.selectRecipe){selectedRecipes[workshopTab]=t.dataset.selectRecipe;filledRecipe='';return render();}if(t.dataset.fill){const r=selectedEntry();if(r&&r.id===t.dataset.fill&&game.canPay(r.inputs)&&game.canPay(r.tools||{})){filledRecipe=r.id;render();}return;}if(t.dataset.gather||t.dataset.gatherHit)return gatherAction(t.dataset.gather||t.dataset.gatherHit);if(t.dataset.collector)return result(game.buildCollector(t.dataset.collector),'已部署自动采集器');if(t.dataset.craft){filledRecipe='';return result(game.craft(t.dataset.craft,Number(t.dataset.count)||1),'已加入手工队列');}if(t.dataset.build){filledRecipe='';return result(game.build(t.dataset.build),'设备已建成');}if(t.dataset.toggle){game.toggle(t.dataset.toggle);persist();return render();}if(t.dataset.forceStop)return result(game.forceStop(t.dataset.forceStop),'已强制停止，可选择新配方后启动');if(t.dataset.remove)return result(game.dismantle(t.dataset.remove),'已拆除并退还原料');if(t.dataset.cancel)return result(game.cancelQueue(Number(t.dataset.cancel)),'已退还未完成批次材料');const action=t.dataset.action;if(action==='advance')result(game.advance());if(action==='export')download(exportWorld(game),'GregTech-LiteHorizons-'+new Date().toISOString().slice(0,10)+'.json');if(action==='import')$('#importFile').click();if(action==='close-modal')$('#modal').close();if(action==='reset')showModal('<h2>重新开始这个世界？</h2><p class="muted">当前存档会先下载为备份，之后创建空白世界。</p><button class="button danger" data-action="confirm-reset">备份并重置世界</button>');if(action==='confirm-reset'){download(exportWorld(game),'GregTech-LiteHorizons-before-reset.json');game=new Game();persist();$('#modal').close();render();notify('新的世界已建立');}});
+document.addEventListener('click',ev=>{const t=ev.target.closest('button');if(!t||t.disabled)return;if(t.dataset.bookView){bookView=t.dataset.bookView;return render();}if(t.hasAttribute('data-favorite-toggle'))return toggleRecipeFavorite();if(t.dataset.favoriteOpen)return openRecipeFavorite(t.dataset.favoriteOpen);if(t.dataset.favoriteRemove)return removeRecipeFavorite(t.dataset.favoriteRemove);if(t.dataset.listPage){listPages[t.dataset.listPage]=Number(t.dataset.listIndex);render();return;}if(t.hasAttribute('data-show-drops'))return showModal('<h2>最近掉落</h2><div data-last-drops role="status" aria-live="polite">'+dropSummary()+'</div>');if(t.dataset.overviewTab){overviewTab=t.dataset.overviewTab;return render();}if(t.dataset.benchView){benchView=t.dataset.benchView;return render();}if(t.dataset.nodeView){nodeViews[t.dataset.nodeId]=t.dataset.nodeView;return render();}if(t.dataset.containerView){containerView=t.dataset.containerView;return render();}if(t.dataset.expandStack){const key=t.dataset.expandStack;if(t.dataset.stackOutput){for(const id of t.dataset.stackOutput.split(','))deviceViews[id]='output';expandedDeviceStacks.clear();expandedDeviceStacks.add(key);}else if(expandedDeviceStacks.has(key))expandedDeviceStacks.delete(key);else{expandedDeviceStacks.clear();expandedDeviceStacks.add(key);}render();return;}if(t.dataset.inventoryTab){inventoryTab=t.dataset.inventoryTab;filter='';render();return;}if(t.dataset.workerNode)return result(game.setCollectorWorkers(t.dataset.workerNode,Number(t.dataset.workerCount)));if(t.dataset.toggleCollector)return result(game.toggleCollector(t.dataset.toggleCollector));if(t.dataset.dispatch){const target=$('[data-dispatch-target="'+t.dataset.dispatch+'"]').value;const outcome=game.dispatch(t.dataset.dispatch,target);if(outcome.ok){factoryType=outcome.device.type;listPages.factory=0;}return result(outcome,outcome.ok?'已派工至'+deviceName(outcome.device)+' #'+target.slice(1):'');}if(t.dataset.buildFor){workshopTab='machines';selectedItems.machines=t.dataset.buildFor;selectedRecipes.machines='build:'+t.dataset.buildFor;filledRecipe='';listPages.book=0;return navigate('workshop');}if(t.dataset.page)return navigate(t.dataset.page);if(t.dataset.factoryType){focusFactorySelector=true;factoryType=t.dataset.factoryType;listPages.factory=0;expandedDeviceStacks.clear();render();return;}if(t.dataset.workshop){workshopTab=t.dataset.workshop;return navigate('workshop');}if(t.dataset.tab){benchView='recipe';listPages.book=0;workshopTab=t.dataset.tab;recipeMode='recipes';filter='';filledRecipe='';return render();}if(t.dataset.bookItem){benchView='recipe';selectedItems[workshopTab]=t.dataset.bookItem;selectedRecipes[workshopTab]='';filledRecipe='';return render();}if(t.dataset.lookupItem||t.dataset.recipeItem)return lookupItem(t.dataset.lookupItem||t.dataset.recipeItem);if(t.dataset.recipeMode){listPages.book=0;recipeMode=t.dataset.recipeMode;selectedRecipes[workshopTab]='';filledRecipe='';return render();}if(t.dataset.recipeStep){const list=currentRecipes(),at=list.findIndex(r=>r.id===selectedEntry()?.id);selectedRecipes[workshopTab]=list[(at+Number(t.dataset.recipeStep)+list.length)%list.length]?.id;filledRecipe='';return render();}if(t.dataset.placeContainer){const count=containerPlaceCount(t.dataset.placeContainer),outcome=game.placeContainer(t.dataset.placeContainer,count);return result(outcome,`已放置 ${count} 个${name(t.dataset.placeContainer)}`);}if(t.dataset.removeContainer)return result(game.removeContainer(t.dataset.removeContainer),'空容器已收起');if(t.dataset.transfer){const target=$(`[data-transfer-target="${t.dataset.transfer}"]`).value;return result(game.transferFluid(t.dataset.transfer,target),'流体已转移');}if(t.dataset.selectRecipe){selectedRecipes[workshopTab]=t.dataset.selectRecipe;filledRecipe='';return render();}if(t.dataset.fill){const r=selectedEntry();if(r&&r.id===t.dataset.fill&&game.canPay(r.inputs)&&game.canPay(r.tools||{})){filledRecipe=r.id;render();}return;}if(t.dataset.gather||t.dataset.gatherHit)return gatherAction(t.dataset.gather||t.dataset.gatherHit);if(t.dataset.collector)return result(game.buildCollector(t.dataset.collector),'已部署自动采集器');if(t.dataset.craft){filledRecipe='';return result(game.craft(t.dataset.craft,Number(t.dataset.count)||1),'已加入手工队列');}if(t.dataset.build){filledRecipe='';return result(game.build(t.dataset.build),'设备已建成');}if(t.dataset.toggle){game.toggle(t.dataset.toggle);persist();return render();}if(t.dataset.forceStop)return result(game.forceStop(t.dataset.forceStop),'已强制停止，可选择新配方后启动');if(t.dataset.remove)return result(game.dismantle(t.dataset.remove),'已拆除并退还原料');if(t.dataset.cancel)return result(game.cancelQueue(Number(t.dataset.cancel)),'已退还未完成批次材料');const action=t.dataset.action;if(action==='advance')result(game.advance());if(action==='export')download(exportWorld(game),'GregTech-LiteHorizons-'+new Date().toISOString().slice(0,10)+'.json');if(action==='import')$('#importFile').click();if(action==='close-modal')$('#modal').close();if(action==='reset')showModal('<h2>重新开始这个世界？</h2><p class="muted">当前存档会先下载为备份，之后创建空白世界。</p><button class="button danger" data-action="confirm-reset">备份并重置世界</button>');if(action==='confirm-reset'){download(exportWorld(game),'GregTech-LiteHorizons-before-reset.json');game=new Game();persist();$('#modal').close();render();notify('新的世界已建立');}});
 document.addEventListener('click',ev=>{
   const t=ev.target.closest('button');if(!t||t.disabled)return;
   if(t.dataset.createGroup)return openGroupEditor(t.dataset.createGroup,null,t.dataset.createGroup==='device'?factoryType:'');
@@ -465,6 +521,14 @@ document.addEventListener('change',ev=>{
 });
 document.addEventListener('change',ev=>{const t=ev.target;if(t.dataset.energySource){const d=game.deviceEntries().find(d=>d.id===t.dataset.energySource)||game.state.devices.find(d=>d.id===t.dataset.energySource);if(d)return result(game.setSupply(d.id,d.supply.mode,t.value));}if(t.dataset.steamOutput)return result(game.setSteamOutput(t.dataset.steamOutput,t.value));if(t.dataset.containerReserve)return result(game.reserveContainer(t.dataset.containerReserve,t.value));if(t.dataset.assign)result(game.assign(t.dataset.assign,t.value));});
 document.addEventListener('pointerover',ev=>{const target=ev.target.closest('[data-item],[data-book-item],[data-lookup-item]');hoveredItem=target?.dataset.item||target?.dataset.bookItem||target?.dataset.lookupItem||'';});
+document.addEventListener('keydown',ev=>{
+  const button=ev.target.closest('[data-factory-selector] [data-factory-type]');
+  if(!button||!['ArrowUp','ArrowDown','Home','End'].includes(ev.key))return;
+  ev.preventDefault();
+  const buttons=[...button.closest('[data-factory-selector]').querySelectorAll('[data-factory-type]')],index=buttons.indexOf(button);
+  const next=ev.key==='Home'?0:ev.key==='End'?buttons.length-1:Math.max(0,Math.min(buttons.length-1,index+(ev.key==='ArrowDown'?1:-1)));
+  buttons[next]?.focus();
+});
 document.addEventListener('keydown',ev=>{if(ev.ctrlKey||ev.altKey||ev.metaKey||ev.target.closest('input,select,textarea')||$('#modal').open||$('#choiceDialog')?.open||$('#groupDialog')?.open)return;const key=ev.key.toLowerCase();if(hoveredItem&&['r','u'].includes(key)){ev.preventDefault();lookupItem(hoveredItem,key==='u'?'uses':'recipes');}});
 document.addEventListener('contextmenu',ev=>{const target=ev.target.closest('[data-item],[data-book-item],[data-lookup-item]');const id=target?.dataset.item||target?.dataset.bookItem||target?.dataset.lookupItem;if(id){ev.preventDefault();lookupItem(id,'uses');}});
 let searchTimer;document.addEventListener('input',ev=>{if(ev.target.id!=='search')return;const start=ev.target.selectionStart;filter=ev.target.value;listPages[page==='workshop'?'book':page]=0;clearTimeout(searchTimer);searchTimer=setTimeout(()=>{render();const input=$('#search');if(input){input.focus({preventScroll:true});input.setSelectionRange(start,start);}},180);});

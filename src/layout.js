@@ -1,6 +1,7 @@
 // Shared dimensions are budgets for pagination, not forced panel heights.
 export const LAYOUT=Object.freeze({
   gap:14,
+  factorySidebar:Object.freeze({width:210,compactWidth:180,compactAt:950,gap:14}),
   grids:Object.freeze({
     resources:{width:360,rowHeight:360},
     space:{width:360,rowHeight:360},
@@ -16,6 +17,11 @@ export const LAYOUT=Object.freeze({
     recipeChoice:{width:205,rowHeight:220,gap:10}
   })
 });
+
+export function factoryContentWidth(width){
+  const rail=LAYOUT.factorySidebar;
+  return Math.max(0,width-(width<rail.compactAt?rail.compactWidth:rail.width)-rail.gap);
+}
 
 export function fitRows(height,reserved,rowHeight,gap=LAYOUT.gap){
   return Math.max(1,Math.floor((Math.max(0,height-reserved)+gap)/(rowHeight+gap)));
