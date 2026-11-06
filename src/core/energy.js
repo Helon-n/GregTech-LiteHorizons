@@ -177,7 +177,11 @@ function runMachine(game,d,dt,budgets){
   let left=dt;
   // Carry a completed/short recipe into the rest of this step, without losing time.
   while(left>EPS){
+    // A planned batch releases its machine on completion. Never spend the
+    // remaining interval starting an unwanted extra batch of the old recipe.
+    if(!d.enabled||d.recipe!==r.id)return;
     if(d.job&&d.job.remaining<=EPS){if(!game.finish(r,d)){d.blocked='流体输出空间不足';return;}d.job=null;}
+    if(!d.enabled||d.recipe!==r.id)return;
     if(!d.job){
       if(!game.canPay(r.tools||{})){d.ignited=false;d.blocked='缺少工具';return;}
       if(!game.canPay(r.inputs)){d.ignited=false;d.blocked='缺少原料';return;}
