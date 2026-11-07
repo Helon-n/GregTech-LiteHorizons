@@ -4,6 +4,7 @@ import {items,recipes,STAGES} from './data/catalog.js';
 import {planGrid,gridStyle,fitPageLimits} from './layout.js';
 import {productName} from './core/recipe-browser.js';
 import {recipeEnergyText} from './data/energy-reference.js';
+import {createSearch} from './core/search.js';
 const recipeById=new Map(recipes.map(recipe=>[recipe.id,recipe]));
 let nextId=0, source=null, query='', index=0, pageSize=0, rowLimit=Infinity, composing=false;
 let resolveEntity=()=>null;
@@ -70,11 +71,12 @@ function draw(anchor){
   const first=anchor??index*(pageSize||plan.size);
   plan.rows=Math.min(plan.rows,rowLimit);plan.size=plan.rows*plan.columns;
   const size=plan.size;
-  const options=[...source.options].map((option,at)=>({option,at})).filter(({option})=>{const d=details(source,option);return !query||(d.label+' '+d.meta).toLowerCase().includes(query.toLowerCase());});
+  const matches=createSearch(query);
+  const options=[...source.options].map((option,at)=>({option,at})).filter(({option})=>{const d=details(source,option);return matches(d.label,d.meta);});
   const count=Math.max(1,Math.ceil(options.length/size));index=Math.max(0,Math.min(Math.floor(first/size),count-1));pageSize=size;
   // Keep the editable control mounted across filtering and pagination. Replacing
   // it during input cancels native IME composition and loses editing state.
-  if(!dialog.querySelector('#choiceSearch'))dialog.innerHTML='<div class="choice-heading"><h2></h2><button class="button" data-close-choice aria-label="关闭">×</button></div><input class="search" id="choiceSearch" placeholder="搜索" aria-label="搜索选项"><div class="choice-options" data-fit-grid="choice-options"></div><nav class="choice-pages" aria-label="选项翻页"><button class="button" data-choice-step="-1">上一页</button><span></span><button class="button" data-choice-step="1">下一页</button></nav>';
+  if(!dialog.querySelector('#choiceSearch'))dialog.innerHTML='<div class="choice-heading"><h2></h2><button class="button" data-close-choice aria-label="关闭">×</button></div><input class="search" id="choiceSearch" placeholder="名称 / 拼音 / 首字母" aria-label="搜索选项"><div class="choice-options" data-fit-grid="choice-options"></div><nav class="choice-pages" aria-label="选项翻页"><button class="button" data-choice-step="-1">上一页</button><span></span><button class="button" data-choice-step="1">下一页</button></nav>';
   updateText(dialog.querySelector('h2'),title(source));updateAttribute(dialog,'aria-label',title(source));
   const input=dialog.querySelector('#choiceSearch');if(input.value!==query)input.value=query;
   const grid=dialog.querySelector('.choice-options');updateAttribute(grid,'style',gridStyle(plan));

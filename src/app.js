@@ -29,6 +29,7 @@ import {CATALOG,STAGES,items,recipes,machines,gatherNodes,containerTypes} from '
 import {yieldLabel} from './core/recipe-yields.js';
 import {craftingGrid,constructionSlots} from './core/workbench.js';
 import {recipeEntries,recipesForItem,productName} from './core/recipe-browser.js';
+import {createSearch} from './core/search.js';
 import {createRecipeTreeView} from './recipe-tree.js';
 import {nuclearControls,setNuclearView} from './nuclear-controls.js';
 import {NUCLEAR_REFERENCE as NUCLEAR} from './data/nuclear-reference.js';
@@ -263,14 +264,14 @@ const recipeTree=createRecipeTreeView({
   }
 });
 function workshop(){
-  const all=workshopEntries(),query=filter.toLowerCase(),ids=[...new Set(all.flatMap(r=>Object.keys(recipeMode==='uses'?{...r.inputs,...r.tools}:r.outputs)))];
+  const all=workshopEntries(),query=filter.trim(),matches=createSearch(query),ids=[...new Set(all.flatMap(r=>Object.keys(recipeMode==='uses'?{...r.inputs,...r.tools}:r.outputs)))];
   if(!selectedItems[workshopTab])selectedItems[workshopTab]=ids[0];
   const selected=selectedEntry();if(selected)selectedRecipes[workshopTab]=selected.id;
   const canDispatch=!!selected&&selected.process!=='build';
   if(benchView==='dispatch'&&!canDispatch)benchView='recipe';
   const bookWidth=Math.min(410,Math.max(262,viewport.width*.24)),bookPlan=gridPlan('book',270,bookWidth-26);
-  const visible=ids.filter(id=>!query||(name(id)+' '+id).toLowerCase().includes(query)),list=listPage('book',visible,bookPlan.size);
-  const favoriteEntries=recipeFavorites.map(f=>({favorite:f,recipe:allRecipeEntries.find(r=>r.id===f.recipeId)})).filter(x=>x.recipe&&(!query||(x.recipe.name+' '+recipeName(x.recipe)+' '+x.recipe.id).toLowerCase().includes(query)));
+  const visible=ids.filter(id=>matches(name(id),id)),list=listPage('book',visible,bookPlan.size);
+  const favoriteEntries=recipeFavorites.map(f=>({favorite:f,recipe:allRecipeEntries.find(r=>r.id===f.recipeId)})).filter(x=>x.recipe&&matches(x.recipe.name,recipeName(x.recipe),x.recipe.id));
   const favoriteList=listPage('recipe-favorites',favoriteEntries,Math.max(1,Math.floor((viewport.height-270)/63)));
   const switches=`<div class="subtabs bench-switch">${[['recipe','配方'],['tree','配方树'],...(canDispatch?[['dispatch','工厂派工']]:[]),['queue',`手工队列 <span data-queue-count>${game.state.queue.length}</span>`]].map(([id,label])=>`<button class="filter ${benchView===id?'active':''}" data-bench-view="${id}">${label}</button>`).join('')}</div>`;
   const roomy=roomyWorkbench()&&benchView==='recipe'&&selected;
@@ -280,7 +281,7 @@ function workshop(){
     const active=selected?.id===recipe.id;
     return `<div class="recipe-favorite-card"><button class="recipe-favorite ${active?'active':''}" data-favorite-open="${e(favorite.key)}" ${active?'aria-current="true"':''} title="${e(recipe.name)} · ${e(recipe.process==='craft'?'工作台':recipe.process==='build'?'机器建造':processName(recipe.process))}">${icon(Object.keys(recipe.outputs)[0]||favorite.itemId)}<span><strong>${e(recipe.name)}</strong><small>${e(recipe.process==='craft'?'工作台':recipe.process==='build'?'机器建造':processName(recipe.process))}</small></span></button><button class="favorite-remove" data-favorite-remove="${e(favorite.key)}" aria-label="取消收藏${e(recipe.name)}" title="取消收藏">×</button></div>`;
   }).join('')||(query?'<p class="muted small">没有匹配的收藏。</p>':'<p class="muted small">点击配方上方的 ☆ 收藏。</p>')}</div>${favoriteList.controls}`;
-  return heading('配方与工作台',`<input class="search" id="search" placeholder="搜索物品" value="${e(filter)}">`)+`<div class="subtabs workshop-tabs">${[['craft','工作台'],['machines','机器建造'],['recipes','全部配方']].map(([id,label])=>`<button class="filter ${workshopTab===id?'active':''}" data-tab="${id}">${label}</button>`).join('')}<span class="nei-tab-spacer"></span><button class="filter ${recipeMode==='recipes'?'active':''}" data-recipe-mode="recipes">获取配方 R</button><button class="filter ${recipeMode==='uses'?'active':''}" data-recipe-mode="uses">用途 U</button></div><div class="workshop-layout" style="--book-width:${bookWidth}px"><section class="surface recipe-book"><div class="section-head"><h3>${bookView==='items'?'配方图鉴':'收藏'}</h3><span>${bookView==='items'?visible.length+' 项':recipeFavorites.length+' 条'}</span></div><div class="subtabs recipe-book-switch"><button class="filter ${bookView==='items'?'active':''}" data-book-view="items" aria-pressed="${bookView==='items'}">图鉴</button><button class="filter ${bookView==='favorites'?'active':''}" data-book-view="favorites" aria-pressed="${bookView==='favorites'}">收藏 ${recipeFavorites.length}</button></div>${bookContent}</section><div class="bench-column">${switches}${detail}</div></div>`;
+  return heading('配方与工作台',`<input class="search" id="search" placeholder="物品 / 拼音 / 首字母" value="${e(filter)}">`)+`<div class="subtabs workshop-tabs">${[['craft','工作台'],['machines','机器建造'],['recipes','全部配方']].map(([id,label])=>`<button class="filter ${workshopTab===id?'active':''}" data-tab="${id}">${label}</button>`).join('')}<span class="nei-tab-spacer"></span><button class="filter ${recipeMode==='recipes'?'active':''}" data-recipe-mode="recipes">获取配方 R</button><button class="filter ${recipeMode==='uses'?'active':''}" data-recipe-mode="uses">用途 U</button></div><div class="workshop-layout" style="--book-width:${bookWidth}px"><section class="surface recipe-book"><div class="section-head"><h3>${bookView==='items'?'配方图鉴':'收藏'}</h3><span>${bookView==='items'?visible.length+' 项':recipeFavorites.length+' 条'}</span></div><div class="subtabs recipe-book-switch"><button class="filter ${bookView==='items'?'active':''}" data-book-view="items" aria-pressed="${bookView==='items'}">图鉴</button><button class="filter ${bookView==='favorites'?'active':''}" data-book-view="favorites" aria-pressed="${bookView==='favorites'}">收藏 ${recipeFavorites.length}</button></div>${bookContent}</section><div class="bench-column">${switches}${detail}</div></div>`;
 }
 
 function queuePanel(){const size=page==='workshop'&&benchView==='recipe'&&roomyWorkbench()?(viewport.height>=1100?2:1):rows(260,100);const list=listPage('queue',game.state.queue.map((q,index)=>({q,index})),size);return '<div data-fit-list="queue">'+(list.entries.map(({q,index:i})=>{const r=game.recipeById.get(q.recipe);return `<div class="queue-row"><div>${icon(Object.keys(r.outputs)[0])}<span><b>${e(recipeName(r))}</b><small data-queue-time="${i}">${time(q.remaining)} · 剩余 ${q.amount} 批</small></span><button class="text-button" data-cancel="${i}">取消</button></div>${progress((1-q.remaining/r.seconds)*100,`data-queue-bar="${i}"`)}</div>`;}).join('')+list.controls||empty('队列为空'))+'</div>';}
@@ -451,8 +452,8 @@ function inventory(){
     const plan=gridPlan('inventory',150),list=listPage('components',game.state.components,plan.size);
     return heading('物品仓库')+tabs+`<div class="inventory-grid" ${gridAttrs('inventory')}>${list.entries.map(c=>`<article class="surface inventory-item">${icon(c.item)}<div><strong>${e(name(c.item))}</strong><small>${c.kind==='nuclear'?'组件已用 '+num((NUCLEAR.parts[c.item]?.capacity??0)+1-c.life):'剩余 '+num(c.life)+(c.kind==='mill'?' 批':' 点耐久')} · 装入设备后继续使用</small></div></article>`).join('')||empty('暂无已用耗材')}</div>${list.controls}`;
   }
-  const plan=gridPlan('inventory',150),all=Object.values(items).filter(x=>x.kind!=='fluid'&&game.quantity(x.id)>0&&(!filter||x.name.toLowerCase().includes(filter.toLowerCase()))),list=listPage('inventory',all,plan.size);
-  return heading('物品仓库',inventoryTab==='items'?`<input class="search" id="search" placeholder="搜索物品" value="${e(filter)}">`:'')+tabs+(inventoryTab==='containers'?fluids():`<div data-list-start="inventory"><div class="inventory-grid" ${gridAttrs('inventory')}>${list.entries.map(x=>`<article class="surface inventory-item" data-inventory-item="${x.id}">${icon(x.id)}<div><strong>${x.name}</strong><small>${x.category}</small></div><b>${qty(x.id)}</b></article>`).join('')||empty('仓库为空')}</div>${list.controls}</div>`);
+  const plan=gridPlan('inventory',150),matches=createSearch(filter),all=Object.values(items).filter(x=>x.kind!=='fluid'&&game.quantity(x.id)>0&&matches(x.name,x.id)),list=listPage('inventory',all,plan.size);
+  return heading('物品仓库',inventoryTab==='items'?`<input class="search" id="search" placeholder="物品 / 拼音 / 首字母" value="${e(filter)}">`:'')+tabs+(inventoryTab==='containers'?fluids():`<div data-list-start="inventory"><div class="inventory-grid" ${gridAttrs('inventory')}>${list.entries.map(x=>`<article class="surface inventory-item" data-inventory-item="${x.id}">${icon(x.id)}<div><strong>${x.name}</strong><small>${x.category}</small></div><b>${qty(x.id)}</b></article>`).join('')||empty('仓库为空')}</div>${list.controls}</div>`);
 }
 function containerCards(){
   const plan=gridPlan('fluids',200),list=listPage('fluids',game.containerEntries(),plan.size);

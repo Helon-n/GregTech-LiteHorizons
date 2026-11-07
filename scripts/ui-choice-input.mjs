@@ -25,6 +25,13 @@ try {
   expect(await win.evaluate(()=>window.choiceInputBefore===document.querySelector('#choiceSearch')),'typing must keep the original input element mounted').toBe(true);
   await expect(search).toBeFocused();await expect(dialog.locator('.choice-options')).toContainText('没有匹配');
   await search.press('ControlOrMeta+A');await search.press('Backspace');
+  await search.pressSequentially('hongzhuan');await expect(search).toHaveValue('hongzhuan');
+  await expect(dialog.locator('[data-choice-option] strong')).toHaveText('红砖');
+  for(const query of ['HZ','hong zhuan']){
+    await search.fill(query);await expect(dialog.locator('[data-choice-option] strong')).toHaveText('红砖');
+  }
+  expect(await win.evaluate(()=>window.choiceInputBefore===document.querySelector('#choiceSearch')),'pinyin search must keep the original input mounted').toBe(true);
+  await search.fill('');
   const before=await dialog.locator('[data-choice-option]').count();
   const cdp=await win.context().newCDPSession(win);
   await cdp.send('Input.imeSetComposition',{text:'hong',selectionStart:4,selectionEnd:4});
@@ -41,5 +48,5 @@ try {
   await trigger.click();await expect(search).toHaveValue('');await expect(search).toBeFocused();
   await search.press('Escape');await expect(dialog).not.toBeVisible();
   expect(errors).toEqual([]);
-  console.log(`${packaged?'Packaged':'Source'} choice input OK: continuous typing, native Chromium IME composition/commit, caret editing, search filtering, recipe selection, reset and Escape; isolated save.`);
+  console.log(`${packaged?'Packaged':'Source'} choice input OK: pinyin/initials and spaced syllables, continuous typing, native Chromium IME composition/commit, caret editing, search filtering, recipe selection, reset and Escape; isolated save.`);
 } finally {await app.close();}
