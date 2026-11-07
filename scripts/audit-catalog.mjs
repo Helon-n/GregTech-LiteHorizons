@@ -7,6 +7,7 @@ import {CATALOG as c} from '../src/data/catalog.js';
 import {ENERGY_REFERENCE as energy} from '../src/data/energy-reference.js';
 import {recipeProcesses,machineSupportsRecipe} from '../src/core/technology.js';
 import {COILS} from '../src/data/technology-catalog.js';
+import {gatheringAccess,nodeRequirements} from '../src/core/gathering.js';
 import {fusionCapacity} from '../src/core/fusion.js';
 import {GODFORGE_REFERENCE as forge} from '../src/data/godforge-reference.js';
 import {forgeHeat,forgeVoltage} from '../src/core/godforge.js';
@@ -100,8 +101,12 @@ for(const r of c.recipes){
   if(!serving.length)unserved.push({recipe:r.id,process:r.process,reason:'machine-condition'});
 }
 const gathered=new Set();
+for(const id of Object.keys(c.mining.tools))item(id,'mining-tool');
+for(const [region,rule] of Object.entries(c.mining.regions))for(const id of rule.requires)item(id,'mining-region:'+region);
 for(const node of c.gatherNodes){
-  for(const id of [node.requires,...(node.requiresAll??[])].filter(Boolean))item(id,node.id);
+  for(const id of nodeRequirements(node))item(id,node.id);
+  if(node.miningLevel!==undefined&&(!Number.isInteger(node.miningLevel)||node.miningLevel<0||!Object.values(c.mining.tools).some(tool=>tool.level>=node.miningLevel)))fail('mining-level',node.id,node.miningLevel);
+  for(const region of node.regions??[])if(!c.mining.regions[region])fail('mining-region',node.id,region);
   if(node.exclusiveDrops){
     if(node.exclusiveDrops.reduce((sum,d)=>sum+d.chance,0)>1)fail('exclusive-drop-total',node.id);
     for(const d of node.exclusiveDrops){
@@ -179,7 +184,7 @@ const installedConditions=(r,m)=>{
 };
 while(buildingChanged){
   buildingChanged=false;constructionPasses++;
-  for(const n of c.gatherNodes)if((!n.requires||constructed.has(n.requires))&&(n.requiresAll??[]).every(id=>constructed.has(id))&&(!['moon','mars','belt'].includes(n.id)||constructed.has(n.id==='belt'?'advancedRocket':'rocket'))&&(n.stage!==0||['forest','surface','river'].includes(n.id)||constructed.has('flintPick')))for(const id of Object.keys(c.nodeDrops[n.id]??n.dropRanges??{[n.output]:1}))addConstructed(id);
+  for(const n of c.gatherNodes)if(gatheringAccess(c,n,id=>constructed.has(id)).available)for(const id of Object.keys(c.nodeDrops[n.id]??n.dropRanges??{[n.output]:1}))addConstructed(id);
   for(const m of machineList)if(Object.keys(m.cost).every(id=>constructed.has(id)))addConstructed(m.id);
   for(const r of c.recipes){
     const deps=[...Object.keys(r.inputs),...Object.keys(r.tools??{}),...extraInputs(r)];

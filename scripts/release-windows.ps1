@@ -17,6 +17,10 @@ if($TestPackaged){
     if($LASTEXITCODE -ne 0){throw 'Packaged construction regression failed'}
     & node scripts/ui-source-closure.mjs --packaged
     if($LASTEXITCODE -ne 0){throw 'Packaged source navigation regression failed'}
+    & node scripts/ui-mining.mjs --packaged
+    if($LASTEXITCODE -ne 0){throw 'Packaged mining access regression failed'}
+    & node scripts/ui-choice-input.mjs --packaged
+    if($LASTEXITCODE -ne 0){throw 'Packaged choice input regression failed'}
     & node scripts/electron-smoke.mjs --portable
     if($LASTEXITCODE -ne 0){throw 'Portable desktop smoke test failed'}
 }

@@ -89,10 +89,10 @@ test('magical resource gates and mutually exclusive demon shards survive collect
   for(const [random,id]of [[.1,magic.resources.lifeShard],[.4,magic.resources.soulShard],[.9,null]]){
     g.nextDropRandom=()=>random;assert.deepEqual(g.collectDrops(n).drops,id?{[id]:1}:{});
   }
-  const end=c.gatherNodes.find(n=>n.id==='endShardHunt');assert.equal(g.nodeAvailable(end),false);g.add({advancedRocket:1});assert.equal(g.nodeAvailable(end),true);
+  const end=c.gatherNodes.find(n=>n.id==='endShardHunt');assert.equal(g.nodeAvailable(end),false);g.add({endPortal:1});assert.equal(g.nodeAvailable(end),true);
   assert.ok(Object.hasOwn(g.drops(n),magic.resources.soulShard));
   const sins=c.gatherNodes.find(n=>n.id==='netherSinExpedition');assert.equal(g.nodeAvailable(sins),false);
-  g.add({[magic.research.eldritch]:1});assert.equal(g.nodeAvailable(sins),true);
+  g.add({[magic.research.eldritch]:1});assert.equal(g.nodeAvailable(sins),false);g.add({netherPortal:1});assert.equal(g.nodeAvailable(sins),true);
   for(const [random,id]of [[0,magic.resources.prideShard],[.4,magic.resources.lustShard],[.8,magic.resources.gluttonyShard]]){g.nextDropRandom=()=>random;assert.deepEqual(g.collectDrops(sins).drops,{[id]:1});}
 });
 

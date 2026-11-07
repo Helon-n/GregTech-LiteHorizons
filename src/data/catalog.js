@@ -6,6 +6,7 @@ import {applyLargeEnergyCatalog} from './large-energy-catalog.js';
 import {applyCircuitProgression,CIRCUIT_MIGRATIONS} from './circuit-progression.js';
 import {ITEM_IDENTITIES,RECIPE_IDENTITIES,RECIPE_OUTPUT_IDENTITIES,RECIPE_OUTPUT_FACTORS} from './catalog-identities.js';
 import {GATHERING_REFERENCE} from './gathering-reference.js';
+import {applyMiningCatalog} from './mining-catalog.js';
 // Gameplay adaptation of GTNH progression. Exact original recipes come from the
 // optional runtime exporter; these authored recipes are deliberately labelled.
 export const STAGES = [
@@ -215,4 +216,5 @@ gatherNodes.find(n=>n.id==='ore:Sphalerite').stage=1;
 applyLargeEnergyCatalog({items,machines,recipes,fuels:industry.fuels});
 for(const id of ['rocketGenerator4'])if(machines[id])machines[id].stage=6;
 applyCircuitProgression({items,machines,recipes,milestones});
-export const CATALOG={version:4,materialRulesVersion:1,industryRulesVersion:INDUSTRY_VERSION,itemMigrations:CIRCUIT_MIGRATIONS,itemIdentityMigrations:ITEM_IDENTITIES,recipeIdentityMigrations:RECIPE_IDENTITIES,recipeOutputIdentityMigrations:RECIPE_OUTPUT_IDENTITIES,recipeOutputFactors:RECIPE_OUTPUT_FACTORS,industryLegacyRecipes:industry.legacy,fuels:industry.fuels,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};
+const mining=applyMiningCatalog({items,machines,recipes,gatherNodes});
+export const CATALOG={version:4,materialRulesVersion:1,industryRulesVersion:INDUSTRY_VERSION,itemMigrations:CIRCUIT_MIGRATIONS,itemIdentityMigrations:ITEM_IDENTITIES,recipeIdentityMigrations:RECIPE_IDENTITIES,recipeOutputIdentityMigrations:RECIPE_OUTPUT_IDENTITIES,recipeOutputFactors:RECIPE_OUTPUT_FACTORS,industryLegacyRecipes:industry.legacy,fuels:industry.fuels,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones,mining};

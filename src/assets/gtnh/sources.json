@@ -183923,6 +183923,156 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "441370a431285d01372a0f5b3a31023f5373fd429f596fe39daaec8a439be3ff"
+    },
+    "ironPick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#c8c8c8"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
+    },
+    "bronzePick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#ff8000"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
+    },
+    "steelPick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#808080"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
+    },
+    "diamondPick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#c8ffff"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
+    },
+    "stainlessPick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#c8c8dc"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
+    },
+    "tungstensteelPick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#6464a0"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
+    },
+    "manyullynPick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#9a4cb9"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
+    },
+    "neutroniumPick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#fafafa"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
+    },
+    "duraniumPick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#c8c8c8"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
+    },
+    "infinityPick": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadPickaxe.png",
+          "tint": "#c8c8c8"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stick.png",
+          "tint": "#643200"
+        }
+      ],
+      "note": "GT material pick head and wooden handle. Idle crafting recipe; no resource-pack overlays."
     }
   }
 }

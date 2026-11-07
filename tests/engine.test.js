@@ -4,6 +4,7 @@ import {Game} from '../src/core/engine.js';
 import {CATALOG,recipes,machines,STAGES} from '../src/data/catalog.js';
 import {generatorFuel,energyCapacity} from '../src/core/energy.js';
 import {machineSupportsRecipe} from '../src/core/technology.js';
+import {gatheringAccess} from '../src/core/gathering.js';
 function tanks(g,count=3){g.add({largeTank:count});for(let i=0;i<count;i++)assert.equal(g.placeContainer('largeTank').ok,true);}
 
 test('catalog IDs and all costs / recipes refer to known items',()=>{
@@ -22,11 +23,7 @@ test('implemented mainline material goals are reachable without chapter-filtered
       if(!known.has(id)){known.add(id);changed=true;}
     };
     for(const n of CATALOG.gatherNodes){
-      if(n.requires&&!known.has(n.requires))continue;
-      if((n.requiresAll??[]).some(id=>!known.has(id)))continue;
-      if(n.id==='belt'&&!known.has('advancedRocket'))continue;
-      if(['moon','mars'].includes(n.id)&&!known.has('rocket'))continue;
-      if(n.stage===0&&!['forest','surface','river'].includes(n.id)&&!known.has('flintPick'))continue;
+      if(!gatheringAccess(CATALOG,n,id=>known.has(id)).available)continue;
       Object.keys(CATALOG.nodeDrops[n.id]||n.dropRanges||{[n.output]:n.amount}).forEach(add);
     }
     for(const m of Object.values(machines))if(Object.keys(m.cost).every(id=>known.has(id))&&!built.has(m.id)){built.add(m.id);add(m.id);changed=true;}
@@ -46,6 +43,7 @@ test('implemented mainline material goals are reachable without chapter-filtered
 
 test('every machine still charges its full structure cost and can be built and restored at chapter zero',()=>{
   const g=new Game();
+  tanks(g,1); // World entrance construction includes physical water.
   for(const m of Object.values(machines)){
     assert.equal(g.canBuild(m.id),false,m.id+' must require materials');
     assert.equal(g.build(m.id).ok,false,m.id+' cannot be free');
@@ -82,6 +80,7 @@ test('click progress survives saves and old timers migrate without advancing dur
 
 test('all unlocked resource nodes award their declared drops after the required number of clicks',()=>{
   const g=new Game();g.state.stage=15;tanks(g,8);g.add({flintPick:1,rocket:1,advancedRocket:1});
+  g.add(Object.fromEntries([...Object.keys(CATALOG.mining.tools),...Object.values(CATALOG.mining.regions).flatMap(region=>region.requires)].map(id=>[id,1])));
   for(const node of CATALOG.gatherNodes){
     g.add(Object.fromEntries((node.requiresAll??[]).map(id=>[id,1])));
     const before=Object.fromEntries(Object.keys(CATALOG.items).map(id=>[id,g.quantity(id)])),expected=g.dropRanges(node);

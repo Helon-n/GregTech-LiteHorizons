@@ -5,7 +5,7 @@ import {planGrid,gridStyle,fitPageLimits} from './layout.js';
 import {productName} from './core/recipe-browser.js';
 import {recipeEnergyText} from './data/energy-reference.js';
 const recipeById=new Map(recipes.map(recipe=>[recipe.id,recipe]));
-let nextId=0, source=null, query='', index=0, pageSize=0, rowLimit=Infinity;
+let nextId=0, source=null, query='', index=0, pageSize=0, rowLimit=Infinity, composing=false;
 let resolveEntity=()=>null;
 export function setChoiceResolver(resolve){resolveEntity=resolve;}
 const dialog=document.createElement('dialog');
@@ -64,7 +64,7 @@ export function syncChoices(root=document){
     updateAttribute(button.querySelector('img'),'src',`assets/gtnh/${items[detail.icon]?.icon||detail.icon}.svg`);
   }
 }
-export function closeChoices(){if(dialog.open)dialog.close();source=null;}
+export function closeChoices(){if(dialog.open)dialog.close();source=null;composing=false;}
 function draw(anchor){
   const width=Math.min(980,innerWidth-64),plan=planGrid(source.dataset.assign?'recipeChoice':'choice',{width:width-40,height:Math.min(innerHeight-64,860)},204);
   const first=anchor??index*(pageSize||plan.size);
@@ -72,10 +72,19 @@ function draw(anchor){
   const size=plan.size;
   const options=[...source.options].map((option,at)=>({option,at})).filter(({option})=>{const d=details(source,option);return !query||(d.label+' '+d.meta).toLowerCase().includes(query.toLowerCase());});
   const count=Math.max(1,Math.ceil(options.length/size));index=Math.max(0,Math.min(Math.floor(first/size),count-1));pageSize=size;
-  dialog.innerHTML=`<div class="choice-heading"><h2>${title(source)}</h2><button class="button" data-close-choice aria-label="关闭">×</button></div><input class="search" id="choiceSearch" placeholder="搜索" aria-label="搜索选项" value="${escape(query)}"><div class="choice-options" data-fit-grid="choice-options" style="${gridStyle(plan)}">${options.slice(index*size,(index+1)*size).map(({option,at})=>{
+  // Keep the editable control mounted across filtering and pagination. Replacing
+  // it during input cancels native IME composition and loses editing state.
+  if(!dialog.querySelector('#choiceSearch'))dialog.innerHTML='<div class="choice-heading"><h2></h2><button class="button" data-close-choice aria-label="关闭">×</button></div><input class="search" id="choiceSearch" placeholder="搜索" aria-label="搜索选项"><div class="choice-options" data-fit-grid="choice-options"></div><nav class="choice-pages" aria-label="选项翻页"><button class="button" data-choice-step="-1">上一页</button><span></span><button class="button" data-choice-step="1">下一页</button></nav>';
+  updateText(dialog.querySelector('h2'),title(source));updateAttribute(dialog,'aria-label',title(source));
+  const input=dialog.querySelector('#choiceSearch');if(input.value!==query)input.value=query;
+  const grid=dialog.querySelector('.choice-options');updateAttribute(grid,'style',gridStyle(plan));
+  grid.innerHTML=options.slice(index*size,(index+1)*size).map(({option,at})=>{
     const d=details(source,option),r=d.recipe;
     return `<button class="choice-option ${option.selected?'selected':''}" data-choice-option="${at}" ${option.disabled?'disabled':''} aria-pressed="${option.selected}"><span class="choice-art">${art(d.icon)}</span><strong>${escape(d.label)}</strong><small>${escape(d.meta||'')}</small>${r?`<span class="choice-recipe" aria-label="投入与产出">${Object.entries(r.inputs).map(([id,n])=>`<span title="${escape(items[id]?.name||id)} ×${n}">${art(id)}<b>${n}</b></span>`).join('')}<i>→</i>${Object.entries(r.outputs).map(([id,n])=>`<span title="${escape(items[id]?.name||id)} ×${n}">${art(id)}<b>${n}</b></span>`).join('')||'EU'}</span>`:''}</button>`;
-  }).join('')||'<p class="muted">没有匹配的项目</p>'}</div><nav class="choice-pages" aria-label="选项翻页"><button class="button" data-choice-step="-1" ${index===0?'disabled':''}>上一页</button><span>${index+1} / ${count}</span><button class="button" data-choice-step="1" ${index===count-1?'disabled':''}>下一页</button></nav>`;
+  }).join('')||'<p class="muted">没有匹配的项目</p>';
+  updateDisabled(dialog.querySelector('[data-choice-step="-1"]'),index===0);
+  updateDisabled(dialog.querySelector('[data-choice-step="1"]'),index===count-1);
+  updateText(dialog.querySelector('.choice-pages span'),`${index+1} / ${count}`);
   if(dialog.open){
     const limits=new Map();
     if(fitPageLimits(dialog,new Map([['choice-options',plan]]),limits,new Map())){
@@ -88,7 +97,7 @@ document.addEventListener('click',event=>{
   if(button.dataset.openChoice){
     source=document.querySelector(`select[data-choice-id="${button.dataset.openChoice}"]`);
     if(!source||source.disabled)return;
-    query='';index=0;pageSize=0;rowLimit=Infinity;draw();dialog.showModal();draw();dialog.querySelector('input').focus();
+    query='';index=0;pageSize=0;rowLimit=Infinity;composing=false;draw();dialog.showModal();draw();dialog.querySelector('input').focus();
   }else if(button.hasAttribute('data-close-choice'))closeChoices();
   else if(button.hasAttribute('data-choice-option')){
     const select=source;if(!select?.isConnected||select.disabled)return closeChoices();
@@ -97,9 +106,13 @@ document.addEventListener('click',event=>{
     select.dispatchEvent(new Event('change',{bubbles:true}));
   }else if(button.dataset.choiceStep){index+=Number(button.dataset.choiceStep);draw();}
 });
+function searchOptions(input){
+  if(!dialog.open||!source?.isConnected||input.value===query)return;
+  query=input.value;index=0;pageSize=0;rowLimit=Infinity;draw();
+}
+dialog.addEventListener('compositionstart',event=>{if(event.target.id==='choiceSearch')composing=true;});
+dialog.addEventListener('compositionend',event=>{if(event.target.id==='choiceSearch'){composing=false;searchOptions(event.target);}});
 dialog.addEventListener('input',event=>{
-  if(event.target.id!=='choiceSearch')return;
-  const caret=event.target.selectionStart;query=event.target.value;index=0;pageSize=0;rowLimit=Infinity;draw();
-  const input=dialog.querySelector('input');input.focus();input.setSelectionRange(caret,caret);
+  if(event.target.id==='choiceSearch'&&!composing&&!event.isComposing)searchOptions(event.target);
 });
-dialog.addEventListener('close',()=>{source=null;});
+dialog.addEventListener('close',()=>{source=null;composing=false;});

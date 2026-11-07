@@ -6,6 +6,7 @@ import {changeSpin,validSpin,spinRecipe} from './spinmatron.js';
 import {foundryTier,changeFoundry,validFoundry,foundryRefund} from './foundry.js';
 import {LATE_MACHINES_REFERENCE as LATE} from '../data/late-machines-reference.js';
 import { CATALOG } from '../data/catalog.js';
+import {gatheringAccess,nodeRequirements} from './gathering.js';
 import {isFluid,containerCapacity,acceptsFluid,drainFluid,planFluids} from './fluids.js';
 import {findGroup,endpointId,endpointMembers,devicePeers,includesEndpoint,fluidEntries,deviceEntries,bindFluid,takeFluid,putFluid,saveGroup,dissolveGroup,validateGroups} from './groups.js';
 import {ENERGY_REFERENCE as ENERGY} from '../data/energy-reference.js';
@@ -315,14 +316,15 @@ export class Game {
   }
   note(text){this.state.log.unshift({text,at:Date.now()});this.state.log=this.state.log.slice(0,40);}
   get stage(){return this.catalog.stages[this.state.stage];}
-  nodeRequirements(node){return [...new Set([node?.requires,...(node?.requiresAll??[]),...(['moon','mars','belt'].includes(node?.id)?[node.id==='belt'?'advancedRocket':'rocket']:[]),...(node?.stage===0&&!['forest','surface','river'].includes(node.id)?['flintPick']:[])].filter(Boolean))];}
-  nodeAvailable(node){return !!node&&this.nodeRequirements(node).every(id=>this.owned(id)>0);}
+  nodeRequirements(node){return nodeRequirements(node);}
+  nodeAccess(node){return gatheringAccess(this.catalog,node,id=>this.owned(id)>0);}
+  nodeAvailable(node){return this.nodeAccess(node).available;}
   gatherClicks(node){return Math.max(3,Math.ceil(node.seconds*2));}
   gather(id){
     const node=this.catalog.gatherNodes.find(x=>x.id===id);
     if(!node)return {ok:false,message:'采集地点不存在'};
-    if(!this.nodeAvailable(node))return {ok:false,message:'需要：'+this.nodeRequirements(node).filter(id=>!this.owned(id)).map(id=>this.catalog.items[id].name).join('、')};
-    if(node.stage===0&&!['forest','surface','river'].includes(id)&&!this.owned('flintPick'))return {ok:false,message:'先在制造页制作燧石镐'};
+    const access=this.nodeAccess(node);
+    if(!access.available)return {ok:false,message:'需要：'+access.missing.join('、')};
     if(isFluid(this.catalog,node.output)&&this.fluidRoom(node.output)<=0)return {ok:false,message:'需要可用的桶或储罐，且必须有剩余容量'};
     const required=this.gatherClicks(node),clicks=(this.state.gatherProgress[id]||0)+1;
     const completed=clicks>=required,{drops,skipped}=completed?this.collectDrops(node):{drops:{},skipped:{}};
@@ -330,10 +332,10 @@ export class Game {
     return {ok:true,completed,clicks:completed?0:clicks,required,drops,skipped};
   }
   collectorCost(node){const level=this.state.collectors[node.id]?.count||0;return Object.fromEntries(Object.entries(node.cost).map(([id,n])=>[id,Math.ceil(n*1.5**level)]).filter(([,n])=>n>0));}
-  buildCollector(id){const node=this.catalog.gatherNodes.find(n=>n.id===id);if(!node||!this.nodeAvailable(node)||!this.owned('flintPick'))return {ok:false,message:'需要对应的工具或火箭，并制作燧石镐'};const cost=this.collectorCost(node);if(!this.pay(cost))return{ok:false,message:'采集设备建造材料不足'};this.state.collectors[id]??={count:0,elapsed:0,enabled:true,activeCount:0};const c=this.state.collectors[id],allActive=c.activeCount===undefined||c.activeCount===c.count;c.count++;if(allActive)c.activeCount=c.count;this.note('部署自动采集：'+node.name);return {ok:true};}
+  buildCollector(id){const node=this.catalog.gatherNodes.find(n=>n.id===id),access=this.nodeAccess(node);if(!access.available)return {ok:false,message:'需要：'+access.missing.join('、')};const cost=this.collectorCost(node);if(!this.pay(cost))return{ok:false,message:'采集设备建造材料不足'};this.state.collectors[id]??={count:0,elapsed:0,enabled:true,activeCount:0};const c=this.state.collectors[id],allActive=c.activeCount===undefined||c.activeCount===c.count;c.count++;if(allActive)c.activeCount=c.count;this.note('部署自动采集：'+node.name);return {ok:true};}
   toggleCollector(id){
     const c=this.state.collectors[id];if(!c)return {ok:false,message:'尚未部署采集器'};
-    c.enabled=c.enabled===false;c.blocked=c.enabled?'运行中':'已停止';return {ok:true};
+    c.enabled=c.enabled===false;const access=this.nodeAccess(this.catalog.gatherNodes.find(n=>n.id===id));c.blocked=c.enabled?(access.available?'运行中':'需要：'+access.missing.join('、')):'已停止';return {ok:true};
   }
   setCollectorWorkers(id,count){
     const c=this.state.collectors[id];if(!c)return {ok:false,message:'尚未部署采集器'};
@@ -399,8 +401,10 @@ export class Game {
     if(!finite(dt,0,1))throw Error('单步时间必须为 0–1 秒');
     this.state.playtime+=dt;
     for(const[id,c]of Object.entries(this.state.collectors)){
-      const node=this.catalog.gatherNodes.find(n=>n.id===id);if(!this.nodeAvailable(node))continue;
+      const node=this.catalog.gatherNodes.find(n=>n.id===id);
       if(c.enabled===false){c.blocked='已停止';continue;}
+      const access=this.nodeAccess(node);if(!access.available){c.blocked='需要：'+access.missing.join('、');continue;}
+      if(c.blocked?.startsWith('需要：'))c.blocked='运行中';
       c.elapsed+=dt;const period=node.seconds*4;
       if(c.elapsed>=period){const batches=Math.floor(c.elapsed/period);c.elapsed%=period;const {skipped}=this.collectDrops(node,(c.activeCount??c.count)*batches);c.blocked=Object.keys(skipped).length?'流体容器不足':'运行中';}
     }
