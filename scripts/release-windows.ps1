@@ -23,6 +23,8 @@ if($TestPackaged){
     if($LASTEXITCODE -ne 0){throw 'Packaged choice input regression failed'}
     & node scripts/ui-search.mjs --packaged
     if($LASTEXITCODE -ne 0){throw 'Packaged pinyin search regression failed'}
+    & node scripts/ui-recipe-tree.mjs --packaged
+    if($LASTEXITCODE -ne 0){throw 'Packaged recipe tree regression failed'}
     & node scripts/electron-smoke.mjs --portable
     if($LASTEXITCODE -ne 0){throw 'Portable desktop smoke test failed'}
 }

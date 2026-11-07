@@ -7,6 +7,7 @@ import {componentCount} from './components.js';
 
 const EPS=1e-8,MAX_STEPS=512,MAX_COUNT=Number.MAX_SAFE_INTEGER;
 const indexes=new WeakMap();
+class PreviewOnlyRecipe extends Error {}
 function recipeIndex(game){
   let cached=indexes.get(game.catalog);
   if(!cached){
@@ -14,32 +15,64 @@ function recipeIndex(game){
     for(const r of entries)if(r.process!=='build'&&!r.dynamic&&!r.dynamicAmount&&!r.incubation&&!r.beamSource&&!r.beamNeeds)for(const id of Object.keys(guaranteedOutputs(r))){
       if(!byOutput.has(id))byOutput.set(id,[]);byOutput.get(id).push(r);
     }
-    cached={entries,byId,byOutput};indexes.set(game.catalog,cached);
+    const machinesByProcess=new Map(),gathersByOutput=new Map();
+    for(const m of Object.values(game.catalog.machines))for(const process of m.processes){
+      if(!machinesByProcess.has(process))machinesByProcess.set(process,[]);machinesByProcess.get(process).push(m);
+    }
+    // Index possible drops without caching the player's changing access rights.
+    for(const n of game.catalog.gatherNodes)for(const id of Object.keys(game.drops(n))){
+      if(!gathersByOutput.has(id))gathersByOutput.set(id,[]);gathersByOutput.get(id).push(n);
+    }
+    cached={entries,byId,byOutput,machinesByProcess,gathersByOutput,machines:new WeakMap(),routes:new Map(),supplies:null};indexes.set(game.catalog,cached);
   }
   return cached;
 }
 export function planRecipe(game,id){return recipeIndex(game).byId.get(id);}
 export function recipeMachines(game,r){
-  return Object.values(game.catalog.machines).filter(m=>machineSupportsRecipe(m,r)&&!['boiler','generator','dyson','solar','battery'].includes(m.energy?.kind));
+  const index=recipeIndex(game);
+  if(!index.machines.has(r))index.machines.set(r,compatibleMachines(game,r).filter(m=>!['boiler','generator','dyson','solar','battery'].includes(m.energy?.kind)));
+  return index.machines.get(r);
+}
+function compatibleMachines(game,r){
+  const index=recipeIndex(game),candidates=new Set([r.process,...(r.alsoProcesses??[])].flatMap(process=>index.machinesByProcess.get(process)||[]));
+  return [...candidates].filter(m=>machineSupportsRecipe(m,r));
 }
 export function planRoutes(game,id){
-  return (recipeIndex(game).byOutput.get(id)||[]).filter(r=>r.process==='craft'||recipeMachines(game,r).length);
+  const index=recipeIndex(game);
+  if(!index.routes.has(id))index.routes.set(id,(index.byOutput.get(id)||[]).filter(r=>r.process==='craft'||recipeMachines(game,r).length));
+  return index.routes.get(id);
 }
-export function planGatherNodes(game,id){return game.catalog.gatherNodes.filter(n=>game.nodeAvailable(n)&&Object.hasOwn(game.drops(n),id));}
-export function planSupplyMachines(game,id){return Object.values(game.catalog.machines).filter(m=>['boiler','generator','dyson','solar'].includes(m.energy?.kind)&&game.catalog.recipes.some(r=>machineSupportsRecipe(m,r)&&(r.outputs[id]>0||(r.energyOutputs??[]).includes(id))));}
+export function planGatherNodes(game,id,availableOnly=true){return (recipeIndex(game).gathersByOutput.get(id)||[]).filter(n=>!availableOnly||game.nodeAvailable(n));}
+export function planSupplyMachines(game,id){
+  const index=recipeIndex(game);
+  if(!index.supplies){
+    index.supplies=new Map();
+    for(const r of game.catalog.recipes){
+      const machines=compatibleMachines(game,r).filter(m=>['boiler','generator','dyson','solar'].includes(m.energy?.kind));
+      if(!machines.length)continue;
+      for(const item of new Set([...Object.keys(r.outputs).filter(id=>r.outputs[id]>0),...(r.energyOutputs??[])])){
+        if(!index.supplies.has(item))index.supplies.set(item,new Set());
+        for(const m of machines)index.supplies.get(item).add(m);
+      }
+    }
+    const order=new Map(Object.keys(game.catalog.machines).map((id,i)=>[id,i]));
+    for(const [item,set]of index.supplies)index.supplies.set(item,[...set].sort((a,b)=>order.get(a.id)-order.get(b.id)));
+  }
+  return index.supplies.get(id)||[];
+}
 const count=n=>{if(!Number.isFinite(n)||n<0||n>MAX_COUNT)throw Error('材料需求过大，请减少目标批数');return n;};
 
 // A stock ledger is shared by every branch: yields, byproducts and reusable
 // tools must never be counted twice. Only real storage enters the ledger.
-export function createProductionPlan(game,recipeId,batches=1,choices={},favorites=[]){
+export function createProductionPlan(game,recipeId,batches=1,choices={},favorites=[],{partial=false}={}){
   const root=planRecipe(game,recipeId);
-  if(root?.dynamic==='godforge')throw Error('请先在造物主模块生成配料，再根据本批配料安排加工');
-  if(root?.incubation)throw Error('培养箱按原版逐刻随机培养，请在工厂配置原料和容器');
-  if(root?.randomChoice)throw Error('虚空采矿按权重随机抽取，请在工厂选择维度和供气配方');
-  if(root?.beamSource||root?.beamNeeds)throw Error('束流加工需要持续连接粒子源，请在工厂安排并配置束流目标');
-  if(root?.dynamicAmount)throw Error('此设备按实时蓄热连续转换，请在工厂配置输入和输出容器');
   if(!root||!Number.isInteger(batches)||batches<1||batches>999)throw Error('请选择配方和 1–999 批');
-  if(!Object.keys(root.outputs).length||root.process!=='craft'&&root.process!=='build'&&!recipeMachines(game,root).length)throw Error('发电与锅炉请在工厂配置，不按普通合成批次安排');
+  if(root?.dynamic==='godforge')throw new PreviewOnlyRecipe('请先在造物主模块生成配料，再根据本批配料安排加工');
+  if(root?.incubation)throw new PreviewOnlyRecipe('培养箱按原版逐刻随机培养，请在工厂配置原料和容器');
+  if(root?.randomChoice)throw new PreviewOnlyRecipe('虚空采矿按权重随机抽取，请在工厂选择维度和供气配方');
+  if(root?.beamSource||root?.beamNeeds)throw new PreviewOnlyRecipe('束流加工需要持续连接粒子源，请在工厂安排并配置束流目标');
+  if(root?.dynamicAmount)throw new PreviewOnlyRecipe('此设备按实时蓄热连续转换，请在工厂配置输入和输出容器');
+  if(!Object.keys(root.outputs).length||root.process!=='craft'&&root.process!=='build'&&!recipeMachines(game,root).length)throw new PreviewOnlyRecipe('发电与锅炉请在工厂配置，不按普通合成批次安排');
   const stock=new Map(),reserved=new Map(),wear=new Map(),baths=new Set(),missing=new Map(),nodes=[],steps=[],preferred=new Set(favorites);
   const routesCache=new Map(),gatherCache=new Map(),scores=new Map();
   const routesFor=id=>{if(!routesCache.has(id))routesCache.set(id,planRoutes(game,id));return routesCache.get(id);};
@@ -105,8 +138,25 @@ export function createProductionPlan(game,recipeId,batches=1,choices={},favorite
     if(r.process!=='build')for(const[id,value]of Object.entries(guaranteedOutputs(r)))plus(id,count(value*n));
   }
   const item=Object.keys(root.outputs)[0];nodes.push({key:'0',parent:null,depth:0,item,amount:count(root.outputs[item]*batches),have:0,shortage:0,tool:false,recipe:root.id,batches,reason:''});
-  make(root,batches,'0',1,new Set());
-  return {root:recipeId,batches,nodes,steps,missing:[...missing.values()]};
+  let blockedReason='';
+  try{make(root,batches,'0',1,new Set());}catch(error){if(!partial)throw error;blockedReason=error.message;}
+  return {root:recipeId,batches,nodes,steps,missing:[...missing.values()],...(blockedReason?{blockedReason,incomplete:true}:{})};
+}
+
+// Continuous/random systems cannot be scheduled as ordinary batches, but their
+// actual inputs must still be visible when the player opens the recipe tree.
+export function createProductionPreview(game,recipeId,batches=1,choices={},favorites=[]){
+  try{return createProductionPlan(game,recipeId,batches,choices,favorites,{partial:true});}
+  catch(error){
+    const root=planRecipe(game,recipeId);if(!root||!(error instanceof PreviewOnlyRecipe))throw error;
+    const item=Object.keys(root.outputs)[0]||root.energyOutputs?.[0]||root.machine||'workbench';
+    const nodes=[{key:'0',parent:null,depth:0,item,amount:(root.outputs[item]||0)*batches,have:0,shortage:0,tool:false,recipe:root.id,batches,reason:''}];
+    for(const tool of [true,false])for(const [id,n]of Object.entries(tool?root.tools||{}:root.inputs)){
+      const amount=n*(tool?1:batches),have=Math.min(amount,tool?game.toolQuantity(id,root):game.quantity(id));
+      nodes.push({key:String(nodes.length),parent:'0',depth:1,item:id,amount,have,shortage:Math.max(0,amount-have),tool,recipe:null,batches:0,reason:have>=amount?'已有材料':'本配方直接需求'});
+    }
+    return {root:recipeId,batches,nodes,steps:[],missing:nodes.slice(1).filter(n=>n.shortage>0).map(n=>({item:n.item,amount:n.shortage,reason:n.reason})),blockedReason:error.message,incomplete:true,directOnly:true};
+  }
 }
 
 function taskMatches(plan,task){return task&&task.plan===plan.id&&Number.isInteger(task.step)&&plan.steps[task.step];}
