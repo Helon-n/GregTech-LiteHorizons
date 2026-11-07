@@ -106723,7 +106723,7 @@
         }
       ],
       "note": "Original Minecraft item.",
-      "importSignature": "fcebd40e4bd90cc4803464dea920a19194c7dc91792aa4ec987dbf188ab4ac43"
+      "importSignature": "5d628cde033ada7245e48fd2090673bd027beb43e6febb7b4b43bfc476026549"
     },
     "turbineRotorHuge_Mithril": {
       "sources": [
@@ -181590,6 +181590,2339 @@
       ],
       "note": "Original GT METALLIC/plateTriple with material color. No resource pack.",
       "importSignature": "f96aecb88b4b6c30a8e46657589c1e51623c1b6d7e2b33accf020949ce522daf"
+    },
+    "sunnariumQuadruplePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateQuadruple.png",
+          "tint": "#ffff00"
+        }
+      ],
+      "note": "Original GT SHINY/plateQuadruple with material color. No resource pack.",
+      "importSignature": "e524e54b2076336c0ac47607ef68589e06ece9d6faba7e04356c3e7f6fc539b6"
+    },
+    "steeleafSuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateSuperdense.png",
+          "tint": "#327f32"
+        }
+      ],
+      "note": "Original GT LEAF/plateSuperdense with material color. No resource pack.",
+      "importSignature": "c16af52e2c6d26709fcba4ad079700f828d5373fe72906c0203bdef8370690f9"
+    },
+    "ttItem_eM_energyWirelessMulti16_ZPM": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "8223471328e236f91bdcc774fc46e148bbc095eb260cdd8d66477a2442bb1af3"
+    },
+    "naquadriaDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#1e1e1e"
+        }
+      ],
+      "note": "Original GT SHINY/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "7d572e96f6cff4bca97a12db485a0424dbafb58a5c1b9eb1e4013e48bef09899"
+    },
+    "polyethyleneSmallPipe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/pipeSmall.png",
+          "tint": "#c8c8c8"
+        }
+      ],
+      "note": "Original GT DULL/pipeSmall with material color. No resource pack.",
+      "importSignature": "4099b3b4abfb0839310a526bb7f6c89fedc85bd91fd3c02af80e71910879474d"
+    },
+    "redAlloyScrew": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/screw.png",
+          "tint": "#c80000"
+        }
+      ],
+      "note": "Original GT DULL/screw with material color. No resource pack.",
+      "importSignature": "2ca75f23bba314d85a55c4b4b1bdb6486a5e7093c7f56781a07a958d6dce7cb5"
+    },
+    "gtppItem_Casing_Cyclotron_External": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_RADIATIONPROOF.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "4411ddd535c6ff5c5355aaa49439888e776f7d7b3afa1aa0e77d1e891d3cdaf0"
+    },
+    "kubaItem_DEFCCasingT1": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/blocks/casing/defc_1.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "4566ec389d524da1a3eb3ec03c96b22beb2dd2547dd4fb0710272328062ce5c3"
+    },
+    "titaniumDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#dca0f0"
+        }
+      ],
+      "note": "Original GT METALLIC/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "a63a2b2c0043e6639715a38d2e521667e317500ea79672bcffc120c0cee2f08d"
+    },
+    "gtppItem_Energy_Core_IV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "3af85bf83036725809b348ed8db96226f98250c16e4205aaedc0ebf4eb7521da"
+    },
+    "ttItem_eM_energyWirelessMulti16_UEV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "bde1dcdd9164999dcc85fd992b53365e3b154d23046b4d6f34af50fd163dadc1"
+    },
+    "gGMaterial_atomicSeparationCatalystSuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense.png",
+          "tint": "#e85e0c"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT SHINY/plateSuperdense with material color. No resource pack.",
+      "importSignature": "0443f43a5ec49597b047436acce393cbf7a8d117fb83c2d499d29c6e0ca102c6"
+    },
+    "damascusSteelFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#6e6e6e"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "39ce0e3c93fc56c273c12734536d111a875c97d54ae818ac437183f14fd09ca7"
+    },
+    "werkstoffLoader_AdemicSteelSuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateSuperdense.png",
+          "tint": "#cccccc"
+        }
+      ],
+      "note": "Original GT METALLIC/plateSuperdense with material color. No resource pack.",
+      "importSignature": "2105f7da2f7bcd658aba6c430386c9bb690954374978c6584de4f4d568761b1a"
+    },
+    "emeraldLongRod": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stickLong.png",
+          "tint": "#50ff50"
+        }
+      ],
+      "note": "Original GT EMERALD/stickLong with material color. No resource pack.",
+      "importSignature": "325408d2928e5f4a447bdca637eecbb882b9360f8e72c3a01749424494b9125f"
+    },
+    "kubaItem_DEFCWyvernSchematic": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/items/defc_schematic_t2.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "deb139e085825608d90a81fbef1a3ec8cc664a71b8a4c212b65411bc98f2476d"
+    },
+    "steelDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#808080"
+        }
+      ],
+      "note": "Original GT METALLIC/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "c0a0e333c2c427231241c908750cbfcace06adb4e255f7b7be0024ca615b0b0d"
+    },
+    "ttItem_eM_energyWirelessMulti64_UXV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "87a453b341c6d5ab33d0e0317017ad034d519f8c3fc89c5b60c40a117ab0550b"
+    },
+    "werkstoffMaterialPool_MuMetalSuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateSuperdense.png",
+          "tint": "#d2e6e1"
+        }
+      ],
+      "note": "Original GT METALLIC/plateSuperdense with material color. No resource pack.",
+      "importSignature": "6303b4035e39ee98db9a12310fdc7c00d38b4f0c162acf3adf1e5604949e8054"
+    },
+    "nhItem_IrradiantReinforcedAluminiumPlate": {
+      "sources": [
+        {
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
+          "texture": "assets/dreamcraft/textures/items/itemIrradiantReinforcedAluminiumPlate.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "62fb8c2f89666d431e12fa4da7e8e3a9330f5d04202cf323126ea39caac23df1"
+    },
+    "gtItem_Battery_TurboCharger_4by4_EV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "c7d91ce8a7aa7ee3a6e57da6a11f9c000bd4f27ed0b7087c397965bbf2113a78"
+    },
+    "ttItem_eM_energyWirelessMulti64_LuV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "9ea3ae10e6140b6d4737628033fddf08c2eeb70708bcee9fbcf517e265d4beec"
+    },
+    "gGMaterial_extremelyUnstableNaquadahSuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense.png",
+          "tint": "#062605"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT SHINY/plateSuperdense with material color. No resource pack.",
+      "importSignature": "ec95f86f29650d0c5a155ba44514610603b04b2317c02001fab7da8f178e9e0a"
+    },
+    "polyethyleneRound": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/round.png",
+          "tint": "#c8c8c8"
+        }
+      ],
+      "note": "Original GT DULL/round with material color. No resource pack.",
+      "importSignature": "b45eac68eabf4be56b7f1b9a9dacb325678819f33cfd6e7f1c487f2468dbb87a"
+    },
+    "lapis_block": {
+      "sources": [
+        {
+          "archive": "minecraft-1.7.10-client.jar",
+          "texture": "assets/minecraft/textures/blocks/lapis_block.png"
+        }
+      ],
+      "note": "Original Minecraft item.",
+      "importSignature": "dac817434b6c340f4c017c801eda7572d55964dfa3183dcbda9c78f6d62f0076"
+    },
+    "gGMaterial_lumiiumWire16": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt16 with material color. No resource pack.",
+      "importSignature": "0ed0f194df2580e084e71d64305138004e82e78ae781eaad5cb3819caf9568c8"
+    },
+    "nhItem_IrradiantReinforcedNaquadriaPlate": {
+      "sources": [
+        {
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
+          "texture": "assets/dreamcraft/textures/items/itemIrradiantReinforcedNaquadriaPlate.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "d03c3132f1fd60b7f93057489a465b16b6856c281926aa261e7b37e1cd844689"
+    },
+    "tungstateDustTiny": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustTiny.png",
+          "tint": "#373223"
+        }
+      ],
+      "note": "Original GT DULL/dustTiny with material color. No resource pack.",
+      "importSignature": "86b2d688f0c5c9a9be62ccbfc3cf4b0e120f29702f4807dcc3de7b002a1a5a5c"
+    },
+    "gGMaterial_hikariumFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#ffd6fb"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "3ed54dcd855321dfa1823dbaa16c9cf575521cb5806e31179f6141ce88a1c3f9"
+    },
+    "gGMaterial_preciousMetalAlloyFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#9d90c6"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "6c66417d7a89cde5630cb0836fb057f6fcedb3b04c4f433a3e293b27e1e8dad7"
+    },
+    "gGMaterial_shirabonFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#e0156d"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "dfca051adc7a143fb9423050a57a6fb501c3c147eb88646009f4741f0dc6aeb6"
+    },
+    "gGMaterial_marCeM200Frame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#383030"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "371499a8a629ce765734b5d42b578782b2446adb96fcc291f76fd24e7e849125"
+    },
+    "ttItem_eM_energyWirelessMulti64_UV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "58eb6eae9f152427a7367e05fdd85673aa06a3a1e3c01cccbf4b20c75b1e8ee5"
+    },
+    "gGMaterial_artheriumSnFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#6036f7"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "4c872ab861ce637ea4cd9a7d90268626eda67c0848f3d1811f7ae9b781f0e59b"
+    },
+    "gtppItem_Energy_Core_LV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "f7f3747be4bb497ad7b6f16b9c355b593f9b502528901b9603e0bb436e80cd10"
+    },
+    "gGMaterial_signaliumWire12": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt12 with material color. No resource pack.",
+      "importSignature": "c072a424b569d944056ce095be1e0288547ebb53e0a87f188e0d8b6766cf2c0e"
+    },
+    "ttItem_eM_energyWirelessMulti64_UMV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "0d33e97585de1c9be935b69a6fe95151808d104c14670d09fef3922a331aeea4"
+    },
+    "gtppItem_DehydratorCoilWireZPM": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemDehydratorCoilWire_3.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "c2e49e27b5ad681cff4d86b9b5d24ec25a22f9230be12211e0843063347580e4"
+    },
+    "gtppItem_Casing_Cyclotron_Coil": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/CYCLOTRON_COIL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "52106ab693b4d08bdcac9397d7136581e9b30556f840a32fe8cb9a318cf15c76"
+    },
+    "gGMaterial_extremelyUnstableNaquadahFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#062605"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "27953c39b90745068b581ca4511b1cd2a390201df69cf40f2820c8b9256c65cd"
+    },
+    "ttItem_Machine_BuckConverter_UIV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "6bd596c57b16ee24d61b3e733ae3ad8ca2caf355dc534240b086693471289d30"
+    },
+    "ttItem_eM_energyWirelessMulti4_UHV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "ca16f25b91c84d6db839573065646ede174ae3725a153f34a8daf2ae3a6303fe"
+    },
+    "ttItem_eM_energyWirelessMulti4_EV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1c3103be935db2a0b120ae2fc4a8e4eabc1ba94fbe856ddee1ebd4247675d197"
+    },
+    "infinityDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/infinity/toolHeadDrill.png",
+          "tint": "#c8c8c8"
+        }
+      ],
+      "note": "Original GT INFINITY/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "cc2cd3f751965d1737633f40e34773c94ded77983a707b3c8acfbdd35b645e78"
+    },
+    "mysteriousCrystalSmallPipe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/pipeSmall.png",
+          "tint": "#16856c"
+        }
+      ],
+      "note": "Original GT SHINY/pipeSmall with material color. No resource pack.",
+      "importSignature": "215be6f39fbaa629293b9374cb1df27a8851d804e89efcc86c238d8160ae0c1a"
+    },
+    "kubaItem_DEFCAwakenedSchematic": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/items/defc_schematic_t3.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "a1cdecb2dc874d7241c8463645b2c46ad4e24f13ba269fb09d282661b15c072a"
+    },
+    "ttItem_Machine_BuckConverter_UEV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "9cf99ab8e48a01113c112d0a85bf910606874a04fa29d3a0a6f2d4670ce02728"
+    },
+    "gtppItem_Energy_Core_LuV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "021e20ba817ba352b79cd5c9a986d8a262c82876f94fbde76cba8c6768858cf3"
+    },
+    "gGMaterial_adamantiumAlloyFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#a0a0a0"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "69a389b90df3fab066860531873743eab1e73ac2b07956c308df2d5eaf97bffd"
+    },
+    "gGMaterial_enrichedNaquadahAlloyFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#160740"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "16e86d24dc319fc14642cc09e186c3cf40d1296279bba13e099b3a122bb735dd"
+    },
+    "gGMaterial_shirabonTriplePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateTriple.png",
+          "tint": "#e0156d"
+        }
+      ],
+      "note": "Original GT SHINY/plateTriple with material color. No resource pack.",
+      "importSignature": "f0b1907a1b6d58fd54c3cd90c0d20563ea6b3faf89223843fed16ef646eef40d"
+    },
+    "werkstoffMaterialPool_HafniumPlasma": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/fluids/fluid.autogenerated.png",
+          "tint": "#e8e0db"
+        }
+      ],
+      "note": "Original GT autogenerated fluid silhouette with the registered material color.",
+      "importSignature": "9405b25fa079b3d007391415b37bd5369812e6c7882efdf5fd88e85c6d1f7942"
+    },
+    "titaniumSmallPipe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/pipeSmall.png",
+          "tint": "#dca0f0"
+        }
+      ],
+      "note": "Original GT METALLIC/pipeSmall with material color. No resource pack.",
+      "importSignature": "c306038ccae6db471f1c0d050cdef50c96b6267ac322d59ad08fcbb7451a2268"
+    },
+    "gtppItem_Energy_Buffer_1by1_ZPM": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "f2d719b29918b40281042f41b0de75124b8abc17a29b8be763d4cd72366215f8"
+    },
+    "spacetimeDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/spacetime/toolHeadDrill.png",
+          "tint": "#ffffff"
+        }
+      ],
+      "note": "Original GT SPACETIME/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "5860828575ee2aea8e3614ab39a8f592b3ca1fdf30bb53536c5acc4de7bc7599"
+    },
+    "gGMaterial_signaliumWire16": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt16 with material color. No resource pack.",
+      "importSignature": "e5db76432bde2abd6ad47eed9ec18fd5ed7eaeac01e263b567d9836082f63b63"
+    },
+    "gtppItem_Energy_Core_ULV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "2ef697d9b825ac99589185bde4c2f338b5f38f5fc81e48ea4d34a63ef7830989"
+    },
+    "gGMaterial_daliseniteFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#b0b812"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "4d35f5cc39e263276a4b6a38cdac7de975fd1efe6983eccd7318ddb59b9367a6"
+    },
+    "gGMaterial_marM200SuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense.png",
+          "tint": "#515151"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT SHINY/plateSuperdense with material color. No resource pack.",
+      "importSignature": "222e52388d151cec3558cf3dd93527fe71d18be745ab0b0ff2e0e89cf9660c9d"
+    },
+    "gGMaterial_lumiiumCable8": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt08 with material color. No resource pack.",
+      "importSignature": "99b40c785aed6ae248bb66587b00565d6b069f73ac3981e532871ec96e599bc4"
+    },
+    "ttItem_Machine_BuckConverter_UMV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "f25cd8791cc1ccda0b6e8d8388cca1b10ba895c104743dadbfd8891eafa74523"
+    },
+    "ttItem_eM_energyWirelessMulti4_LuV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "695d807286538566b902ecea66a9699badefaabd03a97cd877aab0c56d32d962"
+    },
+    "gtppItem_Energy_Buffer_1by1_LV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "b04228a478532ffadeb4faba317e470f4df018669f12b81d3f115495def3cab7"
+    },
+    "ttItem_eM_energyWirelessMulti64_EV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "aad73409faec3272ed3e6cf50bcdc83ffb454f3e4e5b75369ed89c7a933eeb02"
+    },
+    "gGMaterial_tairitsuSuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense.png",
+          "tint": "#363636"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT SHINY/plateSuperdense with material color. No resource pack.",
+      "importSignature": "fb94a1a7949b37e2d5b64257df083d1258ae7ed762730997b75179f4c0152c26"
+    },
+    "gGMaterial_signaliumCable16": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt16 with material color. No resource pack.",
+      "importSignature": "c45363bd5301a9ee86f1a168dcef53215e5b24d1bf343ffbf4d501c1a19a7056"
+    },
+    "werkstoffLoader_AdemicSteelFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#cccccc"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "e17c0f3bd09bad9a7261c2f4f9e1cfe058b04a302165a8246cc18e5addfa7db0"
+    },
+    "tungstensteelDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#6464a0"
+        }
+      ],
+      "note": "Original GT METALLIC/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "18ded22cf0899d45811d5cb7b2dd70068c0253b4f582f620d285c2ab5055efc7"
+    },
+    "gtppItem_DehydratorCoilWireLuV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemDehydratorCoilWire_2.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "833008a8a7355c1f23e57a023efc29be474f091c8657cb1476af874a456dd084"
+    },
+    "werkstoffLoader_HDCSFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#334433"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "6267b296bb9a365fe7b29415fa6e854ddefe0e263af0dc2890564ffd510165c4"
+    },
+    "hexaniteItemCasing": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NUCLEAR/casingSmall.png",
+          "tint": "#3fb094"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NUCLEAR/casingSmall_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT NUCLEAR/itemCasing with material color. No resource pack.",
+      "importSignature": "b0cd28b245d7115364ccec0c2c2504908d74111aa666077221f858662955a57d"
+    },
+    "gtppItem_Energy_Core_HV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "5892b7cd61b02080d7dbc41bcf08d4a42a6b5a711c8b1199de832248e1104d3d"
+    },
+    "hexaniteRotor": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NUCLEAR/rotor.png",
+          "tint": "#3fb094"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NUCLEAR/rotor_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT NUCLEAR/rotor with material color. No resource pack.",
+      "importSignature": "6c207a89547c2909b8b61e7e23926f2031321714d7b742aaa1c1546399aa44e6"
+    },
+    "naquadahEnrichedDensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateDense.png",
+          "tint": "#323232"
+        }
+      ],
+      "note": "Original GT METALLIC/plateDense with material color. No resource pack.",
+      "importSignature": "58f3dc69d98983faa091c6c6dfe9258db076bbcb0febb3da33f07d7d2ae3378b"
+    },
+    "werkstoffLoader_RuriditFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#a4a4a4"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "b2f9efec51e94e83bd1b492a7712554a9e7d55d683d429ef5961e5d455efe7c9"
+    },
+    "modItem_ForbiddenMagic_GluttonyShard_0": {
+      "sources": [
+        {
+          "archive": "Forbidden.Magic-0.9.18-GTNH.jar",
+          "texture": "assets/forbidden/textures/items/gluttonyshard.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "a45c40596b828c2959fef59f1706b6614984e91659387c8a2f17d0cb3ff7f51c"
+    },
+    "kubaItem_DEFCDraconicSchematic": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/items/defc_schematic_t1.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "45599bc60e5e6d4a8d0149e13d2a4afb1868e0685ee111041d1117f8c48e843b"
+    },
+    "ttItem_eM_energyWirelessMulti4_IV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "cfb9ba74d89936b00355839769f74c3a64a081e3f8fba068a486599853a7081a"
+    },
+    "gtppItem_Energy_Buffer_1by1_UV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "3383a0fe2d7babe81a5b4a748227ef69622a477e4c74ae3033d025ac4eb06a9e"
+    },
+    "naquadahSmallPipe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/pipeSmall.png",
+          "tint": "#323232"
+        }
+      ],
+      "note": "Original GT METALLIC/pipeSmall with material color. No resource pack.",
+      "importSignature": "3b9542a6d7c4e525efafc00ba8d3248b9c75c22812982565fa5f8866ebf57c25"
+    },
+    "ttItem_Machine_BuckConverter_UXV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "9919b844e7b78236bf1bf1e110c1bd0df1b211fc6d8be584e55b88b463c930f9"
+    },
+    "gGMaterial_preciousMetalAlloySuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense.png",
+          "tint": "#9d90c6"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT SHINY/plateSuperdense with material color. No resource pack.",
+      "importSignature": "cb945894fc62f242cb880d337d63119b599812fdb1e21b4169fc807cd84d6c0c"
+    },
+    "gGMaterial_zircaloy4Frame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#8a6e68"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "0cc9b8f795ad3280934d7963f8975e53986fd98b9087096f61e45197106a871e"
+    },
+    "ttItem_eM_energyWirelessMulti4_UV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "0fa8f3d165e5b266c441ae275af6f49095d7877ea5fd7e6b76b73d6ebbc28e48"
+    },
+    "ttItem_eM_energyWirelessMulti16_LuV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "e7125f9f5e50fc3939e2df250099b905005e82ddb3f3246ed1292ea6ff2f2782"
+    },
+    "gGMaterial_signaliumWire2": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt02 with material color. No resource pack.",
+      "importSignature": "ab4259b912cfc07673924f09d3f7f87083d1f11167bfa69440f29c1628a7390a"
+    },
+    "gGMaterial_signaliumCable1": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt01 with material color. No resource pack.",
+      "importSignature": "33b8e6141f8929e225f057c0d7ebdce6dfd83bdb78c12948a14a4ce930582b19"
+    },
+    "triniumDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#c8c8d2"
+        }
+      ],
+      "note": "Original GT SHINY/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "216863974adf9fa5ee5ca197a4b29121e54ceb81234ed9d00a09eadb72db7a9d"
+    },
+    "neutroniumDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#fafafa"
+        }
+      ],
+      "note": "Original GT DULL/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "eae4c375b024017c5a11acae642423c760ce5a20e30072331e01630d11544878"
+    },
+    "gGMaterial_signaliumFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "854f9cebc3697f83bb256adfcbd5bfce4d5919153f3977362950f623c20cf3a6"
+    },
+    "kubaItem_DraconicEvolutionFusionCrafter": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "2c7072a53b62199cef17a6ab996faf9097722e913f212fcfcd513f726c39d4fc"
+    },
+    "drillingFluid": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/fluids/fluid.liquid_drillingfluid.png"
+        }
+      ],
+      "note": "Original GT fluid artwork.",
+      "importSignature": "5d7707a6e225af507c7703d0abe72585579858dd80058f846e159c97b0d75694"
+    },
+    "werkstoffLoader_RhodiumFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#f4f4f4"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "7b983d8f7e0c60caeb5c51192442721523c3d345efe816ebe519dd2848a44ab0"
+    },
+    "gGMaterial_lumiiumCable12": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt12 with material color. No resource pack.",
+      "importSignature": "bc498159d7ef3b0b5329e49536fe18dcb1654ba878c6ef8e8612c41b99bb9ed6"
+    },
+    "gGMaterial_signaliumCable8": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt08 with material color. No resource pack.",
+      "importSignature": "ce615c0f276b7cacf3e7ff69e64c143df580e0bca0c5ef6de172971e69d27407"
+    },
+    "kubaItem_DEFCCasingT5": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/blocks/casing/defc_5.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "536771e5a286200e6ee504f490089704530bfbd9b1865d56d4712cfc5dbfee03"
+    },
+    "gtItem_Battery_Charger_4by4_EV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "120940b2754da0e498210bab5700aba01355e08e6f3104387be34ee20a613826"
+    },
+    "polytetrafluoroethyleneSmallPipe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/pipeSmall.png",
+          "tint": "#646464"
+        }
+      ],
+      "note": "Original GT DULL/pipeSmall with material color. No resource pack.",
+      "importSignature": "44863570143a2734b6e05874ea8e5e2639cb29a1aa60936f4e68d8d3d7a54b1e"
+    },
+    "gGMaterial_signaliumCable12": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt12 with material color. No resource pack.",
+      "importSignature": "a6f1ace52511721d43cdf30f4b2ef12bb500a373003f40da881839b5b78053c5"
+    },
+    "werkstoffLoader_ZirconiumPlasma": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/fluids/fluid.autogenerated.png",
+          "tint": "#afafaf"
+        }
+      ],
+      "note": "Original GT autogenerated fluid silhouette with the registered material color.",
+      "importSignature": "37680d8327c324007d86a21f061ee1c87ca818cf4385b52da1f145a793448bbe"
+    },
+    "nhItem_IrradiantReinforcedChromePlate": {
+      "sources": [
+        {
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
+          "texture": "assets/dreamcraft/textures/items/itemIrradiantReinforcedChromePlate.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "c83886140606712a5eb9b59ccbe62c772d805f8c45c8671539051b3ec7e61c00"
+    },
+    "endstoneImpureDust": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustImpure.png",
+          "tint": "#c8c8c8"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustImpure_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT DULL/dustImpure with material color. No resource pack.",
+      "importSignature": "49a88d477c4c2ecff67d692d8c21cbf682bdf170557ed6cd20c7dacae5d4984d"
+    },
+    "ttItem_eM_energyWirelessMulti16_UXV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "86c94a0a3aba0f7c4b05a394c996c58191fa2c648d023afcdf164b014553e827"
+    },
+    "ttItem_eM_energyWirelessMulti4_ZPM": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "efabcf850ef5f8c97036c0432658b06a6e3c3f05fcb1c08dbe4d96719eadddc6"
+    },
+    "draconiumAwakenedSmallPipe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/pipeSmall.png",
+          "tint": "#f44e00"
+        }
+      ],
+      "note": "Original GT AWOKEN_DRACONIUM/pipeSmall with material color. No resource pack.",
+      "importSignature": "8b9c2cc2aae33110dceaccdc27239eab8fbbaa9144ed36b546188ceab75ad30a"
+    },
+    "werkstoffLoader_Thorium232Plasma": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/fluids/fluid.autogenerated.png",
+          "tint": "#004000"
+        }
+      ],
+      "note": "Original GT autogenerated fluid silhouette with the registered material color.",
+      "importSignature": "7223387a8cb7a571a95cc032b0dfa1c595dfa750bb6a3b7072e0b5b406d8dcbc"
+    },
+    "nhItem_IrradiantReinforcedTungstenSteelPlate": {
+      "sources": [
+        {
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
+          "texture": "assets/dreamcraft/textures/items/itemIrradiantReinforcedTungstenSteelPlate.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "0aef50ca22d9ce69c4397f8924d44a11552309988aaa196e33b58e103fc2d968"
+    },
+    "ttItem_eM_energyWirelessMulti4_UIV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "fe020d17eea089be72d9a76e93942fe1197c40d54d06dad1f4e0fc5071230f14"
+    },
+    "gtppItem_DehydratorCoilWireEV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemDehydratorCoilWire_0.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "dba534a59a29b10db0d43a2e15722584eded2022e86b4b8a920a3160b7bbcdc2"
+    },
+    "netheriteBlock": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/block1.png",
+          "tint": "#ffffff"
+        }
+      ],
+      "note": "Original GT NETHERITE/block with material color. No resource pack.",
+      "importSignature": "4742e037c74c97dc7d11b915a4afe3a21b0e9b07c9a20a61a536469fad45b10b"
+    },
+    "cosmicDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#323237"
+        }
+      ],
+      "note": "Original GT COSMIC_NEUTRONIUM/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "5c5081fdbfa22449b7318a50b780f4280d24968a5d808c12f6d2338523ff824a"
+    },
+    "gGMaterial_marCeM200SuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateSuperdense.png",
+          "tint": "#383030"
+        }
+      ],
+      "note": "Original GT METALLIC/plateSuperdense with material color. No resource pack.",
+      "importSignature": "1495f611d4f653ed7b391dd9d895b98f8800beb22527359462ab7d3f89ccfa62"
+    },
+    "eternityDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/toolHeadDrill.png",
+          "tint": "#c8c8c8"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/CUSTOM/eternity/toolHeadDrill_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT ETERNITY/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "c16b50f36e74428b190a67350900bc1e693eb0e2440f074241259a19e51e53ae"
+    },
+    "gtppItem_Energy_Buffer_1by1_HV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "be81ea516ed7d1049580586ea90ea3bafdc1033d76c35a7ab32b513dbf6f29ec"
+    },
+    "ttItem_eM_energyWirelessMulti4_UMV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "d69935e83a776fbecb593bd7d51804eb61d860b4294b9efd3c363383ced5c5d6"
+    },
+    "gGMaterial_signaliumWire": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt01 with material color. No resource pack.",
+      "importSignature": "2413b0f571cfae635fba0d2827da087098dec48c1a0baf272a849614a07a6903"
+    },
+    "gGMaterial_lumiiumCable2": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt02 with material color. No resource pack.",
+      "importSignature": "c0c75748708a11146b37bc368db200e6b789ca2844f5a68d5b8ddcd0a8541cf2"
+    },
+    "gGMaterial_lumiiumFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "8179d4d6fd7bf83c7c98a89dd2bfed3c3279486fbc7148de93ec6818bd49b724"
+    },
+    "nhItem_IrradiantReinforcedTitaniumPlate": {
+      "sources": [
+        {
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
+          "texture": "assets/dreamcraft/textures/items/itemIrradiantReinforcedTitaniumPlate.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "65100759507ac5bca883085e4eea3a0c508d792e1ea8926273d91ef32de4689b"
+    },
+    "lava_bucket": {
+      "sources": [
+        {
+          "archive": "minecraft-1.7.10-client.jar",
+          "texture": "assets/minecraft/textures/items/bucket_lava.png"
+        }
+      ],
+      "note": "Original Minecraft item.",
+      "importSignature": "a0f0cafbaa688ba04178f9cf2a0715feb383cc77de1ebbb9c86ff481c9113b0e"
+    },
+    "blazeLongRod": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/stickLong.png",
+          "tint": "#ffc800"
+        }
+      ],
+      "note": "Original GT BLAZE/stickLong with material color. No resource pack.",
+      "importSignature": "84cbb25812259929c527bdda22c565481a437c365869f0509061009e7e143cb1"
+    },
+    "gGMaterial_zircaloy2Frame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#a48f8b"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "a46dce1a5b66a74073454c5fd8d4ecf9f9f8883a5e0dc311ecff6ae20da39306"
+    },
+    "werkstoffLoader_RutheniumFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#646464"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "2bb3bc70f6f2f93f414d64bfe7ef309932beebd4cbea1badc878f6e008074bb1"
+    },
+    "gtppItem_Energy_Buffer_1by1_ULV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "a2023e171e03afadee38524313e4e7dae7c52de2062fc2531da6bfb089df87fc"
+    },
+    "gGMaterial_marM200Frame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#515151"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "85ff6909b0d83c398581434174f1b669160619404f289e58f19d107def10fb11"
+    },
+    "modItem_ForbiddenMagic_NetherShard_4": {
+      "sources": [
+        {
+          "archive": "Forbidden.Magic-0.9.18-GTNH.jar",
+          "texture": "assets/forbidden/textures/items/lustshard.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "59fea4a545b8e46c0e508d5640da38c6d9243dc8728f5d9a30efed56226e50e1"
+    },
+    "infinitySmallPipe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/CUSTOM/infinity/pipeSmall.png",
+          "tint": "#c8c8c8"
+        }
+      ],
+      "note": "Original GT INFINITY/pipeSmall with material color. No resource pack.",
+      "importSignature": "6a8434977e6d5286d98864db3733aa58a43b693abcb5ef80ef963252fab09b38"
+    },
+    "gGMaterial_signaliumWire8": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt08 with material color. No resource pack.",
+      "importSignature": "07ef71b1e2e0affd033499e623cf74fbf66bea830c385d9f93ed0dee4bfd358b"
+    },
+    "gGMaterial_incoloy903Frame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#a48f8b"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "62b4b3b31be7e8317e74171fe3dfff4eb3a9e878cc360b545b310c6adacbfee9"
+    },
+    "gGMaterial_adamantiumAlloySuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense.png",
+          "tint": "#a0a0a0"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT SHINY/plateSuperdense with material color. No resource pack.",
+      "importSignature": "d087f9f2f2b545ccbc87df2a750b56ceaef1469e9df4e3efb6fa4c83df7d92bb"
+    },
+    "werkstoffLoader_HDCSSuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense.png",
+          "tint": "#334433"
+        },
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plateSuperdense_OVERLAY.png"
+        }
+      ],
+      "note": "Original GT SHINY/plateSuperdense with material color. No resource pack.",
+      "importSignature": "fe9defef9e1dbd3195d2714b917589335f905b24cab1410fdfa1c8c2dc640672"
+    },
+    "ttItem_eM_energyWirelessMulti64_ZPM": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "710fb62cdcf4dd0ed78c900fcc76766fb805a5dd78a05eaf8baaabdafc5bc5b6"
+    },
+    "ttItem_Machine_BuckConverter_UV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "8e9f2201ce30bff515d408cf176059dd234eb6e74af3f6b5b2158c12c9ff594c"
+    },
+    "gtppItem_Energy_Core_ZPM": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "e257e0c36dcfeba152dc87c595d5679c339fd1e61e6bd6a4a60643b86cb43df4"
+    },
+    "ttItem_Machine_BuckConverter_LuV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "4cae5502da1d0199a6bf39c590872a0041266f7ef050faa0c08b00f52f36ade3"
+    },
+    "naquadahDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#323232"
+        }
+      ],
+      "note": "Original GT METALLIC/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "38ce62ffa49f6292d5dc08e8aecca07306a41b5c2dc903d654c96d63f451b710"
+    },
+    "gGMaterial_lumiiumWire2": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt02 with material color. No resource pack.",
+      "importSignature": "0443a267361c3aa367dc846d58288f45d4d374b2a6a00adf6e9f446ce7f034b4"
+    },
+    "kubaItem_DEFCCasingT3": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/blocks/casing/defc_3.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "45fa6d0655ec59c8ba1ff2bda3956c40f0d77007d4b9ae0114cb579fc662b92b"
+    },
+    "ttItem_eM_energyWirelessMulti16_UV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "e0e1b6faf6725338b2dd68c69cda93d1eea5282746eae74f8a0fec44aad76dd3"
+    },
+    "ttItem_eM_energyWirelessMulti16_UHV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "0a8f2ec35cb331a334e75e8b24e6a0df30532423302dde00408772e01deac754"
+    },
+    "ttItem_eM_energyWirelessMulti64_IV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "45dcc79f8a6382642ac7d4e524d90ca6d72fa3ffd37f89f0a1fc40b68bcead1b"
+    },
+    "gGMaterial_signaliumWire4": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt04 with material color. No resource pack.",
+      "importSignature": "42f53431cf44702bc2fcf8032a3176fb6493d985d38d7a13bd31aa3b5f56d7d7"
+    },
+    "gtppItem_Energy_Buffer_1by1_LuV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "4cd19060dc2f0ffe9085f2290478a215ac725536437b8dea6d72ffc0db68ac41"
+    },
+    "gtppItem_Energy_Buffer_1by1_IV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "702cb66f8fef3afc089d5c9605003a77915f2e6056e981ec963023423a060b42"
+    },
+    "ttItem_Machine_BuckConverter_IV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "22f5dd4c945a0009574437e40db6d2c6f4410d2c411aa430e0120e3599ce8792"
+    },
+    "siliconSGSuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateSuperdense.png",
+          "tint": "#505064"
+        }
+      ],
+      "note": "Original GT METALLIC/plateSuperdense with material color. No resource pack.",
+      "importSignature": "2460f27c970554d52611a7b5530556361c857fa5c50e925f1c60ddd88e386044"
+    },
+    "gtppItem_Energy_Core_UHV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "bdbd5831e324e99738bdc6fc98825afa1676a4aa86d1c680df1d9f779dbfd7f4"
+    },
+    "gtppItem_NeutronPulseManipulator": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/NeutronPulseManipulator.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "8df6c4969ac7af1ae0c497e5ef6c559696a684d3cf6c50056edd83cd066a751a"
+    },
+    "gtppItem_Energy_Core_EV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "09f7dd4b8b8bc30d6a72052e0d41dd3782a591712dff1d1f4f8e042af36d83fb"
+    },
+    "gtppItem_Energy_Buffer_1by1_MV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "0e1bc26a762ece4f8f5e65228ce602ba675fdea59f72796604146394f9117eab"
+    },
+    "nhItem_IrradiantReinforcedTungstenPlate": {
+      "sources": [
+        {
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
+          "texture": "assets/dreamcraft/textures/items/itemIrradiantReinforcedTungstenPlate.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "e8b068f4f151d0a2c207c4818436ff35b346505c5cc87a98d0245c73015aada5"
+    },
+    "gGMaterial_titaniumBetaCFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#c72fcc"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "71cbd1b9359e48b77ca167ddd142c21a5f288947e2a1dc68a38207c7918b36ac"
+    },
+    "ttItem_eM_energyWirelessMulti16_EV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "c4e368b4d62f69e8a5cf1512a92a07e72cb952d38f0cadfd472351fefe17ceb7"
+    },
+    "ttItem_eM_energyWirelessMulti16_UIV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "bfef14eff1fe66b43234a72e0fb5719d6040025176fdf9372c56d9d666d73293"
+    },
+    "gtppItem_Energy_Buffer_1by1_EV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "f0bbf07f9ddd829206a0d54cd67565a30312618d2d1559177d5fb19c9969eb52"
+    },
+    "kubaItem_DEFCCasingT4": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/blocks/casing/defc_4.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "90b679b90bcceac05be62c6f35ce34a58e8f7b8173fbf0ebc8994c12aec14d60"
+    },
+    "gGMaterial_lumiiumCable1": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt01 with material color. No resource pack.",
+      "importSignature": "2f962976619911a65616feeee8f7b7097a0fd9f01e5e26e4432641954f05f635"
+    },
+    "gGMaterial_lumiiumWire12": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt12 with material color. No resource pack.",
+      "importSignature": "cc5854bcfe29f86f2aa49b914df88ef49e6dc4df8d8c29799ca8481fa4481f5c"
+    },
+    "kubaItem_DEFCCasingBase": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/blocks/casing/defc_0.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "edf20554e4213d5b7255d6f18e4243d31f963d86bd6c7ae4da63abf15f13648b"
+    },
+    "gGMaterial_lumiiumWire8": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/wireGt08 with material color. No resource pack.",
+      "importSignature": "e9e5d6e585bfc83f5caad191556ddd5349f80e4024c9ca18b5a472b8201a8847"
+    },
+    "meteoricIronTriplePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateTriple.png",
+          "tint": "#643250"
+        }
+      ],
+      "note": "Original GT METALLIC/plateTriple with material color. No resource pack.",
+      "importSignature": "d1460b509478e14ff49d4536bc3dc9770b26265d59ae5571bf2019eb62b1f177"
+    },
+    "gtppItem_DehydratorCoilWireIV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemDehydratorCoilWire_1.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "8a19780399ac61fcb642b996190d5dadd115930c7ee31b21adb10e86ac3347fe"
+    },
+    "ttItem_Machine_BuckConverter_UHV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "130b61ae29339b60a36294cc8fa6db388f51f82605d0b0c779e8ba0c9e344834"
+    },
+    "ttItem_eM_energyWirelessMulti16_UMV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "b96f56cc3873c3d6581c781275ba6d6c5bfcea2d34261183220eb3ebba80ab6b"
+    },
+    "ggfabItem_AdvAssLine": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "2fc7d81c174c9c6b91e1a53a0258b019825ab04b9578c5894357be088706b576"
+    },
+    "ttItem_eM_energyWirelessMulti64_UEV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "4f431b9f5ec5b2ede2871078149241a16602a74275e8f0a6e2d271ef01222775"
+    },
+    "ttItem_eM_energyWirelessMulti64_UHV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "5e4ef0366b8160f39807e6d6466d049b2c3f79faf663484a6bef4336976f8d54"
+    },
+    "gtppItem_Energy_Core_MV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "c028ed1f41ce08645d9e7b8fdc17fbe14636f893494106e0864018f6c46025fe"
+    },
+    "werkstoffMaterialPool_IodineDustSmall": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustSmall.png",
+          "tint": "#ab28af"
+        }
+      ],
+      "note": "Original GT FLUID/dustSmall with material color. No resource pack.",
+      "importSignature": "e1ab5355bf6a0d58e1f4f293820389d3fc86fe61ce55cadb8a46737edd68e823"
+    },
+    "ttItem_eM_energyWirelessMulti64_UIV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "416cacb51e49b872e294192156b54907b9243a107ae816a9b409d82469d42216"
+    },
+    "kubaItem_DEFCChaoticSchematic": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/items/defc_schematic_t4.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "f4d294e2ddeb83d432a38f50d6b60e8446754a76654c8495c55e26808ce8934e"
+    },
+    "gGMaterial_lumiiumCable16": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#e8f224"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt16 with material color. No resource pack.",
+      "importSignature": "9278fb0527984566e80c95e3eb629b4a1df2bbb083b39723b36ec2a58da8042b"
+    },
+    "nhBlock_BloodyIchorium": {
+      "sources": [
+        {
+          "archive": "GTNewHorizonsCoreMod-2.9.99.jar",
+          "texture": "assets/dreamcraft/textures/blocks/blockBloodyIchorium.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "c0c56f94fc41bd5668ed903781ae8a159065ee13ede70ab41ea8881098f78581"
+    },
+    "enderiumSmallPipe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/pipeSmall.png",
+          "tint": "#599187"
+        }
+      ],
+      "note": "Original GT DULL/pipeSmall with material color. No resource pack.",
+      "importSignature": "e8b7fc683e459a7bb317319c8b1bb75f0db1536ff38d0f3a843e357cf69af5bd"
+    },
+    "werkstoffMaterialPool_MuMetalFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#d2e6e1"
+        }
+      ],
+      "note": "Original GT METALLIC/frameGt with material color. No resource pack.",
+      "importSignature": "36fcb8c3e482ea616d18f3b7e3b10b7d93ba4bd30ab8e3ac85c71a3df1395553"
+    },
+    "gGMaterial_signaliumCable4": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt04 with material color. No resource pack.",
+      "importSignature": "91a65dc3a8294b6a880957f8649c7aecdb63e2069af8a9a7ed356f0e4e1be9dd"
+    },
+    "ttItem_eM_energyWirelessMulti16_IV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1b1a9d63febeb2be9ea0c33128f357197c5191f6f5a3eec6c898d529aee466f6"
+    },
+    "spacetimeSmallPipe": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/CUSTOM/spacetime/pipeSmall.png",
+          "tint": "#ffffff"
+        }
+      ],
+      "note": "Original GT SPACETIME/pipeSmall with material color. No resource pack.",
+      "importSignature": "a67225c1e8370033269d73a69205e06f36375905b9689aedaec7db532f631a1d"
+    },
+    "modItem_IndustrialCraft2_itemDensePlates_7": {
+      "sources": [
+        {
+          "archive": "industrialcraft-2-2.2.828-experimental.jar",
+          "texture": "assets/ic2/textures/items/resources/itemDensePlateObsidian.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "0d1c852774e5907e4bdce1eff22b13c5a59652f0432646a7354945e26163b11b"
+    },
+    "ttItem_eM_energyWirelessMulti4_UEV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "84a91d276cf61d1c2ad0c757e073506564233a2498086fab5ba06fe0e94dd96e"
+    },
+    "gGMaterial_enrichedNaquadahAlloySuperdensePlate": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/plateSuperdense.png",
+          "tint": "#160740"
+        }
+      ],
+      "note": "Original GT METALLIC/plateSuperdense with material color. No resource pack.",
+      "importSignature": "b82431c650015cebb3d70fa8ff86bcfc1a6ac742cdd69ab084d6a5ffeddb402b"
+    },
+    "gGMaterial_signaliumCable2": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
+          "tint": "#d44000"
+        }
+      ],
+      "note": "Original GT SHINY/cableGt02 with material color. No resource pack.",
+      "importSignature": "9a73be117a3abc7421628dd3cda94bda93deb2e73f08914a36eee4d3acbaf874"
+    },
+    "kubaItem_DEFCCasingT2": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/kubatech/textures/blocks/casing/defc_2.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "03ba5a1292eaf46d9eb5134543a2416a958dbad3c0ac6134de8cd3ca3e0181ec"
+    },
+    "ttItem_eM_energyWirelessMulti4_UXV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "df0c63aad8e971a3805b066f2a2a58881535d9d7fb6aad5f9a97affe92977b52"
+    },
+    "naquadahAlloyDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#282828"
+        }
+      ],
+      "note": "Original GT METALLIC/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "34e3b5bab4b565ff9125497a523e84ef7028288c073f6817fb2e9d7f0a22f371"
+    },
+    "ttItem_Machine_BuckConverter_ZPM": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "f08387ae12b6c41d7900e58dbf772f8c0e4d0090165d1299ca3ad98e53674aec"
+    },
+    "modItem_ForbiddenMagic_NetherShard_3": {
+      "sources": [
+        {
+          "archive": "Forbidden.Magic-0.9.18-GTNH.jar",
+          "texture": "assets/forbidden/textures/items/prideshard.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "47e223f4fa17a64d01ae7b7f5453a1daf8d389a32f1e84788d33828f0bad0c83"
+    },
+    "gtItem_Background_Radiation_Casing": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/RADIATION_ABSORBENT_CASING.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "e3bad3bc00ebe87864bb812449ce011832f3f811e0964d7d2832eb8164d5a1bd"
+    },
+    "iridiumDrillHead": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadDrill.png",
+          "tint": "#f0f0f5"
+        }
+      ],
+      "note": "Original GT DULL/toolHeadDrill with material color. No resource pack.",
+      "importSignature": "ffbddf1c3cda3e8f89ddf4c220289c1c706808e83f0e846212d366c74f0dd03b"
+    },
+    "werkstoffMaterialPool_IodineDustTiny": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustTiny.png",
+          "tint": "#ab28af"
+        }
+      ],
+      "note": "Original GT FLUID/dustTiny with material color. No resource pack.",
+      "importSignature": "1abdee423785ec474c9b43a69188a16e24661f56b6a07e99c7c2cd9066cbafa6"
+    },
+    "gtppItem_Energy_Core_UV": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/miscutils/textures/items/itemBufferCore.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "c9c2b180b2e249b23c97512ebf21b7884f453acc3eaba8bd259e09f224138688"
+    },
+    "gGMaterial_atomicSeparationCatalystFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#e85e0c"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "d33725a182fc5695d1a2f925696317e248a93b553c458ea1f0a067363994b324"
+    },
+    "gGMaterial_metastableOganessonFrame": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/frameGt.png",
+          "tint": "#14397f"
+        }
+      ],
+      "note": "Original GT SHINY/frameGt with material color. No resource pack.",
+      "importSignature": "80481191485c94418d3d9aba0c1c225f862de32c0b457c9b44c6e1be876a8646"
+    },
+    "gtppItem_Energy_Buffer_1by1_MAX": {
+      "sources": [
+        {
+          "archive": "gregtech-5.09.54.265.jar",
+          "texture": "assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "bc80b9cd1bba196b024d0f1b1cdf514b63dd066f7b0dca8f1d026e1414e93cb0"
+    },
+    "modItem_Botania_manaResource_1": {
+      "sources": [
+        {
+          "archive": "Botania-1.13.42-GTNH.jar",
+          "texture": "assets/botania/textures/items/manaPearl.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "053dc2026c7b938535ec3b8828d62691f5dea515d2d4d509fb8ee135b338b02b"
+    },
+    "magicResearch_OCULUS": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "modItem_Thaumcraft_ItemEldritchObject_0": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/eldritch_object.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1c18b59527d691b5339393d77f57f9dd8147f5ba3931333fd764e86a85292813"
+    },
+    "magicResearch_EMINENCESTONE": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "magicResearch_ICHORIUM": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "modItem_ExtraUtilities_darkportal_0": {
+      "sources": [
+        {
+          "archive": "extrautilities-1.2.12.jar",
+          "texture": "assets/extrautils/textures/blocks/dark_portal.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "adf7f61637210f42eb0472c24d969bec56c0e37595803442bdb6e306b4933006"
+    },
+    "modItem_ThaumicTinkerer_kamiResource_1": {
+      "sources": [
+        {
+          "archive": "ThaumicTinkerer-2.12.34.jar",
+          "texture": "assets/ttinkerer/textures/items/ichorCloth.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "285434e21dbd3aec720296b6a7db13a001a2dd03c7a2c1464253b1f76e8d61ef"
+    },
+    "modItem_Thaumcraft_ItemResource_11": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/taint_slime.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "9e7de751d10989170adf9afa745ab641145357bf3f0e1ce5083ee41209b93b7b"
+    },
+    "modItem_ThaumicTinkerer_kamiResource_0": {
+      "sources": [
+        {
+          "archive": "ThaumicTinkerer-2.12.34.jar",
+          "texture": "assets/ttinkerer/textures/items/ichor.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "bbe0ab8e0416e507fea8fc9348bbb29fe87469bb7db2710e8ebe27134d199561"
+    },
+    "modItem_Thaumcraft_blockJar_0": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/blocks/jar_side.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "06d20317251885e9e9db119ca92f22463551d50af6e5617a3d9f2f4c82911772"
+    },
+    "magicResearch_ICHOR": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "magicResearch_ELDRITCH": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "modItem_Botania_manaResource_4": {
+      "sources": [
+        {
+          "archive": "Botania-1.13.42-GTNH.jar",
+          "texture": "assets/botania/textures/items/terrasteel.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "e2dea5913c8fcf4c8f140ac7d5c8f66e9c394fe3cf068aa06f5359726fbec9cc"
+    },
+    "modItem_BloodMagic_bloodMagicBaseItems_28": {
+      "sources": [
+        {
+          "archive": "BloodMagic-1.9.16.jar",
+          "texture": "assets/alchemicalwizardry/textures/items/baseItemLifeShard.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "7dca914b9e6d94b3525137eb17af004c59ca61c1114e3cb827641a26139d35f0"
+    },
+    "magicResearch_INFUSION": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "magicResearch_DIMENSIONSHARDS": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "modItem_BloodMagic_bloodMagicBaseItems_29": {
+      "sources": [
+        {
+          "archive": "BloodMagic-1.9.16.jar",
+          "texture": "assets/alchemicalwizardry/textures/items/baseItemSoulShard.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "b8aea0c8be071d64b5a932f5f3fdc2ad58696197d57df81e2c15d0ee6cf1d480"
+    },
+    "modItem_Thaumcraft_ItemEldritchObject_3": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/eldritch_object_3.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "ae5e7c4e0c81840461edb8015fb6cc74b950f5e5535eac2ce3d58a91472f4818"
+    },
+    "magicResearch_PORTALDEEPDARK": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "modItem_BloodMagic_demonBloodShard_0": {
+      "sources": [
+        {
+          "archive": "BloodMagic-1.9.16.jar",
+          "texture": "assets/alchemicalwizardry/textures/items/DemonBloodShard.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "2c800d031db7ebac24f828904eef6d0e6df1cc5bcef168c33d2371b6e25fa68f"
+    },
+    "magicResearch_PORTALMILLENIUM": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "modItem_Botania_manaResource_2": {
+      "sources": [
+        {
+          "archive": "Botania-1.13.42-GTNH.jar",
+          "texture": "assets/botania/textures/items/manaDiamond.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "ed523b596c0571c816ba0ad685debcdf51af48bf0cbcffbf1b1fe6274d7f8a0e"
+    },
+    "magicResearch_DEMON": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/researchnotes.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "1ad69a30da361ff11af12237d018cc746d14720db195a772555bad28d30f2d7c"
+    },
+    "modItem_Botania_manaResource_5": {
+      "sources": [
+        {
+          "archive": "Botania-1.13.42-GTNH.jar",
+          "texture": "assets/botania/textures/items/lifeEssence.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "45861e0f95cf79c87df7b65ae219e70df3e93ba04dd241388f42b66e2147bf0f"
+    },
+    "modItem_Thaumcraft_ItemShard_4": {
+      "sources": [
+        {
+          "archive": "Thaumcraft-1.7.10-4.2.3.5.jar",
+          "texture": "assets/thaumcraft/textures/items/shard.png"
+        }
+      ],
+      "note": "Original registered item texture from the pinned GTNH mod jars.",
+      "importSignature": "441370a431285d01372a0f5b3a31023f5373fd429f596fe39daaec8a439be3ff"
     }
   }
 }

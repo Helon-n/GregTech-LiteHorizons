@@ -11,7 +11,7 @@ export function guaranteedOutputs(r){
   const outputs={};for(const slot of outputRolls(r))if(slot.chance===10000)outputs[slot.id]=(outputs[slot.id]||0)+slot.count;return outputs;
 }
 export function yieldLabel(r,id){
-  if(r.randomChoice){const q=r.randomChoice,total=Object.values(q.weights).reduce((n,w)=>n+w,0);return `${q.count} × ${q.rolls} 次抽取（单次 ${(q.weights[id]/total*100).toFixed(3)}%）`;}
+  if(r.randomChoice){const q=r.randomChoice,total=Object.values(q.weights).reduce((n,w)=>n+w,q.noneWeight??0);return `${q.count} × ${q.rolls} 次抽取（单次 ${(q.weights[id]/total*100).toFixed(3)}%）`;}
   if(r.eoh)return `${r.outputs[id]}（整批成功后产出，受稳定场影响）`;
   if(r.incubation)return `${r.outputs[id]}（每刻 ${r.incubation.taskChance*100}% 概率培养，原料 ${r.incubation.lossChance*100}% 概率消耗）`;
   if(r.solarSalt)return '1∶1（转换量随蓄热变化）';
@@ -25,10 +25,10 @@ export function yieldLabel(r,id){
 }
 export function rollOutputs(game,r){
   if(r.randomChoice){
-    const q=r.randomChoice,entries=Object.entries(q.weights),total=entries.reduce((n,[,w])=>n+w,0),outputs={};
+    const q=r.randomChoice,entries=Object.entries(q.weights),total=entries.reduce((n,[,w])=>n+w,q.noneWeight??0),outputs={};
     for(let i=0;i<q.rolls;i++){
       let pick=game.nextDropRandom()*total;
-      for(let j=0;j<entries.length;j++){const [id,w]=entries[j];pick-=w;if(pick<0||j===entries.length-1){outputs[id]=(outputs[id]??0)+q.count;break;}}
+      for(let j=0;j<entries.length;j++){const [id,w]=entries[j];pick-=w;if(pick<0){outputs[id]=(outputs[id]??0)+q.count;break;}}
     }
     return outputs;
   }
@@ -43,7 +43,7 @@ export function rollOutputs(game,r){
 }
 export function validBatchOutputs(r,outputs){
   if(!outputs||typeof outputs!=='object'||Array.isArray(outputs)||Object.keys(outputs).some(id=>!Object.hasOwn(r.outputs,id)))return false;
-  if(r.randomChoice){const q=r.randomChoice;return Object.values(outputs).every(n=>Number.isInteger(n)&&n>0&&n%q.count===0)&&Object.values(outputs).reduce((n,v)=>n+v,0)===q.count*q.rolls;}
+  if(r.randomChoice){const q=r.randomChoice,total=Object.values(outputs).reduce((n,v)=>n+v,0);return Object.values(outputs).every(n=>Number.isInteger(n)&&n>0&&n%q.count===0)&&(q.noneWeight?total<=q.count*q.rolls:total===q.count*q.rolls);}
   if(r.sparging){
     const {gas,amount,maximum,byproducts}=r.sparging;let left=amount;
     for(const id of byproducts){const n=outputs[id];if(!Number.isInteger(n)||n<1||n>Math.min(maximum,left-1))return false;left-=n;}

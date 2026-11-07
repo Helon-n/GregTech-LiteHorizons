@@ -18,7 +18,7 @@ test('resource drops reach both range endpoints; ordinary primary resources stay
   for(const [roll,amount]of [[0,0],[.34,1],[1-Number.EPSILON,2]]){
     g.nextDropRandom=()=>roll;assert.deepEqual(g.collectDrops(skeleton).drops,amount?{bone:amount}:{});
   }
-  for(const n of g.catalog.gatherNodes)for(const[id,{min,max}]of Object.entries(g.dropRanges(n))){assert.ok(Number.isInteger(min)&&Number.isInteger(max));assert.ok(min>=0&&max>=min);if(id===n.output&&!Object.hasOwn(hunts,n.id)&&n.id!=='skeletonHunt'&&!n.dropProbabilities?.[id])assert.ok(min>=1,n.id);}
+  for(const n of g.catalog.gatherNodes)for(const[id,{min,max}]of Object.entries(g.dropRanges(n))){assert.ok(Number.isInteger(min)&&Number.isInteger(max));assert.ok(min>=0&&max>=min);if(id===n.output&&!Object.hasOwn(hunts,n.id)&&n.id!=='skeletonHunt'&&!n.dropProbabilities?.[id]&&!n.exclusiveDrops?.some(drop=>Object.hasOwn(drop.items,id)))assert.ok(min>=1,n.id);}
 });
 
 test('automatic collectors roll each machine independently and never before its cycle',()=>{

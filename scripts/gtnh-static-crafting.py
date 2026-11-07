@@ -116,6 +116,11 @@ def import_crafting(importer, paths, split_args, matching, scopes_at):
             for prefix in sorted(prefixes,key=len,reverse=True):
                 if prefix and key.startswith(prefix) and key[len(prefix):] in importer.materials:
                     s='GTOreDictUnificator.get(OrePrefixes.'+prefix+',Materials.'+key[len(prefix):]+',1)';found=True;break
+                if prefix and key.startswith(prefix):
+                    suffix=key[len(prefix):].lower()
+                    material=next((k for k in importer.gtpp_materials.values() if re.sub(r'[^a-z0-9]','',importer.materials[k]['registry'].lower())==suffix),None)
+                    if material:
+                        return [(importer.material(material,prefix),1)]
             if not found:raise ValueError('unresolved crafting dictionary '+key)
         if re.fullmatch(r'(?:Blocks|Items)\.\w+',s):s='new ItemStack('+s+',1)'
         if re.fullmatch(r'(?:ItemList|GregtechItemList|NHItemList)\.\w+',s):s+='.get(1)'
@@ -153,6 +158,8 @@ def import_crafting(importer, paths, split_args, matching, scopes_at):
         calls=list(re.finditer(pattern,text))
         assignments=list(re.finditer(r'\b(?:final\s+)?(?:ItemStack|Block|Item)\s+(\w+)\s*=\s*([^;]+);',text))
         string_constants={m[1]:m[2] for m in re.finditer(r'\bstatic\s+final\s+String\s+(\w+)\s*=\s*("[^"\n]*"|(?:Mods\.)?\w+\.ID)\s*;',text)}
+        for namespace,key in re.findall(r'^import static gtPlusPlus.core.material.(\w+)\.(\w+);',text,re.M):
+            string_constants[key]=namespace+'.'+key
         scopes=scopes_at(text,[m.start() for m in calls]+[m.start() for m in assignments])
         for match in calls:
             line=text.count('\n',0,match.start())+1

@@ -44,7 +44,7 @@ for(const r of c.recipes){
   if(r.incubation){const q=r.incubation;item(q.catalyst,r.id);item(q.seedFluid,r.id);if(!r.tools?.[q.catalyst]||!(q.taskChance>0&&q.taskChance<=1)||!(q.lossChance>=0&&q.lossChance<=1))fail('incubation',r.id,q);}
   if(r.randomChoice){
     const q=r.randomChoice;
-    if(!q.weights||Object.keys(q.weights).length!==Object.keys(r.outputs).length||!Number.isInteger(q.count)||q.count<1||![1,16].includes(q.rolls)||Object.entries(q.weights).some(([id,w])=>!Number.isFinite(w)||w<=0||r.outputs[id]!==q.count*q.rolls))fail('weighted-output',r.id,q);
+    if(!q.weights||Object.keys(q.weights).length!==Object.keys(r.outputs).length||!Number.isInteger(q.count)||q.count<1||!Number.isInteger(q.rolls)||q.rolls<1||q.rolls>4096||(q.noneWeight!==undefined&&(!Number.isInteger(q.noneWeight)||q.noneWeight<0))||Object.entries(q.weights).some(([id,w])=>!Number.isFinite(w)||w<=0||r.outputs[id]!==q.count*q.rolls))fail('weighted-output',r.id,q);
   }
   if(r.bath){item(r.bath.fluid,r.id);item(r.bath.waste,r.id);if(!(r.bath.divisor>0))fail('bath',r.id,r.bath.divisor);}
   for(const[id,n]of Object.entries(r.toolWear??{})){item(id,r.id);if(!r.tools?.[id]||!Number.isInteger(n)||n<1)fail('tool-wear',r.id,id);}
@@ -101,6 +101,14 @@ for(const r of c.recipes){
 }
 const gathered=new Set();
 for(const node of c.gatherNodes){
+  for(const id of [node.requires,...(node.requiresAll??[])].filter(Boolean))item(id,node.id);
+  if(node.exclusiveDrops){
+    if(node.exclusiveDrops.reduce((sum,d)=>sum+d.chance,0)>1)fail('exclusive-drop-total',node.id);
+    for(const d of node.exclusiveDrops){
+      if(!(d.chance>0&&d.chance<=1))fail('exclusive-drop-chance',node.id);
+      for(const [id,n]of Object.entries(d.items)){item(id,node.id);const range=node.dropRanges?.[id];if(!Number.isInteger(n)||n<1||!range||n>range.max)fail('exclusive-drop-count',node.id,id);}
+    }
+  }
   gathered.add(node.output);for(const id of Object.keys(c.nodeDrops[node.id]??{}))gathered.add(id);
   for(const [id,p]of Object.entries(node.dropProbabilities??{})){
     const range=node.dropRanges?.[id];
@@ -171,7 +179,7 @@ const installedConditions=(r,m)=>{
 };
 while(buildingChanged){
   buildingChanged=false;constructionPasses++;
-  for(const n of c.gatherNodes)if((!n.requires||constructed.has(n.requires))&&(!['moon','mars','belt'].includes(n.id)||constructed.has(n.id==='belt'?'advancedRocket':'rocket'))&&(n.stage!==0||['forest','surface','river'].includes(n.id)||constructed.has('flintPick')))for(const id of Object.keys(c.nodeDrops[n.id]??n.dropRanges??{[n.output]:1}))addConstructed(id);
+  for(const n of c.gatherNodes)if((!n.requires||constructed.has(n.requires))&&(n.requiresAll??[]).every(id=>constructed.has(id))&&(!['moon','mars','belt'].includes(n.id)||constructed.has(n.id==='belt'?'advancedRocket':'rocket'))&&(n.stage!==0||['forest','surface','river'].includes(n.id)||constructed.has('flintPick')))for(const id of Object.keys(c.nodeDrops[n.id]??n.dropRanges??{[n.output]:1}))addConstructed(id);
   for(const m of machineList)if(Object.keys(m.cost).every(id=>constructed.has(id)))addConstructed(m.id);
   for(const r of c.recipes){
     const deps=[...Object.keys(r.inputs),...Object.keys(r.tools??{}),...extraInputs(r)];
@@ -181,6 +189,9 @@ while(buildingChanged){
   for(const s of dynamicSources)if(s.inputs.every(id=>constructed.has(id)))for(const id of s.outputs)addConstructed(id);
 }
 const constructionReachability={assumptions:'Static dependencies only; ignores quantities, actual energy-network reachability, machine upgrade costs, timing, probability and spatial mechanics. Includes machine construction, gather tools/rockets, fluid containers, research/cultures, cleanroom, coils, BEC nanites/network and EOH space fields. Includes beam particle/module dependencies but ignores collision energy thresholds. No chapter gating.',passes:constructionPasses,reachable:constructed.size,unreachable:[...used].filter(id=>!constructed.has(id)),unsupportedRecipes:c.recipes.filter(r=>!supported.has(r.id)).map(r=>r.id),milestones:c.milestones.map((goals,stage)=>({stage,missing:Object.keys(goals).filter(id=>!constructed.has(id))}))};
+constructionReachability.unbuiltMachines=machineList.filter(m=>!constructed.has(m.id)).map(m=>({id:m.id,missing:Object.keys(m.cost).filter(id=>!constructed.has(id))}));
+for(const goal of constructionReachability.milestones)for(const id of goal.missing)fail('mainline-source-gap',id,{stage:goal.stage});
+for(const m of constructionReachability.unbuiltMachines)fail('machine-source-gap',m.id,m.missing);
 const missingIcons=[];
 await Promise.all([...Object.values(c.items)].map(async i=>{try{await access(path.join(root,'src/assets/gtnh',`${i.icon||i.id}.svg`));}catch{missingIcons.push({id:i.id,icon:i.icon||i.id,name:i.name});}}));
 const provenance={};

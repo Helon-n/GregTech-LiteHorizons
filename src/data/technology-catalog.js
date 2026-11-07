@@ -1,4 +1,7 @@
 import {EOH_REFERENCE as EOH} from './eoh-reference.js';
+import {SOURCE_CLOSURE_REFERENCE as SOURCE_CLOSURE} from './source-closure-reference.js';
+import {MAGIC_REFERENCE as MAGIC} from './magic-reference.js';
+import {BOOTSTRAP_REFERENCE as BOOTSTRAP} from './bootstrap-reference.js';
 import {VOID_MINER_REFERENCE as VOID} from './void-miner-reference.js';
 import {BEAMLINE_REFERENCE as BEAM} from './beamline-reference.js';
 import {INCUBATOR_REFERENCE as INCUBATOR} from './incubator-reference.js';
@@ -32,7 +35,7 @@ export const COILS=Object.freeze([
 
 // Only original recipes with a replacement output are retired. The remaining
 // idle construction/space progression is explicitly tracked in the coverage file.
-export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNodes}){
+export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNodes,containerTypes}){
   Object.assign(legacy,RETIRED_TECHNOLOGY_RECIPES);
   for(const [id,item]of Object.entries(RETIRED_CATALOG_ITEMS))items[id]??={...item};
   for(const[id,item]of Object.entries(T.items)){
@@ -104,6 +107,36 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
     items[id].icon=controller;
   }
   machines.industrialPackager.processes.push('pack');
+  containerTypes.magicEssentiaJar={name:'源质罐',capacity:64,accepts:Object.values(MAGIC.essentia),stage:2};
+  // Compact paid stations are the idle representation of spatial magic builds.
+  // Production still spends actual aspects, research and altar LP.
+  for(const [id,title,processes,cost,extra]of [
+    ['thaumicDesk','研究台',['thaumicStudy'],{wood:8,glass:2,gold:2,paperPlate:8},{}],
+    ['essentiaDistillery','源质蒸馏炉',['essentiaDistill'],{brick:24,glass:8,iron:8},{}],
+    ['infusionAltar','注魔祭坛',['thaumicInfusion'],{stone:32,obsidian:8,gold:8,diamond:4,infusedOrderGem:16},{capabilities:{instability:32}}],
+    ['arcaneWorkbench','奥术工作台',['arcaneCraft'],{wood:16,gold:8,diamond:4,infusedOrderGem:16},{aura:{capacity:150,recharge:.5}}],
+    ['bloodAltar5','血之祭坛 · 五级',['bloodAltar'],{stone:108,gold:16,diamond:16,obsidian:64},{capabilities:{bloodAltarTier:5}}],
+  ]){
+    machine(id,title,7,processes,{cost,energy:null,power:0,icon:MAGIC.jar,...extra});items[id].icon=MAGIC.jar;
+  }
+  for(const row of SOURCE_CLOSURE.solarFactories){
+    const id='solarFactory'+row.tier;
+    machine(id,'太阳能工厂 · '+row.tier+' 型',4,['solarFactory'],{cost:row.cost,icon:row.controller,capabilities:{solarTier:row.tier},energy:{kind:'consumer',tier:3,maxTier:14},description:'消耗配方所需的硅晶圆、材料和流体；按配方的基础产量生产'});
+    items[id].icon=row.controller;
+  }
+  for(const row of BOOTSTRAP.spaceModules){
+    const id='spaceMiner'+row.tier;
+    const cps=row.tier===3?1000:90;
+    machine(id,'太空采矿模块 · '+row.tier+' 型',row.voltageTier+1,['spaceMine'],{cost:{[row.controller]:1,[T.researchHardware.cpu]:Math.ceil(cps/T.researchHardware.nominalCPU)},icon:row.controller,orbital:true,capabilities:{miningModule:row.tier,computation:cps},energy:{kind:'consumer',tier:row.voltageTier,maxTier:row.voltageTier},description:'部署在太空电梯轨道，消耗钻头、杆和氦等离子体；无人机可重复使用，算力来自建造时装入的处理器'});
+    items[id].icon=row.controller;
+  }
+  machine('botaniaWorkshop','魔力工坊',7,['manaInfuse','terraPlate','gaiaEncounter'],{cost:{stone:64,[BOOTSTRAP.lapisBlock]:4,gold:16,enderPearlGem:8,diamond:8},energy:null,power:0,icon:BOOTSTRAP.mana.icon,mana:BOOTSTRAP.mana,description:'煤炭供给火红莲，魔力存于本机魔力池；凝聚泰拉钢及进行盖亚远征'});
+  items.botaniaWorkshop.icon=BOOTSTRAP.mana.icon;
+  for(const row of SOURCE_CLOSURE.draconicFusionCrafters){
+    const id='draconicFusionCrafter'+row.tier;
+    machine(id,'龙之融合制造机 · '+row.tier+' 级',8,['draconicFusion'],{cost:row.cost,icon:row.controller,capabilities:{defcTier:row.tier},energy:{kind:'consumer',tier:8,maxTier:14},description:'装入对应核心设计图，按外壳等级进行融合制造；设计图可重复使用'});
+    items[id].icon=row.controller;
+  }
   for(const row of BIOCHEMISTRY.controllers){
     const id='bioLab'+row.code;
     machine(id,row.code+' 生物实验室',row.tier+1,['bioLab'],{cost:{[row.item]:1},icon:row.item,
@@ -172,14 +205,17 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
     items[id].icon=LATE.controller;
   }
   for(const [kind,title,processes]of [['storage','凝聚态存储器',[]],['generator','凝聚态发生器',['condensateGenerate']],['assembler','凝聚态组装器',['condensateAssemble']]]){
-    const ref=BEC.machines[kind],cost={...ref.cost,[LATE.feeds[13]]:1,[LATE.connectors.Hatch_BEC_Connector]:1};
+    // The original structures accept energy/exotic-energy hatches without a
+    // UXV minimum. A paid UIV feed bootstraps the network; higher power needs
+    // a real hatch upgrade rather than future-material construction costs.
+    const ref=BEC.machines[kind],cost={...ref.cost,[LATE.feeds[11]]:1,[LATE.connectors.Hatch_BEC_Connector]:1};
     if(kind==='assembler'){
       for(const [id,n]of Object.entries(BEC.machines.node.cost))cost[id]=(cost[id]??0)+n;
       cost[LATE.naniteHatch]=15;cost[LATE.connectors.Hatch_LineOfSight_Connector]=2;
     }
     const id='bec'+kind;
     machine(id,title,14,processes,{bec:kind,cost,icon:ref.controller,...(kind==='storage'?{facility:'becStorage'}:{}),
-      energy:{kind:'consumer',tier:13,maxTier:13,inputAmps:64,recipeAmps:64,bufferTicks:4096},description:kind==='storage'?'场强决定容量及每刻耗电；断电会失去凝聚态':kind==='assembler'?'按投入槽顺序更换纳米蜂群；连接独立凝聚态网络':'将材料转成凝聚态，送入指定存储器'});
+      energy:{kind:'consumer',tier:11,maxTier:13,inputAmps:64,recipeAmps:64,bufferTicks:4096,advancedFeed:true},description:kind==='storage'?'场强决定容量及每刻耗电；断电会失去凝聚态':kind==='assembler'?'按投入槽顺序更换纳米蜂群；连接独立凝聚态网络':'将材料转成凝聚态，送入指定存储器'});
     items[id].icon=ref.controller;
   }
   for(const [kind,title,processes,tier]of [['source','粒子源室',['beamSource'],5],['crafter','束流合成机',['beamCraft'],6],['collider','大型强子对撞机',[],8]]){

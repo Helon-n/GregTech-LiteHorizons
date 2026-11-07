@@ -23,6 +23,7 @@ test('implemented mainline material goals are reachable without chapter-filtered
     };
     for(const n of CATALOG.gatherNodes){
       if(n.requires&&!known.has(n.requires))continue;
+      if((n.requiresAll??[]).some(id=>!known.has(id)))continue;
       if(n.id==='belt'&&!known.has('advancedRocket'))continue;
       if(['moon','mars'].includes(n.id)&&!known.has('rocket'))continue;
       if(n.stage===0&&!['forest','surface','river'].includes(n.id)&&!known.has('flintPick'))continue;
@@ -34,14 +35,12 @@ test('implemented mainline material goals are reachable without chapter-filtered
       if(dependencies.every(id=>known.has(id))&&(r.process==='craft'||[...built].some(id=>machineSupportsRecipe(machines[id],r))))Object.keys(r.outputs).forEach(add);
     }
   }
-  // Keep the documented source gaps explicit. Any new unreachable goal or
-  // machine fails; supplying test inventory below is not proof of its source.
-  const knownGoalGaps=new Set(['eternity','stargate']);
-  const knownMachineGaps=new Set(['cosmicFabricator','bioVatUMV','bioVatUXV','spinmatron4','becstorage','becgenerator','becassembler','eyeOfHarmony','exoFoundry1','exoFoundry2','exoFoundry3','voidMiner3','godforge','godforgeMolten','godforgeExotic','godforgeMagmatter','purificationPlant']);
+  // No source-gap exemptions: every goal and machine needs a material route.
+  // This static graph does not prove power-network reachability or quantities.
   for(let stage=0;stage<STAGES.length;stage++)for(const id of Object.keys(CATALOG.milestones[stage])){
-    if(stage<14||!knownGoalGaps.has(id))assert.ok(known.has(id),`Material source missing for goal ${stage}: ${id}`);
+    assert.ok(known.has(id),`Material source missing for goal ${stage}: ${id}`);
   }
-  for(const m of Object.values(machines))if(!knownMachineGaps.has(m.id))assert.ok(built.has(m.id),'New material source gap for machine '+m.id);
+  for(const m of Object.values(machines))assert.ok(built.has(m.id),'Material source gap for machine '+m.id);
   assert.ok(built.has('industrialElectrolyzer'),'regression: industrial electrolyzer needs no future-chapter permission');
 });
 
@@ -84,6 +83,7 @@ test('click progress survives saves and old timers migrate without advancing dur
 test('all unlocked resource nodes award their declared drops after the required number of clicks',()=>{
   const g=new Game();g.state.stage=15;tanks(g,8);g.add({flintPick:1,rocket:1,advancedRocket:1});
   for(const node of CATALOG.gatherNodes){
+    g.add(Object.fromEntries((node.requiresAll??[]).map(id=>[id,1])));
     const before=Object.fromEntries(Object.keys(CATALOG.items).map(id=>[id,g.quantity(id)])),expected=g.dropRanges(node);
     for(let i=1;i<g.gatherClicks(node);i++){assert.equal(g.gather(node.id).completed,false);for(const id of Object.keys(expected))assert.equal(g.quantity(id),before[id]);}
     const outcome=g.gather(node.id);assert.equal(outcome.completed,true);

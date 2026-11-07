@@ -1,4 +1,5 @@
 import {initializeEOH,isEOH,eohRuntime,runEOH} from './eoh.js';
+import {initializeAura,rechargeAura,auraFailure,spendAura} from './magic.js';
 import {initializeBeam,beamKind,beamSourceRuntime,runBeamCrafter,runCollider,ageBeamPackets} from './beamline.js';
 import {runIncubator} from './incubator.js';
 import {foundryTier,foundryRuntime,foundryFailure,beginFoundry,foundryBatchCount,advanceFoundry} from './foundry.js';
@@ -56,6 +57,7 @@ export function energyCapacity(game,d){
   return spec.kind==='consumer'?voltage(d)*(spec.bufferTicks??64):0;
 }
 export function initializeEnergy(game,d,reset=false){
+  initializeAura(game,d);
   const spec=energySpec(game,d);
   if(reset){delete d.rtgVoltage;delete d.rtgFuel;delete d.isotopePellets;}
   if(reset)for(const key of ['energyTier','eu','steam','supply','output','batteries','temperature','heat','water','coal','thermalTick','thermalFraction','waterRemainder','generatorClock','fuel','modules','cycleRemaining','cyclePower','ignited','cooldownClock','startupTicks','reactorWarmup','reactorTicks','combustion','largeBoiler','boilerCircuit'])delete d[key];
@@ -343,6 +345,7 @@ function runDyson(game,d,dt){
   d.eu+=d.cyclePower*20*used;d.blocked='运行中';
 }
 function runMachine(game,d,dt,budgets){
+  rechargeAura(game,d,dt);
   const spec=energySpec(game,d),r=game.deviceRecipe(d);let run=runtime(game,d,r);
   if(spec?.cycle==='solarTower'){runSolarTower(game,d,dt);return;}
   if(spec?.cycle==='smeltery'){runSmeltery(game,d,r,dt);return;}
@@ -392,6 +395,7 @@ function runMachine(game,d,dt,budgets){
     if(!d.enabled||d.recipe!==r.id)return;
     if(!d.job){
       run=runtime(game,d,r);
+      const aura=auraFailure(game,d,r);if(aura){d.blocked=aura;return;}
       const spin=spinFailure(game,d,r);if(spin){d.blocked=spin;return;}
       const bathFailure=prepareBoardBath(game,d,r);if(bathFailure){d.blocked=bathFailure;return;}
       if(!Object.entries(r.tools||{}).every(([id,n])=>r.toolWear?.[id]?(d.toolLife[id]??0)>0||game.quantity(id)+componentCount(game,id)>=n:game.quantity(id)>=n)){d.ignited=false;d.blocked='缺少工具或研磨球';return;}
@@ -413,6 +417,7 @@ function runMachine(game,d,dt,budgets){
       const parallel=spinTier(game,d)?spinBatchCount(game,d,r):foundryTier(game,d)?foundryBatchCount(game,d,r):1,batch=parallel>1?parallelRecipe(r,parallel):r;
       if(parallel<1){d.blocked='等待可用原料或产物容器空间';return;}
       game.payInputs(d,batch.inputs);
+      spendAura(d,r);
       for(const [id,life]of Object.entries(r.toolWear||{})){
         if(!d.toolLife[id])d.toolLife[id]=takeComponent(game,id,'mill').life;
         d.toolLife[id]--;

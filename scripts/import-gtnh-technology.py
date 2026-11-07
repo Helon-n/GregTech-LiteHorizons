@@ -46,6 +46,7 @@ for prefix,(suffix,title) in FORMS.items():
     base.TITLES[prefix]=title
 base.SUFFIXES['wireGt01']='Wire'
 MAPS = {
+    'fusionCraftingRecipes':'draconicFusion',
     'beamcrafterRecipes':'beamCraft',
     **base.MAPS, 'UniversalArcFurnace':'arcFurnace', 'WaferEngravingRecipes':'laser', 'blastFurnaceRecipes':'electricBlast', 'primitiveBlastRecipes':'blast',
     'BlastFurnaceWithGas':'electricBlast', 'alloySmelterRecipes':'alloy',
@@ -226,6 +227,13 @@ class TechnologyImporter(base.Importer):
                         info=json.loads(archive.read('mcmod.info').decode('utf-8'))
                         for mod in info if isinstance(info,list) else info.get('modList',[]):
                             self.installed_mods[mod.get('modid','')]=mod.get('version','')
+                    # This legacy jar's mcmod.info disagrees with its @Mod
+                    # annotation (verified pinned class); Forge uses @Mod.
+                    if 'advsolar/common/AdvancedSolarPanel.class' in archive.namelist():
+                        digest=hashlib.sha256(archive.read('advsolar/common/AdvancedSolarPanel.class')).hexdigest()
+                        if digest!='1546c4f13dc108af1289797a4eba123a78dd144d297ff97754a43477c58ebdf9':raise RuntimeError('changed Advanced Solar Panels annotation')
+                        self.paths['AdvancedSolarPanel-3.5.1/AdvancedSolarPanel.class']=digest
+                        self.installed_mods['AdvancedSolarPanel']='3.5.1'
             except (ValueError,KeyError,UnicodeDecodeError): pass
         mods=(self.source/'gregtech/api/enums/Mods.java').read_text(encoding='utf-8')
         ids=dict(re.findall(r'(\w+)\s*=\s*"([^"\n]+)"',mods))
@@ -676,6 +684,15 @@ class TechnologyImporter(base.Importer):
             label='gtPlusPlus/core/item/base/BaseItemComponent.java'
             self.paths[label]=hashlib.sha256((self.source/label).read_bytes()).hexdigest()
             return self.material('Dysprosium',prefix)
+        if name in ('GTPP_Zirconium','GTPP_Thorium232','GTPP_Hafnium','GTPP_Iodine') and prefix in ('dust','dustSmall','dustTiny'):
+            # No GT++ powder is generated for these elements. Material's
+            # component lookup falls back to the actual BW ore registration.
+            label='gtPlusPlus/core/item/ModItems.java';raw=(self.source/label).read_text(encoding='utf-8')
+            key=name.removeprefix('GTPP_').upper()
+            match=re.search(r'MaterialsElements.getInstance\(\)\.'+key+r'\.setWerkstoffID\(\(short\)\s*(\d+)\)',raw)
+            if not match:raise ValueError('missing Werkstoff powder bridge '+name)
+            self.paths[label]=hashlib.sha256((self.source/label).read_bytes()).hexdigest()
+            return self.material(self.addon_meta[int(match[1])],prefix)
         if name=='BotWerkstoffMaterialPool_AmmoniumNitrate' and prefix in ('dust','dustSmall','dustTiny'):
             # WerkstoffLoader.getCorrespondingItemStackUnsafe prefers an
             # existing ore-dictionary representative unless enforceUnification
@@ -828,6 +845,30 @@ class TechnologyImporter(base.Importer):
     def stack(self,expression):
         s=transform_code(self.resolve(expression),lambda part:re.sub(r'\s+','',part))
         s=s.replace('.getIngots(','.getIngot(')
+        space_item=re.fullmatch(r'newItemStack\((GCItems\.(?:heavyPlatingTier1|rocketEngine)|MarsItems.marsItemBasic|AsteroidsItems.basicItem)(?:,([^,()]+))?(?:,([^,()]+))?\)',s)
+        if space_item:
+            registrations={'GCItems.heavyPlatingTier1':('GalacticraftCore','item.heavyPlating'),'GCItems.rocketEngine':('GalacticraftCore','item.engine'),'MarsItems.marsItemBasic':('GalacticraftMars','item.null'),'AsteroidsItems.basicItem':('GalacticraftMars','item.itemBasicAsteroids')}
+            namespace,registry=registrations[space_item[1]]
+            folder=ROOT/'.local/gtnh-technology/Galacticraft-3.4.37'
+            for label in ('core/items/GCItems','core/items/ItemBase','core/items/ItemRocketEngineGC','planets/mars/items/MarsItems','planets/mars/items/ItemBasicMars','planets/asteroids/items/AsteroidsItems','planets/asteroids/items/ItemBasicAsteroids'):
+                file='micdoodle8/mods/galacticraft/'+label+'.java';path=folder/file
+                self.paths['Galacticraft-3.4.37/'+file]=hashlib.sha256(path.read_bytes()).hexdigest()
+            return self.stack('getModItem('+namespace+'.ID,"'+registry+'",'+(space_item[2] or '1')+','+(space_item[3] or '0')+')')
+        drilling=re.fullmatch(r'newFluidStack\((?:ItemList.sDrillingFluid|FluidRegistry.getFluid\("liquid_drillingfluid"\)),(.+)\)',s)
+        if drilling:
+            label='gregtech/loaders/preload/LoaderGTBlockFluid.java';path=self.source/label;raw=path.read_text(encoding='utf-8')
+            if 'sDrillingFluid = GTFluidFactory.of("liquid_drillingfluid"' not in raw:raise ValueError('changed drilling fluid')
+            self.paths[label]=hashlib.sha256(path.read_bytes()).hexdigest()
+            self.items['drillingFluid']={'id':'drillingFluid','name':'钻井液','kind':'fluid','category':'流体','native':{'prefix':'fluid','material':'DrillingFluid','registry':'liquid_drillingfluid','texture':'FLUID','color':'a99a78'}}
+            return 'drillingFluid',numeric(drilling[1])
+        singularity=re.fullmatch(r'AEApi.instance\(\).definitions\(\).materials\(\).singularity\(\).maybeStack\((.+)\).get\(\)',s)
+        if singularity:
+            folder=ROOT/'.local/gtnh-technology/Applied-Energistics-2-Unofficial-rv3-beta-1095-GTNH/src/main/java/appeng'
+            for label in ('core/api/definitions/ApiMaterials.java','items/materials/MaterialType.java'):
+                path=folder/label;self.paths['AE2-rv3-beta-1095/'+label]=hashlib.sha256(path.read_bytes()).hexdigest()
+            raw=(folder/'items/materials/MaterialType.java').read_text(encoding='utf-8')
+            meta=re.search(r'\bSingularity\((\d+),',raw)[1]
+            return self.stack('getModItem(AppliedEnergistics2.ID,"item.ItemMultiMaterial",'+singularity[1]+','+meta+')')
         block=re.fullmatch(r'([\w.]+)\.getBlock\((.*)\)',s)
         if block and block[1] in self.gtpp_materials:return self.material(self.gtpp_materials[block[1]],'block'),numeric(block[2])
         nugget=re.fullmatch(r'Materials\.(\w+)\.getNuggets?\((.*)\)',s)
@@ -852,6 +893,8 @@ class TechnologyImporter(base.Importer):
                 return 'Materials.'+key
             s=re.sub(r'BaseRecipeLoader.getOrDefault\("([^"\n]+)",Materials\.(\w+)\)',lookup,s)
         while s.startswith('(') and base.matching(s,0)==len(s)-1:s=s[1:-1]
+        unified=re.fullmatch(r'GTOreDictUnificator.get\((newItemStack\(.+\))\)',s)
+        if unified:return self.stack(unified[1])
         if s.endswith('.copy()'):return self.stack(s[:-7])
         neutron=re.fullmatch(r'(?:Loaders\.)?NeutronAccelerators\[(\d+)\]',s)
         if neutron:
@@ -859,15 +902,19 @@ class TechnologyImporter(base.Importer):
             if not native:raise ValueError('unregistered neutron accelerator')
             id='ggArray_'+key;self.items[id]={'id':id,'name':native['name'],'kind':'item','category':'元件','nativeItem':native}
             return id,1
-        compact=re.fullmatch(r'newItemStack\((?:Loaders\.)?compactFusionCoil,([^,]+),([0-4])\)',s)
-        if compact:return self.stack('ItemRefer.Compact_Fusion_Coil_T'+compact[2]+'.get('+compact[1]+')')
+        compact=re.fullmatch(r'newItemStack\((?:Loaders\.)?compactFusionCoil,([^,]+)(?:,([0-4]))?\)',s)
+        if compact:return self.stack('ItemRefer.Compact_Fusion_Coil_T'+(compact[2] or '0')+'.get('+compact[1]+')')
+        defc=re.fullmatch(r'newItemStack\((?:BlockLoader\.)?defcCasingBlock,([^,]+),(\d+)\)',s)
+        if defc:
+            meta=int(defc[2]);key='DEFCCasingBase' if meta==7 else 'DEFCCasingT'+str(meta-7)
+            return self.stack('KubaItemList.'+key+'.get('+defc[1]+')')
         hic=re.fullmatch(r'newItemStack\((?:Loaders\.)?huiCircuit,([^,]+),([0-4])\)',s)
         if hic:return self.stack('ItemRefer.HiC_T'+str(int(hic[2])+1)+'.get('+hic[1]+')')
         s=s.replace('newnet.minecraft.item.ItemStack(', 'newItemStack(')
         # Direct casing constructors and ItemList aliases denote the same
         # registered block/meta. Resolve through the pinned registrations;
         # never create a second, source-less casing identity.
-        casing=re.fullmatch(r'newItemStack\((TTCasingsContainer\.sBlockCasingsTT|GregTechAPI\.sBlockCasings\d+),([^,]+),([^,]+)\)',s)
+        casing=re.fullmatch(r'newItemStack\((TTCasingsContainer\.sBlockCasingsTT|GregTechAPI\.sBlock(?:Casings|Glass)\d+),([^,]+),([^,]+)\)',s)
         if casing:
             if casing[1]=='TTCasingsContainer.sBlockCasingsTT':
                 label='tectech/thing/casing/BlockGTCasingsTT.java'
@@ -875,7 +922,7 @@ class TechnologyImporter(base.Importer):
                 self.paths[label]=hashlib.sha256(path.read_bytes()).hexdigest()
                 registry='gregtech:'+re.search(r'super\(ItemCasingsTT.class,\s*"([^"]+)"',raw)[1]
             else:
-                registry='gregtech:gt.blockcasings'+re.search(r'(\d+)$',casing[1])[1]
+                registry='gregtech:gt.block'+('glass' if 'Glass' in casing[1] else 'casings')+re.search(r'(\d+)$',casing[1])[1]
             meta=numeric(casing[3]);amount=numeric(casing[2])
             key=next((key for key,value in self.itemlist.items() if value.get('registry')==registry and value.get('meta')==meta),None)
             if key:return self.named(key),amount
@@ -999,7 +1046,7 @@ class TechnologyImporter(base.Importer):
             id='godforgeLens' if cls=='BlockGodforgeGlass' else 'quantumGlass'
             self.items[id]={'id':id,'name':'空间超越引力透镜' if cls=='BlockGodforgeGlass' else '量子玻璃','kind':'item','category':'结构','nativeItem':{'registry':'tectech:'+registry,'meta':0,'texture':'assets/tectech/textures/blocks/'+texture+'.png'}}
             return id,numeric(special_glass[2])
-        bw=re.fullmatch(r'newItemStack\(ItemRegistry\.(bw_realglas2?|bw_glasses\[[01]\]),([^,]+)(?:,([^,]+))?\)',s)
+        bw=re.fullmatch(r'newItemStack\((?:ItemRegistry\.)?(bw_realglas2?|bw_glasses\[[01]\]),([^,]+)(?:,([^,]+))?\)',s)
         if bw:
             key={'bw_glasses[0]':'bw_realglas','bw_glasses[1]':'bw_realglas2'}.get(bw[1],bw[1])
             registry=self.bw_glass_blocks[key]
@@ -1061,11 +1108,16 @@ class TechnologyImporter(base.Importer):
         if lanth_stack:return self.stack(lanth_stack[1]+'.get('+(lanth_stack[2] or '1')+')')
         bare_addon=re.fullmatch(r'(LanthItemList)\.(\w+)',s)
         if bare_addon:s+='.get(1)'
-        addon=re.fullmatch(r'(CustomItemList|ItemRefer|GregtechItemList|LanthItemList|KubaItemList)\.(\w+)\.get\((.+)\)',s)
+        direct=re.fullmatch(r'newItemStack\((?:Loaders\.)?(\w+),([^,]+)(?:,0)?\)',s)
+        if direct and 'Loaders.'+direct[1] in self.addon_items:
+            native=self.addon_items['Loaders.'+direct[1]]
+            alias=next(key for key,value in self.addon_items.items() if key.startswith('ItemRefer.') and value==native)
+            return self.stack(alias+'.get('+direct[2]+')')
+        addon=re.fullmatch(r'(CustomItemList|ItemRefer|GregtechItemList|LanthItemList|KubaItemList|GGItemList)\.(\w+)\.get\((.+)\)',s)
         if addon and (addon[1]!='GregtechItemList' or addon[1]+'.'+addon[2] in self.addon_items):
             native=self.addon_items.get(addon[1]+'.'+addon[2])
             if not native:raise ValueError('unresolved registered addon '+addon[1]+'.'+addon[2])
-            id=({'CustomItemList':'ttItem_','ItemRefer':'ggItem_','GregtechItemList':'gtppItem_','LanthItemList':'lanthItem_','KubaItemList':'kubaItem_'}[addon[1]])+addon[2]
+            id=({'CustomItemList':'ttItem_','ItemRefer':'ggItem_','GregtechItemList':'gtppItem_','LanthItemList':'lanthItem_','KubaItemList':'kubaItem_','GGItemList':'ggfabItem_'}[addon[1]])+addon[2]
             self.items[id]={'id':id,'name':native['name'],'kind':'item','category':'元件','nativeItem':native}
             return id,numeric(addon[3])
         if re.fullmatch(r'(?:GregtechItemList.LavaFilter|ItemList.Component_LavaFilter)\.get\(\d+\)',s):
@@ -1220,10 +1272,20 @@ class TechnologyImporter(base.Importer):
             return self.stack('getModItem('+fallback_item[1]+'.ID,"'+fallback_item[2]+'",'+fallback_item[3]+(','+fallback_item[4] if fallback_item[4] else '')+')')
         m=re.fullmatch(r'(?:GTModHandler\.)?getModItem\((?:Mods\.)?(\w+)\.ID,"([^"]+)",([^,]+)(?:,([^,]+))?\)',s)
         if m:
-            mod,registry,amount,meta=m.groups();meta=numeric(meta) if meta else 0;amount=numeric(amount)
+            mod,registry,amount,meta=m.groups()
+            # The four-argument overload may supply a fallback ItemStack,
+            # rather than a damage value. Only accept the pinned EFR call.
+            if meta=='missing' and mod=='EtFuturumRequiem' and registry=='netherite_block':
+                if self.mod_ids[mod] not in self.installed_mods:raise ValueError('missing Et Futurum')
+                meta='0'
+            meta=numeric(meta) if meta else 0;amount=numeric(amount)
             mod_id=self.mod_ids.get(mod,mod)
             core_key=next((key for key,value in self.core_items.items() if value.get('registry')==mod_id+':'+registry and value.get('meta')==meta),None)
             if core_key:return self.stack('NHItemList.'+core_key+'.get('+str(amount)+')')
+            core_key=next((key for key,value in self.core_blocks.items() if value.get('registry')==mod_id+':'+registry and value.get('meta')==meta),None)
+            if core_key:return self.stack('BlockList.'+core_key+'.get('+str(amount)+')')
+            addon_key=next((key for key,value in self.addon_items.items() if not key.startswith('Loaders.') and value.get('registry')==mod_id+':'+registry and value.get('meta')==meta),None)
+            if addon_key:return self.stack(addon_key+'.get('+str(amount)+')')
             # IC2 reactor components have one registry each. Damage is NBT;
             # Core uses metadata 1 for fresh pieces, while Ic2Items uses 0.
             # Wildcard/damaged recipes stay separate and require state handling.
@@ -1289,12 +1351,13 @@ class TechnologyImporter(base.Importer):
         if m:
             # OreDictRegistrationHandler registers transparent material
             # lenses under their Dyes color; choose a legal representative.
-            name={'Red':'Ruby','Green':'Emerald','Blue':'Sapphire','White':'Diamond','Yellow':'GarnetYellow','Purple':'Amethyst','Cyan':'GreenSapphire','Orange':'Topaz'}.get(m[1])
+            name={'Red':'Ruby','Green':'Emerald','Blue':'Sapphire','White':'Diamond','Yellow':'GarnetYellow','Purple':'Amethyst','Cyan':'GreenSapphire','Orange':'Topaz','Lime':'Olivine'}.get(m[1])
             if name:return self.material(name,'lens'),numeric(m[2])
         m=re.fullmatch(r'newOreDictItemStack\("paneGlass",(.+)\)',s)
         if m:return self.stack('new ItemStack(Blocks.glass_pane,'+m[1]+')')
         dictionary=re.fullmatch(r'newOreDictItemStack\("([^"\n]+)",(.+)\)',s)
         if dictionary:
+            if dictionary[1]=='stoneEndstone':return self.stack('new ItemStack(Blocks.end_stone,'+dictionary[2]+')')
             colors=['Black','Red','Green','Brown','Blue','Purple','Cyan','LightGray','Gray','Pink','Lime','Yellow','LightBlue','Magenta','Orange','White']
             if dictionary[1] in ['dye'+color for color in colors]:
                 return self.stack('new ItemStack(Items.dye,'+dictionary[2]+','+str(colors.index(dictionary[1][3:]))+')')
@@ -1316,6 +1379,10 @@ class TechnologyImporter(base.Importer):
             return id,numeric(dye[1])
         seed=re.fullmatch(r'newItemStack\(Items\.(wheat_seeds|melon_seeds|pumpkin_seeds),([^,]+),32767\)',s)
         if seed:return self.stack('new ItemStack(Items.'+seed[1]+','+seed[2]+',0)')
+        # These block metadata values encode placement/power, never distinct
+        # inventory variants. Do not normalize arbitrary wildcard materials.
+        oriented=re.fullmatch(r'newItemStack\(Blocks\.(redstone_torch|unlit_redstone_torch|lever|heavy_weighted_pressure_plate|light_weighted_pressure_plate),([^,]+),(?:32767|OreDictionary.WILDCARD_VALUE)\)',s)
+        if oriented:return self.stack('new ItemStack(Blocks.'+oriented[1]+','+oriented[2]+',0)')
         m=re.fullmatch(r'newItemStack\((Items|Blocks)\.(\w+)(?:,([^,]+)(?:,([^,]+))?)?\)',s)
         if m and (m[4] is None or numeric(m[4])==0):
             if m[1]=='Items' and m[2]=='paper':return self.material('Paper','plate'),numeric(m[3]) if m[3] else 1
@@ -1376,6 +1443,11 @@ class TechnologyImporter(base.Importer):
             if m[1]=='LV':names=['@basicCircuit',*names]
             if not names:raise ValueError('no circuit variants '+m[1])
             return list(dict.fromkeys(('basicCircuit' if key=='@basicCircuit' else self.stack(('NHItemList.'+key.removeprefix('@core:') if key.startswith('@core:') else 'ItemList.'+key)+'.get(1)')[0],numeric(m[2])) for key in names))
+        battery=re.fullmatch(r'GTOreDictUnificator.get\(OrePrefixes.battery,Materials.EV,(.+)\)',s)
+        if battery:
+            # LoaderGTOreDictionary registers Lapotron crystals with wildcard
+            # damage; keep each supported physical charge-state metadata.
+            return self.variants('ItemList.IC2_LapotronCrystal.getWildcard('+battery[1]+')')
         m=re.fullmatch(r'SubstituteFluidStack.soldering\((.*)\)',s)
         if m:
             n=numeric(m[1]) if m[1] else 144
@@ -1649,6 +1721,7 @@ class TechnologyImporter(base.Importer):
         self.emit_recipe(process,ins,outs,ticks,power,line,tools,conditions,rolls,circuit,also_processes)
 
     def builders_at(self,path,label):
+        if label.endswith('/SolarFactoryRecipes.java'):return # Expanded from the raw recipe array by source-closure.
         text=path.read_text(encoding='utf-8');self.active_file=label
         self.paths[label]=hashlib.sha256(path.read_bytes()).hexdigest()
         text=re.sub(r'/\*.*?\*/|//[^\n]*',lambda m:'\n'*m[0].count('\n'),text,flags=re.S)
@@ -1691,8 +1764,9 @@ class TechnologyImporter(base.Importer):
         loops=[]
         # Literal arrays can feed nested foreach loops or counted indexing.
         # Bind only a preceding declaration visible in the loop's scope.
-        arrays=list(re.finditer(r'\bItemStack\[\]\s+(\w+)\s*=\s*(?:new\s+ItemStack\[\]\s*)?\{([^;]+)\}\s*;',text))
+        arrays=list(re.finditer(r'\b(?:ItemStack|Object)\[\]\s+(\w+)\s*=\s*(?:new\s+(?:ItemStack|Object)\[\]\s*)?\{([^;]+)\}\s*;',text))
         array_scopes=scopes_at(text,[a.start() for a in arrays])
+        for a in arrays:self.constants[a[1]+'.length']=str(len(base.split_args(a[2])))
         for loop in re.finditer(r'for\s*\(\s*ItemStack\s+(\w+)\s*:\s*(\w+)\s*\)\s*\{',text):
             scope=scopes_at(text,[loop.start()])[loop.start()]
             visible=[a for a in arrays if a[1]==loop[2] and a.start()<loop.start() and scope[:len(array_scopes[a.start()])]==array_scopes[a.start()]]
@@ -1759,6 +1833,13 @@ class TechnologyImporter(base.Importer):
         scopes=scopes_at(text,[m.start() for m in declarations+builders])
         imports=dict(self.constants)
         helpers=[]
+        if label=='gtPlusPlus/core/recipe/RecipesLaserEngraver.java':
+            for branch in re.finditer(r'if\s*\(aOreDictName.equals\(OreDictNames\.(craftingLens\w+)\.toString\(\)\)\)\s*\{',text):
+                start=branch.end()-1;end=start+1;depth=1
+                while end<len(text) and depth:
+                    depth+=(text[end]=='{')-(text[end]=='}');end+=1
+                options=[{'aStack':'new OreDictItemStack("'+branch[1]+'",1)'}]
+                helpers.append((start,end,options))
         if label=='gregtech/loaders/postload/recipes/CuttingRecipes.java':
             for helper in ('recipeWithClassicFluids','recipeWithPurifiedWater'):
                 declaration=re.search(r'public void '+helper+r'\((.*?)\)\s*\{',text,re.S)
@@ -1807,6 +1888,25 @@ class TechnologyImporter(base.Importer):
             while end<len(text) and depth:
                 depth+=(text[end]=='{')-(text[end]=='}');end+=1
             options=[{'prefix':'OrePrefixes.'+m[1],'multiplier':m[2],'inverseMultiplier':m[3]} for m in re.finditer(r'addNetheritePartRecipe\(OrePrefixes\.(\w+),\s*(\d+),\s*(\d+)\)',text)]
+            helpers.append((start,end,options))
+            declaration=re.search(r'private static void addNetheritePartRecipe\(ItemStack inputStack, ItemStack outputStack, int inverseMultiplier\)\s*\{',text)
+            if not declaration:raise ValueError('changed netherite stack helper')
+            start=declaration.end()-1;end=start+1;depth=1
+            while end<len(text) and depth:
+                depth+=(text[end]=='{')-(text[end]=='}');end+=1
+            options=[]
+            for call in re.finditer(r'(?<!void )addNetheritePartRecipe\(',text):
+                args=base.split_args(text[call.end():base.matching(text,call.end()-1)])
+                if len(args)==3 and args[0].startswith('GTOreDictUnificator.get('):options.append(dict(zip(('inputStack','outputStack','inverseMultiplier'),args)))
+            helpers.append((start,end,options))
+        if label=='gregtech/loaders/postload/recipes/FluidSolidifierRecipes.java':
+            declaration=re.search(r'private void addHexanitePartRecipe\(OrePrefixes prefix, final int multiplier\)\s*\{',text)
+            if not declaration:raise ValueError('changed Hexanite helper')
+            start=declaration.end()-1;end=start+1;depth=1
+            while end<len(text) and depth:
+                depth+=(text[end]=='{')-(text[end]=='}');end+=1
+            amounts={'frameGt':288,'ingot':144,'plate':144,'plateDouble':288,'plateDense':1296,'stick':72,'round':16,'bolt':18,'screw':16,'ring':36,'foil':36,'gearGtSmall':144,'rotor':612,'stickLong':144,'gearGt':576,'itemCasing':72,'plateSuperdense':9216,'block':1296}
+            options=[{'prefix':'OrePrefixes.'+m[1],'multiplier':m[2],'partFraction':str(amounts[m[1]])} for m in re.finditer(r'addHexanitePartRecipe\(OrePrefixes\.(\w+),\s*(\d+)\)',text)]
             helpers.append((start,end,options))
         if label in ('gregtech/loaders/postload/recipes/ChemicalBathRecipes.java','gregtech/loaders/postload/recipes/VacuumFreezerRecipes.java'):
             declaration=re.search(r'private void addProtoHalkonitePartRecipe\(OrePrefixes prefix, final int multiplier\)\s*\{',text)
@@ -1918,22 +2018,42 @@ class TechnologyImporter(base.Importer):
                         if updates:self.constants[declaration[2]]='GTUtility.copyAmount('+self.resolve(updates[-1][1])+','+value+')'
                 close=base.matching(text,call.end()-1);args=base.split_args(text[call.end():close])
                 if len(args)!=10:raise ValueError('changed TecTech assembly-line signature')
-                total,cps,eu,amps=[numeric(self.resolve(value)) for value in args[1:5]]
-                cps=max(1,min((2**64-1)>>16,cps));amps=max(1,min(32767,amps))
-                if total<=0 or eu<=0:raise ValueError('invalid TecTech research parameters')
-                def array(value,type):
-                    match=re.fullmatch(r'new\s+'+type+r'\s*\[\]\s*\{(.*)\}',value.strip(),re.S)
-                    if not match:raise ValueError('dynamic TecTech ingredient array')
-                    return match[1]
-                items=array(args[5],'(?:Object|ItemStack)');fluids=array(args[6],'FluidStack')
-                for source in ('tectech/recipe/TTRecipeAdder.java','tectech/thing/metaTileEntity/multi/MTEResearchStation.java','tectech/thing/metaTileEntity/hatch/MTEHatchRack.java'):
-                    self.paths[source]=hashlib.sha256((self.source/source).read_bytes()).hexdigest()
-                body=(f'.metadata(RESEARCH_ITEM,{args[0]}).metadata(SCANNING,new Scanning({math.ceil(total*20/cps)},{eu*amps}))'
-                      f'.metadata(RESEARCH_COMPUTATION,{cps}).metadata(RESEARCH_AMPERAGE,{amps}).metadata(RESEARCH_VOLTAGE,{eu})'
-                      f'.metadata(RESEARCH_COUNT,{self.stack(args[0])[1]}).metadata(RESEARCH_TOTAL,{total})'
-                      f'.itemInputs({items}).fluidInputs({fluids}).itemOutputs({args[7]})'
-                      f'.duration({args[8]}).eut({args[9]}).addTo(AssemblyLine)')
-                self.parse_builder(body,line,label)
+                contexts=[{}]
+                for var,options,start,end in loops:
+                    if start<call.start()<end:contexts=[{**context,var:value} for context in contexts for value in options]
+                original_constants=dict(self.constants);original_args=args
+                for context in contexts:
+                    self.constants={**original_constants,**context}
+                    args=[self.resolve(arg) for arg in original_args]
+                    # Select bounded integer ternaries before indexing (the
+                    # first wireless hatch researches a Tesseract, never -1).
+                    def select(m):return m[4] if (int(m[1])==int(m[3]))==(m[2]=='==') else m[5]
+                    args=[re.sub(r'\(?\s*(\d+)\s*(==|!=)\s*(\d+)\s*\)?\s*\?([^?:]+):([^?:]+)',select,arg).strip() for arg in args]
+                    for declaration in arrays:
+                        parent=array_scopes[declaration.start()]
+                        if declaration.start()>=call.start() or scope[:len(parent)]!=parent:continue
+                        values=base.split_args(declaration[2])
+                        def indexed(m):
+                            n=int(numeric(self.resolve(m[1])))
+                            if not 0<=n<len(values):raise ValueError('research array index out of bounds')
+                            return values[n]
+                        args=[re.sub(r'\b'+re.escape(declaration[1])+r'\[([^\]]+)\]',indexed,arg) for arg in args]
+                    total,cps,eu,amps=[numeric(self.resolve(value)) for value in args[1:5]]
+                    cps=max(1,min((2**64-1)>>16,cps));amps=max(1,min(32767,amps))
+                    if total<=0 or eu<=0:raise ValueError('invalid TecTech research parameters')
+                    def array(value,type):
+                        match=re.fullmatch(r'new\s*'+type+r'\s*\[\]\s*\{(.*)\}',value.strip(),re.S)
+                        if not match:raise ValueError('dynamic TecTech ingredient array')
+                        return match[1]
+                    items=array(args[5],'(?:Object|ItemStack)');fluids=array(args[6],'FluidStack')
+                    for source in ('tectech/recipe/TTRecipeAdder.java','tectech/thing/metaTileEntity/multi/MTEResearchStation.java','tectech/thing/metaTileEntity/hatch/MTEHatchRack.java'):
+                        self.paths[source]=hashlib.sha256((self.source/source).read_bytes()).hexdigest()
+                    body=(f'.metadata(RESEARCH_ITEM,{args[0]}).metadata(SCANNING,new Scanning({math.ceil(total*20/cps)},{eu*amps}))'
+                          f'.metadata(RESEARCH_COMPUTATION,{cps}).metadata(RESEARCH_AMPERAGE,{amps}).metadata(RESEARCH_VOLTAGE,{eu})'
+                          f'.metadata(RESEARCH_COUNT,{self.stack(args[0])[1]}).metadata(RESEARCH_TOTAL,{total})'
+                          f'.itemInputs({items}).fluidInputs({fluids}).itemOutputs({args[7]})'
+                          f'.duration({args[8]}).eut({args[9]}).addTo(AssemblyLine)')
+                    self.parse_builder(body,line,label)
             except (ValueError,KeyError,SyntaxError,IndexError,TypeError,ZeroDivisionError) as error:
                 self.skipped.append({'file':label,'line':line,'reason':str(error)[:220]})
 
@@ -1951,6 +2071,7 @@ class TechnologyImporter(base.Importer):
                 pos=end+1
             if 'fake' in calls:return  # NEI display entries are not executable recipes.
             allowed={'itemInputs','itemInputsUnified','itemOutputs','fluidInputs','fluidOutputs','duration','eut','addTo','circuit','outputChances','noOptimize','noBuffer','requiresCleanRoom','requiresLowGravity','specialValue','ignoreCollision','nbtSensitive','recipeCategory','itemInputsUnsafe','requireMods','hidden','special'}
+            if label=='kubatech/loaders/DEFCRecipes.java' and calls.get('forEach')=='DEFCRecipes::addOldHiddenRecipe':calls.pop('forEach') # Legacy EMT schematic aliases; retain the canonical Kuba schematic.
             unknown=set(calls)-allowed
             if unknown:raise ValueError('unsupported builder '+','.join(sorted(unknown)))
             if 'nbtSensitive' in calls:raise ValueError('NBT sensitive recipe needs stack data')
@@ -2029,6 +2150,7 @@ class TechnologyImporter(base.Importer):
                 elif key=='NFR_COIL_TIER':conditions['refineryCoil']=numeric(self.resolve(value))
                 elif key=='NANO_FORGE_TIER':conditions['nanoForgeTier']=numeric(self.resolve(value))
                 elif key=='ALGAE_POND_TIER':conditions['algaeTier']=numeric(self.resolve(value))
+                elif key=='DEFC_CASING_TIER':conditions['defcTier']=numeric(self.resolve(value))
                 elif key=='PCB_NANITE_MATERIAL':
                     material=self.resolve(value).split('.')[-1]
                     conditions['pcbNaniteMaterial']=material
@@ -2177,6 +2299,12 @@ class TechnologyImporter(base.Importer):
         self.paths[self.active_file]=hashlib.sha256((self.source/self.active_file).read_bytes()).hexdigest()
         for name,forms in list(needed.items()):
             if name not in self.materials:continue
+            for bundled,small,count,default in [('pipeQuadruple','pipeMedium',4,4),('pipeNonuple','pipeSmall',9,8)]:
+                if bundled in forms:
+                    forms.add(small)
+                    self.active_file='gregtech/loaders/oreprocessing/ProcessingPipe.java'
+                    self.paths[self.active_file]=hashlib.sha256((self.source/self.active_file).read_bytes()).hexdigest()
+                    self.emit_recipe('assemble',{self.material(name,small):count},{self.material(name,bundled):1},60,self.materials[name]['processingEU'] or default,163 if count==4 else 178,{}, {},[],9)
             for width,ticks in [(2,150),(4,200),(8,300),(12,400),(16,500)]:
                 suffix=str(width).zfill(2);prefix='wireGt'+suffix
                 if prefix in forms or 'cableGt'+suffix in forms:
@@ -2445,6 +2573,7 @@ class TechnologyImporter(base.Importer):
         self.builders_at(self.source/'bartworks/common/loaders/BioRecipeLoader.java','bartworks/common/loaders/BioRecipeLoader.java')
         self.builders_at(self.source/'bartworks/common/loaders/ElectricImplosionCompressorRecipes.java','bartworks/common/loaders/ElectricImplosionCompressorRecipes.java')
         self.builders_at(self.source/'kubatech/loaders/ArcFurnaceLoader.java','kubatech/loaders/ArcFurnaceLoader.java')
+        self.builders_at(self.source/'kubatech/loaders/DEFCRecipes.java','kubatech/loaders/DEFCRecipes.java')
         self.builders_at(self.source/'bartworks/common/loaders/ArtificialMicaLine.java','bartworks/common/loaders/ArtificialMicaLine.java')
         directory=self.source/'gregtech/loaders/postload/recipes'
         for path in sorted(directory.glob('*.java')):
@@ -2453,7 +2582,7 @@ class TechnologyImporter(base.Importer):
         self.circuit_wrap_helpers()
         for path in sorted((self.source/'gregtech/loaders/postload/chains').glob('*.java')):
             self.builders_at(path,str(path.relative_to(self.source)).replace('\\','/'))
-        for directory in ('tectech/loader/recipe','bwcrossmod/tectech','bartworks/common/loaders/recipes','goodgenerator/loader','gtnhlanth/loader','gtnhintergalactic/loader','gtnhintergalactic/recipe','kekztech/common/recipeLoaders','gtPlusPlus/xmod/gregtech/loaders/recipe','gtPlusPlus/xmod/thermalfoundation/recipe','gtPlusPlus/core/recipe','gtPlusPlus/core/item/chemistry','gtPlusPlus/plugin','bartworks/system/material/gtenhancement','bartworks/system/material/processingLoaders'):
+        for directory in ('ggfab','tectech/loader/recipe','bwcrossmod/tectech','bartworks/common/loaders/recipes','goodgenerator/loader','gtnhlanth/loader','gtnhintergalactic/loader','gtnhintergalactic/recipe','kekztech/common/recipeLoaders','gtPlusPlus/xmod/gregtech/loaders/recipe','gtPlusPlus/xmod/thermalfoundation/recipe','gtPlusPlus/core/recipe','gtPlusPlus/core/item/chemistry','gtPlusPlus/plugin','bartworks/system/material/gtenhancement','bartworks/system/material/processingLoaders'):
             for path in sorted((self.source/directory).rglob('*.java')):
                 self.builders_at(path,str(path.relative_to(self.source)).replace('\\','/'))
         if self.core.exists():
@@ -2548,6 +2677,15 @@ class TechnologyImporter(base.Importer):
         void_spec=importlib.util.spec_from_file_location('void_miner_data',ROOT/'scripts/gtnh-void-miner.py')
         void_miner=importlib.util.module_from_spec(void_spec);void_spec.loader.exec_module(void_miner)
         void_items=void_miner.generate(self,ROOT,base.split_args,numeric)
+        closure_spec=importlib.util.spec_from_file_location('source_closure',ROOT/'scripts/gtnh-source-closure.py')
+        closure=importlib.util.module_from_spec(closure_spec);closure_spec.loader.exec_module(closure)
+        void_items|=closure.generate(self,ROOT,base.split_args,base.matching,numeric)
+        magic_spec=importlib.util.spec_from_file_location('magic_sources',ROOT/'scripts/gtnh-magic-sources.py')
+        magic=importlib.util.module_from_spec(magic_spec);magic_spec.loader.exec_module(magic)
+        void_items|=magic.generate(self,ROOT,base.split_args,base.matching,numeric)
+        bootstrap_spec=importlib.util.spec_from_file_location('bootstrap_sources',ROOT/'scripts/gtnh-bootstrap-sources.py')
+        bootstrap=importlib.util.module_from_spec(bootstrap_spec);bootstrap_spec.loader.exec_module(bootstrap)
+        void_items|=bootstrap.generate(self,ROOT,base.split_args,base.matching,numeric)
         self.material_templates()
         self.dust_size_templates()
         # Godforge molten variants derive from the completed EBF/material

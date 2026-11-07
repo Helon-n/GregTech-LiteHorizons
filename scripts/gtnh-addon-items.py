@@ -111,11 +111,25 @@ def load(importer, split_args, matching, numeric):
     for key,name in re.findall(r'GregtechItemList\.(\w+)\.set\(\s*new DustDecayable\(\s*"([^"]+)"',dusts):
         registered['GregtechItemList.'+key]={'name':importer.lang.get('item.'+name+'.name',key),'registry':'miscutils:'+name,'meta':0,'texture':'assets/gregtech/textures/items/materialicons/NUCLEAR/dust.png'}
     importer.addon_items=registered
+    read('gtPlusPlus/core/item/general/ItemBufferCore.java')
+    read('gtPlusPlus/core/item/base/BaseItemWithDamageValue.java')
+    for key,name,tier in re.findall(r'GregtechItemList\.(\w+)\.set\(new ItemBufferCore\("([^"]+)",\s*(\d+)\)\)',dusts):
+        registered['GregtechItemList.'+key]={'name':importer.lang.get('item.'+name+tier+'.name',key),'registry':'miscutils:item.'+name+tier,'meta':0,'texture':'assets/miscutils/textures/items/'+name+'.png'}
+    read('gtPlusPlus/core/item/general/chassis/ItemDehydratorCoilWire.java')
+    for key,meta in re.findall(r'GregtechItemList\.(\w+)\.set\(new ItemStack\(dehydratorCoilWire,\s*1,\s*(\d+)\)\)',dusts):
+        registered['GregtechItemList.'+key]={'name':key,'registry':'miscutils:itemDehydratorCoilWire','meta':int(meta),'texture':'assets/miscutils/textures/items/itemDehydratorCoilWire_'+meta+'.png'}
+    # Direct Loaders fields and ItemRefer are aliases of the same stack.
+    for key,obj,meta in re.findall(r'ItemRefer\s+(\w+)\s*=\s*getItemStack\((\w+)(?:,\s*(\d+))?\)',refs):
+        if 'ItemRefer.'+key in registered and not meta:
+            registered['Loaders.'+obj]=registered['ItemRefer.'+key]
+    text=read('ggfab/GigaGramFab.java')
+    for key,meta,title in re.findall(r'GGItemList\.(\w+)\.set\(\s*new \w+\((\w+)\.ID,\s*"[^"]+",\s*"([^"]+)"\)',text):
+        registered['GGItemList.'+key]={'name':title,'registry':'gregtech:gt.blockmachines','meta':numeric(ids[meta]),'texture':'assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png'}
     # Read beamline hatches and Kuba's detector from their pinned registrations.
     # These are physical components used by the BEC interface recipes.
     for label,namespace,pattern in [
         ('gtnhlanth/common/register/LanthItemList.java','LanthItemList',r'\b(\w+)\s*=\s*new\s+\w+\s*\('),
-        ('kubatech/loaders/RecipeLoader.java','KubaItemList',r'\b(ElectrodeDetectorHatch)\s*\.set\(\s*new\s+\w+\s*\('),
+        ('kubatech/loaders/RecipeLoader.java','KubaItemList',r'\b(ElectrodeDetectorHatch|DraconicEvolutionFusionCrafter)\s*\.set\(\s*new\s+\w+\s*\('),
     ]:
         text=read(label)
         for m in re.finditer(pattern,text):
@@ -128,6 +142,17 @@ def load(importer, split_args, matching, numeric):
             registered[namespace+'.'+m[1]]={'name':importer.lang.get('gt.blockmachines.'+args[1][1:-1]+'.name',args[2][1:-1]),
                 'registry':'gregtech:gt.blockmachines','meta':meta,'texture':'assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png'}
     lanth=read('gtnhlanth/common/register/LanthItemList.java')
+    raw=read('kubatech/loaders/ItemLoader.java')
+    read('kubatech/loaders/item/kubaitem/KubaItems.java');read('kubatech/loaders/item/kubaitem/ItemProxy.java')
+    entries=list(re.finditer(r'\b(\w+)\s*\.set\(kubaitems\.registerProxyItem\(new\s+\w+\(',raw))
+    for meta,m in enumerate(entries):
+        if not m[1].startswith('DEFC'):continue
+        args=split_args(raw[m.end():matching(raw,m.end()-1)])
+        name=args[0].strip('"')
+        registered['KubaItemList.'+m[1]]={'name':importer.lang.get('kubaitem.'+name+'.name',m[1]),'registry':'kubatech:kubaitems','meta':meta,'texture':'assets/kubatech/textures/items/'+name+'.png'}
+    raw=read('kubatech/loaders/block/defc/BlockDEFCCasing.java')
+    for meta,key in re.findall(r'register\((\d+), ItemList\.(DEFC\w+)',raw):
+        registered['KubaItemList.'+key]={'name':importer.lang.get('defc.casing.'+meta+'.name',key),'registry':'gregtech:defc.casing','meta':int(meta),'texture':'assets/kubatech/textures/blocks/casing/defc_'+str(int(meta)-7)+'.png'}
     read('gtnhlanth/common/item/ItemLanth.java')
     domain=importer.mod_ids['GTNHLanthanides']
     for key,name in re.findall(r'public static Item (\w+) = new ItemLanth\("([^"]+)"\)',lanth):
@@ -192,6 +217,11 @@ def load(importer, split_args, matching, numeric):
             if not texture:continue
             registered['GregtechItemList.'+key]={'name':importer.lang.get(block[1]+'.'+meta+'.name',key.replace('_',' ')),
               'registry':'miscutils:'+block[1],'meta':int(meta),'texture':'assets/miscutils/textures/blocks/'+texture+'.png'}
+    text=read('gtnhintergalactic/item/ItemMiningDrones.java')
+    read('gtnhintergalactic/proxy/CommonProxy.java')
+    drones=re.search(r'private static final String\[\] NAMES = new String\[\] \{(.*?)\};',text,re.S)
+    for meta,key in enumerate(re.findall(r'"(MiningDrone\w+)"',drones[1])):
+        importer.itemlist[key]={'name':key.removeprefix('MiningDrone')+' 采矿无人机','registry':'gtnhintergalactic:item.MiningDrone','meta':meta,'texture':'assets/gtnhintergalactic/textures/items/'+key+'.png'}
     text=read('gtnhintergalactic/loader/MachineLoader.java')
     # IG registers controllers through a local ItemStack rather than a chained
     # ItemList.set(new MTE(...)) call.

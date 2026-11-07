@@ -1612,6 +1612,370 @@ export const GATHERING_REFERENCE={
           "max": 3
         }
       }
+    },
+    {
+      "id": "endShardHunt",
+      "name": "末地碎片狩猎",
+      "output": "modItem_ThaumicTinkerer_kamiResource_7",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 10,
+      "description": "末地碎片狩猎，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_ThaumicTinkerer_kamiResource_7": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "requiresAll": [
+        "advancedRocket"
+      ],
+      "dropProbabilities": {
+        "modItem_ThaumicTinkerer_kamiResource_7": 0.03125
+      }
+    },
+    {
+      "id": "netherSoulSand",
+      "name": "下界灵魂沙",
+      "output": "soul_sand",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 12,
+      "description": "下界灵魂沙，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "soul_sand": {
+          "min": 1,
+          "max": 1
+        }
+      }
+    },
+    {
+      "id": "lunarCheeseOre",
+      "name": "月球奶酪矿",
+      "output": "cheeseOre",
+      "stage": 7,
+      "requires": "rocket",
+      "amount": 1,
+      "seconds": 8,
+      "description": "月球奶酪矿，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "cheeseOre": {
+          "min": 1,
+          "max": 1
+        }
+      }
+    },
+    {
+      "id": "netherSinExpedition",
+      "name": "下界罪孽收集",
+      "output": "modItem_ForbiddenMagic_NetherShard_3",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 60,
+      "description": "下界罪孽收集，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_ForbiddenMagic_NetherShard_3": {
+          "min": 0,
+          "max": 1
+        },
+        "modItem_ForbiddenMagic_NetherShard_4": {
+          "min": 0,
+          "max": 1
+        },
+        "modItem_ForbiddenMagic_GluttonyShard_0": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "requiresAll": [
+        "magicResearch_DEMON",
+        "magicResearch_ELDRITCH"
+      ],
+      "exclusiveDrops": [
+        {
+          "chance": 0.3333333333333333,
+          "items": {
+            "modItem_ForbiddenMagic_NetherShard_3": 1
+          }
+        },
+        {
+          "chance": 0.3333333333333333,
+          "items": {
+            "modItem_ForbiddenMagic_NetherShard_4": 1
+          }
+        },
+        {
+          "chance": 0.3333333333333333,
+          "items": {
+            "modItem_ForbiddenMagic_GluttonyShard_0": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "endstoneQuarry",
+      "name": "末地石矿场",
+      "output": "end_stone",
+      "stage": 7,
+      "requires": "advancedRocket",
+      "amount": 1,
+      "seconds": 8,
+      "description": "末地石矿场，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "end_stone": {
+          "min": 1,
+          "max": 1
+        }
+      }
+    },
+    {
+      "id": "purpleSlimeIsland",
+      "name": "紫色史莱姆岛",
+      "output": "modItem_TinkerConstruct_slimegel_2",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 12,
+      "description": "紫色史莱姆岛，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_TinkerConstruct_slimegel_2": {
+          "min": 1,
+          "max": 1
+        }
+      },
+      "requiresAll": [
+        "advancedRocket"
+      ]
+    },
+    {
+      "id": "taintExpedition",
+      "name": "污秽生物远征",
+      "output": "modItem_Thaumcraft_ItemResource_11",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 20,
+      "description": "污秽生物远征，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_Thaumcraft_ItemResource_11": {
+          "min": 1,
+          "max": 1
+        }
+      }
+    },
+    {
+      "id": "orderShardMine",
+      "name": "秩序水晶矿",
+      "output": "modItem_Thaumcraft_ItemShard_4",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 12,
+      "description": "秩序水晶矿，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_Thaumcraft_ItemShard_4": {
+          "min": 1,
+          "max": 1
+        }
+      }
+    },
+    {
+      "id": "eldritchGuardianHunt",
+      "name": "邪术守卫狩猎",
+      "output": "modItem_Thaumcraft_ItemEldritchObject_0",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 20,
+      "description": "邪术守卫狩猎，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_Thaumcraft_ItemEldritchObject_0": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "requiresAll": [
+        "magicResearch_INFUSION"
+      ],
+      "dropProbabilities": {
+        "modItem_Thaumcraft_ItemEldritchObject_0": 0.025
+      }
+    },
+    {
+      "id": "eldritchWardenExpedition",
+      "name": "邪术监护者远征",
+      "output": "modItem_Thaumcraft_ItemEldritchObject_3",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 60,
+      "description": "邪术监护者远征，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_Thaumcraft_ItemEldritchObject_3": {
+          "min": 1,
+          "max": 1
+        }
+      },
+      "requiresAll": [
+        "magicResearch_ELDRITCH",
+        "advancedRocket"
+      ]
+    },
+    {
+      "id": "demonGruntExpedition",
+      "name": "恶魔卫兵远征",
+      "output": "modItem_BloodMagic_bloodMagicBaseItems_28",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 60,
+      "description": "恶魔卫兵远征，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_BloodMagic_bloodMagicBaseItems_28": {
+          "min": 0,
+          "max": 1
+        },
+        "modItem_BloodMagic_bloodMagicBaseItems_29": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "requiresAll": [
+        "magicResearch_DEMON"
+      ],
+      "exclusiveDrops": [
+        {
+          "chance": 0.3,
+          "items": {
+            "modItem_BloodMagic_bloodMagicBaseItems_28": 1
+          }
+        },
+        {
+          "chance": 0.3,
+          "items": {
+            "modItem_BloodMagic_bloodMagicBaseItems_29": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "elementalDemonExpedition",
+      "name": "元素恶魔远征",
+      "output": "modItem_BloodMagic_demonBloodShard_0",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 60,
+      "description": "元素恶魔远征，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_BloodMagic_demonBloodShard_0": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "requiresAll": [
+        "bloodAltar5"
+      ],
+      "dropProbabilities": {
+        "modItem_BloodMagic_demonBloodShard_0": 0.5
+      }
+    },
+    {
+      "id": "bloodSacrifice",
+      "name": "祭坛献祭",
+      "output": "lifeEssence",
+      "stage": 7,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 10,
+      "description": "祭坛采集生命本质，需要实体储罐",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "lifeEssence": {
+          "min": 1000,
+          "max": 1000
+        }
+      },
+      "requiresAll": [
+        "bloodAltar5"
+      ]
+    },
+    {
+      "id": "chaosGuardianExpedition",
+      "name": "混沌守卫远征",
+      "output": "modItem_DraconicEvolution_chaosShard_0",
+      "stage": 7,
+      "requires": "advancedRocket",
+      "amount": 1,
+      "seconds": 120,
+      "description": "混沌守卫远征，收集实体材料",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_DraconicEvolution_chaosShard_0": {
+          "min": 5,
+          "max": 5
+        }
+      },
+      "requiresAll": [
+        "modItem_DraconicEvolution_draconicCore_0"
+      ]
     }
   ],
   "adaptations": [
@@ -1633,7 +1997,12 @@ export const GATHERING_REFERENCE={
     "Ancient-debris mining exposes the installed Nether worldgen resource as an idle location at ZPM; one block per round is an adaptation, not the original vein-search distribution. Pickaxe tiers and world coordinates are abstracted.",
     "Nether atmosphere collection replaces a spatial Nether air-intake hatch with a paid collection site. Its 1000 mB per 6 s is an idle rate; fluid identity and subsequent machine recipes retain their source rules.",
     "TCeti E seaweed collection abstracts the existing deep-space plant resource into a rocket-gated site at ZPM. Gathering yield is adapted; the Core extractor still consumes 64 plants per extract at its registered EU/t and duration.",
-    "Planet samples use exact installed GalaxySpace terrain registry/meta pairs and Maahes lumipod leaves from AmunRa world generation. Access uses the idle advanced rocket; deployment, 12-second duration and 1–3 sample yields are adaptations. These sites never grant dimension display blocks, research data, finished materials or unverified decorative subtypes. Pluto dungeon bricks are not surface samples."
+    "Planet samples use exact installed GalaxySpace terrain registry/meta pairs and Maahes lumipod leaves from AmunRa world generation. Access uses the idle advanced rocket; deployment, 12-second duration and 1–3 sample yields are adaptations. These sites never grant dimension display blocks, research data, finished materials or unverified decorative subtypes. Pluto dungeon bricks are not surface samples.",
+    "Endstone is collected in the End. Purple slime gel is TConstruct slime-island worldgen metadata 2, not a blood block. Rocket gates, collection rates and deployment costs are idle adaptations.",
+    "End-shard hunts retain TT Enderman-in-End 1/32 chance. Source handler is the same pinned DimensionalShardDropHandler recorded for Nether shards.",
+    "Magical sites expose actual soul sand, tainted goo, order shards and boss drops. Access notes, deployment, timing, LP yield and elemental-demon 50% encounter yield are idle adaptations. Ritual structures, player-health and combat are not simulated.",
+    "Demon grunt drops retain the installed no-Looting distribution: 30% life shard, 30% soul shard, 40% neither; the two shards are mutually exclusive per encounter. Demon study and a physical blood altar gate access.",
+    "Chaos expeditions represent defeating the guardian and mining its crystal (5 chaos shards). A draconic core and advanced rocket gate the repeatable encounter; combat difficulty, coordinates and duration are adapted, and no chaotic cores are granted directly."
   ],
   "sources": [
     {
@@ -1855,6 +2224,26 @@ export const GATHERING_REFERENCE={
     {
       "file": "AmunRa-GC-0.8.14/de/katzenpapst/amunra/block/bush/PodSapling.java",
       "sha256": "cb56bdac05b28fec5c3e31c1dff314f1f0ab42b1b449f903e8cf41eb77b477fa"
+    },
+    {
+      "file": "TConstruct-1.14.123/tconstruct/TConstruct.class",
+      "sha256": "f64589dea7a45e8a8678e15decf276b95ac285645ce04cd8b0674c5ad6464d67"
+    },
+    {
+      "file": "TConstruct-1.14.123/tconstruct/world/gen/SlimeIslandGen.class",
+      "sha256": "841de271ced62768d31f150af77b2f295204d7a2ef6a2362536845509638acd4"
+    },
+    {
+      "file": "TConstruct-1.14.123/tconstruct/world/TinkerWorld.class",
+      "sha256": "53844753ee2274c3b8ca29b30407c183522af390d45e6fde42afc17ecd6cbe52"
+    },
+    {
+      "file": "BloodMagic-1.9.16/WayofTime/alchemicalWizardry/common/demonVillage/demonHoard/demon/EntityMinorDemonGrunt.class",
+      "sha256": "6da5cb945c2355ebabc2661c1fb676b905e848a7ff031fc7ce8543bf045bcb2f"
+    },
+    {
+      "file": "Draconic-Evolution-1.5.35-GTNH/ChaosCrystal.java",
+      "sha256": "b721d4590752f0a8d8b2a26991a656cf2dd7e8019740efee47b0d17d07fb7c33"
     }
   ]
 };

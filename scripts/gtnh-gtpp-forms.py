@@ -220,6 +220,7 @@ def generate(imp,needed,numeric,split_args,matching):
         for raw,count,out,n,shape,ticks in [('block',1,'ingot',9,'Ingot',mass*2),('ingot',9,'block',1,'Block',mass*2),('ingot',1,'plate',1,'Plate',10),('ingot',1,'stick',2,'Rod',mass*2),('ingot',5,'rotor',1,'Rotor',mass*5)]:
             add('RecipeGenExtruder','extrude',{raw:count},{out:n},ticks,tools={imp.named('Shape_Extruder_'+shape):1})
         if not radioactive:
+            add('RecipeGenExtruder','extrude',{'ingot':1},{'gearGtSmall':1},mass*2,tools={imp.named('Shape_Extruder_Small_Gear'):1},marker='// Small Gear Recipe')
             for form,count,size,mult in [('ring',4,'Ring',2),('gearGt',1,'Gear',5),('bolt',8,'Bolt',2)]:
                 add('RecipeGenExtruder','extrude',{'ingot':4 if form=='gearGt' else 1},{form:count},mass*mult,tools={imp.named('Shape_Extruder_'+size):1})
         add('RecipeGenAssembler','assemble',{'stick':4},{'frameGt':1},60,circuit=4)
@@ -228,6 +229,7 @@ def generate(imp,needed,numeric,split_args,matching):
                 emit('RecipeGenAssembler','assemble',{f('plate'):4,f('ring'):1,imp.material(solder,'molten'):n},{f('rotor'):1},240,power,'private static void addAssemblerRecipe')
         for form,shape,amount,ticks in [('ingot','Ingot',144,60),('plate','Plate',144,60),('nugget','Nugget',16,60),('gearGt','Gear',576,240),('block','Block',1296,500),('stick','Rod',72,300),('stickLong','Rod_Long',144,600),('bolt','Bolt',18,100),('screw','Screw',18,100),('ring','Ring',36,200),('rotor','Rotor',612,200)]:
             add('RecipeGenFluids','solidify',{'fluid':amount},{form:1},ticks,tools={imp.named('Shape_Mold_'+shape):1})
+        add('RecipeGenFluids','solidify',{'fluid':144},{'gearGtSmall':1},60,tools={imp.named('Shape_Mold_Gear_Small'):1},marker='// Small Gear')
         for raw,n,out,count,shape in [('ingot',1,'nugget',9,'Nugget'),('nugget',9,'ingot',1,'Ingot'),('ingot',8,'gearGt',1,'Gear')]:
             add('RecipeGenAlloySmelter','alloy',{raw:n},{out:count},mass*2,tools={imp.named('Shape_Mold_'+shape):1})
         # Recover only forms actually created by MaterialGenerator. Respect

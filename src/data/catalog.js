@@ -200,7 +200,7 @@ export const milestones=[
 ];
 applyEnergyCatalog({items,machines,recipes});
 const industry=applyIndustryCatalog({items,machines,recipes,gatherNodes});
-applyTechnologyCatalog({items,machines,recipes,legacy:industry.legacy,gatherNodes});
+applyTechnologyCatalog({items,machines,recipes,legacy:industry.legacy,gatherNodes,containerTypes});
 gatherNodes.push(...GATHERING_REFERENCE.nodes.map(n=>structuredClone(n)));
 // Steam-capable recipes unlock with the bronze machines even when their
 // original EU/t exceeds ULV. Unlock chapter and operating voltage are distinct.

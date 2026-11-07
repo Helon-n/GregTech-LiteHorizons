@@ -114,3 +114,30 @@ test('pending Godforge batches correct the former 1000/144 fluid conversion with
   assert.equal(migrated.devices[0].job.remaining,5);assert.equal(validBatchOutputs(r,migrated.devices[0].job.outputs),true);
   assert.deepEqual(migrated.devices[0].job.outputs,{gTPP_HypogenMolten:144});assert.deepEqual(again,migrated);
 });
+
+test('native bars and unified dust identities merge stored quantities without touching separate fluids',()=>{
+  const g=new Game(),raw=g.snapshot();
+  raw.inventory={modItem_NewHorizonsCoreMod_ChromeBars_0:3,nhBlock_ChromeBars:2,gTPP_IodineDust:7,werkstoffMaterialPool_IodineDust:4};
+  raw.earned={...raw.inventory};
+  const loaded=new Game(raw),again=new Game(loaded.snapshot());
+  assert.equal(loaded.quantity('nhBlock_ChromeBars'),5);assert.equal(loaded.quantity('werkstoffMaterialPool_IodineDust'),11);
+  assert.equal(loaded.state.earned.nhBlock_ChromeBars,5);assert.equal(loaded.state.earned.werkstoffMaterialPool_IodineDust,11);
+  assert.deepEqual(again.state.inventory,loaded.state.inventory);
+  assert.equal(g.catalog.itemIdentityMigrations.gTPP_IodineMolten,undefined);
+  assert.equal(g.catalog.itemIdentityMigrations.gTPP_IodinePlasma,undefined);
+});
+
+test('recipes first added after v0.1.12 keep their paid jobs through registry corrections',()=>{
+  const g=new Game(),c=g.catalog;
+  for(const old of ['tech29:5f79fd5a35d09256','tech29:65ab761688a473d0','tech29:c1ab22fe0f13de39','tech29:b2db5f74d4554de3','tech29:3c252c3c54e4d76e','tech29:98c174021f40fc3a','tech29:d750e5934705f64c','tech29:5aa205b559a1fe56']){
+    assert.ok(g.recipeById.has(c.recipeIdentityMigrations[old]),old);
+  }
+  const old='tech29:98c174021f40fc3a',id=c.recipeIdentityMigrations[old],r=g.recipeById.get(id),d=build(g,'lathe',1);
+  d.recipe=id;d.eu=1234;d.job={remaining:r.seconds/2,duration:r.seconds,outputs:{...r.outputs}};
+  const raw=g.snapshot(),device=raw.devices.find(x=>x.id===d.id);device.recipe=old;
+  device.job.outputs={gTPP_IodineRod:1,gTPP_IodineDustSmall:2};
+  const h=new Game(raw),loaded=h.state.devices.find(x=>x.id===d.id);
+  assert.equal(loaded.recipe,id);assert.equal(loaded.eu,1234);assert.equal(loaded.job.remaining,r.seconds/2);
+  assert.deepEqual(loaded.job.outputs,r.outputs);assert.equal(validBatchOutputs(r,loaded.job.outputs),true);
+  assert.deepEqual(new Game(h.snapshot()).state.devices,h.state.devices);
+});

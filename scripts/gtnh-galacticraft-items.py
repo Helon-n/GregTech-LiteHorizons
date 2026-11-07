@@ -24,6 +24,13 @@ def load(imp,root):
                 if material in imp.materials:imp.compressed_items[material]='getModItem(GalacticraftCore.ID,"item.basicItem",1,'+str(meta)+')'
     imp.paths['Galacticraft-3.4.37/ItemBasic.java']=hashlib.sha256(path.read_bytes()).hexdigest()
     imp.paths['instance/mods/'+jar.name]=hashlib.sha256(jar.read_bytes()).hexdigest()
+    # GCItems registers this separate subtype as compressedMeteoricIron.
+    # Dreamcraft disables Galacticraft's compressor recipe, but GT's
+    # ProcessingPlate still registers the triple-plate implosion route.
+    gcitems=directory/'GCItems.java';raw=gcitems.read_text(encoding='utf-8')
+    if not re.search(r'registerOre\(\(String\)"compressedMeteoricIron",\s*\(ItemStack\)new ItemStack\(meteoricIronIngot, 1, 1\)\)',raw):raise ValueError('changed compressed meteoric iron registration')
+    imp.paths['Galacticraft-3.4.37/GCItems.java']=hashlib.sha256(gcitems.read_bytes()).hexdigest()
+    imp.compressed_items['MeteoricIron']='getModItem(GalacticraftCore.ID,"item.meteoricIronIngot",1,1)'
     # GT removes the old compressed-item crafting recipes and registers its
     # triple-plate implosion route. Core's space plates share that prefix.
     dictionary=imp.core/'com/dreammaster/gthandler/GT_Loader_OreDictionary.java'

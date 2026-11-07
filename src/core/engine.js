@@ -1,4 +1,5 @@
 import {isEOH,changeEOH,validEOH,eohRefund} from './eoh.js';
+import {validAura} from './magic.js';
 import {changeBeam,validBeam,beamRefund,finishBeamSource,resetBeamAcceleration} from './beamline.js';
 import {becKind,becHost,isCondensate,condensateQuantity,finishCondensate,changeBEC,validBEC} from './bec.js';
 import {changeSpin,validSpin,spinRecipe} from './spinmatron.js';
@@ -297,21 +298,30 @@ export class Game {
   collectDrops(node,batches=1){
     const drops={},skipped={},totals={},ranges=Object.entries(this.dropRanges(node));
     // Each collector and each completed round rolls independently.
-    for(let batch=0;batch<batches;batch++)for(const[id,{min,max}]of ranges){
+    for(let batch=0;batch<batches;batch++){
+      if(node.exclusiveDrops){
+        const roll=this.nextDropRandom();let end=0;
+        for(const entry of node.exclusiveDrops){end+=entry.chance;if(roll<end){for(const[id,n]of Object.entries(entry.items))totals[id]=(totals[id]??0)+n;break;}}
+        continue;
+      }
+      for(const[id,{min,max}]of ranges){
       const probability=node.dropProbabilities?.[id];
       const amount=probability!==undefined?(this.nextDropRandom()>=1-probability?max:min):min===max?min:min+Math.floor(this.nextDropRandom()*(max-min+1));
       totals[id]=(totals[id]||0)+amount;
+      }
     }
     for(const[id,requested]of Object.entries(totals)){const received=isFluid(this.catalog,id)?Math.min(requested,this.fluidRoom(id)):requested;if(received>0){this.add({[id]:received});drops[id]=received;}if(received<requested)skipped[id]=requested-received;}
     return {drops,skipped};
   }
   note(text){this.state.log.unshift({text,at:Date.now()});this.state.log=this.state.log.slice(0,40);}
   get stage(){return this.catalog.stages[this.state.stage];}
-  nodeAvailable(node){return !!node&&(!node.requires||this.owned(node.requires)>0)&&(!['moon','mars','belt'].includes(node.id)||this.owned(node.id==='belt'?'advancedRocket':'rocket')>0);}
+  nodeRequirements(node){return [...new Set([node?.requires,...(node?.requiresAll??[]),...(['moon','mars','belt'].includes(node?.id)?[node.id==='belt'?'advancedRocket':'rocket']:[]),...(node?.stage===0&&!['forest','surface','river'].includes(node.id)?['flintPick']:[])].filter(Boolean))];}
+  nodeAvailable(node){return !!node&&this.nodeRequirements(node).every(id=>this.owned(id)>0);}
   gatherClicks(node){return Math.max(3,Math.ceil(node.seconds*2));}
   gather(id){
     const node=this.catalog.gatherNodes.find(x=>x.id===id);
-    if(!node||!this.nodeAvailable(node))return {ok:false,message:'缺少采集工具或所需火箭'};
+    if(!node)return {ok:false,message:'采集地点不存在'};
+    if(!this.nodeAvailable(node))return {ok:false,message:'需要：'+this.nodeRequirements(node).filter(id=>!this.owned(id)).map(id=>this.catalog.items[id].name).join('、')};
     if(node.stage===0&&!['forest','surface','river'].includes(id)&&!this.owned('flintPick'))return {ok:false,message:'先在制造页制作燧石镐'};
     if(isFluid(this.catalog,node.output)&&this.fluidRoom(node.output)<=0)return {ok:false,message:'需要可用的桶或储罐，且必须有剩余容量'};
     const required=this.gatherClicks(node),clicks=(this.state.gatherProgress[id]||0)+1;
@@ -373,7 +383,7 @@ export class Game {
   milestoneProgress(){return Object.entries(this.milestone()).map(([id,n])=>({id,need:n,have:Math.max(this.state.earned[id]||0,this.owned(id))}));}
   canAdvance(){return !this.state.completed&&this.milestoneProgress().every(x=>x.have>=x.need);}
   advance(){if(!this.canAdvance())return{ok:false,message:'先完成本阶段目标'};if(this.state.stage===this.catalog.stages.length-1){this.state.completed=true;this.note('星门已建成：GregTech-LiteHorizons 完成');return{ok:true,message:'星门已建成！'};}this.state.stage++;this.note('进入 '+this.stage.name+' · '+this.stage.code);return{ok:true,message:'主线推进：'+this.stage.name};}
-  drops(node){return this.catalog.nodeDrops[node.id]||{[node.output]:node.amount};}
+  drops(node){return node.dropRanges?Object.fromEntries(Object.entries(node.dropRanges).filter(([,r])=>r.max>0).map(([id,r])=>[id,r.max])):this.catalog.nodeDrops[node.id]||{[node.output]:node.amount};}
   dropRanges(node){return node.dropRanges??Object.fromEntries(Object.entries(this.drops(node)).map(([id,n])=>[id,isFluid(this.catalog,id)?{min:n,max:n}:{min:Math.max(id===node.output?1:0,n-1),max:n+1}]));}
   nextDropRandom(){
     // Saved random state keeps future drops consistent after loading and across offline/online steps.
@@ -443,6 +453,7 @@ export class Game {
       if(!validEOH(this,d,r))throw Error('和谐之眼预充电或批次状态无效');
       if(!validBeam(this,d,r,raw.devices))throw Error('束流设备连接、缓存或加工进度无效');
       if(!validBEC(this,d,raw.devices)||!validSpin(this,d))throw Error('凝聚态网络或离心设备状态无效');
+      if(!validAura(this,d))throw Error('奥术工作台灵气无效');
       if(!validFoundry(this,d)||d.job?.parallel!==undefined&&!m.spinmatron&&!m.foundry)throw Error('铸造模块或并行批次状态无效');
       if(d.incubatorClock!==undefined&&(!m.incubator||!finite(d.incubatorClock,0,.05)||d.job))throw Error('培养箱状态无效');
       if(!validBioVat(this,d,r))throw Error('培养仓菌种或辐射状态无效');

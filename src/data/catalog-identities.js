@@ -11,6 +11,27 @@ export const ITEM_IDENTITIES=Object.freeze({
   "vanillaDye4": "lapisGem",
   "reinforcedGlassLens": "nhItem_ReinforcedGlassLense",
   "reinforcedGlassPlate": "nhItem_ReinforcedGlassPlate",
+  "modItem_NewHorizonsCoreMod_SteelBars_0": "nhBlock_SteelBars",
+  "modItem_NewHorizonsCoreMod_AluminiumBars_0": "nhBlock_AluminiumBars",
+  "modItem_NewHorizonsCoreMod_StainlessSteelBars_0": "nhBlock_StainlessSteelBars",
+  "modItem_NewHorizonsCoreMod_TitaniumBars_0": "nhBlock_TitaniumBars",
+  "modItem_NewHorizonsCoreMod_TungstenSteelBars_0": "nhBlock_TungstenSteelBars",
+  "modItem_NewHorizonsCoreMod_ChromeBars_0": "nhBlock_ChromeBars",
+  "modItem_NewHorizonsCoreMod_IridiumBars_0": "nhBlock_IridiumBars",
+  "modItem_NewHorizonsCoreMod_OsmiumBars_0": "nhBlock_OsmiumBars",
+  "modItem_NewHorizonsCoreMod_NeutroniumBars_0": "nhBlock_NeutroniumBars",
+  "gTPP_ZirconiumDust": "werkstoffLoader_ZirconiumDust",
+  "gTPP_ZirconiumDustSmall": "werkstoffLoader_ZirconiumDustSmall",
+  "gTPP_ZirconiumDustTiny": "werkstoffLoader_ZirconiumDustTiny",
+  "gTPP_Thorium232Dust": "werkstoffLoader_Thorium232Dust",
+  "gTPP_Thorium232DustSmall": "werkstoffLoader_Thorium232DustSmall",
+  "gTPP_Thorium232DustTiny": "werkstoffLoader_Thorium232DustTiny",
+  "gTPP_HafniumDust": "werkstoffMaterialPool_HafniumDust",
+  "gTPP_HafniumDustSmall": "werkstoffMaterialPool_HafniumDustSmall",
+  "gTPP_HafniumDustTiny": "werkstoffMaterialPool_HafniumDustTiny",
+  "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust",
+  "gTPP_IodineDustSmall": "werkstoffMaterialPool_IodineDustSmall",
+  "gTPP_IodineDustTiny": "werkstoffMaterialPool_IodineDustTiny",
   "ic2_energyCrystalMeta0": "ic2_energyCrystal",
   "ic2_lapotronCrystalMeta0": "ic2_lapotronCrystal",
   "werkstoffLoader_CalciumDust": "calciumDust",
@@ -135,6 +156,15 @@ export const ITEM_IDENTITIES=Object.freeze({
 export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:9b5df6f43f3b2bbf": "tech29:c2ab6b53deff794e",
   "tech29:2adbb372fe0632c8": "tech29:7eb4c476b5cd1f9f",
+  "tech29:58349b6a37ef49ba": "tech29:eea5f8ff88655a6e",
+  "tech29:2c674a444a3ad067": "tech29:2db8ccf426a1be73",
+  "tech29:1583ff34c10f31ec": "tech29:ae158246d80e2be4",
+  "tech29:4de663cc137ba68c": "tech29:5200b49d97dcc1bd",
+  "tech29:441bf4555675b986": "tech29:c73d2fc5c510a5ff",
+  "tech29:413c8eee815e9a5c": "tech29:68832620164e75b4",
+  "tech29:df11ef9e1c2701c3": "tech29:5c99708c13d7c921",
+  "tech29:7aa68e3395e3b237": "tech29:dd8b2a10d56e723f",
+  "tech29:c5fa9c1effaf2185": "tech29:0c17b5abbf329dd3",
   "tech29:79b0d0dfd92b563d": "tech29:270af4d9639d8986",
   "tech29:de998ff93aca83c6": "tech29:710b005f390f9b26",
   "tech29:0d5b7454206d08f9": "tech29:4797624f8c0fb53a",
@@ -891,6 +921,8 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:7a0065a86d34c6f6": "tech29:200f9eee2ca8ed14",
   "tech29:6071fa8743f8d635": "tech29:c50966d48467e95b",
   "tech29:8ced6666dc315dc3": "tech29:7258fbaea1d092f8",
+  "tech29:852ddd6e8d65a57a": "tech29:4fd40f4c2a1bddca",
+  "tech29:967a83b77a7f1459": "tech29:c84522b7a223c6b0",
   "tech29:4768380b52ef7b6d": "tech29:d67a9d9bd84c857e",
   "tech29:42d579f7a71a5e0d": "tech29:873da9c0181bce88",
   "tech29:f98cc6acde6a6a3d": "tech29:5ba9f1bc875c687a",
@@ -900,6 +932,8 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:46393e545a2f4ce1": "tech29:bf25750755ad2e40",
   "tech29:988070cc762ae976": "tech29:b36e2757ae1ee47c",
   "tech29:807a55f2f69351e7": "tech29:d692c59fb3ba3d38",
+  "tech29:08122163771bc894": "tech29:d70341be4e0d4e33",
+  "tech29:c90c0a2470f43828": "tech29:5236fc50993bb087",
   "tech29:0d97fd5a714f73f3": "tech29:cbabe1043cdc4fe6",
   "tech29:00a55c8150716ec6": "tech29:add78940688e8d37",
   "tech29:2d5b2420c96b7f47": "tech29:db390054ee20255e",
@@ -931,6 +965,7 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:7cdc4cb14eaeba96": "tech29:fba3d188ce3b7816",
   "tech29:2cd12e5ac442d6fa": "tech29:20f026b873585475",
   "tech29:aba11f47b7491a0b": "tech29:8fe5c32ff9feaf99",
+  "tech29:97f577e97e91d939": "tech29:8fd313afc83cf2c5",
   "tech29:4351cca3cfd75d63": "tech29:8b9f6f5ce9b8b59a",
   "tech29:8337af117f5ed9fc": "tech29:31a36d7bb5c04ba3",
   "tech29:45f5ed2070725e0d": "tech29:9dd16a958a6bc3ae",
@@ -1153,7 +1188,7 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:f4f8b9eef92851db": "tech29:e9f61152733bda67",
   "tech29:164ec29a993270b7": "tech29:8a4b1f9ff6685453",
   "tech29:5f52c961535925ef": "tech29:d0672547b3c4da8d",
-  "tech29:88dcd978781637bf": "tech29:98c174021f40fc3a",
+  "tech29:88dcd978781637bf": "tech29:2ceacb22619e3e27",
   "tech29:7dd26a3286675e1a": "tech29:b5d1f06589d66354",
   "tech29:4cf66a5ab478e5ab": "tech29:3c070be13218b755",
   "tech29:e6da264956f1f2af": "tech29:efc95055626be533",
@@ -1167,8 +1202,30 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:071446fd52a71a01": "tech29:192f1db5ff575f94",
   "tech29:44f9409e6f1e681b": "tech29:d16e6bdf000eb057",
   "tech29:d43f3d7fbe79e1e4": "tech29:c466a9d0d42bea82",
-  "tech29:c9d4db752141b717": "tech29:d750e5934705f64c",
-  "tech29:a5a3d0fc2d54c65e": "tech29:5aa205b559a1fe56",
+  "tech29:c9d4db752141b717": "tech29:649c09fc51ac09aa",
+  "tech29:a2825333e5f9b60d": "tech29:752821abaef3f61d",
+  "tech29:eb9256c45b8f2219": "tech29:bfc8b74a947224fd",
+  "tech29:b6e316918eaac704": "tech29:cbf480bc68557e7f",
+  "tech29:8c0c2b85ead5922a": "tech29:710bec52eb5bcad4",
+  "tech29:e3350d36c3211a17": "tech29:2ab2baf620ac6a6c",
+  "tech29:f102c4ed513d6e89": "tech29:88246949981a6920",
+  "tech29:fb3e883a7bdd2639": "tech29:d055d9ff01dab857",
+  "tech29:1887cbe4375a6514": "tech29:fc4e5092a81f3e93",
+  "tech29:1070c2432f3b7e82": "tech29:874b927e5305e21b",
+  "tech29:391e7c3ee7cbca4d": "tech29:c7987c67fd3b8920",
+  "tech29:c444563ba9668370": "tech29:7edd1c85566da862",
+  "tech29:2d1568bc836f1c6b": "tech29:469ed128308eaeb4",
+  "tech29:0f4b71a8fd07d265": "tech29:633673f9b5f42cdc",
+  "tech29:1e3a6206e351afa2": "tech29:6af4742bad657a38",
+  "tech29:a5a3d0fc2d54c65e": "tech29:3021fd5cdbacf1dc",
+  "tech29:cd1da649bf40c46a": "tech29:0ab26e00b2f0793a",
+  "tech29:6b8c066d8c96d856": "tech29:0c33f74cfc927542",
+  "tech29:b9072f63ae0b5232": "tech29:a163aecdb2536c31",
+  "tech29:a0fe34952571753e": "tech29:4414763674f715bb",
+  "tech29:88cc05657a3d6696": "tech29:6323a5458550bad3",
+  "tech29:5c9a99e35c4ef803": "tech29:421b329903d4177d",
+  "tech29:01599aeb1385ce7e": "tech29:d5c98290d5caa644",
+  "tech29:ab1e147544392950": "tech29:fff9f5bd18854fdc",
   "tech29:1147eb979f482311": "tech29:51262119ca337f3e",
   "tech29:e2cdc1c476807462": "tech29:03de6f6f5e339885",
   "tech29:90634fd8ea0cbca4": "tech29:5e00661cfbbc7c7f",
@@ -1546,6 +1603,9 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:9e12ad9b9b41cad2": "tech29:324f59fcbca51ee7",
   "tech29:39618aaecac09f0d": "tech29:acc0938d582fc532",
   "tech29:95e0b700b7828900": "tech29:73280d43daefe5c4",
+  "tech29:4e39e7f2dc0d3fa7": "tech29:546df45f85683c36",
+  "tech29:8b657ad634ecffde": "tech29:6a625e5915c5938e",
+  "tech29:8f21e4c701fa4a73": "tech29:88886edaee9b3143",
   "tech29:ad9dbf75ef6d3c4e": "tech29:68b15791fb899093",
   "tech29:83ea747263de59d8": "tech29:72f8701f62c87e22",
   "tech29:8fe41a755de1fb57": "tech29:5016b10a9147660b",
@@ -2455,6 +2515,8 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:525a9b4dedfe16f2": "tech29:96665c937c8ed42d",
   "tech29:6add355bc9aac1cf": "tech29:2da271b51d1d591c",
   "tech29:afa1bd89cbef396d": "tech29:e31ce475a78f4a3c",
+  "tech29:cede767dccbd1e73": "tech29:30528b8048d37eee",
+  "tech29:59e5f18bd62e0345": "tech29:87d8e2f65e7e7dfc",
   "tech29:fa060d5f3a7867a0": "tech29:87d11469ef5c90fc",
   "tech29:39884c465aa3aeb9": "tech29:c7abf611121cf59f",
   "tech29:45a6c55d843837af": "tech29:78a1607483224412",
@@ -2499,6 +2561,9 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:c7cded9653933ed6": "tech29:411723404d92d853",
   "tech29:c5955b2507a7f5df": "tech29:46057d34f9438390",
   "tech29:406e87c968693a8f": "tech29:f194a9338de21fb2",
+  "tech29:b26ec71dc7802562": "tech29:69ed453552495fb6",
+  "tech29:714289f536f60fd4": "tech29:ef34fc9b60b2c834",
+  "tech29:a2a89b0ad1a4f9bb": "tech29:7a790388f4817418",
   "tech29:a57255c021a852b3": "tech29:ba918684ef3b294c",
   "tech29:d706f98e4f362801": "tech29:375638c39e1c521e",
   "tech29:c7ec59e5d9245c4e": "tech29:1891c7ccb9c41417",
@@ -2596,8 +2661,16 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:36902acbcdd3a627": "tech29:7ea79d1b542a7175",
   "tech29:13210a670deb035c": "tech29:a70f3e2a191245f7",
   "tech29:50a52c34e15b24cc": "tech29:8e5b45b77e420db8",
+  "tech29:c50c7f5decc11d52": "tech29:e3825323edb445d9",
+  "tech29:2879abf158a2e2b1": "tech29:264bdd0ee9cae54f",
+  "tech29:e9903035e0133103": "tech29:81cbe994f72195a0",
+  "tech29:223f57e5c57541fc": "tech29:be2fbcd96f4e1d47",
+  "tech29:9dede464a0e8bae4": "tech29:8f49e6dd24b31e82",
+  "tech29:a8a93d617bac835c": "tech29:87aabf67a8a9803f",
   "tech29:ea21073ec2f49a85": "tech29:4d6f4674f8fdad71",
   "tech29:624742d35072490a": "tech29:1f6a3c6011b74f34",
+  "tech29:babda2d7bebd18e8": "tech29:96d87960c15ea4e9",
+  "tech29:9e44609ac61483dc": "tech29:af093cfdb4c6cac2",
   "tech29:2bca0fe5492c0a3d": "tech29:156b66b65139d41b",
   "tech29:0039f45943de1d8f": "tech29:9a939f44281756b6",
   "tech29:78c6dd7b8aaf1b5f": "tech29:9b5ab8a25afee300",
@@ -2651,7 +2724,15 @@ export const RECIPE_IDENTITIES=Object.freeze({
   "tech29:f80640b7ddcc4a51": "tech29:9d85f42f803e8bfc",
   "tech29:d7a510d3cf7d6894": "tech29:06936732543807f7",
   "tech29:63518962570ea0b2": "tech29:11b7d2947b76339e",
-  "tech29:db4a01883126c7f0": "tech29:64f48c7ae62f77ce"
+  "tech29:db4a01883126c7f0": "tech29:64f48c7ae62f77ce",
+  "tech29:5f79fd5a35d09256": "tech29:c08a8151073bd2c8",
+  "tech29:65ab761688a473d0": "tech29:0d1f7967ec2baa5f",
+  "tech29:c1ab22fe0f13de39": "tech29:3853da2609034357",
+  "tech29:b2db5f74d4554de3": "tech29:30410bf2b3bed15d",
+  "tech29:3c252c3c54e4d76e": "tech29:127d4edc8f1f2b4e",
+  "tech29:98c174021f40fc3a": "tech29:2ceacb22619e3e27",
+  "tech29:d750e5934705f64c": "tech29:649c09fc51ac09aa",
+  "tech29:5aa205b559a1fe56": "tech29:3021fd5cdbacf1dc"
 });
 export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   "tech29:9b5df6f43f3b2bbf": {
@@ -2672,6 +2753,18 @@ export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   "tech29:6071fa8743f8d635": {
     "gTPP_Water": "water"
   },
+  "tech29:852ddd6e8d65a57a": {
+    "gTPP_HafniumDust": "werkstoffMaterialPool_HafniumDust"
+  },
+  "tech29:967a83b77a7f1459": {
+    "gTPP_Thorium232Dust": "werkstoffLoader_Thorium232Dust"
+  },
+  "tech29:08122163771bc894": {
+    "gTPP_HafniumDust": "werkstoffMaterialPool_HafniumDust"
+  },
+  "tech29:c90c0a2470f43828": {
+    "gTPP_Thorium232Dust": "werkstoffLoader_Thorium232Dust"
+  },
   "tech29:00a55c8150716ec6": {
     "gTPP_Hypogen": "gTPP_HypogenMolten"
   },
@@ -2687,6 +2780,9 @@ export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   },
   "tech29:aba11f47b7491a0b": {
     "gTPP_RhodiumDust": "werkstoffLoader_RhodiumDust"
+  },
+  "tech29:97f577e97e91d939": {
+    "gTPP_HafniumDust": "werkstoffMaterialPool_HafniumDust"
   },
   "tech29:148e89b21382c4c0": {
     "blaze_powder": "blazeDust"
@@ -2745,6 +2841,9 @@ export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   "tech29:f83b13476013396c": {
     "gTPP_Selenium": "gTPP_SeleniumIngot"
   },
+  "tech29:88dcd978781637bf": {
+    "gTPP_IodineDustSmall": "werkstoffMaterialPool_IodineDustSmall"
+  },
   "tech29:7dd26a3286675e1a": {
     "gTPP_Iodine": "gTPP_IodineIngot"
   },
@@ -2754,8 +2853,74 @@ export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   "tech29:071446fd52a71a01": {
     "gTPP_Iodine": "gTPP_IodineIngot"
   },
+  "tech29:c9d4db752141b717": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:a2825333e5f9b60d": {
+    "gTPP_IodineDustTiny": "werkstoffMaterialPool_IodineDustTiny"
+  },
+  "tech29:eb9256c45b8f2219": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:b6e316918eaac704": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:8c0c2b85ead5922a": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:e3350d36c3211a17": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:f102c4ed513d6e89": {
+    "gTPP_IodineDustSmall": "werkstoffMaterialPool_IodineDustSmall"
+  },
+  "tech29:fb3e883a7bdd2639": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:1887cbe4375a6514": {
+    "gTPP_IodineDustTiny": "werkstoffMaterialPool_IodineDustTiny"
+  },
+  "tech29:1070c2432f3b7e82": {
+    "gTPP_IodineDustTiny": "werkstoffMaterialPool_IodineDustTiny"
+  },
+  "tech29:391e7c3ee7cbca4d": {
+    "gTPP_IodineDustSmall": "werkstoffMaterialPool_IodineDustSmall"
+  },
+  "tech29:c444563ba9668370": {
+    "gTPP_IodineDustSmall": "werkstoffMaterialPool_IodineDustSmall"
+  },
+  "tech29:2d1568bc836f1c6b": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:0f4b71a8fd07d265": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
   "tech29:a5a3d0fc2d54c65e": {
     "gTPP_Iodine": "gTPP_IodineIngot"
+  },
+  "tech29:cd1da649bf40c46a": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:6b8c066d8c96d856": {
+    "gTPP_IodineDustSmall": "werkstoffMaterialPool_IodineDustSmall"
+  },
+  "tech29:b9072f63ae0b5232": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:a0fe34952571753e": {
+    "gTPP_IodineDustSmall": "werkstoffMaterialPool_IodineDustSmall"
+  },
+  "tech29:88cc05657a3d6696": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:5c9a99e35c4ef803": {
+    "gTPP_IodineDustTiny": "werkstoffMaterialPool_IodineDustTiny"
+  },
+  "tech29:01599aeb1385ce7e": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:ab1e147544392950": {
+    "gTPP_IodineDustTiny": "werkstoffMaterialPool_IodineDustTiny"
   },
   "tech29:5718d0108503c545": {
     "gTPP_Rhenium": "gTPP_RheniumIngot"
@@ -3008,6 +3173,9 @@ export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   },
   "tech29:95e0b700b7828900": {
     "gTPP_ZirconiumCarbide": "gTPP_ZirconiumCarbideIngot"
+  },
+  "tech29:4e39e7f2dc0d3fa7": {
+    "gTPP_ZirconiumDust": "werkstoffLoader_ZirconiumDust"
   },
   "tech29:a0efe746a0b8f511": {
     "gTPP_TantalumCarbide": "gTPP_TantalumCarbideIngot"
@@ -3516,6 +3684,9 @@ export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   "tech29:afa1bd89cbef396d": {
     "gTPP_HS188A": "gTPP_HS188AIngot"
   },
+  "tech29:cede767dccbd1e73": {
+    "gTPP_HafniumDust": "werkstoffMaterialPool_HafniumDust"
+  },
   "tech29:efd6fe1d2fdf1851": {
     "gTPP_Titansteel": "gTPP_TitansteelIngot"
   },
@@ -3539,6 +3710,9 @@ export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   },
   "tech29:406e87c968693a8f": {
     "gTPP_Arcanite": "gTPP_ArcaniteIngot"
+  },
+  "tech29:b26ec71dc7802562": {
+    "gTPP_Thorium232Dust": "werkstoffLoader_Thorium232Dust"
   },
   "tech29:4647bc8c68ae09ca": {
     "gTPP_Octiron": "gTPP_OctironIngot"
@@ -3602,6 +3776,18 @@ export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   },
   "tech29:50a52c34e15b24cc": {
     "gTPP_Quantum": "gTPP_QuantumIngot"
+  },
+  "tech29:c50c7f5decc11d52": {
+    "gTPP_IodineDustSmall": "werkstoffMaterialPool_IodineDustSmall"
+  },
+  "tech29:2879abf158a2e2b1": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:e9903035e0133103": {
+    "gTPP_IodineDustTiny": "werkstoffMaterialPool_IodineDustTiny"
+  },
+  "tech29:223f57e5c57541fc": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
   },
   "tech29:8cc7504e21c75207": {
     "gTPP_CelestialTungsten": "gTPP_CelestialTungstenMolten"
@@ -3737,6 +3923,20 @@ export const RECIPE_OUTPUT_IDENTITIES=Object.freeze({
   },
   "tech29:db4a01883126c7f0": {
     "gTPP_Quantum": "gTPP_QuantumMolten"
+  },
+  "tech29:b2db5f74d4554de3": {
+    "gTPP_ZirconiumDust": "werkstoffLoader_ZirconiumDust",
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:3c252c3c54e4d76e": {
+    "gTPP_ZirconiumDust": "werkstoffLoader_ZirconiumDust",
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
+  },
+  "tech29:98c174021f40fc3a": {
+    "gTPP_IodineDustSmall": "werkstoffMaterialPool_IodineDustSmall"
+  },
+  "tech29:d750e5934705f64c": {
+    "gTPP_IodineDust": "werkstoffMaterialPool_IodineDust"
   }
 });
 export const RECIPE_OUTPUT_FACTORS=Object.freeze({

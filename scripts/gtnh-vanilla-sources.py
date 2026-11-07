@@ -10,6 +10,7 @@ from urllib.request import urlopen
 COMMIT = 'c01d23eb05ed83abb4fee00f9bf603b6bc3e2e27'
 BASE = 'https://raw.githubusercontent.com/eldariamc/client/' + COMMIT + '/src/main/java/net/minecraft/item/crafting/'
 FILES = {
+    'RecipesCrafting.java': '1aaf0361cb8da142a0f132d07dd90658ec9702b8600c284d3212c886c28cb441',
     'RecipesDyes.java': '4ac9446a8f3cc5c87853757d56314f8abbc470479146a65b0999a0bf6c708032',
     'FurnaceRecipes.java': '73afaefa958a8ddb24b248ea93fd4a58d60388ea62015250bfdc28505fba7834',
 }

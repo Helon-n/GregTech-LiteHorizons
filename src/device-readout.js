@@ -15,7 +15,12 @@ const image=(game,id)=>`<img src="assets/gtnh/${escape(game.catalog.items[id]?.i
 const description=m=>`${m.label}，${m.direction}，${exact(m.value)} / ${exact(m.max)} ${m.unit}${m.detail?'，'+m.detail:''}`;
 
 function model(game,d){
-  const spec=energySpec(game,d);if(!spec)return {meters:[],note:''};
+  const spec=energySpec(game,d),magic=game.catalog.machines[d.type];
+  if(magic?.aura||magic?.mana){
+    const members=d.group?game.members(d.id):[d],aura=magic.aura,config=aura??magic.mana,key=aura?'vis':'mana';
+    return {meters:[{key,label:aura?'原始灵气':'魔力池',value:members.reduce((sum,p)=>sum+(p[key]??0),0),max:config.capacity*members.length,unit:aura?'vis / 要素':'mana',direction:'储量',kind:'progress',color:'var(--a)'}],note:aura?'六种原始要素等量充能；开工时扣除灵气':'火红莲自动取煤 · 每块煤 40 秒 / 1,200 mana'};
+  }
+  if(!spec)return {meters:[],note:''};
   const members=d.group?game.members(d.id):[d],count=members.length;
   const r=game.recipeById.get(d.recipe),run=game.deviceRuntime(d,r),meters=[];
   if(game.catalog.machines[d.type]?.bioVat){
