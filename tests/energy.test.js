@@ -73,12 +73,17 @@ test('battery output scales with inserted cells and is shared by consumers',()=>
   }
 });
 
-test('overvoltage is rejected and ordinary upgrades require payment and unlocks',()=>{
+test('overvoltage is rejected and upgrades require materials instead of chapter unlocks',()=>{
   const g=world(),source=build(g,'dieselGenerator'),d=build(g,'assembler','tech29:49193d890804ec2a');
   assert.equal(g.setSupply(d.id,'direct',source.id).ok,false);assert.equal(g.supplyOptions(d,'direct').some(s=>s.id===source.id),false);
   assert.equal(g.upgradeEnergy(d.id).ok,false);g.add(g.energyUpgradeCost(d));assert.equal(g.upgradeEnergy(d.id).ok,true);assert.equal(voltage(d),128);
   assert.equal(g.setSupply(d.id,'direct',source.id).ok,true);assert.equal(g.deviceRuntime(d).power,32);assert.equal(g.deviceRuntime(d).seconds,3.75);
-  g.state.stage=2;g.add(g.energyUpgradeCost(d));assert.equal(g.upgradeEnergy(d.id).ok,false);
+  g.state.stage=0;
+  const cost=g.energyUpgradeCost(d),before=g.quantity(Object.keys(cost)[0]);
+  assert.equal(g.upgradeEnergy(d.id).ok,false,'removing chapter gates must not remove material costs');
+  g.add(cost);assert.equal(g.upgradeEnergy(d.id).ok,true);assert.equal(voltage(d),512);
+  assert.equal(g.quantity(Object.keys(cost)[0]),before,'upgrade consumes the full physical cost');
+  assert.equal(new Game(g.snapshot()).state.devices.find(x=>x.id===d.id).energyTier,d.energyTier);
 });
 
 test('fusion pays startup once, keeps its batch across pause, and requires startup again after force stop',()=>{

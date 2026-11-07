@@ -22,3 +22,13 @@ export function craftingGrid(id,inputs,nativePattern=null){
   entries.forEach(([id,count],i)=>slots[positions[i]]={id,count});
   return slots;
 }
+
+// Structure costs are a bill of materials, not a workbench crafting recipe.
+// Preserve every ingredient and split large structures into nine-slot pages.
+export function constructionSlots(id,inputs){
+  const entries=Object.entries(inputs).filter(([,count])=>count>0);
+  if(entries.length<=9)return craftingGrid(id,inputs);
+  const slots=entries.map(([id,count])=>({id,count}));
+  while(slots.length%9)slots.push(null);
+  return slots;
+}

@@ -13,6 +13,8 @@ if($LASTEXITCODE -ne 1){throw 'Could not check Git version tags'}
 if($TestPackaged){
     & node scripts/electron-smoke.mjs --packaged
     if($LASTEXITCODE -ne 0){throw 'Packaged desktop smoke test failed'}
+    & node scripts/ui-construction.mjs --packaged
+    if($LASTEXITCODE -ne 0){throw 'Packaged construction regression failed'}
     & node scripts/electron-smoke.mjs --portable
     if($LASTEXITCODE -ne 0){throw 'Portable desktop smoke test failed'}
 }

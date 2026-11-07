@@ -27,7 +27,7 @@ import {ENERGY_REFERENCE as ENERGY,recipeEnergyText} from './data/energy-referen
 import {loadWorld,saveWorld,exportWorld,replaceWorld} from './core/storage.js';
 import {CATALOG,STAGES,items,recipes,machines,gatherNodes,containerTypes} from './data/catalog.js';
 import {yieldLabel} from './core/recipe-yields.js';
-import {craftingGrid} from './core/workbench.js';
+import {craftingGrid,constructionSlots} from './core/workbench.js';
 import {recipeEntries,recipesForItem,productName} from './core/recipe-browser.js';
 import {createRecipeTreeView} from './recipe-tree.js';
 import {nuclearControls,setNuclearView} from './nuclear-controls.js';
@@ -225,7 +225,12 @@ function workbench(r){
   const favoriteActive=recipeFavorites.some(f=>f.key===favoriteKey(r));
   const outputPage=listPage('bench-outputs:'+r.id,Object.entries(r.outputs),4);
   const extreme=r.gridWidth===9;
-  let inputSlots=manual||build?craftingGrid(r.id,r.inputs,r.grid):Object.entries(r.inputs).map(([id,count])=>({id,count})),inputControls='';
+  let inputSlots=build?constructionSlots(r.id,r.inputs):manual?craftingGrid(r.id,r.inputs,r.grid):Object.entries(r.inputs).map(([id,count])=>({id,count})),inputControls='';
+  if(build&&inputSlots.length>9){
+    const page=listPage('bench-structure:'+r.id,inputSlots,9);
+    inputSlots=page.entries;
+    inputControls=`<p class="small muted">建造材料 · 共 ${Object.keys(r.inputs).length} 种</p>${page.controls}`;
+  }
   if(manual&&r.gridTools)inputSlots=inputSlots.map((slot,index)=>r.gridTools[index]?{id:r.gridTools[index],count:1}:slot);
   if(extreme){
     const rows=Array.from({length:9},(_,index)=>({index,slots:inputSlots.slice(index*9,index*9+9)}));
