@@ -1296,6 +1296,11 @@ class TechnologyImporter(base.Importer):
             id='modItem_'+mod+'_'+re.sub(r'[^A-Za-z0-9]','',registry)+'_'+str(meta)
             id=self.ic2_registry_ids.get((mod_id+':'+registry,meta),id)
             native=getattr(self,'external_item_metadata',{}).get((mod_id+':'+registry,meta),{'name':registry,'registry':mod_id+':'+registry,'meta':meta,'texture':'assets/'+mod_id.lower()+'/textures/items/'+registry+'.png'})
+            if not hasattr(self,'item_presentations'):
+                presentation_path=ROOT/'src/data/item-presentations.js'
+                self.item_presentations=json.loads(presentation_path.read_text(encoding='utf-8').split('=',1)[1].rstrip(';\n')) if presentation_path.exists() else {}
+            presentation=self.item_presentations.get(mod_id+':'+registry+'@'+str(meta))
+            if presentation:native={**native,**presentation.get('nativeItem',{}),'name':presentation['name']}
             if mod_id=='ThaumicTinkerer' and registry=='kamiResource' and meta in (6,7):
                 native={**native,'name':'下界碎片' if meta==6 else '末地碎片','texture':'assets/ttinkerer/textures/items/'+('netherShard' if meta==6 else 'enderShard')+'.png'}
             self.items[id]={'id':id,'name':native['name'],'kind':'item','category':'元件','nativeItem':native}

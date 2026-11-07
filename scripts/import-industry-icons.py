@@ -12,7 +12,7 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 
-def run(instance, vanilla):
+def run(instance, vanilla, presentations_only=False):
     output = ROOT / 'src/assets/gtnh'
     manifest_path = output / 'sources.json'
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
@@ -34,6 +34,17 @@ def run(instance, vanilla):
     technology = ROOT / 'src/data/technology-import.js'
     if technology.exists():
         items.update(json.loads(technology.read_text(encoding='utf-8').split('=', 1)[1].rstrip(';\n'))['items'])
+    presentation_path = ROOT / 'src/data/item-presentations.js'
+    presentations = json.loads(presentation_path.read_text(encoding='utf-8').split('=', 1)[1].rstrip(';\n')) if presentation_path.exists() else {}
+    selected = {}
+    for id, item in items.items():
+        native = item.get('nativeItem', {})
+        presentation = presentations.get(native.get('registry', '') + '@' + str(native.get('meta', 0)))
+        if presentation:
+            item['nativeItem'] = {**native, **presentation.get('nativeItem', {}), 'name': presentation['name']}
+            selected[id] = item
+    if presentations_only:
+        items = selected
     gt = module.GT
     missing = []
     for id, item in items.items():
@@ -204,7 +215,7 @@ def run(instance, vanilla):
         'smartBoiler2':'iconsets/MACHINE_MV_SIDE.png',
         'smartBoiler3':'iconsets/MACHINE_HV_SIDE.png',
     }
-    for id, suffix in overlays.items():
+    for id, suffix in ([] if presentations_only else overlays.items()):
         path = suffix if suffix.startswith('assets/') else gt+'blocks/'+suffix
         if path not in importer.files:
             token = re.sub(r'[^a-z]', '', suffix.split('/')[-2] if 'basicmachines' in suffix else suffix.split('/')[-1].replace('.png', '').replace('OVERLAY_FRONT_', '')).lower()
@@ -223,7 +234,8 @@ def run(instance, vanilla):
             importer.save(id, importer.sprite(path, 0x969696 if material == 'Ash' else 0x323232), 'Original GT tiny-dust silhouette, original ash material color.')
     manifest['icons'].update(importer.manifest)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-    (ROOT / '.local/industry-missing-icons.json').write_text(json.dumps(missing, indent=2), encoding='utf-8')
+    report = 'presentation-missing-icons.json' if presentations_only else 'industry-missing-icons.json'
+    (ROOT / '.local' / report).write_text(json.dumps(missing, indent=2), encoding='utf-8')
     print(f'Traced {len(importer.manifest)} original icons; unresolved: {len(missing)}')
     for row in missing[:12]: print(row)
 
@@ -232,5 +244,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--instance', default=Path('D:/PrismLauncher/instances/GT_New_Horizons_2.9.0_Java_17-26'), type=Path)
     parser.add_argument('--vanilla', default=Path('D:/PrismLauncher/libraries/com/mojang/minecraft/1.7.10/minecraft-1.7.10-client.jar'), type=Path)
+    parser.add_argument('--presentations-only', action='store_true', help='Trace only items with corrected display metadata.')
     args = parser.parse_args()
-    run(args.instance, args.vanilla)
+    run(args.instance, args.vanilla, args.presentations_only)
