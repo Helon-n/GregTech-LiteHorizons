@@ -91,6 +91,7 @@ export function saveGroup(game,kind,name,ids,id=null){
     if(fluids.size>1||fluid&&members.some(c=>!game.acceptsFluid(c,fluid)))return {ok:false,message:'同组容器只能储存同一种兼容流体'};
     if(fluid)for(const c of members)c.fluid=fluid;
   }else{
+    if(members.some(d=>game.catalog.machines[d.type]?.bec||game.catalog.machines[d.type]?.spinmatron||game.catalog.machines[d.type]?.foundry||game.catalog.machines[d.type]?.eoh||game.catalog.machines[d.type]?.beamline))return {ok:false,message:'凝聚态、演化、束流与模块设备需要逐台配置'};
     if(members.some(d=>game.catalog.machines[d.type]?.energy?.cycle==='nuclear'))return {ok:false,message:'核反应堆需要逐台管理布局和冷却'};
     if(members.some(d=>game.catalog.machines[d.type]?.godforge==='host'))return {ok:false,message:'造物主主机独立管理，请将模块连接到主机'};
     if(members.some(d=>game.catalog.machines[d.type]?.purification==='host'))return {ok:false,message:'纯净水厂主控独立管理，请连接处理单元'};
@@ -126,6 +127,7 @@ export function validateGroups(catalog,groups,devices,containers){
     const members=g.members.map(id=>entities.get(id));
     for(const x of members){if(!x||used.has(x.id)||(g.kind==='fluid'?!catalog.containerTypes[x.type]:!catalog.machines[x.type]))throw Error('分组成员无效');used.add(x.id);}
     const first=members[0];
+    if(g.kind==='device'&&members.some(d=>catalog.machines[d.type]?.bec||catalog.machines[d.type]?.spinmatron||catalog.machines[d.type]?.foundry||catalog.machines[d.type]?.eoh||catalog.machines[d.type]?.beamline))throw Error('后期网络及模块设备需要单独配置');
     if(g.kind==='device'&&members.some(d=>catalog.machines[d.type]?.godforge==='host'))throw Error('造物主主机不能编组');
     if(g.kind==='device'&&members.some(d=>catalog.machines[d.type]?.purification==='host'))throw Error('纯净水厂主控不能编组');
     if(g.kind==='device'&&members.some(d=>catalog.machines[d.type]?.energy?.cycle==='nuclear'))throw Error('核反应堆布局需要单独管理');

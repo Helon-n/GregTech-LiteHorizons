@@ -15,6 +15,11 @@ import {NAQUADAH_REFERENCE as naquadah} from '../src/data/naquadah-reference.js'
 import {RENEWABLES_REFERENCE as renewables} from '../src/data/renewables-reference.js';
 import {NUCLEAR_REFERENCE as nuclear} from '../src/data/nuclear-reference.js';
 import {BIOCHEMISTRY_REFERENCE as biology} from '../src/data/biochemistry-reference.js';
+import {BEC_REFERENCE as bec} from '../src/data/bec-reference.js';
+import {EOH_REFERENCE as eoh} from '../src/data/eoh-reference.js';
+import {LATE_MACHINES_REFERENCE as late} from '../src/data/late-machines-reference.js';
+import {FOUNDRY_REFERENCE as foundry} from '../src/data/foundry-reference.js';
+import {BEAMLINE_REFERENCE as beam} from '../src/data/beamline-reference.js';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
 const errors=[],ids=new Set(),outputSources=new Map(),processes={},conditions={};
@@ -33,7 +38,14 @@ for(const r of c.recipes){
   for(const process of recipeProcesses(r))processes[process]=(processes[process]??0)+1;
   for(const key of Object.keys(r.requirements??{}))conditions[key]=(conditions[key]??0)+1;
   for(const key of ['researchData','researchItem','bioCulture'])if(r.requirements?.[key])item(r.requirements[key],r.id);
+  for(const q of r.beamNeeds??[]){if(!beam.particles[q.particle]||!Number.isInteger(q.amount)||q.amount<1)fail('beam-requirement',r.id,q);else item(beam.particles[q.particle].id,r.id);}
   if(r.reactorBonus)item(r.reactorBonus,r.id);
+  for(const slot of r.requirements?.becSlots??[]){item(slot.item,r.id);item(slot.nanite,r.id);if(!Number.isInteger(slot.tier)||slot.tier<0)fail('bec-slot',r.id,slot);}
+  if(r.incubation){const q=r.incubation;item(q.catalyst,r.id);item(q.seedFluid,r.id);if(!r.tools?.[q.catalyst]||!(q.taskChance>0&&q.taskChance<=1)||!(q.lossChance>=0&&q.lossChance<=1))fail('incubation',r.id,q);}
+  if(r.randomChoice){
+    const q=r.randomChoice;
+    if(!q.weights||Object.keys(q.weights).length!==Object.keys(r.outputs).length||!Number.isInteger(q.count)||q.count<1||![1,16].includes(q.rolls)||Object.entries(q.weights).some(([id,w])=>!Number.isFinite(w)||w<=0||r.outputs[id]!==q.count*q.rolls))fail('weighted-output',r.id,q);
+  }
   if(r.bath){item(r.bath.fluid,r.id);item(r.bath.waste,r.id);if(!(r.bath.divisor>0))fail('bath',r.id,r.bath.divisor);}
   for(const[id,n]of Object.entries(r.toolWear??{})){item(id,r.id);if(!r.tools?.[id]||!Number.isInteger(n)||n<1)fail('tool-wear',r.id,id);}
   for(const[id,n]of Object.entries(r.containerTools??{})){item(id,r.id);if(r.process!=='craft'||!c.containerTypes[id]||r.tools?.[id]!==n||!Number.isInteger(n)||n<1||!r.containerPortAdapted)fail('crafting-container-tool',r.id,id);}
@@ -49,7 +61,7 @@ for(const r of c.recipes){
     for(const [index,id]of Object.entries(r.gridTools??{})){item(id,r.id);if(!r.tools?.[id]||!/^\d+$/.test(index)||Number(index)>=r.grid.length||r.grid[index])fail('crafting-tool-grid',r.id,{index,id});}
   }
 }
-const machineList=Object.values(c.machines),unserved=[];
+const machineList=Object.values(c.machines),unserved=[],servingMachines=new Map();
 for(const u of forge.upgrades){for(const id of Object.keys(u.cost))item(id,'godforge-upgrade:'+u.code);}
 for(const [piece,cost] of Object.entries(forge.structures))for(const id of Object.keys(cost))item(id,'godforge-structure:'+piece);
 item(forge.startup,'godforge-startup');for(const id of forge.fuels)item(id,'godforge-fuel');
@@ -80,11 +92,12 @@ for(const r of c.recipes){
     for(const key of ['compressionTier','chemicalCasing','preciseCasing','componentCasing','spaceModule','pcbTier','qftTier','qftFocus','nanoForgeTier','refineryCoil','plasmaTier','exoticTier','nanochipTier','computation'])if(q[key]!==undefined&&!(m.godforge&&['plasmaTier','exoticTier'].includes(key))&&(cap[key]??-1)<q[key])return false;
     if(q.algaeTier!==undefined&&cap.algaeTier!==q.algaeTier)return false;
     if(q.bioGlass!==undefined&&(cap.bioGlass??-1)<q.bioGlass)return false;
-    for(const key of ['bioUpgrade','multiStepPlasma','heavyCentrifuge'])if(q[key]&&!(m.godforge&&key==='multiStepPlasma')&&!cap[key])return false;
+    for(const key of ['bioUpgrade','multiStepPlasma','heavyCentrifuge','nonCell'])if(q[key]&&!(m.godforge&&key==='multiStepPlasma')&&!cap[key])return false;
     if(q.nkeRange&&(!cap.nkeRange||cap.nkeRange.min<q.nkeRange.min||cap.nkeRange.max>q.nkeRange.max))return false;
     return true;
   };
-  if(!machines.some(m=>voltageOK(m)&&conditionOK(m)))unserved.push({recipe:r.id,process:r.process,reason:'machine-condition'});
+  const serving=machines.filter(m=>voltageOK(m)&&conditionOK(m));servingMachines.set(r.id,serving);
+  if(!serving.length)unserved.push({recipe:r.id,process:r.process,reason:'machine-condition'});
 }
 const gathered=new Set();
 for(const node of c.gatherNodes){
@@ -95,6 +108,16 @@ for(const node of c.gatherNodes){
   }
 }
 const used=new Set(c.recipes.flatMap(r=>Object.keys({...r.inputs,...r.tools})).concat(machineList.flatMap(m=>Object.keys(m.cost))));
+for(const r of c.recipes)for(const q of r.beamNeeds??[])if(beam.particles[q.particle])used.add(beam.particles[q.particle].id);
+for(const module of Object.values(beam.modules)){item(module.casing,'beam-detector');used.add(module.casing);}
+for(const r of c.recipes){
+  if(r.incubation)used.add(r.incubation.seedFluid);
+  for(const id of [r.requirements?.researchData,r.requirements?.researchItem])if(id)used.add(id);
+  for(const slot of r.requirements?.becSlots??[])used.add(slot.nanite);
+}
+for(const f of Object.values(eoh.fields))for(const id of f.items){item(id,'eoh-field');used.add(id);}
+for(const m of foundry.modules)for(const id of Object.keys(m.cost)){item(id,'foundry-module:'+m.code);used.add(id);}
+for(const id of [late.fluid,late.kerosene,...foundry.coolants.map(c=>c.item)]){item(id,'auxiliary-fluid');used.add(id);}
 for(const r of c.recipes)if(r.requirements?.bioCulture)used.add(r.requirements.bioCulture);
 for(const id of Object.keys(biology.fuels)){item(id,'radiation-hatch');used.add(id);}
 for(const u of forge.upgrades)for(const id of Object.keys(u.cost))used.add(id);
@@ -105,6 +128,10 @@ for(const r of c.recipes.filter(r=>r.purification))for(const id of [water.waters
 // These outputs are made by explicitly modelled dynamic operations, not a
 // registered recipe. Include their actual dependencies in the material graph.
 const dynamicSources=forge.fuels.map(fuel=>({id:'godforge:shards:'+fuel,inputs:[...Object.keys(c.machines.godforge.cost),forge.startup,fuel],outputs:[forge.shard]}));
+// Optimistic collision sources still require the physical source/collider,
+// an installed detector and an acceleratable input beam. Energy thresholds
+// and ongoing supply are runtime conditions, not proved by this graph.
+for(const [module,m]of Object.entries(beam.modules))for(const input of Object.values(beam.particles).filter(p=>p.accelerates))dynamicSources.push({id:'beam-collision:'+module+':'+input.id,inputs:[...Object.keys(c.machines.beamcollider.cost),m.casing,input.id],outputs:m.particles.filter(k=>beam.particles[k].weight>0).map(k=>beam.particles[k].id)});
 for(const [fuel,spec]of Object.entries(nuclear.parts))if(spec.depleted){
   const drivers=spec.kind==='breeder'?Object.keys(nuclear.parts).filter(id=>nuclear.parts[id].kind==='fuel'):[null];
   for(const driver of drivers)dynamicSources.push({id:'nuclear:'+fuel+(driver?':'+driver:''),inputs:[nuclear.controller,fuel,...(driver?[driver]:[])],outputs:[spec.depleted]});
@@ -117,11 +144,43 @@ const sourceLess=[...used].filter(id=>!outputSources.has(id)&&!gathered.has(id))
 // Optimistic material reachability: ignores quantities, stages, energy, world
 // travel, machine construction and structure gates. Even under these relaxed
 // assumptions an unreachable material is a real catalog dependency gap.
-const reachable=new Set(gathered),graph=c.recipes.map(r=>({id:r.id,inputs:[...Object.keys(r.inputs??{}),...Object.keys(r.tools??{}),...[r.requirements?.researchData,r.requirements?.bioCulture].filter(Boolean)],outputs:Object.keys(r.outputs??{}).filter(id=>possibleOutput(r,id))})).concat(dynamicSources);
+const extraInputs=r=>[...[r.requirements?.researchData,r.requirements?.bioCulture,r.incubation?.seedFluid].filter(Boolean),...(r.beamNeeds??[]).map(q=>beam.particles[q.particle]?.id).filter(Boolean)];
+const reachable=new Set(gathered),graph=c.recipes.map(r=>({id:r.id,inputs:[...Object.keys(r.inputs??{}),...Object.keys(r.tools??{}),...extraInputs(r)],outputs:Object.keys(r.outputs??{}).filter(id=>possibleOutput(r,id))})).concat(dynamicSources);
 let changed=true,passes=0;
 while(changed){changed=false;passes++;for(const r of graph)if(r.inputs.every(id=>reachable.has(id)))for(const id of r.outputs)if(!reachable.has(id)){reachable.add(id);changed=true;}}
 const unreachable=[...used].filter(id=>!reachable.has(id)).map(id=>({id,name:c.items[id]?.name,sources:outputSources.get(id)??[]}));
 const blockedRecipes=graph.filter(r=>r.inputs.some(id=>!reachable.has(id))).map(r=>({id:r.id,missing:r.inputs.filter(id=>!reachable.has(id))}));
+// A second graph includes construction, collection tools, research/cultures,
+// physical fluid containment and selected special-machine installations. It
+// still cannot prove a runnable energy network or enough material quantities.
+const constructed=new Set(),supported=new Set();let constructionPasses=0,buildingChanged=true;
+const spinRotors=Object.values(c.items).filter(i=>i.rotor);
+const canContain=id=>c.items[id]?.kind!=='fluid'||Object.entries(c.containerTypes).some(([type,spec])=>constructed.has(type)&&(!spec.accepts||spec.accepts.includes(id)));
+const addConstructed=id=>{if(!constructed.has(id)&&canContain(id)){constructed.add(id);buildingChanged=true;}};
+const installedConditions=(r,m)=>{
+  const q=r.requirements??{};
+  if(q.cleanroom&&!constructed.has('cleanroomFacility'))return false;
+  if(q.heat&&!m.godforge&&!COILS.some(coil=>constructed.has(coil.item)&&coil.heat+(m.id==='ebf'?100*((m.energy.maxTier??m.energy.tier)-2):0)>=q.heat))return false;
+  if(m.spinmatron&&(!spinRotors.some(i=>constructed.has(i.id))||!(constructed.has(late.fluid)||!q.heavyCentrifuge&&constructed.has(late.kerosene))))return false;
+  if((m.orbital||q.lowGravity)&&!constructed.has('spaceElevator'))return false;
+  if(m.foundry&&r.power>8*4**10&&!foundry.modules.some(module=>['HELIOCAST_REINFORCEMENT','UNIVERSAL_COLLAPSER'].includes(module.code)&&Object.keys(module.cost).every(id=>constructed.has(id))&&(!module.chassis||constructed.has(foundry.chassis[m.foundry-1]))))return false;
+  if(m.bec&&m.bec!=='storage'&&!constructed.has('becstorage'))return false;
+  if(q.becSlots&&!q.becSlots.every(slot=>bec.nanites.some(n=>n.tier>=slot.tier&&constructed.has(n.item))))return false;
+  if(q.eohSpace!==undefined&&!eoh.fields.space.items.slice(q.eohSpace).some(id=>constructed.has(id)))return false;
+  return true;
+};
+while(buildingChanged){
+  buildingChanged=false;constructionPasses++;
+  for(const n of c.gatherNodes)if((!n.requires||constructed.has(n.requires))&&(!['moon','mars','belt'].includes(n.id)||constructed.has(n.id==='belt'?'advancedRocket':'rocket'))&&(n.stage!==0||['forest','surface','river'].includes(n.id)||constructed.has('flintPick')))for(const id of Object.keys(c.nodeDrops[n.id]??n.dropRanges??{[n.output]:1}))addConstructed(id);
+  for(const m of machineList)if(Object.keys(m.cost).every(id=>constructed.has(id)))addConstructed(m.id);
+  for(const r of c.recipes){
+    const deps=[...Object.keys(r.inputs),...Object.keys(r.tools??{}),...extraInputs(r)];
+    if(deps.some(id=>!constructed.has(id))||r.process!=='craft'&&!(servingMachines.get(r.id)??[]).some(m=>constructed.has(m.id)&&installedConditions(r,m)))continue;
+    supported.add(r.id);for(const id of Object.keys(r.outputs).filter(id=>possibleOutput(r,id)))addConstructed(id);
+  }
+  for(const s of dynamicSources)if(s.inputs.every(id=>constructed.has(id)))for(const id of s.outputs)addConstructed(id);
+}
+const constructionReachability={assumptions:'Static dependencies only; ignores quantities, actual energy-network reachability, machine upgrade costs, timing, probability and spatial mechanics. Includes machine construction, gather tools/rockets, fluid containers, research/cultures, cleanroom, coils, BEC nanites/network and EOH space fields. Includes beam particle/module dependencies but ignores collision energy thresholds. No chapter gating.',passes:constructionPasses,reachable:constructed.size,unreachable:[...used].filter(id=>!constructed.has(id)),unsupportedRecipes:c.recipes.filter(r=>!supported.has(r.id)).map(r=>r.id),milestones:c.milestones.map((goals,stage)=>({stage,missing:Object.keys(goals).filter(id=>!constructed.has(id))}))};
 const missingIcons=[];
 await Promise.all([...Object.values(c.items)].map(async i=>{try{await access(path.join(root,'src/assets/gtnh',`${i.icon||i.id}.svg`));}catch{missingIcons.push({id:i.id,icon:i.icon||i.id,name:i.name});}}));
 const provenance={};
@@ -129,8 +188,9 @@ for(const label of ['industry','technology']){
   const p=JSON.parse(await readFile(path.join(root,`src/data/${label}-provenance.json`),'utf8'));
   provenance[label]={recipes:p.recipes,unresolved:p.unresolved?.length??0,sourceFiles:Object.keys(p.sourceFiles??{}).length,...(p.crafting?{literalCrafting:p.crafting.recipes,craftingUnresolved:p.crafting.unresolved.length}:{})};
 }
-const report={description:'Static catalog audit; counts do not prove runtime recipe parity or gameplay correctness. Machine-condition checks use hypothetical fully upgraded devices, not a reachable upgrade path.',totals:{items:Object.keys(c.items).length,recipes:c.recipes.length,machines:machineList.length,fuels:c.fuels.length},provenance,processes,conditions,errors,unserved,sourceLess,materialReachability:{assumptions:'Optimistic: only input/tool/research dependencies; ignores quantities, energy, stages, machine construction and world gates. Reachable does not mean playable.',passes,reachable:reachable.size,unreachable,blockedRecipes},missingIcons,dynamic:{sources:dynamicSources,exoticPools:Object.fromEntries(['items','fluids','magmatter'].map(k=>[k,forge.exotic[k].length])),exoticUnresolved:forge.exotic.unresolved,waterlineRecipes:c.recipes.filter(r=>r.purification).length},unusedMachines:machineList.filter(m=>!m.facility&&!m.orbital&&!['battery'].includes(m.energy?.kind)&&m.id!=='spaceElevator'&&!c.recipes.some(r=>machineSupportsRecipe(m,r))).map(m=>({id:m.id,name:m.name}))};
+const report={description:'Static catalog audit; counts do not prove runtime recipe parity or gameplay correctness. Machine-condition checks use hypothetical fully upgraded devices, not a reachable upgrade path.',totals:{items:Object.keys(c.items).length,recipes:c.recipes.length,machines:machineList.length,fuels:c.fuels.length},provenance,processes,conditions,errors,unserved,sourceLess,materialReachability:{assumptions:'Optimistic: only input/tool/research dependencies; ignores quantities, energy, stages, machine construction and world gates. Reachable does not mean playable.',passes,reachable:reachable.size,unreachable,blockedRecipes},missingIcons,dynamic:{sources:dynamicSources,exoticPools:Object.fromEntries(['items','fluids','magmatter'].map(k=>[k,forge.exotic[k].length])),exoticUnresolved:forge.exotic.unresolved,waterlineRecipes:c.recipes.filter(r=>r.purification).length},unusedMachines:machineList.filter(m=>!m.facility&&!m.orbital&&!['battery'].includes(m.energy?.kind)&&m.id!=='spaceElevator'&&m.beamline!=='collider'&&!c.recipes.some(r=>machineSupportsRecipe(m,r))).map(m=>({id:m.id,name:m.name}))};
 await mkdir(path.join(root,'docs/generated'),{recursive:true});
+report.constructionReachability=constructionReachability;
 await writeFile(path.join(root,'docs/generated/catalog-audit.json'),JSON.stringify(report,null,2)+'\n');
-console.log(JSON.stringify({totals:report.totals,errors:errors.length,unserved:unserved.length,sourceLess:sourceLess.length,materialUnreachable:unreachable.length,blockedRecipes:blockedRecipes.length,missingIcons:missingIcons.length,unusedMachines:report.unusedMachines},null,2));
+console.log(JSON.stringify({totals:report.totals,errors:errors.length,unserved:unserved.length,sourceLess:sourceLess.length,materialUnreachable:unreachable.length,blockedRecipes:blockedRecipes.length,constructionUnreachable:constructionReachability.unreachable.length,milestones:constructionReachability.milestones,missingIcons:missingIcons.length,unusedMachines:report.unusedMachines},null,2));
 if(errors.length)process.exitCode=1;

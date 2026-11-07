@@ -1,3 +1,10 @@
+import {EOH_REFERENCE as EOH} from './eoh-reference.js';
+import {VOID_MINER_REFERENCE as VOID} from './void-miner-reference.js';
+import {BEAMLINE_REFERENCE as BEAM} from './beamline-reference.js';
+import {INCUBATOR_REFERENCE as INCUBATOR} from './incubator-reference.js';
+import {FOUNDRY_REFERENCE as FOUNDRY} from './foundry-reference.js';
+import {BEC_REFERENCE as BEC} from './bec-reference.js';
+import {LATE_MACHINES_REFERENCE as LATE} from './late-machines-reference.js';
 import {TECHNOLOGY_IMPORT as T} from './technology-import.js';
 import {ENERGY_REFERENCE as E} from './energy-reference.js';
 import {GODFORGE_REFERENCE as G} from './godforge-reference.js';
@@ -13,6 +20,7 @@ import {MATTER_REFERENCE as MATTER} from './matter-reference.js';
 import {REPLICATION_REFERENCE as REPLICATION} from './replication-reference.js';
 import {BIOCHEMISTRY_REFERENCE as BIOCHEMISTRY} from './biochemistry-reference.js';
 import {CIRCUIT_MIGRATIONS} from './circuit-progression.js';
+import {RETIRED_TECHNOLOGY_RECIPES,RETIRED_CATALOG_ITEMS} from './catalog-identities.js';
 
 export const COILS=Object.freeze([
   ['Cupronickel','白铜',1801],['Kanthal','坎塔尔合金',2701],['Nichrome','镍铬合金',3601],
@@ -25,6 +33,8 @@ export const COILS=Object.freeze([
 // Only original recipes with a replacement output are retired. The remaining
 // idle construction/space progression is explicitly tracked in the coverage file.
 export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNodes}){
+  Object.assign(legacy,RETIRED_TECHNOLOGY_RECIPES);
+  for(const [id,item]of Object.entries(RETIRED_CATALOG_ITEMS))items[id]??={...item};
   for(const[id,item]of Object.entries(T.items)){
     if(items[id])Object.assign(items[id],{native:item.native??items[id].native,nativeItem:item.nativeItem??items[id].nativeItem});
     else items[id]={...item};
@@ -85,9 +95,14 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
     ['nanochipOpticalOrganizer','纳米芯片光学整理器',12,['nanochipOptical']],
     ['nanochipBiologicalCoordinator','纳米芯片生物协调器',12,['nanochipBio']],
     ['nanochipConverter','纳米芯片转换器',12,['nanochipConvert']],
-    ['industrialCentrifuge','工业离心机 · 重型模式',6,['centrifuge']],
+    ['industrialCentrifuge','工业离心机',6,['centrifuge']],
+    ['industrialElectrolyzer','工业电解机',4,['electrolyze']],
     ['flotationCell','泡沫浮选机',5,['flotation']],['isamill','艾萨研磨机',5,['mill']],['printer','打印机',2,['print']],
   ])machine(...row);
+  for(const [id,controller]of [['industrialCentrifuge','gtItem_IndustrialCentrifuge'],['industrialElectrolyzer','gtItem_IndustrialElectrolyzer']]){
+    Object.assign(machines[id],{cost:{[controller]:1},icon:controller,capabilities:{nonCell:true}});
+    items[id].icon=controller;
+  }
   machines.industrialPackager.processes.push('pack');
   for(const row of BIOCHEMISTRY.controllers){
     const id='bioLab'+row.code;
@@ -146,7 +161,56 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
   // Preserve the old controller's identity and paid construction materials.
   // Its retired placeholder recipes now use the real plasma-forge map/coils.
   machines.stellarForge.processes=['plasmaForge'];machines.stellarForge.coils=true;
-  machines.industrialCentrifuge.capabilities={heavyCentrifuge:true};
+  // Heavy-only recipes belong to Spinmatron, not the ordinary centrifuge.
+  machines.industrialCentrifuge.capabilities={};
+  for(let tier=1;tier<=4;tier++){
+    const id='spinmatron'+tier;
+    machine(id,'Spinmatron · '+tier+' 级结构',9,['centrifuge'],{spinmatron:tier,
+      cost:{...LATE.structure,...LATE.tiers[tier-1],[LATE.feeds[8]]:1},icon:LATE.controller,
+      capabilities:{heavyCentrifuge:true,nonCell:true},energy:{kind:'consumer',tier:8,maxTier:13,inputAmps:64,recipeAmps:64,bufferTicks:4096,amperageOC:true,advancedFeed:true},
+      description:'生物催化推进液助转；普通模式 70% 耗电、三倍速度，重型模式 11.2 倍耗电'});
+    items[id].icon=LATE.controller;
+  }
+  for(const [kind,title,processes]of [['storage','凝聚态存储器',[]],['generator','凝聚态发生器',['condensateGenerate']],['assembler','凝聚态组装器',['condensateAssemble']]]){
+    const ref=BEC.machines[kind],cost={...ref.cost,[LATE.feeds[13]]:1,[LATE.connectors.Hatch_BEC_Connector]:1};
+    if(kind==='assembler'){
+      for(const [id,n]of Object.entries(BEC.machines.node.cost))cost[id]=(cost[id]??0)+n;
+      cost[LATE.naniteHatch]=15;cost[LATE.connectors.Hatch_LineOfSight_Connector]=2;
+    }
+    const id='bec'+kind;
+    machine(id,title,14,processes,{bec:kind,cost,icon:ref.controller,...(kind==='storage'?{facility:'becStorage'}:{}),
+      energy:{kind:'consumer',tier:13,maxTier:13,inputAmps:64,recipeAmps:64,bufferTicks:4096},description:kind==='storage'?'场强决定容量及每刻耗电；断电会失去凝聚态':kind==='assembler'?'按投入槽顺序更换纳米蜂群；连接独立凝聚态网络':'将材料转成凝聚态，送入指定存储器'});
+    items[id].icon=ref.controller;
+  }
+  for(const [kind,title,processes,tier]of [['source','粒子源室',['beamSource'],5],['crafter','束流合成机',['beamCraft'],6],['collider','大型强子对撞机',[],8]]){
+    const id='beam'+kind;
+    machine(id,title,tier,processes,{beamline:kind,cost:{[BEAM.controllers[kind]]:1,[BEAM.hatches.output]:kind==='crafter'?0:1,[BEAM.hatches.input]:kind==='source'?0:1},icon:BEAM.controllers[kind],energy:{kind:'consumer',tier,maxTier:14,inputAmps:kind==='source'?1:64,recipeAmps:kind==='source'?1:64,bufferTicks:4096},description:kind==='collider'?'加速粒子并按探测模块随机输出束流':kind==='crafter'?'以输入粒子数量推进加工；束流保存在机内':'持续消耗原料产生束流，输出连接到合成机或对撞机'});
+    for(const key of Object.keys(machines[id].cost))if(!machines[id].cost[key])delete machines[id].cost[key];
+    items[id].icon=BEAM.controllers[kind];
+  }
+  const eohCost={...EOH.structure};
+  for(const f of Object.values(EOH.fields))eohCost[f.items[0]]=f.count;
+  machine('eyeOfHarmony','和谐之眼',12,['eyeOfHarmony'],{eoh:true,cost:eohCost,icon:EOH.controller,
+    energy:{kind:'consumer',tier:13,maxTier:13,inputAmps:64,recipeAmps:64,bufferTicks:4096},
+    description:'维度演化产出原恒星物质；预充电后开工，返还电量送入实体电池箱'});
+  items.eyeOfHarmony.icon=EOH.controller;
+  for(let tier=1;tier<=3;tier++){
+    const id='exoFoundry'+tier;
+    machine(id,'Exo-Foundry · '+tier+' 级结构',11,['solidify'],{foundry:tier,
+      cost:{...FOUNDRY.main,[FOUNDRY.chassis[tier-1]]:FOUNDRY.chassisCount,[LATE.feeds[10]]:1},icon:FOUNDRY.controller,
+      energy:{kind:'consumer',tier:10,maxTier:13,inputAmps:64,recipeAmps:64,bufferTicks:4096,advancedFeed:true},
+      description:'模块化流体固化：结构提供 '+(tier+1)+' 个模块槽，冷却器消耗实体冷却液'});
+    items[id].icon=FOUNDRY.controller;
+  }
+  machine('geneticsIncubator','培养箱',2,['incubate'],{incubator:true,cost:{[INCUBATOR.controller]:1},icon:INCUBATOR.controller,energy:{kind:'consumer',tier:1,maxTier:1},description:'按原版逐刻随机培养，培养原料按概率消耗；0.5 EU/t（2 RF/t）'});
+  for(const row of VOID.machines){
+    const id='voidMiner'+row.tier;
+    machine(id,row.code+' 虚空采矿机',row.tier+6,['voidMine'+row.tier],{cost:row.cost,icon:row.controller,
+      energy:{kind:'consumer',tier:row.tier+5,maxTier:row.tier+5},
+      description:'每 10 tick 随机抽取一种矿石；稀有气体增产，16 批模式保持每次独立抽取。深暗需要实体传送门，外星部署需要高级火箭'});
+    items[id].icon=row.controller;
+  }
+  items.geneticsIncubator.icon=INCUBATOR.controller;
   machine('cleanroomFacility','洁净室',2,[],{cost:{steelPlate:32,glass:16,basicCircuit:4,pump:4},energy:{kind:'consumer',tier:1,maxTier:1},power:4,facility:'cleanroom'});
   machines.neutroniumCompressor.capabilities={compressionTier:2};
   for(const [id,name,stage,process,key,levels,offset]of [
@@ -277,7 +341,7 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
     if(CIRCUIT_MIGRATIONS[r.id]||retire.has(r.id)&&Object.keys(r.outputs).every(id=>replacements.has(id))){legacy[r.id]=structuredClone(r);recipes.splice(index,1);}
   }
   recipes.push(...T.recipes.map(r=>({...r})));
-  // Scanner jobs retain their prototype; TecTech station jobs consume it.
+  // Both scanner and station consume the sample and write a physical stick.
   // Every assembly-line batch requires the corresponding recorded data.
   const scans=new Map();
   for(const r of recipes){
@@ -290,7 +354,7 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
     if(scans.has(key))continue;scans.set(key,true);
     const scanTier=E.voltage.findIndex(v=>v>=(station?req.researchVoltage:req.scanEUt));
     recipes.push({id:'research:'+key,name:items[data].name,process:station?'stationResearch':'research',stage:Math.max(station?9:machines.scanner.stage,scanTier+1),
-      inputs:station?{[req.researchItem]:req.researchCount??1,gtItem_Tool_DataStick:1}:{},tools:station?{}:{[req.researchItem]:1},outputs:{[data]:1},
+      inputs:{[req.researchItem]:req.researchCount??1,gtItem_Tool_DataStick:1},tools:{},outputs:{[data]:1},
       seconds:req.scanTicks/20,power:req.scanEUt,...(station?{fixedRuntime:true,requirements:{computation:req.researchComputation,researchVoltage:req.researchVoltage,researchAmperage:req.researchAmperage}}:{}),source:'GTNH2.9',origin:r.origin});
   }
   const computations=[...new Set(recipes.filter(r=>r.process==='stationResearch').map(r=>r.requirements.computation))];

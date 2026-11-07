@@ -85,6 +85,7 @@ def generate(imp,needed,numeric,split_args,matching):
         cache[key]=result;return result
     wire_label='gtPlusPlus/core/recipe/RecipesGeneral.java';wire_raw=read(wire_label)
     wire_materials={imp.gtpp_materials.get(ref.replace('MaterialsElements.getInstance().','MaterialsElements.')) for ref in re.findall(r'generateWireRecipes\(([\w.()]+)\)',wire_raw)}
+    pipe_materials={imp.gtpp_materials.get(ref) for ref in re.findall(r'generatePipeRecipes\(([\w.]+)\)',wire_raw)}
     registrations={};extra_forms={}
     for path in (imp.source/'gtPlusPlus').rglob('*.java'):
         content=path.read_text(encoding='utf-8')
@@ -161,6 +162,39 @@ def generate(imp,needed,numeric,split_args,matching):
         forms|=extra_forms.get(name,set())
         f=lambda prefix:imp.material(name,'molten' if prefix=='fluid' and state=='SOLID' else prefix)
         for form in forms:f(form)
+        # RecipeGenPlasma is registered for regular and nuclear materials.
+        # Material generates plasma only for non-composites. Restrict this
+        # expansion to referenced plasma identities, not hypothetical ones.
+        if not m['components'] and 'plasma' in needed.get(name,set()) and not standalone:
+            read('gregtech/api/recipe/RecipeMaps.java')
+            emit('RecipeGenPlasma','freeze',{f('plasma'):1000},{f('fluid'):1000},max(mass*2,1),120,
+                 'if (ItemUtils.checkForInvalidItems(new ItemStack[] { aCell, aPlasmaCell }))')
+        if name in pipe_materials and 'ingot' in forms:
+            label='gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechConduits.java';raw=read(label)
+            # RecipesGeneral explicitly calls this helper for these ten
+            # registered pipe materials. No generic high-tier hand recipes.
+            pipe_power=8*(power//8)
+            for size,ingots,extrude_ticks,cast_ticks in [('Tiny',.5,5,20),('Small',1,10,40),('Medium',3,20,80),('Large',6,40,160),('Huge',12,80,320)]:
+                prefix='pipe'+size;forms.add(prefix);imp.active_file=label
+                imp.emit_recipe('extrude',{f('ingot'):1 if size=='Tiny' else ingots},{f(prefix):2 if size=='Tiny' else 1},extrude_ticks,pipe_power,
+                    raw.count('\n',0,raw.index('public static void generatePipeRecipes(final Material material, final String materialName'))+1,
+                    {imp.named('Shape_Extruder_Pipe_'+size):1},{},[],None)
+                imp.emit_recipe('solidify',{f('fluid'):int(ingots*144)},{f(prefix):1},cast_ticks,pipe_power,
+                    raw.count('\n',0,raw.index('if (material != null && material.getFluid() != null)'))+1,
+                    {imp.named('Shape_Mold_Pipe_'+size):1},{},[],None)
+        if name in wire_materials and 'ingot' in forms:
+            label='gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechConduits.java';raw=read(label)
+            for width,ingots,ticks,rod_ticks in [(1,1,100,50),(2,1,150,100),(4,2,200,150),(8,4,250,200),(12,6,300,250),(16,8,350,300)]:
+                prefix='wireGt'+str(width).zfill(2)
+                # generateWireRecipes is invoked only after actual cable
+                # registration; do not extend this branch to other metals.
+                for source,amount,duration in [('ingot',ingots,ticks),('stick',width,rod_ticks)]:
+                    if source not in forms:continue
+                    marker='public static boolean generateWireRecipes'
+                    imp.active_file=label
+                    imp.emit_recipe('wire',{f(source):amount},{f(prefix):2 if width==1 and source=='ingot' else 1},duration,4,
+                        raw.count('\n',0,raw.index(marker))+1,{}, {},[],width)
+                forms.add(prefix)
         if 'wireFine' in forms and 'ingot' in forms and name in wire_materials:
             label='gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechConduits.java';raw=read(label);imp.active_file=label
             imp.emit_recipe('wire',{f('ingot'):1},{f('wireFine'):8},100,4,raw.count('\n',0,raw.index('if (ItemUtils.checkForInvalidItems(new ItemStack[] { aIngot, aFineWire }))'))+1,{}, {},[],3)

@@ -10,6 +10,7 @@ def load(imp,root):
     text=path.read_text(encoding='utf-8')
     names=re.search(r'String\[\] names = new String\[\]\{([^}]+)\}',text)
     if not names:raise ValueError('Galacticraft basic item subtype table missing')
+    imp.compressed_items={}
     jar=imp.instance/'.minecraft/mods/Galacticraft-3.4.37-GTNH.jar'
     with zipfile.ZipFile(jar) as archive:
         files=set(archive.namelist())
@@ -18,5 +19,16 @@ def load(imp,root):
             if texture not in files:raise ValueError('Missing original Galacticraft texture '+texture)
             name=imp.lang.get('item.basicItem.'+key+'.name',key)
             imp.external_item_metadata[('GalacticraftCore:item.basicItem',meta)]={'registry':'GalacticraftCore:item.basicItem','meta':meta,'texture':texture,'name':name}
+            if key.startswith('compressed'):
+                material={'Aluminum':'Aluminium'}.get(key[10:],key[10:])
+                if material in imp.materials:imp.compressed_items[material]='getModItem(GalacticraftCore.ID,"item.basicItem",1,'+str(meta)+')'
     imp.paths['Galacticraft-3.4.37/ItemBasic.java']=hashlib.sha256(path.read_bytes()).hexdigest()
     imp.paths['instance/mods/'+jar.name]=hashlib.sha256(jar.read_bytes()).hexdigest()
+    # GT removes the old compressed-item crafting recipes and registers its
+    # triple-plate implosion route. Core's space plates share that prefix.
+    dictionary=imp.core/'com/dreammaster/gthandler/GT_Loader_OreDictionary.java'
+    raw=dictionary.read_text(encoding='utf-8')
+    for material,key in re.findall(r'\.registerOre\(\s*OrePrefixes\.compressed,\s*Materials\.(\w+),\s*NHItemList\.(\w+)\.get\(\)\)',raw):
+        imp.compressed_items[material]='NHItemList.'+key+'.get(1)'
+    imp.paths['NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_OreDictionary.java']=hashlib.sha256(dictionary.read_bytes()).hexdigest()
+    imp.material_prefixes.add('compressed')

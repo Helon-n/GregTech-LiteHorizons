@@ -17,7 +17,7 @@ def matching(text,start):
     raise ValueError('unclosed call')
 
 
-def generate(imp,needed,mass,numeric):
+def generate(imp,needed,mass,numeric,split_args):
     material_text=(imp.source/'gregtech/loaders/materials/MaterialsInit.java').read_text(encoding='utf-8')
     def emit(template,process,ins,outs,ticks,power,line,tools=None,conditions=None,circuit=None):
         imp.active_file=template
@@ -131,29 +131,39 @@ def generate(imp,needed,mass,numeric):
             label='bartworks/system/material/werkstoff_loaders/recipe/RawOreLoader.java'
             emit(label,'forgeHammer',{imp.material(key,'rawOre'):1},{imp.material(key,'gem'):1},10,eu(15),60)
         if parts and ('.setElektrolysis(true)' in body or '.setCentrifuge(true)' in body) and all(child in imp.materials for child,count in parts):
-            # A single fluid component needs no cells. Multiple-fluid recipes
-            # have container return rules and remain outside this expansion.
+            # Multi-fluid outputs use GT++'s actual non-cell conversion. Keep
+            # this route exclusive to industrial multi-fluid machinery.
             fluids=[(child,count) for child,count in parts if not imp.materials[child]['dust']]
-            if len(fluids)<=1:
+            if len(fluids)<=1 or all(child not in definitions for child,count in fluids):
                 value=stat(key,element_masses)
                 if value is not None:
                     template='bartworks/system/material/werkstoff_loaders/recipe/DustLoader.java';raw=(imp.source/template).read_text(encoding='utf-8')
-                    outputs={imp.material(child,'dust' if imp.materials[child]['dust'] else 'fluid'):count*(1 if imp.materials[child]['dust'] else 1000) for child,count in parts}
+                    outputs={}
+                    for child,count in parts:
+                        id=imp.material(child,'dust' if imp.materials[child]['dust'] else 'fluid')
+                        outputs[id]=outputs.get(id,0)+count*(1 if imp.materials[child]['dust'] else 1000)
+                    if len(fluids)>1:
+                        for label in ('gtPlusPlus/xmod/gregtech/loaders/RecipeGenMultisUsingFluidInsteadOfCells.java','gtPlusPlus/GTplusplus.java'):
+                            imp.paths[label]=hashlib.sha256((imp.source/label).read_bytes()).hexdigest()
                     for flag,process,power in [('Elektrolysis','electrolyze',30),('Centrifuge','centrifuge',5)]:
                         if '.set'+flag+'(true)' in body:
                             marker=raw.index('if (werkstoffStats.is'+flag+'())')
-                            emit(template,process,{imp.material(key,'dust'):sum(count for child,count in parts)},outputs,max(1,abs(value//len(parts))),eu(min(4,len(parts))*power),raw.count('\n',0,marker)+1)
+                            emit(template,process,{imp.material(key,'dust'):sum(count for child,count in parts)},outputs,max(1,abs(value//len(parts))),eu(min(4,len(parts))*power),raw.count('\n',0,marker)+1,conditions={'nonCell':True} if len(fluids)>1 else {})
         if ('.addMixerRecipes(' in body or '.addChemicalRecipes()' in body) and parts:
-            # Only the all-dust branch is represented here. Mixed fluid/cell
-            # branches remain unresolved rather than losing their containers.
-            if all(child in imp.materials and imp.materials[child]['dust'] for child,count in parts):
+            # DustLoader accepts one direct gas/fluid alongside its powders.
+            # Additional fluids require cells or industrial non-cell rules.
+            fluids=[(child,count) for child,count in parts if not imp.materials.get(child,{}).get('dust')]
+            if all(child in imp.materials for child,count in parts) and len(fluids)<=1 and all(child not in definitions and (imp.materials[child]['cell'] or imp.materials[child]['fluid']) for child,count in fluids):
                 chemical='.addChemicalRecipes()' in body
                 value=stat(key,protons if chemical else element_masses)
                 if value is not None:
                     template='bartworks/system/material/werkstoff_loaders/recipe/DustLoader.java'
                     raw=(imp.source/template).read_text(encoding='utf-8')
                     marker=raw.index('.hasChemicalRecipes()) {',raw.index('ItemStack werkstoffDust')) if chemical else raw.index('.hasMixerRecipes()) {',raw.index('ItemStack werkstoffDust'))
-                    ins={imp.material(child,'dust'):count for child,count in parts}
+                    ins={}
+                    for child,count in parts:
+                        dust=imp.materials[child]['dust'];item=imp.material(child,'dust' if dust else 'fluid')
+                        ins[item]=ins.get(item,0)+count*(1 if dust else 1000)
                     emit(template,'chemistry' if chemical else 'mix',ins,{imp.material(key,'dust'):sum(count for child,count in parts)},
                          max(1,value//len(parts)),eu(min(4,len(parts))*(30 if chemical else 5)),raw.count('\n',0,marker)+1,
                          circuit=int(mix[1]) if (mix:=re.search(r'\.addMixerRecipes\(\(short\)\s*(\d+)\)',body)) else None)
@@ -171,14 +181,27 @@ def generate(imp,needed,mass,numeric):
                 melting=re.search(r'\.setMeltingPoint\((\d+)\)',body)
                 temperature=int(melting[1]) if melting else 0
                 multiplier=60 if temperature>=2800 else 15
+                if '.setBlastFurnace(true)' not in body:
+                    # DustLoader registers ordinary furnace recipes for
+                    # non-blast metals, including Lanthanides Permalloy.
+                    for source,target in [('dust','ingot'),('dustTiny','nugget')]:
+                        template=directory+'DustLoader.java';raw=(imp.source/template).read_text(encoding='utf-8')
+                        line=raw.count('\n',0,raw.index('GTModHandler.addSmeltingRecipe(werkstoff.get('+source+')'))+1
+                        r=emit(template,'electricSmelt',{f(source):1},{f(target):1},128,4,line)
+                        if r:r.update(stage=1,furnaceRegistry=True)
                 route('MetalLoader','extrude',{f('ingot'):9},{f('block'):1},value*9,multiplier*8,
                       '.itemInputs(werkstoff.get(ingot, 9), ItemList.Shape_Extruder_Block',tools={imp.named('Shape_Extruder_Block'):1})
                 route('SimpleMetalLoader','bend',{f('ingot'):1},{f('plate'):1},value,24,
                       '.itemInputs(werkstoff.get(ingot))\n                .circuit(1)',circuit=1)
+                if '.addDoubleAndDensePlates()' in body:
+                    emit('gregtech/loaders/oreprocessing/ProcessingPlate.java','bend',{f('plate'):9},{f('plateDense'):1},max(1,value*9),eu(96),233,circuit=9)
+                    route('MultipleMetalLoader','bend',{f('ingot'):2},{f('plateDouble'):1},value*2,96,'.itemInputs(werkstoff.get(ingot, 2))',circuit=2)
                 route('SimpleMetalLoader','bend',{f('ingot'):1},{f('foil'):4},value*2,24,
                       '.itemInputs(werkstoff.get(ingot))\n                .circuit(10)',circuit=10)
                 route('SimpleMetalLoader','lathe',{f('ingot'):1},{f('stick'):1,f('dustSmall'):2},value*5,16,
                       '.itemInputs(werkstoff.get(ingot))\n                .itemOutputs(werkstoff.get(stick)')
+                route('SimpleMetalLoader','forgeHammer',{f('stick'):2},{f('stickLong'):1},value,16,
+                      '.itemInputs(werkstoff.get(stick, 2))')
                 if '.addMolten()' in body:
                     route('MoltenCellLoader','solidify',{f('molten'):144},{f('ingot'):1},32,8,
                           '.itemInputs(ItemList.Shape_Mold_Ingot.get(0))',tools={imp.named('Shape_Mold_Ingot'):1})
@@ -246,6 +269,33 @@ def generate(imp,needed,mass,numeric):
     helper_label='goodgenerator/util/CrackRecipeAdder.java'
     imp.paths[blast_label]=hashlib.sha256((imp.source/blast_label).read_bytes()).hexdigest()
     imp.paths[helper_label]=hashlib.sha256((imp.source/helper_label).read_bytes()).hexdigest()
+    # The universal helper registers both a full tower and separately selected
+    # distillery fractions. The latter use twice the time and one quarter EU/t.
+    helper_raw=(imp.source/helper_label).read_text(encoding='utf-8')
+    if not all(x in helper_raw for x in ('Math.min(aOutputs.length, 11)','2 * aDuration','aEUt / 4')):raise ValueError('changed universal distillation helper')
+    for recipe_file in ('RecipeLoader.java','RecipeLoader2.java','NaquadahRecipeLoader.java'):
+        label='goodgenerator/loader/'+recipe_file;path=imp.source/label;raw=path.read_text(encoding='utf-8')
+        imp.paths[label]=hashlib.sha256(path.read_bytes()).hexdigest()
+        for call in re.finditer(r'CrackRecipeAdder\.addUniversalDistillationRecipe\(',raw):
+            line=raw.count('\n',0,call.start())+1
+            try:
+                args=imp.resolve(raw[call.end():matching(raw,call.end()-1)])
+                # Only literal five-argument registrations are expanded.
+                parts=split_args(args)
+                if len(parts)!=5:raise ValueError('universal distillation argument count')
+                fluids=re.fullmatch(r'new\s*FluidStack\[\]\s*\{(.*)\}',parts[1],re.S)
+                if not fluids:raise ValueError('nonliteral distillation output array')
+                fractions=split_args(fluids[1])
+                source,count=imp.stack(parts[0]);outputs=[imp.stack(expr) for expr in fractions]
+                solid={} if parts[2]=='GTValues.NI' else dict([imp.stack(parts[2])])
+                ticks=numeric(parts[3]);power=numeric(parts[4]);all_outputs=dict(solid)
+                for item,amount in outputs:all_outputs[item]=all_outputs.get(item,0)+amount
+                emit(label,'distill',{source:count},all_outputs,ticks,power,line)
+                for index,(item,amount) in enumerate(outputs[:11]):
+                    fraction=dict(solid);fraction[item]=fraction.get(item,0)+amount
+                    emit(label,'distillery',{source:count},fraction,ticks*2,power//4,line,circuit=index+1)
+            except (ValueError,KeyError,SyntaxError,TypeError) as error:
+                imp.skipped.append({'file':label,'line':line,'reason':'universal distillation: '+str(error)})
     for call in re.finditer(r'CrackRecipeAdder.reAddBlastRecipe\(GGMaterial\.(\w+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(true|false)\)',blast_raw):
         name,ticks,power,heat,gas=call.groups();key='GGMaterial_'+name
         if key not in imp.materials:continue
@@ -254,11 +304,13 @@ def generate(imp,needed,mass,numeric):
             {imp.material(key,'dust'):1},{imp.material(key,'ingotHot' if int(heat)>1750 else 'ingot'):1},
             int(ticks),int(power),blast_raw.count('\n',0,call.start())+1,{},
             {'heat':int(heat),**({'ADDITIVE_AMOUNT':1000} if gas=='true' else {})},[],11 if gas=='true' else 1)
-    for declaration in re.finditer(r'Werkstoff\s+(\w+)\s*=\s*new Werkstoff\(',werkstoff_text):
-        key='WerkstoffLoader_'+declaration[1]
+    for key,body in definitions.items():
         if 'molten' not in needed.get(key,set()):continue
-        body=werkstoff_text[declaration.end():matching(werkstoff_text,declaration.end()-1)]
-        if '.onlyDust()' not in body or '.addMolten()' not in body or '.addMetalItems()' in body:continue
+        # Default GenerationFeatures includes dusts; gem-only Orundum also
+        # enters MoltenCellLoader's no-ingot branch. Include GG/Lanth
+        # registrations, while preserving explicit disabled-generation masks.
+        if '.addMolten()' not in body or '.addMetalItems()' in body:continue
+        if '.disable()' in body and '.onlyDust()' not in body:continue
         if key not in imp.materials:continue
         needed.setdefault(key,set()).add('dust')
         dust=imp.material(key,'dust')
@@ -332,6 +384,28 @@ def generate(imp,needed,mass,numeric):
         # Werkstoff is declared only as dust/molten/metalworking forms, so its
         # custom alloy-blast mixer route is not covered by generic generation.
         incoloy='GGMaterial_incoloy903'
+        # The GG helper registers real pipes separately from the Werkstoff
+        # generation flags. Expand its extrusion and casting branches too.
+        pipe_loader='goodgenerator/loader/Loaders.java'
+        pipe_source=(imp.source/pipe_loader).read_text(encoding='utf-8')
+        imp.paths[pipe_loader]=hashlib.sha256((imp.source/pipe_loader).read_bytes()).hexdigest()
+        helper='goodgenerator/util/CrackRecipeAdder.java'
+        raw=(imp.source/helper).read_text(encoding='utf-8')
+        for registration in re.finditer(r'CrackRecipeAdder.registerPipe\(MetaTileEntityIDs\.\w+\.ID, GGMaterial\.(\w+),',pipe_source):
+            key='GGMaterial_'+registration[1];definition=definitions[key]
+            pairs=[(part,int(count)) for part,count in re.findall(r'Pair\.of\((\w+),\s*(\d+)\)',definition)]
+            values=[(component_mass(part),count) for part,count in pairs]
+            if not values or any(value is None for value,count in values):raise ValueError('unresolved GG pipe mass '+key)
+            value=sum(m*n for m,n in values)//sum(n for _,n in values)
+            for size,amount,count,factor in [('Tiny',1,2,1),('Small',1,1,2),('Medium',3,1,6),('Large',6,1,12),('Huge',12,1,24)]:
+                prefix='pipe'+size
+                for process,mold,power in [('extrude','Extruder',120),('solidify','Mold',30)]:
+                    anchor='ItemList.Shape_'+mold+'_Pipe_'+size+'.get(0)'
+                    pos=raw.find(anchor,raw.index('public static void registerPipe'))
+                    if pos<0:raise ValueError('changed GG pipe template '+anchor)
+                    emit(helper,process,{imp.material(key,'ingot' if process=='extrude' else 'molten'):amount if process=='extrude' else amount*144//count},
+                        {imp.material(key,prefix):count if process=='extrude' else 1},max(1,value*factor),power,raw.count('\n',0,pos)+1,
+                        tools={imp.named('Shape_'+mold+'_Pipe_'+size):1})
         if 'gearGt' in needed.get(incoloy,set()):
             alloy='gtPlusPlus/core/recipe/RecipesGregTech.java'
             alloy_path=imp.source/alloy
@@ -518,9 +592,17 @@ def generate(imp,needed,mass,numeric):
                     bender_text.count('\n',0,match.start())+1,{}, {}, [],12)
 
     directory='gregtech/loaders/oreprocessing/'
+    # Registered compressed aerospace plates are made from triple plates by
+    # ProcessingPlate's real implosion branch, not ordinary compression.
+    for material,operand in imp.compressed_items.items():
+        target=imp.stack(operand)[0]
+        needed.setdefault(material,set()).add('plateTriple')
+        imp.active_file=directory+'ProcessingPlate.java'
+        imp.paths[imp.active_file]=hashlib.sha256((imp.source/imp.active_file).read_bytes()).hexdigest()
+        imp.emit_expanded('implosionRecipes','implode',{imp.material(material,'plateTriple'):1},{target:1,imp.material('AshDark','dustTiny'):1},20,30,269,{}, {'ADDITIVE_AMOUNT':2},[],None)
     # ProcessingTransforming polarizes matching physical forms. Expand only
     # referenced magnetic forms, using their exact material-unit duration.
-    amounts={'ingot':1,'nugget':1/9,'plate':1,'plateDouble':2,'stick':.5,'stickLong':1,'bolt':1/8,'screw':1/9,'ring':.25,'foil':.25,'wireFine':1/8,'wireGt01':.5,'block':9,'dust':1}
+    amounts={'ingot':1,'nugget':1/9,'plate':1,'plateDouble':2,'plateDense':9,'stick':.5,'stickLong':1,'bolt':1/8,'screw':1/9,'ring':.25,'foil':.25,'wireFine':1/8,'wireGt01':.5,'block':9,'dust':1}
     for item in imp.items.values():
         native=item.get('native',{})
         if native.get('prefix')=='frameGt' and native.get('material') in imp.materials:
@@ -538,12 +620,29 @@ def generate(imp,needed,mass,numeric):
         plate=imp.material(material,'plateAlloy')
         for input in [imp.stack('new ItemStack(Blocks.glass,1,0)')[0],imp.material('Glass','dust')]:
             emit(directory+'ProcessingPlate.java','alloy',{plate:1,input:3},{glass:4},400,4,line)
+    # Core registers physical reinforced-glass plates/lenses. ProcessingLens
+    # sees no dustSmall for this material, so it produces only the lens.
+    emit(directory+'ProcessingLens.java','lathe',{imp.material('ReinforcedGlass','plate'):1},{imp.material('ReinforcedGlass','lens'):1},1200,120,79)
+    # ProcessingDust's Diamond branch produces IC2's distinct industrial gem.
+    imp.active_file=directory+'ProcessingDust.java'
+    imp.emit_expanded('implosionRecipes','implode',{imp.material('Diamond','dust'):4},{imp.stack('GTModHandler.getIC2Item("industrialDiamond",1)')[0]:3,imp.material('AshDark','dustTiny'):16},20,30,330,{}, {'ADDITIVE_AMOUNT':32},[],None)
     for name,forms in list(needed.items()):
         m=imp.materials.get(name);value=mass(name)
         body=re.search(r'private static Materials load'+re.escape(name)+r'\(\)\s*\{(.*?)(?=\n    private static|\Z)',material_text,re.S)
         if not m or value is None or not body:continue
         body=body[1];eu=lambda n:m['processingEU'] or n
         f=lambda prefix:imp.material(name,prefix)
+        # Plate registrators also run for plastics. Their NO_SMASHING branch
+        # uses glue in an assembler; STRETCHY materials permit machine bending.
+        for count,prefix,ticks,glue in [(2,'plateDouble',64,10),(3,'plateTriple',96,20),(4,'plateQuadruple',128,30),(5,'plateQuintuple',160,40)]:
+            if prefix not in forms or m['metal'] and 'NO_SMASHING' not in m['tags']:continue
+            raw=(imp.source/(directory+'ProcessingPlate.java')).read_text(encoding='utf-8')
+            marker=raw.index('private void registerPlate'+{2:'Double',3:'Triple',4:'Quadruple',5:'Quintuple'}[count])
+            line=raw.count('\n',0,marker)+1
+            if 'NO_SMASHING' not in m['tags'] or 'STRETCHY' in m['tags']:
+                emit(directory+'ProcessingPlate.java','bend',{f('plate'):count},{f(prefix):1},max(value*count,1),eu(96),line,circuit=count)
+            else:
+                emit(directory+'ProcessingPlate.java','assemble',{f('plate'):count,imp.material('Glue','fluid'):glue},{f(prefix):1},ticks,7,line,circuit=count)
         if 'plateDense' in forms and 'STRETCHY' in m['tags']:
             # GT's ProcessingPlate explicitly permits dense plates for stretchy
             # materials even when they carry NO_SMASHING (for example PTFE).
@@ -578,6 +677,7 @@ def generate(imp,needed,mass,numeric):
             forms.add('plate')
             emit(directory+'ProcessingPlate.java','electricCompress',{f('plate'):64},{f('plateSuperdense'):1},max(value*32,1),eu(96),379,conditions={'compressionTier':2 if m['processingEU']>=7864320 or 'BLACK_HOLE' in m['tags'] else 1})
         if 'lens' in forms and name not in ('Salt','RockSalt','Spodumene'):
+            if name=='ReinforcedGlass':continue
             if name=='ChromaticGlass':
                 emit(directory+'ProcessingLens.java','electricCompress',{f('dust'):16},{f('lens'):1},12000,1966080,69)
             else:
@@ -589,6 +689,18 @@ def generate(imp,needed,mass,numeric):
         # Gem processing has its own input forms and restrictions. Never
         # fabricate metal ingots for a gemstone just to use metal templates.
         if m['gems']:
+            # Vanilla/ForbiddenMagic storage blocks are registered ore-dict
+            # forms even though their GT generated block prefix is removed.
+            # The gem compressor is still registered (15 seconds, 2 EU/t).
+            if 'block' in forms and name not in ('Salt','RockSalt','Spodumene','NetherQuartz','Iridium') and ('.addBlockItems()' in body or name in ('Diamond','Emerald','Lapis','Coal','NetherStar')):
+                emit(directory+'ProcessingGem.java','electricCompress',{f('gem'):9},{f('block'):1},300,2,72)
+                emit(directory+'ProcessingBlock.java','forgeHammer',{f('block'):1},{f('gem'):9},100,24,316)
+            if 'gem' in forms and m['dust']:
+                # GTRecipeRegistrator recycling keeps the material's actual
+                # maceration target and mass, including AE2-unified Fluix.
+                target=m['macerating'];target_mass=mass(target)
+                if target_mass is not None:
+                    emit('gregtech/api/util/GTRecipeRegistrator.java','grind',{f('gem'):1},{imp.material(target,'dust'):1},max(16,target_mass),4,489)
             if name=='NetherStar':
                 # Vanilla stars are the gem form; NO_SMASHING forbids plates
                 # from hammering but permits flawless-gem turning and wiring.

@@ -5,13 +5,13 @@ import {guaranteedOutputs} from './recipe-yields.js';
 import {machineSupportsRecipe} from './technology.js';
 import {componentCount} from './components.js';
 
-const EPS=1e-8,MAX_STEPS=512,MAX_COUNT=1e9;
+const EPS=1e-8,MAX_STEPS=512,MAX_COUNT=Number.MAX_SAFE_INTEGER;
 const indexes=new WeakMap();
 function recipeIndex(game){
   let cached=indexes.get(game.catalog);
   if(!cached){
     const entries=recipeEntries(game.catalog,game.catalog.stages.length-1),byId=new Map(entries.map(r=>[r.id,r])),byOutput=new Map();
-    for(const r of entries)if(r.process!=='build'&&!r.dynamic&&!r.dynamicAmount)for(const id of Object.keys(guaranteedOutputs(r))){
+    for(const r of entries)if(r.process!=='build'&&!r.dynamic&&!r.dynamicAmount&&!r.incubation&&!r.beamSource&&!r.beamNeeds)for(const id of Object.keys(guaranteedOutputs(r))){
       if(!byOutput.has(id))byOutput.set(id,[]);byOutput.get(id).push(r);
     }
     cached={entries,byId,byOutput};indexes.set(game.catalog,cached);
@@ -20,13 +20,13 @@ function recipeIndex(game){
 }
 export function planRecipe(game,id){return recipeIndex(game).byId.get(id);}
 export function recipeMachines(game,r){
-  return Object.values(game.catalog.machines).filter(m=>m.stage<=game.state.stage&&machineSupportsRecipe(m,r)&&!['boiler','generator','dyson','solar','battery'].includes(m.energy?.kind));
+  return Object.values(game.catalog.machines).filter(m=>machineSupportsRecipe(m,r)&&!['boiler','generator','dyson','solar','battery'].includes(m.energy?.kind));
 }
 export function planRoutes(game,id){
-  return (recipeIndex(game).byOutput.get(id)||[]).filter(r=>r.stage<=game.state.stage&&(r.process==='craft'||recipeMachines(game,r).length));
+  return (recipeIndex(game).byOutput.get(id)||[]).filter(r=>r.process==='craft'||recipeMachines(game,r).length);
 }
 export function planGatherNodes(game,id){return game.catalog.gatherNodes.filter(n=>game.nodeAvailable(n)&&Object.hasOwn(game.drops(n),id));}
-export function planSupplyMachines(game,id){return Object.values(game.catalog.machines).filter(m=>m.stage<=game.state.stage&&['boiler','generator','dyson','solar'].includes(m.energy?.kind)&&game.catalog.recipes.some(r=>r.stage<=game.state.stage&&machineSupportsRecipe(m,r)&&(r.outputs[id]>0||(r.energyOutputs??[]).includes(id))));}
+export function planSupplyMachines(game,id){return Object.values(game.catalog.machines).filter(m=>['boiler','generator','dyson','solar'].includes(m.energy?.kind)&&game.catalog.recipes.some(r=>machineSupportsRecipe(m,r)&&(r.outputs[id]>0||(r.energyOutputs??[]).includes(id))));}
 const count=n=>{if(!Number.isFinite(n)||n<0||n>MAX_COUNT)throw Error('材料需求过大，请减少目标批数');return n;};
 
 // A stock ledger is shared by every branch: yields, byproducts and reusable
@@ -34,8 +34,11 @@ const count=n=>{if(!Number.isFinite(n)||n<0||n>MAX_COUNT)throw Error('材料需�
 export function createProductionPlan(game,recipeId,batches=1,choices={},favorites=[]){
   const root=planRecipe(game,recipeId);
   if(root?.dynamic==='godforge')throw Error('请先在造物主模块生成配料，再根据本批配料安排加工');
+  if(root?.incubation)throw Error('培养箱按原版逐刻随机培养，请在工厂配置原料和容器');
+  if(root?.randomChoice)throw Error('虚空采矿按权重随机抽取，请在工厂选择维度和供气配方');
+  if(root?.beamSource||root?.beamNeeds)throw Error('束流加工需要持续连接粒子源，请在工厂安排并配置束流目标');
   if(root?.dynamicAmount)throw Error('此设备按实时蓄热连续转换，请在工厂配置输入和输出容器');
-  if(!root||root.stage>game.state.stage||!Number.isInteger(batches)||batches<1||batches>999)throw Error('请选择已解锁配方和 1–999 批');
+  if(!root||!Number.isInteger(batches)||batches<1||batches>999)throw Error('请选择配方和 1–999 批');
   if(!Object.keys(root.outputs).length||root.process!=='craft'&&root.process!=='build'&&!recipeMachines(game,root).length)throw Error('发电与锅炉请在工厂配置，不按普通合成批次安排');
   const stock=new Map(),reserved=new Map(),wear=new Map(),baths=new Set(),missing=new Map(),nodes=[],steps=[],preferred=new Set(favorites);
   const routesCache=new Map(),gatherCache=new Map(),scores=new Map();
@@ -63,7 +66,7 @@ export function createProductionPlan(game,recipeId,batches=1,choices={},favorite
       const explicit=choices[id],chosen=explicit==='gather'?null:explicit?routes.find(r=>r.id===explicit):gathersFor(id).length?null:routes.find(r=>viable(r,path))||routes[0];
       if(chosen){node.recipe=chosen.id;node.batches=count(Math.ceil((shortage-EPS)/guaranteedOutputs(chosen)[id]));make(chosen,node.batches,node.key,depth+1,path);}
       else{
-        node.reason=planGatherNodes(game,id).length?'需要采集':planSupplyMachines(game,id).length?'需要产能设备供给':routes.length||explicit&&explicit!=='gather'?'请更换循环或失效配方':(recipeIndex(game).byOutput.get(id)||[]).length?'配方或加工设备尚未解锁':'需要自行取得';
+        node.reason=planGatherNodes(game,id).length?'需要采集':planSupplyMachines(game,id).length?'需要产能设备供给':routes.length||explicit&&explicit!=='gather'?'请更换循环或失效配方':(recipeIndex(game).byOutput.get(id)||[]).length?'需要对应加工设备':'需要自行取得';
         const key=id+':'+node.reason,entry=missing.get(key)||{item:id,amount:0,reason:node.reason};entry.amount=count(entry.amount+shortage);missing.set(key,entry);
         // Borrow missing leaves only in the preview, never in the game state.
         plus(id,shortage);
@@ -145,7 +148,7 @@ export function tickProductionPlan(game,dt){
   if(at<0){p.status='制作完成';return;}
   if(flight){p.status=flight.id?(flight.blocked==='运行中'?'机器加工中':flight.blocked||'等待机器'):'手工制作中';return;}
   const step=p.steps[at],r=planRecipe(game,step.recipe),label=id=>game.catalog.items[id]?.name||id;
-  if(!r||r.stage>game.state.stage){p.status='等待解锁配方';return;}
+  if(!r){p.status='配方不存在';return;}
   const tool=Object.entries(r.tools||{}).find(([id,n])=>game.toolQuantity(id,r)+(r.toolWear?.[id]?componentCount(game,id):0)+EPS<n&&(!r.toolWear?.[id]||!game.state.devices.some(d=>machineSupportsRecipe(game.catalog.machines[d.type],r)&&(d.toolLife?.[id]??0)>0)));
   if(tool){p.status='缺少工具：'+label(tool[0]);return;}
   const input=Object.entries(r.inputs).find(([id,n])=>game.quantity(id)+EPS<n);
@@ -162,8 +165,8 @@ export function tickProductionPlan(game,dt){
   const ready=d=>{const kind=energySpec(game,d)?.kind;return !['consumer','steam'].includes(kind)?3:(kind==='steam'?d.steam>0:d.eu>0)?2:d.supply.source?1:0;};
   const conditioned=compatible.filter(d=>!requirementFailure(game,d,r));
   const free=conditioned.filter(d=>!d.recipe&&!d.job&&!d.planTask).sort((a,b)=>ready(b)-ready(a));
-  const d=free.find(d=>game.canStoreBatch(d,r)&&Object.entries(r.tools||{}).every(([id,n])=>game.quantity(id)+(r.toolWear?.[id]?componentCount(game,id):0)+EPS>=n||r.toolWear?.[id]&&(d.toolLife?.[id]??0)>0));
-  if(!d){p.status=compatible.length&&!conditioned.length?requirementFailure(game,compatible[0],r):free.length?'等待流体输出容器空间':compatible.length?'等待空闲机器':'需要兼容机器：'+recipeMachines(game,r).map(m=>m.name).join(' / ');return;}
+  const d=free.find(d=>game.canPayInputs(d,r.inputs)&&game.canStoreBatch(d,r)&&Object.entries(r.tools||{}).every(([id,n])=>game.quantity(id)+(r.toolWear?.[id]?componentCount(game,id):0)+EPS>=n||r.toolWear?.[id]&&(d.toolLife?.[id]??0)>0));
+  if(!d){p.status=compatible.length&&!conditioned.length?requirementFailure(game,compatible[0],r):free.length?free.every(d=>!game.canPayInputs(d,r.inputs))?'请检查指定输入容器或凝聚态网络':'等待流体输出容器空间':compatible.length?'等待空闲机器':'需要兼容机器：'+recipeMachines(game,r).map(m=>m.name).join(' / ');return;}
   delete d.stopAfterBatch;d.recipe=r.id;d.planTask=task;d.enabled=true;d.ignited=false;d.blocked='等待开工';p.status='已派工';
 }
 
@@ -174,8 +177,8 @@ export function validateProductionPlan(game,raw){
   if(p!=null){
     if(typeof p!=='object'||typeof p.id!=='string'||!/^p\d+$/.test(p.id)||!Number.isSafeInteger(Number(p.id.slice(1)))||!planRecipe(game,p.root)||!Number.isInteger(p.batches)||p.batches<1||p.batches>999||typeof p.paused!=='boolean'||typeof p.cancelled!=='boolean'||typeof p.status!=='string'||p.status.length>300||!Array.isArray(p.steps)||!p.steps.length||p.steps.length>MAX_STEPS)throw Error('制作计划存档无效');
     for(const s of p.steps){
-      const r=s&&planRecipe(game,s.recipe),supported=r&&(r.process==='craft'||r.process==='build'||Object.values(game.catalog.machines).some(m=>m.stage<=raw.stage&&machineSupportsRecipe(m,r)&&!['boiler','generator','dyson','solar','battery'].includes(m.energy?.kind)));
-      if(!supported||r.stage>raw.stage||!Object.keys(r.outputs).length||!Number.isInteger(s.batches)||s.batches<1||s.batches>MAX_COUNT||!Number.isInteger(s.done)||s.done<0||s.done>s.batches)throw Error('制作步骤存档无效');
+      const r=s&&planRecipe(game,s.recipe),supported=r&&(r.process==='craft'||r.process==='build'||Object.values(game.catalog.machines).some(m=>machineSupportsRecipe(m,r)&&!['boiler','generator','dyson','solar','battery'].includes(m.energy?.kind)));
+      if(!supported||r.incubation||r.beamSource||r.beamNeeds||r.dynamic||r.dynamicAmount||!Object.keys(r.outputs).length||!Number.isInteger(s.batches)||s.batches<1||s.batches>MAX_COUNT||!Number.isInteger(s.done)||s.done<0||s.done>s.batches)throw Error('制作步骤存档无效');
     }
     if(p.steps.at(-1).recipe!==p.root||p.steps.at(-1).batches!==p.batches)throw Error('制作计划目标无效');
   }

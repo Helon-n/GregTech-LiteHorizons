@@ -18,6 +18,7 @@ export const ENERGY_REFERENCE=Object.freeze({
 });
 
 export function recipeEnergyText(r){
+  if(r.eoh)return `预充 ${BigInt(r.eoh.inputEU).toLocaleString()} EU / 批 · 供能页设置场发生器与超频`;
   if(r.rtg)return `${r.outputRate} EU/t · 每粒 ${r.fuelEU.toLocaleString()} EU · 按原版内部储能供电`;
   if(r.solarSalt)return '太阳能蓄热 · 冷热熔盐 1∶1 · 每 10 秒按蓄热与容器余量转换';
   if(r.deepHeat)return '480 EU/t · 每游戏刻转换 · 进液需额外保留至少 1 mB';

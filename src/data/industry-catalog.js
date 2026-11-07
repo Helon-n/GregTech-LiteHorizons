@@ -4,7 +4,7 @@ import {LARGE_BOILERS} from './large-energy-reference.js';
 
 // Construction and gathering are idle-game adaptations. Registered processing
 // quantities, chances, durations and EU/t are kept separate from those costs.
-export const INDUSTRY_VERSION=5;
+export const INDUSTRY_VERSION=6;
 export const SOLID_FUELS=Object.freeze({
   coal:{heat:160,ash:'darkAshDustTiny',chance:1/3},
   charcoal:{heat:160,ash:'ashDustTiny',chance:1/3},

@@ -151,7 +151,7 @@ def import_crafting(importer, paths, split_args, matching, scopes_at):
         importer.paths[label]=hashlib.sha256(path.read_bytes()).hexdigest()
         text=re.sub(r'/\*.*?\*/|//[^\n]*',lambda m:'\n'*m[0].count('\n'),raw,flags=re.S)
         calls=list(re.finditer(pattern,text))
-        assignments=list(re.finditer(r'\b(?:final\s+)?ItemStack\s+(\w+)\s*=\s*([^;]+);',text))
+        assignments=list(re.finditer(r'\b(?:final\s+)?(?:ItemStack|Block|Item)\s+(\w+)\s*=\s*([^;]+);',text))
         string_constants={m[1]:m[2] for m in re.finditer(r'\bstatic\s+final\s+String\s+(\w+)\s*=\s*("[^"\n]*"|(?:Mods\.)?\w+\.ID)\s*;',text)}
         scopes=scopes_at(text,[m.start() for m in calls]+[m.start() for m in assignments])
         for match in calls:

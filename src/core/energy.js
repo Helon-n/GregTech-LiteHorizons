@@ -1,3 +1,11 @@
+import {initializeEOH,isEOH,eohRuntime,runEOH} from './eoh.js';
+import {initializeBeam,beamKind,beamSourceRuntime,runBeamCrafter,runCollider,ageBeamPackets} from './beamline.js';
+import {runIncubator} from './incubator.js';
+import {foundryTier,foundryRuntime,foundryFailure,beginFoundry,foundryBatchCount,advanceFoundry} from './foundry.js';
+import {parallelRecipe} from './parallel.js';
+import {initializeBEC,becKind,runBECStorage,becSpeed,becStep} from './bec.js';
+import {spinTier,spinMode,spinRecipe,spinBatchCount,advanceSpin,spinFailure} from './spinmatron.js';
+import {LATE_MACHINES_REFERENCE as LATE} from '../data/late-machines-reference.js';
 import {findGroup,endpointId,endpointMembers,devicePeers,includesEndpoint,deviceEntries,fluidEntries,bindFluid,takeFluid,putFluid} from './groups.js';
 import {ENERGY_REFERENCE as E} from '../data/energy-reference.js';
 import {rollOutputs} from './recipe-yields.js';
@@ -59,6 +67,9 @@ export function initializeEnergy(game,d,reset=false){
   if(reset)delete d.smeltery;
   if(spec?.cycle==='smeltery')initializeSmeltery(d);
   initializeBioVat(game,d,reset);
+  initializeBEC(game,d);
+  initializeEOH(game,d);
+  initializeBeam(game,d);
   d.supply??={mode:spec?.kind==='battery'?'direct':'storage',source:null};d.output??=null;d.batteries??=0;
   d.alias??='';d.fluidOutputs??={};
   d.fluidInputs??={};d.solidFuel??='coal';d.waterFluid??='water';d.calcification??=0;d.cooledLava??=0;d.skyAccess??=true;
@@ -81,6 +92,8 @@ export function runtime(game,d,r){
   if(!r)return {seconds:1,power:0,steamPerSecond:0,valid:true};
   const spec=energySpec(game,d);
   if(godforgeKind(game,d)&&godforgeKind(game,d)!=='host')return forgeRuntime(game,d,r);
+  if(isEOH(game,d)&&r.eoh)return eohRuntime(d,r);
+  if(foundryTier(game,d))return foundryRuntime(game,d,r);
   if(r.purification)return {seconds:r.seconds,power:r.power,steamPerSecond:0,valid:r.power<=voltage(d)};
   if(spec?.prepaid&&r.batchEU)return {seconds:r.seconds,power:0,batchEU:r.batchEU,steamPerSecond:0,valid:Number.isSafeInteger(r.batchEU)&&r.batchEU>0};
   if(spec?.kind==='steam')return {seconds:r.seconds*E.steamMachine.durationMultiplier,power:r.power,steamPerSecond:r.power*20*E.steamMachine.steamPerEU,valid:r.power<=32};
@@ -90,7 +103,9 @@ export function runtime(game,d,r){
     const count=Math.max(0,d.energyTier-1),power=r.power*2**count;
     return {seconds:Math.max(1,Math.trunc(r.seconds*20/2**count))/20,power,steamPerSecond:0,valid:r.power<=voltage(d)*spec.recipeAmps&&power<=voltage(d)*spec.recipeAmps};
   }
+  if(becKind(game,d))return {seconds:r.seconds,power:r.power,steamPerSecond:0,valid:r.power<=voltage(d)*spec.recipeAmps};
   let power=r.power||0,seconds=r.seconds*(r.bath?boardBathDuration(d):1);
+  if(spinTier(game,d)){power*=LATE.euMultiplier*(spinMode(d,r)==='heavy'?LATE.heavyMultiplier:1)*(d.job?.parallel??1);seconds/=spinMode(d,r)==='light'?4:LATE.speed;}
   if(spec?.nanochip){
     const capacity=voltage(d)*spec.recipeAmps;
     const matrix=r.process==='nanochipAssemble';
@@ -106,6 +121,7 @@ export function runtime(game,d,r){
     while(power>0&&seconds/2>=5&&power*4<=capacity){seconds=Math.trunc(seconds*20/2)/20;power*=4;}
     return {seconds,power,steamPerSecond:0,valid:true};
   }
+  if(r.beamSource)return beamSourceRuntime(d,r);
   if(r.fixedRuntime)return {seconds,power,steamPerSecond:0,valid:power<=voltage(d)*(spec?.recipeAmps??1)&&(!r.requirements?.researchVoltage||r.requirements.researchVoltage<=voltage(d))};
   if(r.process==='algaePond')return {seconds,power,steamPerSecond:0,valid:power<=voltage(d)};
   if(spec?.kind==='consumer'){
@@ -116,9 +132,10 @@ export function runtime(game,d,r){
     // overclocks per 1800 K. Installed coils and voltage heat are independent.
     const surplus=d.type==='ebf'&&r.requirements?.heat?Math.max(0,machineHeat(game,d)-r.requirements.heat):0;
     let perfect=game.catalog.machines[d.type]?.perfectOverclock?Number.MAX_SAFE_INTEGER:Math.floor(surplus/1800);
-    const recipeTier=power>0?Math.max(1,Math.ceil(Math.log(power/8)/Math.log(4))):d.energyTier;
+    const recipeTier=power>0?Math.max(1,Math.ceil(Math.log((spinTier(game,d)?r.power:power)/8)/Math.log(4))):d.energyTier;
     const processingTier=spec.combinedInput||spec.amperageOC?Math.floor(Math.log(recipeCapacity/8)/Math.log(4)):d.energyTier;
     let overclocks=Math.max(0,processingTier-recipeTier),factor=4;
+    if(spinTier(game,d)&&spinMode(d,r)!=='heavy')overclocks=Math.min(overclocks,Math.max(0,d.energyTier-recipeTier+1));
     if(spec.fusion){const fusion=fusionOverclock(spec,d.energyTier,r);overclocks=fusion.count;factor=fusion.factor;perfect=spec.advancedFusion?Number.MAX_SAFE_INTEGER:0;}
     if(surplus)power*=.95**Math.floor(surplus/900);
     while(overclocks-->0&&power>0&&power*factor<=(spec.combinedInput||spec.amperageOC?recipeCapacity:voltage(d))&&seconds>.05){power*=factor;seconds/=perfect-->0?4:2;}
@@ -196,6 +213,8 @@ function inputFluid(game,d,fluid,want,whole=false){
   return moved;
 }
 function pullElectric(game,d,want,dt,budgets,inputAmps){
+  const battery=energySpec(game,d)?.kind==='battery';
+  if(battery)want=Math.min(want,game.batteryChargeBudget?.get(d.id)??0);
   const sources=endpointMembers(game,d.supply.source);let total=0;
   const inputLimit=(sources.length?Math.max(...sources.map(voltage)):0)*inputAmps*20*dt;
   for(const src of sources){
@@ -209,6 +228,7 @@ function pullElectric(game,d,want,dt,budgets,inputAmps){
     src.eu=Math.max(0,src.eu-amount);budgets.set(src.id,Math.max(0,(budgets.get(src.id)||0)-amount));total+=amount;
     if(total>=want-1e-8||total>=inputLimit-1e-8)break;
   }
+  if(battery)game.batteryChargeBudget.set(d.id,Math.max(0,(game.batteryChargeBudget.get(d.id)??0)-total));
   return total;
 }
 // The original mixer prepays its wireless network. This adaptation explicitly
@@ -323,7 +343,7 @@ function runDyson(game,d,dt){
   d.eu+=d.cyclePower*20*used;d.blocked='运行中';
 }
 function runMachine(game,d,dt,budgets){
-  const spec=energySpec(game,d),r=game.deviceRecipe(d),run=runtime(game,d,r);
+  const spec=energySpec(game,d),r=game.deviceRecipe(d);let run=runtime(game,d,r);
   if(spec?.cycle==='solarTower'){runSolarTower(game,d,dt);return;}
   if(spec?.cycle==='smeltery'){runSmeltery(game,d,r,dt);return;}
   if(godforgeKind(game,d)==='host')return;
@@ -333,6 +353,10 @@ function runMachine(game,d,dt,budgets){
     d.eu+=pullElectric(game,d,Math.max(0,energyCapacity(game,d)-d.eu),dt,budgets,Math.max(2,Math.ceil(demand/voltage(d))+1));
     d.blocked=demand?'为处理单元供电':'等待处理单元';return;
   }
+  if(isEOH(game,d)){runEOH(game,d,r,dt,()=>pullElectric(game,d,Math.max(0,energyCapacity(game,d)-d.eu),dt,budgets,spec.inputAmps),b=>energyCapacity(game,b));return;}
+  if(['crafter','collider'].includes(beamKind(game,d))){const unmet=d.enabled&&r&&requirementFailure(game,d,r);if(unmet){d.blocked=unmet;return;}const pull=()=>pullElectric(game,d,Math.max(0,energyCapacity(game,d)-d.eu),dt,budgets,spec.inputAmps);if(beamKind(game,d)==='crafter')runBeamCrafter(game,d,r,dt,pull);else runCollider(game,d,dt,pull);return;}
+  if(game.catalog.machines[d.type]?.incubator){runIncubator(game,d,r,dt,()=>pullElectric(game,d,Math.max(0,energyCapacity(game,d)-d.eu),dt,budgets,1));return;}
+  if(becKind(game,d)==='storage'){runBECStorage(game,d,dt,()=>pullElectric(game,d,Math.max(0,energyCapacity(game,d)-d.eu),dt,budgets,spec.inputAmps));return;}
   if(game.catalog.machines[d.type]?.facility==='cleanroom'){
     d.cleanroomReady=false;
     if(!d.enabled){d.blocked='已停止';return;}
@@ -350,8 +374,8 @@ function runMachine(game,d,dt,budgets){
   if(!d.enabled){d.blocked=d.recipe?'已暂停':'已停止';return;}
   if(!r){d.blocked='请选择配方';return;}
   if(r.purification){const failure=purificationFailure(game,d);if(failure){d.blocked=failure;return;}}
-  const unmet=requirementFailure(game,d,r);if(unmet){d.blocked=unmet;return;}
-  if(!run.valid){d.blocked='机器电压等级不足';return;}
+  const unmet=requirementFailure(game,d,r);if(unmet){if(d.job&&(spinTier(game,d)&&spinFailure(game,d,r)||foundryTier(game,d)&&foundryFailure(game,d,r))){d.job=null;d.enabled=false;if(spinTier(game,d))d.spinClock=0;if(foundryTier(game,d))d.foundryClock=0;d.blocked=unmet+' · 批次已停止';}else d.blocked=unmet;return;}
+  if(!run.valid&&!(foundryTier(game,d)&&!d.job)){d.blocked='机器电压等级不足';return;}
   if(r.dynamic==='godforge'){
     const failure=issueExoticSamples(game,d,r,run.batchEU);if(failure){d.blocked=failure;return;}
   }
@@ -367,11 +391,17 @@ function runMachine(game,d,dt,budgets){
     if(d.job&&d.job.remaining<=EPS){if(!game.finish(r,d)){d.blocked='流体输出空间不足';return;}d.job=null;}
     if(!d.enabled||d.recipe!==r.id)return;
     if(!d.job){
+      run=runtime(game,d,r);
+      const spin=spinFailure(game,d,r);if(spin){d.blocked=spin;return;}
       const bathFailure=prepareBoardBath(game,d,r);if(bathFailure){d.blocked=bathFailure;return;}
       if(!Object.entries(r.tools||{}).every(([id,n])=>r.toolWear?.[id]?(d.toolLife[id]??0)>0||game.quantity(id)+componentCount(game,id)>=n:game.quantity(id)>=n)){d.ignited=false;d.blocked='缺少工具或研磨球';return;}
       if(!game.canPayInputs(d,r.inputs)){d.ignited=false;d.blocked='缺少原料或指定输入容器为空';return;}
       if(r.deepHeat&&Object.entries(r.inputs).some(([id,n])=>game.inputQuantity(id,d.fluidInputs[id])<=n)){d.blocked='进液不足，需保留至少 1 mB 安全余量';return;}
       if(!game.canStoreBatch(d,r)){d.ignited=false;d.blocked='流体输出空间不足';return;}
+      if(foundryTier(game,d)){
+        beginFoundry(game,d);run=runtime(game,d,r);
+        if(!run.valid){d.blocked='机器电压等级不足';return;}
+      }
       if(r.startup&&!d.ignited){
         if(d.eu<r.startup){d.blocked='等待聚变启动储能';return;}
         d.eu-=r.startup;d.ignited=true;
@@ -380,13 +410,16 @@ function runMachine(game,d,dt,budgets){
       if(spec?.kind==='consumer'&&electrical.eu<run.power){d.blocked=r.purification?'纯净水厂储能不足':d.supply.source?'电力不足':'请选择供能来源';return;}
       if(run.batchEU&&!prepayElectric(game,d,run.batchEU)){d.blocked='等待电池组储能 '+run.batchEU.toLocaleString()+' EU / 批';return;}
       if(run.batchEU&&godforgeKind(game,d)){const s=forgeHost(game,d).godforge;s.totalEU=(BigInt(s.totalEU)+BigInt(run.batchEU)).toString();if(r.process!=='smelt')s.recipes=Math.min(Number.MAX_SAFE_INTEGER,s.recipes+1);}
-      game.payInputs(d,r.inputs);
+      const parallel=spinTier(game,d)?spinBatchCount(game,d,r):foundryTier(game,d)?foundryBatchCount(game,d,r):1,batch=parallel>1?parallelRecipe(r,parallel):r;
+      if(parallel<1){d.blocked='等待可用原料或产物容器空间';return;}
+      game.payInputs(d,batch.inputs);
       for(const [id,life]of Object.entries(r.toolWear||{})){
         if(!d.toolLife[id])d.toolLife[id]=takeComponent(game,id,'mill').life;
         d.toolLife[id]--;
       }
       const duration=r.bath?runtime(game,d,r).seconds:run.seconds;
-      d.job={remaining:duration,duration,outputs:rollOutputs(game,r),...(r.bioMultiplier?{bioMultiplier:r.bioMultiplier}:{}),...(run.batchEU?{prepaidEU:run.batchEU}:{})};
+      d.job={remaining:duration,duration,outputs:rollOutputs(game,batch),...(spinTier(game,d)||foundryTier(game,d)?{parallel}:{}),...(r.bioMultiplier?{bioMultiplier:r.bioMultiplier}:{}),...(run.batchEU?{prepaidEU:run.batchEU}:{})};
+      if(spinTier(game,d)||foundryTier(game,d)){run=runtime(game,d,r);d.job.duration=d.job.remaining=run.seconds;}
       if(r.purification)beginPurification(game,d,r);
       soilBoardBath(d,r);
     }
@@ -395,20 +428,29 @@ function runMachine(game,d,dt,budgets){
       d.job.prepaidEU=run.batchEU;
       if(godforgeKind(game,d)){const s=forgeHost(game,d).godforge;s.totalEU=(BigInt(s.totalEU)+BigInt(run.batchEU)).toString();if(r.process!=='smelt')s.recipes=Math.min(Number.MAX_SAFE_INTEGER,s.recipes+1);}
     }
-    const used=Math.min(left,d.job.remaining),eu=run.power*20*used,steam=run.steamPerSecond*used;
+    const speed=r.requirements?.becSlots?becSpeed(game,d,r):1;
+    if(!speed){d.blocked='等待当前槽位所需的纳米蜂群';return;}
+    const boundary=r.requirements?.becSlots?Math.max(0,becStep(d,r).end-(d.job.duration-d.job.remaining)):Infinity;
+    if(boundary<1e-10){d.job.remaining=Math.max(0,d.job.remaining-1e-8);continue;}
+    const used=Math.min(left,d.job.remaining/speed,boundary/speed),eu=run.power*20*used,steam=run.steamPerSecond*used;
     if(spec?.kind==='steam'&&d.steam+EPS<steam){d.blocked='蒸汽不足';return;}
     if(spec?.kind==='consumer'&&electrical.eu+EPS<eu){d.blocked=r.purification?'纯净水厂电力不足':'电力不足';return;}
     if(spec?.kind==='steam')d.steam=Math.max(0,d.steam-steam);
     if(spec?.kind==='consumer')electrical.eu=Math.max(0,electrical.eu-eu);
     if(r.purification)advancePurification(game,d,r,used);
-    d.job.remaining=Math.max(0,d.job.remaining-used);left-=used;d.blocked='运行中';
+    if(advanceSpin(game,d,r,used)===false)return;
+    if(!advanceFoundry(game,d,used))return;
+    d.job.remaining=Math.max(0,d.job.remaining-used*speed);left-=used;d.blocked='运行中';
     if(d.job.remaining<=EPS){if(game.finish(r,d))d.job=null;else {d.blocked='流体输出空间不足';return;}}
   }
 }
 export function tickMachines(game,dt){
   if(dt<=0)return;
+  ageBeamPackets(game,dt);
   game.groupFluidInputs=new Map();
   const devices=game.state.devices,budgets=new Map();
+  game.batteryChargeBudget=new Map(devices.filter(d=>energySpec(game,d)?.kind==='battery').map(d=>[d.id,voltage(d)*d.batteries*2*20*dt]));
+  for(const d of devices)if(d.becStorage)d.becStorage.ready=false;
   tickGodforges(game,dt);
   tickBioVats(game,dt);
   for(const d of devices)tickBoardBath(game,d,game.recipeById.get(d.recipe),dt);

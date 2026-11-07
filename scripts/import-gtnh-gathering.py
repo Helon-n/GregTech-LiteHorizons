@@ -1,6 +1,7 @@
 """Import verified non-ore drops; encounter timing is an idle adaptation."""
 import hashlib
 import json
+import importlib.util
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -29,12 +30,58 @@ loot=ROOT/'.local/gtnh-technology/NewHorizonsCoreMod-2.9.99/src/main/java/com/dr
 loot_text=loot.read_text(encoding='utf-8')
 assert 'TFTreasure.tower_library.common.add(GTOreDictUnificator.get(OrePrefixes.dust, Materials.Void, 2L), 6)' in loot_text
 result['sources']=[{'file':'NewHorizonsCoreMod/com/dreammaster/TwilightForest/TF_Loot_Chests.java','sha256':hashlib.sha256(loot.read_bytes()).hexdigest()}]
+dragon=ROOT/'.local/gtnh-energy/GT5-Unofficial-5.09.54.265/src/main/java/gtPlusPlus/core/handler/events/EnderDragonDeathHandler.java'
+dragon_text=dragon.read_text(encoding='utf-8')
+assert 'MaterialsElements.STANDALONE.DRAGON_METAL.getNugget(aAmount)' in dragon_text and 'MathUtils.randInt(100, 250)' in dragon_text
+result['sources'].append({'file':'gtPlusPlus/core/handler/events/EnderDragonDeathHandler.java','sha256':hashlib.sha256(dragon.read_bytes()).hexdigest()})
+result['nodes'].append({'id':'dragonExpedition','name':'末影龙远征','output':'gTPP_DragonbloodNugget','stage':8,'requires':'advancedRocket','amount':2,'seconds':30,
+    'description':'远征末地，取得龙血碎片并熔炼为龙血金属','cost':{'tungstensteelPlate':24,'motor':4},'dropRanges':{'gTPP_DragonbloodNugget':{'min':1,'max':3}}})
+result['adaptations'].append('Dragonblood nugget identity and dragon-drop source come from EnderDragonDeathHandler. An expedition yields 1–3 nuggets per 30 s with a rocket and deployment cost; this is a scaled idle encounter, not a full boss kill or the source multi-stack drop distribution. No ingots, hypogen or research are granted directly.')
+hydra=next(d for d in data['moblist']['TwilightForest.Hydra'] if d['reconstructableStack']['itemIdentifier']=={'modId':'TwilightForest','name':'item.fieryBlood'})
+assert hydra['chance']>0
+result['nodes'].append({'id':'hydraExpedition','name':'九头蛇远征','output':'modItem_TwilightForest_itemfieryBlood_0','stage':6,'requires':'flintPick','amount':2,'seconds':30,
+    'description':'远征暮色森林，收集炽热血液用于炽铁和后期合金','cost':{'titaniumPlate':24,'motor':4},'dropRanges':{'modItem_TwilightForest_itemfieryBlood_0':{'min':1,'max':3}}})
+result['adaptations'].append('Fiery blood is the checked Hydra boss drop. The repeatable 1–3 item expedition yield, deployment cost and thirty-second duration are idle adaptations, not the boss loot distribution.')
 result['nodes'].append({'id':'twilightLibrary','name':'暮色高塔遗迹','output':'voidDust','stage':3,'requires':'flintPick','amount':2,'seconds':12,
                         'description':'搜寻高塔图书馆，回收虚空金属粉','cost':{'ironPlate':12,'motor':2}})
 result['adaptations'].append('Library expeditions expose the existing tower-library Void dust loot as a repeatable idle resource (1–3 dust, centered on the source stack of 2); encounter timing and yield distribution are adaptations, not the complete weighted chest table.')
 result['nodes'].append({'id':'grassland','name':'草地','output':'wheat_seeds','stage':2,'requires':'flintPick','amount':1,'seconds':4,
                         'description':'采集草籽，供给种子油产线','cost':{'ironPlate':12,'motor':2}})
 result['adaptations'].append('Grass seed gathering is an idle adaptation of the vanilla wheat-seed resource. Its 1–2 yield and click timing are authored gameplay values; the fluid extractor recipe retains the pinned GT yield and energy.')
+for id,title,output,description in [
+    ('wheatField','麦田','wheat','收割成熟小麦，供给培养箱'),
+    ('chickenCoop','鸡舍','egg','收集鸡蛋，供给生物实验'),
+    ('sugarcaneBank','甘蔗地','reeds','采收甘蔗，研磨成糖'),
+    ('treeNursery','苗圃','sapling','收集橡树树苗'),
+    ('grassSod','草皮','grass','收集草方块，供给维度环境构建'),
+    ('mushroomGrove','蘑菇林','brown_mushroom','采集棕蘑菇，供给发酵蜘蛛眼配方'),
+    ('vineGrove','藤蔓林','vine','采集藤蔓，提取生物实验用洗涤剂'),
+    ('poppyField','罂粟花田','red_flower','采集红花，提取红色染料'),
+    ('cactusGrove','仙人掌地','cactus','收集仙人掌，烧制绿色染料'),
+]:
+    result['nodes'].append({'id':id,'name':title,'output':output,'stage':1,'requires':'flintPick','amount':1,'seconds':6,
+        'description':description,'cost':{'ironPlate':12,'motor':2},'dropRanges':{output:{'min':1,'max':2}}})
+result['adaptations'].append('Wheat, eggs, cane, oak saplings, grass blocks, brown mushrooms, vines, red poppies and cactus are physical vanilla resources exposed through repeatable idle gathering. Site cost, pickaxe requirement, 1–2 yield and six-second base duration are adaptations, not vanilla farming timings or GT machine recipes.')
+skeleton=next(d for d in data['moblist']['SpecialMobs.NinjaSkeleton'] if d['reconstructableStack']['itemIdentifier']=={'modId':'minecraft','name':'bone'})
+assert skeleton['chance']>0
+result['nodes'].append({'id':'skeletonHunt','name':'骷髅狩猎','output':'bone','stage':1,'requires':'flintPick','amount':1,'seconds':8,
+    'description':'狩猎骷髅，收集骨头并研磨为骨粉','cost':{'ironPlate':12,'motor':2},'dropRanges':{'bone':{'min':0,'max':2}}})
+result['adaptations'].append('Skeleton bone identity is checked against the installed loot cache; the 0–2 encounter yield and timing are idle adaptations. No free bone meal or bacteria seed is supplied.')
+for mob,resource,node,title in [('SpecialMobs.FireZombie','rotten_flesh','zombieHunt','僵尸狩猎'),
+                              ('SpecialMobs.FlyingSpider','spider_eye','spiderHunt','蜘蛛狩猎')]:
+    drop=next(d for d in data['moblist'][mob] if d['reconstructableStack']['itemIdentifier']=={'modId':'minecraft','name':resource})
+    assert drop['reconstructableStack']['size']==1 and not drop['variableChance']
+    result['nodes'].append({'id':node,'name':title,'output':resource,'stage':1,'requires':'flintPick','amount':1,'seconds':8,
+        'description':'狩猎并收集生物实验原料','cost':{'ironPlate':12,'motor':2},
+        'dropRanges':{resource:{'min':0,'max':1}},'dropProbabilities':{resource:drop['chance']/10000}})
+result['adaptations'].append('Zombie and spider gathering retain the checked loot-cache one-item drop chance. Encounter rate and deployment cost are idle adaptations.')
+underground=INSTANCE/'config/GregTech/UndergroundFluids.cfg'
+underground_text=underground.read_text(encoding='utf-8')
+assert 'S:Registry=unknowwater' in underground_text and 'S:Dimension=BarnardaE' in underground_text
+result['sources'].append({'file':'config/GregTech/UndergroundFluids.cfg','sha256':hashlib.sha256(underground.read_bytes()).hexdigest()})
+result['nodes'].append({'id':'alienFluidWell','name':'外星地下液体井','output':'unknownWater','stage':8,'requires':'advancedRocket','amount':1000,'seconds':10,
+    'description':'远征采集未知液体，供给外星菌种分离；需要实体储罐','cost':{'tungstensteelPlate':12,'pump':2}})
+result['adaptations'].append('Unknown-water deposits use the installed underground fluid registry. Rocket-gated access, 1000 mB per 10 seconds and well deployment are idle adaptations; original vein depletion, coordinates and drill tiers are not simulated.')
 shards=ROOT/'.local/gtnh-technology/ThaumicTinkerer-2.12.34/src/main/java/thaumic/tinkerer/common/core/handler/kami/DimensionalShardDropHandler.java'
 assert 'Math.random() <= 1D / 16D' in shards.read_text(encoding='utf-8')
 result['sources'].append({'file':'ThaumicTinkerer-2.12.34/DimensionalShardDropHandler.java','sha256':hashlib.sha256(shards.read_bytes()).hexdigest()})
@@ -75,4 +122,7 @@ result['adaptations'].extend([
     'Nether atmosphere collection replaces a spatial Nether air-intake hatch with a paid collection site. Its 1000 mB per 6 s is an idle rate; fluid identity and subsequent machine recipes retain their source rules.',
     'TCeti E seaweed collection abstracts the existing deep-space plant resource into a rocket-gated site at ZPM. Gathering yield is adapted; the Core extractor still consumes 64 plants per extract at its registered EU/t and duration.'
 ])
+spec=importlib.util.spec_from_file_location('world_sources',ROOT/'scripts/gtnh-world-sources.py')
+world_sources=importlib.util.module_from_spec(spec);spec.loader.exec_module(world_sources)
+world_sources.generate(ROOT,INSTANCE,result)
 (ROOT/'src/data/gathering-reference.js').write_text('// Generated by scripts/import-gtnh-gathering.py.\nexport const GATHERING_REFERENCE='+json.dumps(result,ensure_ascii=False,indent=2)+';\n',encoding='utf-8')

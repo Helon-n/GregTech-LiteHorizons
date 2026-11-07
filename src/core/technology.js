@@ -1,3 +1,6 @@
+import {becFailure} from './bec.js';
+import {spinFailure} from './spinmatron.js';
+import {foundryFailure} from './foundry.js';
 import {COILS} from '../data/technology-catalog.js';
 import {devicePeers} from './groups.js';
 import {fusionCapacity} from './fusion.js';
@@ -5,7 +8,7 @@ import {godforgeKind,forgeHost,forgeHeat,forgeFailure} from './godforge.js';
 import {bioFailure} from './biochemistry.js';
 
 export function recipeProcesses(recipe){return [recipe?.process,...(recipe?.alsoProcesses??[])].filter(Boolean);}
-export function machineSupportsRecipe(machine,recipe){return !!machine&&recipeProcesses(recipe).some(process=>machine.processes.includes(process));}
+export function machineSupportsRecipe(machine,recipe){return !!machine&&['heavyCentrifuge','nonCell'].every(key=>!recipe?.requirements?.[key]||!!machine.capabilities?.[key])&&recipeProcesses(recipe).some(process=>machine.processes.includes(process));}
 
 export function machineHeat(game,d){
   if(godforgeKind(game,d)&&godforgeKind(game,d)!=='host'){const s=forgeHost(game,d)?.godforge;return s?forgeHeat(s,godforgeKind(game,d)):0;}
@@ -13,10 +16,13 @@ export function machineHeat(game,d){
   return coil?coil.heat+(d.type==='ebf'?100*(d.energyTier-2):0):0;
 }
 export function requirementFailure(game,d,r){
+  const advanced=becFailure(game,d,r)||spinFailure(game,d,r)||foundryFailure(game,d,r);if(advanced)return advanced;
   const biological=bioFailure(game,d,r);if(biological)return biological;
   const forge=godforgeKind(game,d);
   if(forge&&forge!=='host'){const failure=forgeFailure(game,d,r);if(failure)return failure;}
   const req=r?.requirements;if(!req)return '';
+  if(req.bioLabTier!==undefined&&d.energyTier<req.bioLabTier)return '生物实验室需要 '+req.bioLabTier+' 级电压';
+  if(req.eohSpace!==undefined&&(!game.catalog.machines[d.type]?.eoh||(d.eoh?.space??0)<req.eohSpace))return '空间压缩场需要 '+(req.eohSpace+1)+' 级';
   if(req.heat&&machineHeat(game,d)<req.heat)return '线圈温度不足，需要 '+req.heat+' K';
   if(req.cleanroom&&!game.state.devices.some(x=>x.type==='cleanroomFacility'&&x.enabled&&x.cleanroomReady))return '需要供电中的洁净室';
   if(req.lowGravity&&d.location!=='orbit')return '需要轨道环境';
@@ -35,6 +41,7 @@ export function requirementFailure(game,d,r){
   if(req.bioUpgrade&&!capabilities.bioUpgrade)return '需要生物升级模块';
   if(req.multiStepPlasma&&!forge&&!capabilities.multiStepPlasma)return '需要多阶段等离子升级';
   if(req.heavyCentrifuge&&!capabilities.heavyCentrifuge)return '需要重型离心模式';
+  if(req.nonCell&&!capabilities.nonCell)return '需要工业机型的多流体输入输出';
   if(req.nanochipTier!==undefined&&(capabilities.nanochipTier??-1)<req.nanochipTier)return '纳米芯片矩阵等级需要 '+req.nanochipTier+' 级';
   if(req.nkeRange&&(!capabilities.nkeRange||capabilities.nkeRange.min<req.nkeRange.min||capabilities.nkeRange.max>req.nkeRange.max))return '中子能量需处于 '+req.nkeRange.min+'–'+req.nkeRange.max+' keV';
   return '';
@@ -42,10 +49,10 @@ export function requirementFailure(game,d,r){
 export function requirementLabels(game,r){
   const req=r?.requirements??{};
   const calibrations={PRIMITIVE:'基础电路',CRYSTAL:'晶体电路',WETWARE:'湿件电路',BIO:'生物电路',OPTICAL:'光学电路',EXOTIC:'奇异电路',COSMIC:'宇宙电路',TEMPORAL:'时空电路',SPECIAL:'特殊电路'};
-  return [req.computation&&('算力 ≥ '+req.computation.toLocaleString()),r.process==='stationResearch'&&req.researchVoltage&&('研究供能 '+req.researchVoltage.toLocaleString()+' EU/t × '+req.researchAmperage+' A'),req.bioCulture&&game.catalog.items[req.bioCulture].name,req.bioGlass&&('玻璃 ≥ '+req.bioGlass+' 级'),req.radiation?.value&&((req.radiation.exact?'精确 ':'至少 ')+req.radiation.value+' Sv'),req.heat&&('线圈 ≥ '+req.heat+' K'),req.cleanroom&&'洁净室',req.lowGravity&&'轨道环境',req.startup&&('启动 '+req.startup.toLocaleString()+' EU'),req.researchData&&('研究：'+game.catalog.items[req.researchData].name),...[
+  return [...(r?.beamNeeds??[]).map(q=>((game.catalog.items['beam_'+q.particle]?.name??q.particle)+' × '+q.amount)),req.computation&&('算力 ≥ '+req.computation.toLocaleString()),r.process==='stationResearch'&&req.researchVoltage&&('研究供能 '+req.researchVoltage.toLocaleString()+' EU/t × '+req.researchAmperage+' A'),req.bioCulture&&game.catalog.items[req.bioCulture].name,req.bioGlass&&('玻璃 ≥ '+req.bioGlass+' 级'),req.radiation?.value&&((req.radiation.exact?'精确 ':'至少 ')+req.radiation.value+' Sv'),req.eohSpace!==undefined&&('空间压缩场 ≥ '+(req.eohSpace+1)+' 级'),req.heat&&('线圈 ≥ '+req.heat+' K'),req.cleanroom&&'洁净室',req.lowGravity&&'轨道环境',req.startup&&('启动 '+req.startup.toLocaleString()+' EU'),req.researchData&&('研究：'+game.catalog.items[req.researchData].name),...[
     ['compressionTier','压缩等级'],['chemicalCasing','化工外壳'],['preciseCasing','精密外壳'],['componentCasing','部件装配线外壳'],['spaceModule','轨道模块'],
-    ['pcbTier','PCB 工厂等级'],['qftTier','量子转换等级'],['qftFocus','量子聚焦等级'],['algaeTier','藻类池等级'],['nanoForgeTier','纳米锻炉等级'],['refineryCoil','硅岩精炼厂线圈等级'],['plasmaTier','造物主等离子等级'],['exoticTier','造物主奇异物质等级'],['nanochipTier','纳米芯片矩阵等级'],
-  ].filter(([key])=>req[key]!==undefined).map(([key,label])=>label+(key==='algaeTier'?' = ':' ≥ ')+req[key]),req.bioUpgrade&&'生物升级模块',req.multiStepPlasma&&'多阶段等离子升级',req.heavyCentrifuge&&'重型离心模式',req.compostBoost&&'堆肥培养',req.dissolutionRatio&&('流体配比 '+req.dissolutionRatio+':1'),req.nanochipCalibration&&req.nanochipCalibration!=='NONE'&&((calibrations[req.nanochipCalibration]??'特殊电路')+'校准'),req.nkeRange&&('中子能量 '+req.nkeRange.min+'–'+req.nkeRange.max+' keV')].filter(Boolean);
+    ['pcbTier','PCB 工厂等级'],['qftTier','量子转换等级'],['qftFocus','量子聚焦等级'],['algaeTier','藻类池等级'],['nanoForgeTier','纳米锻炉等级'],['refineryCoil','硅岩精炼厂线圈等级'],['plasmaTier','造物主等离子等级'],['exoticTier','造物主奇异物质等级'],['nanochipTier','纳米芯片矩阵等级'],['bioLabTier','生物实验室电压等级'],
+  ].filter(([key])=>req[key]!==undefined).map(([key,label])=>label+(key==='algaeTier'?' = ':' ≥ ')+req[key]),req.bioUpgrade&&'生物升级模块',req.multiStepPlasma&&'多阶段等离子升级',req.heavyCentrifuge&&'重型离心模式',req.nonCell&&'工业多流体输入输出',req.becSlots&&('纳米蜂群按 '+req.becSlots.map(s=>s.tier+' 级').join(' → ')+' 逐槽加工'),req.compostBoost&&'堆肥培养',req.dissolutionRatio&&('流体配比 '+req.dissolutionRatio+':1'),req.nanochipCalibration&&req.nanochipCalibration!=='NONE'&&((calibrations[req.nanochipCalibration]??'特殊电路')+'校准'),req.nkeRange&&('中子能量 '+req.nkeRange.min+'–'+req.nkeRange.max+' keV')].filter(Boolean);
 }
 export function installCoil(game,id,item){
   const peers=devicePeers(game,id),coil=COILS.find(c=>c.item===item);

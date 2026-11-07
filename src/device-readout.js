@@ -127,6 +127,7 @@ function model(game,d){
     power();
     if(spec.kind==='battery')note=`电池 ${exact(d.batteries)} / ${E.battery.slots*count} 节 · 输出 ${exact(d.batteries)} A`;
     else if(run.batchEU)note=`开工从选定电池组预付 ${amount(run.batchEU)} EU / 批 · ${run.seconds} 秒/批`;
+    else if(game.catalog.machines[d.type]?.beamline==='collider')note=`当前周期 ${amount(d.beam.power??0)} EU/t · 加速 ${d.beam.step} / ${d.beam.cycles}`;
     else if(r)note+=(note?' · ':'')+`${amount(run.power)} EU/t${count>1?' / 台':''} · ${run.seconds} 秒/批`;
   }
   if(r?.bath){

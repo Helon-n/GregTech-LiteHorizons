@@ -29,6 +29,8 @@ def generate(source,jar):
             internal=internal[0]
             # ItemIC2 renders its unlocalized registry name from items/<name>.
             texture='assets/ic2/textures/items/'+internal+'.png'
+            if re.match(r'(?:\(Item\))?new ItemBattery\(',expression):
+                texture='assets/ic2/textures/items/'+internal+'.0.png'
             if match[1]=='reBattery':
                 battery=source.parents[1]/'item/ItemBattery.java'
                 discharged=source.parents[1]/'item/ItemBatteryDischarged.java'

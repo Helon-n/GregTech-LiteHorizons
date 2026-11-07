@@ -73,6 +73,46 @@ export const GATHERING_REFERENCE={
       }
     },
     {
+      "id": "dragonExpedition",
+      "name": "末影龙远征",
+      "output": "gTPP_DragonbloodNugget",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 30,
+      "description": "远征末地，取得龙血碎片并熔炼为龙血金属",
+      "cost": {
+        "tungstensteelPlate": 24,
+        "motor": 4
+      },
+      "dropRanges": {
+        "gTPP_DragonbloodNugget": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "hydraExpedition",
+      "name": "九头蛇远征",
+      "output": "modItem_TwilightForest_itemfieryBlood_0",
+      "stage": 6,
+      "requires": "flintPick",
+      "amount": 2,
+      "seconds": 30,
+      "description": "远征暮色森林，收集炽热血液用于炽铁和后期合金",
+      "cost": {
+        "titaniumPlate": 24,
+        "motor": 4
+      },
+      "dropRanges": {
+        "modItem_TwilightForest_itemfieryBlood_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
       "id": "twilightLibrary",
       "name": "暮色高塔遗迹",
       "output": "voidDust",
@@ -98,6 +138,266 @@ export const GATHERING_REFERENCE={
       "cost": {
         "ironPlate": 12,
         "motor": 2
+      }
+    },
+    {
+      "id": "wheatField",
+      "name": "麦田",
+      "output": "wheat",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 6,
+      "description": "收割成熟小麦，供给培养箱",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "wheat": {
+          "min": 1,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "chickenCoop",
+      "name": "鸡舍",
+      "output": "egg",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 6,
+      "description": "收集鸡蛋，供给生物实验",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "egg": {
+          "min": 1,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "sugarcaneBank",
+      "name": "甘蔗地",
+      "output": "reeds",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 6,
+      "description": "采收甘蔗，研磨成糖",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "reeds": {
+          "min": 1,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "treeNursery",
+      "name": "苗圃",
+      "output": "sapling",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 6,
+      "description": "收集橡树树苗",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "sapling": {
+          "min": 1,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "grassSod",
+      "name": "草皮",
+      "output": "grass",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 6,
+      "description": "收集草方块，供给维度环境构建",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "grass": {
+          "min": 1,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "mushroomGrove",
+      "name": "蘑菇林",
+      "output": "brown_mushroom",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 6,
+      "description": "采集棕蘑菇，供给发酵蜘蛛眼配方",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "brown_mushroom": {
+          "min": 1,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "vineGrove",
+      "name": "藤蔓林",
+      "output": "vine",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 6,
+      "description": "采集藤蔓，提取生物实验用洗涤剂",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "vine": {
+          "min": 1,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "poppyField",
+      "name": "罂粟花田",
+      "output": "red_flower",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 6,
+      "description": "采集红花，提取红色染料",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "red_flower": {
+          "min": 1,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "cactusGrove",
+      "name": "仙人掌地",
+      "output": "cactus",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 6,
+      "description": "收集仙人掌，烧制绿色染料",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "cactus": {
+          "min": 1,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "skeletonHunt",
+      "name": "骷髅狩猎",
+      "output": "bone",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 8,
+      "description": "狩猎骷髅，收集骨头并研磨为骨粉",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "bone": {
+          "min": 0,
+          "max": 2
+        }
+      }
+    },
+    {
+      "id": "zombieHunt",
+      "name": "僵尸狩猎",
+      "output": "rotten_flesh",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 8,
+      "description": "狩猎并收集生物实验原料",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "rotten_flesh": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "dropProbabilities": {
+        "rotten_flesh": 1.0
+      }
+    },
+    {
+      "id": "spiderHunt",
+      "name": "蜘蛛狩猎",
+      "output": "spider_eye",
+      "stage": 1,
+      "requires": "flintPick",
+      "amount": 1,
+      "seconds": 8,
+      "description": "狩猎并收集生物实验原料",
+      "cost": {
+        "ironPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "spider_eye": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "dropProbabilities": {
+        "spider_eye": 0.3333
+      }
+    },
+    {
+      "id": "alienFluidWell",
+      "name": "外星地下液体井",
+      "output": "unknownWater",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 1000,
+      "seconds": 10,
+      "description": "远征采集未知液体，供给外星菌种分离；需要实体储罐",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "pump": 2
       }
     },
     {
@@ -212,26 +512,1141 @@ export const GATHERING_REFERENCE={
         "tungstensteelPlate": 12,
         "motor": 2
       }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_acentauribbgrunt_0",
+      "name": "ACentauri · 地表样本 0",
+      "output": "modItem_GalaxySpace_acentauribbgrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_acentauribbgrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_acentauribbsubgrunt_0",
+      "name": "ACentauri · 地表样本 0",
+      "output": "modItem_GalaxySpace_acentauribbsubgrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_acentauribbsubgrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_barnardaEgrunt_0",
+      "name": "BarnardaE · 地表样本 0",
+      "output": "modItem_GalaxySpace_barnardaEgrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_barnardaEgrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_barnardaEsubgrunt_0",
+      "name": "BarnardaE · 地表样本 0",
+      "output": "modItem_GalaxySpace_barnardaEsubgrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_barnardaEsubgrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_barnardaFgrunt_0",
+      "name": "BarnardaF · 地表样本 0",
+      "output": "modItem_GalaxySpace_barnardaFgrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_barnardaFgrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_barnardaFsubgrunt_0",
+      "name": "BarnardaF · 地表样本 0",
+      "output": "modItem_GalaxySpace_barnardaFsubgrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_barnardaFsubgrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_callistoblocks_0",
+      "name": "Callisto · 地表样本 0",
+      "output": "modItem_GalaxySpace_callistoblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_callistoblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_callistoblocks_1",
+      "name": "Callisto · 地表样本 1",
+      "output": "modItem_GalaxySpace_callistoblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_callistoblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_deimosblocks_0",
+      "name": "Deimos · 地表样本 0",
+      "output": "modItem_GalaxySpace_deimosblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_deimosblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_deimosblocks_1",
+      "name": "Deimos · 地表样本 1",
+      "output": "modItem_GalaxySpace_deimosblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_deimosblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_enceladusblocks_0",
+      "name": "Enceladus · 地表样本 0",
+      "output": "modItem_GalaxySpace_enceladusblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_enceladusblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_enceladusblocks_3",
+      "name": "Enceladus · 地表样本 3",
+      "output": "modItem_GalaxySpace_enceladusblocks_3",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_enceladusblocks_3": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_enceladusblocks_1",
+      "name": "Enceladus · 地表样本 1",
+      "output": "modItem_GalaxySpace_enceladusblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_enceladusblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_europagrunt_0",
+      "name": "Europa · 地表样本 0",
+      "output": "modItem_GalaxySpace_europagrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_europagrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_europagrunt_1",
+      "name": "Europa · 地表样本 1",
+      "output": "modItem_GalaxySpace_europagrunt_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_europagrunt_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_ganymedeblocks_0",
+      "name": "Ganymede · 地表样本 0",
+      "output": "modItem_GalaxySpace_ganymedeblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_ganymedeblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_ganymedeblocks_1",
+      "name": "Ganymede · 地表样本 1",
+      "output": "modItem_GalaxySpace_ganymedeblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_ganymedeblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_ioblocks_0",
+      "name": "Io · 地表样本 0",
+      "output": "modItem_GalaxySpace_ioblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_ioblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_ioblocks_2",
+      "name": "Io · 地表样本 2",
+      "output": "modItem_GalaxySpace_ioblocks_2",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_ioblocks_2": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_mirandablocks_0",
+      "name": "Miranda · 地表样本 0",
+      "output": "modItem_GalaxySpace_mirandablocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_mirandablocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_mirandablocks_1",
+      "name": "Miranda · 地表样本 1",
+      "output": "modItem_GalaxySpace_mirandablocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_mirandablocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_mirandablocks_2",
+      "name": "Miranda · 地表样本 2",
+      "output": "modItem_GalaxySpace_mirandablocks_2",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_mirandablocks_2": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_oberonblocks_0",
+      "name": "Oberon · 地表样本 0",
+      "output": "modItem_GalaxySpace_oberonblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_oberonblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_oberonblocks_1",
+      "name": "Oberon · 地表样本 1",
+      "output": "modItem_GalaxySpace_oberonblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_oberonblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_oberonblocks_2",
+      "name": "Oberon · 地表样本 2",
+      "output": "modItem_GalaxySpace_oberonblocks_2",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_oberonblocks_2": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_phobosblocks_0",
+      "name": "Phobos · 地表样本 0",
+      "output": "modItem_GalaxySpace_phobosblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_phobosblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_phobosblocks_1",
+      "name": "Phobos · 地表样本 1",
+      "output": "modItem_GalaxySpace_phobosblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_phobosblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_phobosblocks_2",
+      "name": "Phobos · 地表样本 2",
+      "output": "modItem_GalaxySpace_phobosblocks_2",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_phobosblocks_2": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_proteusblocks_0",
+      "name": "Proteus · 地表样本 0",
+      "output": "modItem_GalaxySpace_proteusblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_proteusblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_proteusblocks_1",
+      "name": "Proteus · 地表样本 1",
+      "output": "modItem_GalaxySpace_proteusblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_proteusblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_proteusblocks_2",
+      "name": "Proteus · 地表样本 2",
+      "output": "modItem_GalaxySpace_proteusblocks_2",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_proteusblocks_2": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_titanblocks_0",
+      "name": "Titan · 地表样本 0",
+      "output": "modItem_GalaxySpace_titanblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_titanblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_tritonblocks_0",
+      "name": "Triton · 地表样本 0",
+      "output": "modItem_GalaxySpace_tritonblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_tritonblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_tritonblocks_1",
+      "name": "Triton · 地表样本 1",
+      "output": "modItem_GalaxySpace_tritonblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_tritonblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_tritonblocks_2",
+      "name": "Triton · 地表样本 2",
+      "output": "modItem_GalaxySpace_tritonblocks_2",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_tritonblocks_2": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_ceresblocks_0",
+      "name": "Ceres · 地表样本 0",
+      "output": "modItem_GalaxySpace_ceresblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_ceresblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_ceresblocks_1",
+      "name": "Ceres · 地表样本 1",
+      "output": "modItem_GalaxySpace_ceresblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_ceresblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_haumeablocks_0",
+      "name": "Haumea · 地表样本 0",
+      "output": "modItem_GalaxySpace_haumeablocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_haumeablocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_makemakegrunt_0",
+      "name": "Makemake · 地表样本 0",
+      "output": "modItem_GalaxySpace_makemakegrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_makemakegrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_makemakegrunt_1",
+      "name": "Makemake · 地表样本 1",
+      "output": "modItem_GalaxySpace_makemakegrunt_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_makemakegrunt_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_mercuryblocks_0",
+      "name": "Mercury · 地表样本 0",
+      "output": "modItem_GalaxySpace_mercuryblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_mercuryblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_mercuryblocks_1",
+      "name": "Mercury · 地表样本 1",
+      "output": "modItem_GalaxySpace_mercuryblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_mercuryblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_mercuryblocks_2",
+      "name": "Mercury · 地表样本 2",
+      "output": "modItem_GalaxySpace_mercuryblocks_2",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_mercuryblocks_2": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_plutoblocks_5",
+      "name": "Pluto · 地表样本 5",
+      "output": "modItem_GalaxySpace_plutoblocks_5",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_plutoblocks_5": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_tcetieblocks_0",
+      "name": "TCetiE · 地表样本 0",
+      "output": "modItem_GalaxySpace_tcetieblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_tcetieblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_tcetieblocks_1",
+      "name": "TCetiE · 地表样本 1",
+      "output": "modItem_GalaxySpace_tcetieblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_tcetieblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_tcetieblocks_2",
+      "name": "TCetiE · 地表样本 2",
+      "output": "modItem_GalaxySpace_tcetieblocks_2",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_tcetieblocks_2": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_vegabgrunt_0",
+      "name": "VegaB · 地表样本 0",
+      "output": "modItem_GalaxySpace_vegabgrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_vegabgrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_vegabsubgrunt_0",
+      "name": "VegaB · 地表样本 0",
+      "output": "modItem_GalaxySpace_vegabsubgrunt_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_vegabsubgrunt_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_plutoblocks_0",
+      "name": "Pluto · 地表样本 0",
+      "output": "modItem_GalaxySpace_plutoblocks_0",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_plutoblocks_0": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_plutoblocks_1",
+      "name": "Pluto · 地表样本 1",
+      "output": "modItem_GalaxySpace_plutoblocks_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_plutoblocks_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_plutoblocks_2",
+      "name": "Pluto · 地表样本 2",
+      "output": "modItem_GalaxySpace_plutoblocks_2",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_plutoblocks_2": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_plutoblocks_3",
+      "name": "Pluto · 地表样本 3",
+      "output": "modItem_GalaxySpace_plutoblocks_3",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_plutoblocks_3": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalaxySpace_plutoblocks_4",
+      "name": "Pluto · 地表样本 4",
+      "output": "modItem_GalaxySpace_plutoblocks_4",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalaxySpace_plutoblocks_4": {
+          "min": 1,
+          "max": 3
+        }
+      }
+    },
+    {
+      "id": "worldSample_modItem_GalacticraftAmunRa_tilewood1_1",
+      "name": "Maahes 光荚林 · 地表样本 1",
+      "output": "modItem_GalacticraftAmunRa_tilewood1_1",
+      "stage": 8,
+      "requires": "advancedRocket",
+      "amount": 2,
+      "seconds": 12,
+      "description": "远征收集实体样本，用于材料加工或维度环境构建",
+      "cost": {
+        "tungstensteelPlate": 12,
+        "motor": 2
+      },
+      "dropRanges": {
+        "modItem_GalacticraftAmunRa_tilewood1_1": {
+          "min": 1,
+          "max": 3
+        }
+      }
     }
   ],
   "adaptations": [
     "Encounter click count and collector deployment are idle abstractions. The unenchanted pearl drop remains 0–1 at 50%, from the installed pack loot cache.",
     "Boar encounters use the existing idle drop range (1–3), centered on the installed loot cache yield of 2 porkchops.",
     "The pine grove is an idle gathering location with a 1–3 log yield. The physical pine log is GT++ BOPBlockRegistrator.log_Pine, not interchangeable with an oak log in pine oil recipes.",
+    "Dragonblood nugget identity and dragon-drop source come from EnderDragonDeathHandler. An expedition yields 1–3 nuggets per 30 s with a rocket and deployment cost; this is a scaled idle encounter, not a full boss kill or the source multi-stack drop distribution. No ingots, hypogen or research are granted directly.",
+    "Fiery blood is the checked Hydra boss drop. The repeatable 1–3 item expedition yield, deployment cost and thirty-second duration are idle adaptations, not the boss loot distribution.",
     "Library expeditions expose the existing tower-library Void dust loot as a repeatable idle resource (1–3 dust, centered on the source stack of 2); encounter timing and yield distribution are adaptations, not the complete weighted chest table.",
     "Grass seed gathering is an idle adaptation of the vanilla wheat-seed resource. Its 1–2 yield and click timing are authored gameplay values; the fluid extractor recipe retains the pinned GT yield and energy.",
+    "Wheat, eggs, cane, oak saplings, grass blocks, brown mushrooms, vines, red poppies and cactus are physical vanilla resources exposed through repeatable idle gathering. Site cost, pickaxe requirement, 1–2 yield and six-second base duration are adaptations, not vanilla farming timings or GT machine recipes.",
+    "Skeleton bone identity is checked against the installed loot cache; the 0–2 encounter yield and timing are idle adaptations. No free bone meal or bacteria seed is supplied.",
+    "Zombie and spider gathering retain the checked loot-cache one-item drop chance. Encounter rate and deployment cost are idle adaptations.",
+    "Unknown-water deposits use the installed underground fluid registry. Rocket-gated access, 1000 mB per 10 seconds and well deployment are idle adaptations; original vein depletion, coordinates and drill tiers are not simulated.",
     "Coastal seaweed gathering exposes the existing HarvestCraft crop to the idle game. Location, chapter, 1–3 yield and timing are adaptations; seeds do not drop from grass in this instance. The original GTNH seaweed-to-ash and iodine recipes are retained.",
     "The Fayalite OreMixes resource is exposed as raw ore with a rocket gate. Location, chapter and 1–3 yield are idle adaptations. RawOreLoader still requires hammer processing before gems can be used.",
     "Barnarda C log gathering exposes GalaxySpace barnardaClog for Core BacteriaRegistry pyrolysis. Rocket requirements, chapter, encounter timing and 1–3 yield are idle adaptations; pyrolysis keeps its original inputs, duration and energy.",
     "Nether-shard hunts retain the pinned player-killed Nether pig-zombie drop probability of 1/16. Encounter timing, chapter and collector costs are idle adaptations.",
     "Ancient-debris mining exposes the installed Nether worldgen resource as an idle location at ZPM; one block per round is an adaptation, not the original vein-search distribution. Pickaxe tiers and world coordinates are abstracted.",
     "Nether atmosphere collection replaces a spatial Nether air-intake hatch with a paid collection site. Its 1000 mB per 6 s is an idle rate; fluid identity and subsequent machine recipes retain their source rules.",
-    "TCeti E seaweed collection abstracts the existing deep-space plant resource into a rocket-gated site at ZPM. Gathering yield is adapted; the Core extractor still consumes 64 plants per extract at its registered EU/t and duration."
+    "TCeti E seaweed collection abstracts the existing deep-space plant resource into a rocket-gated site at ZPM. Gathering yield is adapted; the Core extractor still consumes 64 plants per extract at its registered EU/t and duration.",
+    "Planet samples use exact installed GalaxySpace terrain registry/meta pairs and Maahes lumipod leaves from AmunRa world generation. Access uses the idle advanced rocket; deployment, 12-second duration and 1–3 sample yields are adaptations. These sites never grant dimension display blocks, research data, finished materials or unverified decorative subtypes. Pluto dungeon bricks are not surface samples."
   ],
   "sources": [
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/TwilightForest/TF_Loot_Chests.java",
       "sha256": "b0e036015f97cbd6994c15e523a5ceeac500a0ac790214cdf1a609c9f4a49ab0"
+    },
+    {
+      "file": "gtPlusPlus/core/handler/events/EnderDragonDeathHandler.java",
+      "sha256": "80c7f785afe6fab7a071206675e4d0c6145a7c1f3dce9f17afdee4d0ccbf1655"
+    },
+    {
+      "file": "config/GregTech/UndergroundFluids.cfg",
+      "sha256": "f386472a158cccfc82e30c6697088e51a20031e6457c222a87ca42cd2b9cfe99"
     },
     {
       "file": "ThaumicTinkerer-2.12.34/DimensionalShardDropHandler.java",
@@ -256,6 +1671,190 @@ export const GATHERING_REFERENCE={
     {
       "file": "NewHorizonsCoreMod/ExtractorRecipes.java",
       "sha256": "76f2db6f2a1de6a7a0849e30a2e13dbddce352aa64525b599703f7c4193b96af"
+    },
+    {
+      "file": "mods/GalaxySpace-1.1.144-GTNH.jar",
+      "sha256": "bad7e1453c6d1e22e429a0d87c0325f8294f8059ff3dbd48142cb8fe92047b6f"
+    },
+    {
+      "file": "mods/AmunRa-GC-0.8.14.jar",
+      "sha256": "bc9e0ce4e1d52e0627116c29255a61a60a173e5893272caf5cf9e0eea1f8b9f3"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/core/register/GSBlocks.java",
+      "sha256": "f293cca5fc5caa9b9b603d837bbc8b539aa8ba4bdb1e4473fd0440a69af0704d"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/BarnardsSystem/BRBlocks.java",
+      "sha256": "40dcce6d9a9c6b5b6a84b08458ee3da33ec99f414ee94f5a99bb683fabad4264"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/VegaSystem/VegaBlocks.java",
+      "sha256": "6496db0a63ffcaf9ef6a2b3f13a852924e614855d0b40dfe181dbdab9c1c6cae"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/TCetiSystem/TCetiBlocks.java",
+      "sha256": "a32d0b6ce03d56fcc09ac5ded803b0d5d7345f42ef18a7c10abfa2610f879520"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/ACentauriSystem/ACBlocks.java",
+      "sha256": "7d0bfe07d8565d204e6543d2f7669e36e46803df1de9815c81bc4506d62c1067"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/ACentauriSystem/planets/aCentauriBb/dimension/ChunkProviderACentauri.java",
+      "sha256": "bf8cf75c66d1b0fc40333ad15271172a041daf2b195f4b2844c4208423ee6c17"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/BarnardsSystem/planets/barnardaC/dimension/ChunkProviderBarnardaC.java",
+      "sha256": "5f88ac5919f041a1fc907aac844c4061d985135211fc5657597843e91ea0324a"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/BarnardsSystem/planets/barnardaE/dimension/ChunkProviderBarnardaE.java",
+      "sha256": "73f520dc8b87fba12718fe44fa47f82c1400457ac1bdc8adce39e81d643148c9"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/BarnardsSystem/planets/barnardaF/dimension/ChunkProviderBarnardaF.java",
+      "sha256": "a3da6f4010573ce438187446037f12deda903b01702feb3c5c90dfea4164724b"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/core/dimension/ChunkProviderDefaultSpaceStation.java",
+      "sha256": "2d7842a857c03cc94d435e3a3f8c29b4fa9566a0bf0396e4b5518e007f9fbadb"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/core/dimension/ChunkProviderGSSpace.java",
+      "sha256": "5b1fb876de8892a816708327d59a226b1de379a25edd94d1a87c123fb60c67b6"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/core/dimension/ChunkProviderSpaceCraters.java",
+      "sha256": "a754ee0d0d9f93cf59a5654143f89e9f0ab99e5f3a75fbac33cadd36676ac006"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/core/dimension/ChunkProviderSpaceLakes.java",
+      "sha256": "a5c4cd2af86111ff909598979dba264a16a6d6d1abdda81db9f1ccc66c218582"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/callisto/dimension/ChunkProviderCallisto.java",
+      "sha256": "a67a672440e49069407ddb20c89d2693e84858c46f27c2f835d6351f8b2ac4d8"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/deimos/dimension/ChunkProviderDeimos.java",
+      "sha256": "883d4c2f2cd3101b2f712d5eee1f89a827c7d09792c7e768c7bec977c44bd598"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/enceladus/dimension/ChunkProviderEnceladus.java",
+      "sha256": "081c71d487428a98468e009d5ea4f50dab9a4595a3f6875eaa30a983318551cd"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/europa/dimension/ChunkProviderEuropa.java",
+      "sha256": "d5261bfdacd8a9d27ea15c8abbe6d8594d4fa9040baf618024ed54dec9f1d8bd"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/ganymede/dimension/ChunkProviderGanymede.java",
+      "sha256": "e449b3fa3f462f412fb8ae35f7541f7165a6affcd880a8142a3ce14113192d1b"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/io/dimension/ChunkProviderIo.java",
+      "sha256": "d92014793b7d1281cc333923d6b4812da3cfc451b83301dadeb950674e9d3198"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/miranda/dimension/ChunkProviderMiranda.java",
+      "sha256": "aeb771582278a5c3a7d02d0984e05d40aba115d3490d4274064bc21c2d6fdc16"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/oberon/dimension/ChunkProviderOberon.java",
+      "sha256": "3eab209d10d9c96affc721b2a969c83bcdac710b3004b2ec58af130e3e76549e"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/phobos/dimension/ChunkProviderPhobos.java",
+      "sha256": "adfc5c91b17502f50ae4a677671184f6b9ae302dcd4e5c247ebc17f5345a6459"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/proteus/dimension/ChunkProviderProteus.java",
+      "sha256": "b0e4d0be090feea1b9e725ba3a3d094d645884eb52223772b59dbb007c7a0411"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/titan/dimension/ChunkProviderTitan.java",
+      "sha256": "75fef2062e6fdcaf8ccda48fe023097da1e19d40d63c162b65fb0f14dd4fec59"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/moons/triton/dimension/ChunkProviderTriton.java",
+      "sha256": "9375b8fac93922700e054742d2f018df5226354e87ba5b68a0fb4c8aca41b95a"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/planets/ceres/dimension/ChunkProviderCeres.java",
+      "sha256": "831ea1308cd3500fbf97e54eff9b217772b3136738ff0df003f6d58203eeda9d"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/planets/haumea/dimension/ChunkProviderHaumea.java",
+      "sha256": "42dea18bbfb5276523e0526f58ab7e412db1eebb92ae828dff0685b44a922dfa"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/planets/kuiperbelt/dimension/ChunkProviderKuiper.java",
+      "sha256": "183055df4cdead7942cb4a0b31b8d31e62db73ea2b59f2e57e7385939f827046"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/planets/makemake/dimension/ChunkProviderMakemake.java",
+      "sha256": "37c54a5753e1216777c36f3c9df228e55e381d0c26fc67c6801b1b3df7d4f0db"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/planets/mercury/dimension/ChunkProviderMercury.java",
+      "sha256": "e71d3b6d461d573c2dab36168ac0a8bb441b892e7d7097e74ce9c78e0b921138"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/planets/pluto/dimension/ChunkProviderPluto.java",
+      "sha256": "d8576436477ce7177e20a5070af1943b31cf7fb7a83dc4e2aceec3ad74ca65cd"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/planets/venus/dimension/ChunkProviderVenus.java",
+      "sha256": "134abc89cc92f558cf0740b87cdea759d207e2471c191d8cc7a04974f0c5623b"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/satellites/jupiter/dimension/ChunkProviderJupiterSS.java",
+      "sha256": "5c237211fb92cb2bbe14273d6ca94b4b91340f800aff80f7df09da016c5042ae"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/satellites/mars/dimension/ChunkProviderMarsSS.java",
+      "sha256": "7a986daa5ece81cef9d5d96e98a53ea44cc5174e46a760ddddf2a04355f37adb"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/satellites/neptune/dimension/ChunkProviderNeptuneSS.java",
+      "sha256": "d5987ae9c8d36e306f889a2f4aa0c49159b49ad274182f1a6e73dd9d06809fca"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/satellites/saturn/dimension/ChunkProviderSaturnSS.java",
+      "sha256": "ef2d44223349f3e5c1575580918f5047ececaa0c9541093d8e669a733e8318dd"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/satellites/uranus/dimension/ChunkProviderUranusSS.java",
+      "sha256": "bdc67368940a40606e8843364f37ca6977a71687701382b40037dde154dc1c0d"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/satellites/venus/dimension/ChunkProviderVenusSS.java",
+      "sha256": "bd123ecdbfb92de47b1988988f0a91a46463e6a7279db4377625f0a0d50c2add"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/TCetiSystem/planets/tcetiE/dimension/ChunkProviderTCetiE.java",
+      "sha256": "a445943a390a8a58d187d75575c0c6fcc89c5dfa11970a0d7e0200d328a1a364"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/VegaSystem/planets/vegaB/dimension/ChunkProviderVegaB.java",
+      "sha256": "786931a00af23e751f823bee6c37e233a6585ad251cdab4256f0f28de6ee402f"
+    },
+    {
+      "file": "GalaxySpace-1.1.144/galaxyspace/SolarSystem/planets/pluto/world/BiomeGenPluto.java",
+      "sha256": "a17bf0fddfaeaad057644ea1955f981ba12a2ced02ee6a5cdab62cb8b8753313"
+    },
+    {
+      "file": "AmunRa-GC-0.8.14/de/katzenpapst/amunra/block/ARBlocks.java",
+      "sha256": "30ab231f8ed0703a38151f5f033db95463c52604e914b5d3db4ab5ac56443bee"
+    },
+    {
+      "file": "AmunRa-GC-0.8.14/de/katzenpapst/amunra/world/maahes/MaahesBiomeDecorator.java",
+      "sha256": "66e864f89a81a681930edfe621455f2f5a80f318b1be683400525401ac1faeb9"
+    },
+    {
+      "file": "AmunRa-GC-0.8.14/de/katzenpapst/amunra/block/bush/PodSapling.java",
+      "sha256": "cb56bdac05b28fec5c3e31c1dff314f1f0ab42b1b449f903e8cf41eb77b477fa"
     }
   ]
 };

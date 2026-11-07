@@ -421,6 +421,30 @@
       "meta": 0,
       "texture": "assets/ic2/textures/items/itemBatRE.0.png"
     },
+    "chargedReBattery": {
+      "name": "充电电池",
+      "registry": "IC2:itemBatRE",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemBatRE.0.png"
+    },
+    "advBattery": {
+      "name": "强化充电电池",
+      "registry": "IC2:itemAdvBat",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemAdvBat.0.png"
+    },
+    "energyCrystal": {
+      "name": "能量水晶",
+      "registry": "IC2:itemBatCrystal",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemBatCrystal.0.png"
+    },
+    "lapotronCrystal": {
+      "name": "兰波顿水晶",
+      "registry": "IC2:itemBatLamaCrystal",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemBatLamaCrystal.0.png"
+    },
     "suBattery": {
       "name": "一次性电池",
       "registry": "IC2:itemBatSU",
@@ -1313,26 +1337,6 @@
     {
       "alias": "compositeArmor",
       "expression": "(Item)new ItemArmorIC2(InternalName.itemArmorAlloyChestplate, alloyArmorMaterial, InternalName.alloy, 1, Ic2Items.advancedAlloy)"
-    },
-    {
-      "alias": "chargedReBattery",
-      "expression": "(Item)new ItemBattery(InternalName.itemBatRE, 10000.0, 32.0, 1)",
-      "reason": "not an item with a direct registered texture"
-    },
-    {
-      "alias": "advBattery",
-      "expression": "(Item)new ItemBattery(InternalName.itemAdvBat, 100000.0, 256.0, 2)",
-      "reason": "not an item with a direct registered texture"
-    },
-    {
-      "alias": "energyCrystal",
-      "expression": "(Item)new ItemBattery(InternalName.itemBatCrystal, 1000000.0, 2048.0, 3)",
-      "reason": "not an item with a direct registered texture"
-    },
-    {
-      "alias": "lapotronCrystal",
-      "expression": "(Item)new ItemBattery(InternalName.itemBatLamaCrystal, 1.0E7, 8092.0, 4).setRarity(1)",
-      "reason": "not an item with a direct registered texture"
     },
     {
       "alias": "chargingREBattery",
