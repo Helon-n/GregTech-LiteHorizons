@@ -21,10 +21,12 @@ export function requirementFailure(game,d,r){
   if(req.cleanroom&&!game.state.devices.some(x=>x.type==='cleanroomFacility'&&x.enabled&&x.cleanroomReady))return '需要供电中的洁净室';
   if(req.lowGravity&&d.location!=='orbit')return '需要轨道环境';
   if(game.catalog.machines[d.type]?.orbital&&d.location!=='orbit')return '请将设备部署到轨道';
-  if(req.researchData&&game.quantity(req.researchData)<1)return '需要先完成扫描研究';
+  if(req.researchData&&game.quantity(req.researchData)<1)return '需要先完成对应研究';
   const spec=game.catalog.machines[d.type]?.energy;
   if(req.startup&&(!spec?.fusion||req.startup>fusionCapacity(spec,d.energyTier)))return '聚变反应堆启动容量不足';
   const capabilities=game.catalog.machines[d.type]?.capabilities??{};
+  if(req.computation&&(capabilities.computation??0)<req.computation)return '算力不足，需要 '+req.computation;
+  if(r.process==='stationResearch'&&req.researchVoltage>8*4**d.energyTier)return '研究电压不足';
   if(req.algaeTier!==undefined&&capabilities.algaeTier!==req.algaeTier)return '培养等级需要 '+req.algaeTier+' 级';
   for(const [key,label]of [['compressionTier','压缩等级'],['chemicalCasing','化工外壳'],['preciseCasing','精密外壳'],['componentCasing','部件装配线外壳'],['spaceModule','轨道模块'],['pcbTier','PCB 工厂等级'],['qftTier','量子转换等级'],['qftFocus','量子聚焦等级'],['algaeTier','藻类池等级'],['nanoForgeTier','纳米锻炉等级'],['refineryCoil','硅岩精炼厂线圈等级'],['plasmaTier','造物主等离子等级'],['exoticTier','造物主奇异物质等级']]){
     if(forge&&['plasmaTier','exoticTier'].includes(key))continue;
@@ -40,7 +42,7 @@ export function requirementFailure(game,d,r){
 export function requirementLabels(game,r){
   const req=r?.requirements??{};
   const calibrations={PRIMITIVE:'基础电路',CRYSTAL:'晶体电路',WETWARE:'湿件电路',BIO:'生物电路',OPTICAL:'光学电路',EXOTIC:'奇异电路',COSMIC:'宇宙电路',TEMPORAL:'时空电路',SPECIAL:'特殊电路'};
-  return [req.bioCulture&&game.catalog.items[req.bioCulture].name,req.bioGlass&&('玻璃 ≥ '+req.bioGlass+' 级'),req.radiation?.value&&((req.radiation.exact?'精确 ':'至少 ')+req.radiation.value+' Sv'),req.heat&&('线圈 ≥ '+req.heat+' K'),req.cleanroom&&'洁净室',req.lowGravity&&'轨道环境',req.startup&&('启动 '+req.startup.toLocaleString()+' EU'),req.researchData&&('研究：'+game.catalog.items[req.researchData].name),...[
+  return [req.computation&&('算力 ≥ '+req.computation.toLocaleString()),r.process==='stationResearch'&&req.researchVoltage&&('研究供能 '+req.researchVoltage.toLocaleString()+' EU/t × '+req.researchAmperage+' A'),req.bioCulture&&game.catalog.items[req.bioCulture].name,req.bioGlass&&('玻璃 ≥ '+req.bioGlass+' 级'),req.radiation?.value&&((req.radiation.exact?'精确 ':'至少 ')+req.radiation.value+' Sv'),req.heat&&('线圈 ≥ '+req.heat+' K'),req.cleanroom&&'洁净室',req.lowGravity&&'轨道环境',req.startup&&('启动 '+req.startup.toLocaleString()+' EU'),req.researchData&&('研究：'+game.catalog.items[req.researchData].name),...[
     ['compressionTier','压缩等级'],['chemicalCasing','化工外壳'],['preciseCasing','精密外壳'],['componentCasing','部件装配线外壳'],['spaceModule','轨道模块'],
     ['pcbTier','PCB 工厂等级'],['qftTier','量子转换等级'],['qftFocus','量子聚焦等级'],['algaeTier','藻类池等级'],['nanoForgeTier','纳米锻炉等级'],['refineryCoil','硅岩精炼厂线圈等级'],['plasmaTier','造物主等离子等级'],['exoticTier','造物主奇异物质等级'],['nanochipTier','纳米芯片矩阵等级'],
   ].filter(([key])=>req[key]!==undefined).map(([key,label])=>label+(key==='algaeTier'?' = ':' ≥ ')+req[key]),req.bioUpgrade&&'生物升级模块',req.multiStepPlasma&&'多阶段等离子升级',req.heavyCentrifuge&&'重型离心模式',req.compostBoost&&'堆肥培养',req.dissolutionRatio&&('流体配比 '+req.dissolutionRatio+':1'),req.nanochipCalibration&&req.nanochipCalibration!=='NONE'&&((calibrations[req.nanochipCalibration]??'特殊电路')+'校准'),req.nkeRange&&('中子能量 '+req.nkeRange.min+'–'+req.nkeRange.max+' keV')].filter(Boolean);

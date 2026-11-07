@@ -14,6 +14,7 @@ import {appearanceMarkup,mountAppearance} from './tier-appearance.js';
 import {updateText,updateDisabled,updateAttribute,updatePercent} from './live-view.js';
 import {deviceReadout,updateDeviceReadout} from './device-readout.js';
 import {Game} from './core/engine.js';
+import {migrateRecipeFavorites} from './core/identity-migration.js';
 import {energySpec,energyCapacity,voltage,generatorFuel,carrier,batteryItem,boilerProfile,boilerSteam,boilerSolidFuels,daylight} from './core/energy.js';
 import {ENERGY_REFERENCE as ENERGY,recipeEnergyText} from './data/energy-reference.js';
 import {loadWorld,saveWorld,exportWorld,replaceWorld} from './core/storage.js';
@@ -56,7 +57,7 @@ let overviewTab='main',benchView='recipe',containerView='placed';
 let appearanceOpen=false,appearanceCode='',appearanceView='ladder',appearanceEraPage=0;
 let appearanceMode=readAppearance(localStorage);
 const FAVORITES_KEY='gtnh-recipe-favorites-v1';
-let recipeFavorites=(()=>{try{const value=JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]');return Array.isArray(value)?value.filter(x=>x&&typeof x.key==='string'&&typeof x.recipeId==='string'&&typeof x.itemId==='string'&&['craft','machines','recipes'].includes(x.tab)&&['uses','recipes'].includes(x.mode)):[];}catch{return [];}})();
+let recipeFavorites=(()=>{try{return migrateRecipeFavorites(JSON.parse(localStorage.getItem(FAVORITES_KEY)||'[]'),CATALOG);}catch{return [];}})();
 let bookView='items';
 function syncTheme(){const tier=applyTier(document.documentElement,appearanceMode||game.stage.code);updateAttribute($('meta[name="theme-color"]'),'content',tier.background);}
 function appearance(){
@@ -135,7 +136,7 @@ function overview(){
 
 function goalPct(){const a=game.milestoneProgress();return a.reduce((v,x)=>v+Math.min(1,x.have/x.need),0)/a.length*100;}
 function resourceArt(n){return icon(n.output,true);}
-function gatherVerb(n){return n.id==='forest'?'砍伐':n.id==='river'?'收集':'开采';}
+function gatherVerb(n){return n.id.endsWith('Hunt')?'狩猎':n.id==='forest'?'砍伐':n.id==='river'?'收集':'开采';}
 function dropRanges(node){return '<div class="stacks">'+Object.entries(game.dropRanges(node)).map(([id,{min,max}])=>`<span class="ingredient" title="${e(name(id))}">${icon(id)}<span>${e(name(id))}</span><b>${min===max?num(min):num(min)+'–'+num(max)}${items[id].kind==='fluid'?' mB':''}</b></span>`).join('')+'</div>';}
 function collectorControls(n){
   const c=game.state.collectors[n.id];if(!c)return '';
@@ -164,7 +165,7 @@ function listPage(key,list,size){
 }
 function resourcesPage(){const plan=gridPlan('resources'),list=listPage('resources',gatherNodes.filter(n=>n.stage<5&&n.stage<=game.state.stage+1),plan.size);return heading('资源采集','<button class="button" data-show-drops>最近掉落</button>')+`<div class="resource-cards fitted-cards" ${gridAttrs('resources')}>${list.entries.map(nodeCard).join('')}</div>${list.controls}`;}
 
-function processName(p){return Object.values(machines).find(m=>m.processes.includes(p))?.name||p;}
+function processName(p){return p==='stationResearch'?'科研站研究':Object.values(machines).find(m=>m.processes.includes(p))?.name||p;}
 function workshopEntries(){
   const all=recipeEntries(CATALOG,game.state.stage);
   return workshopTab==='machines'?all.filter(r=>r.process==='build'):workshopTab==='craft'?all.filter(r=>r.process==='craft'):all;

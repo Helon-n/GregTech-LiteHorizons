@@ -54,6 +54,13 @@ def generate(imp,root,split_args,matching,numeric):
         melting[item[0]]={'out':out,'temperature':temperature,'origin':{'file':label,'line':line}}
     exceptions={'Water','Stone','Emerald','Quartz','Ender','Glass','Slime','Obsidian'}
     imp.constants={}
+    # The native Stone branch uses vanilla SRG block fields rather than GT
+    # material dictionaries. Core replaces casting yields, not these melts.
+    for field,block in [('field_150348_b','stone'),('field_150347_e','cobblestone')]:
+        pattern=r'Smeltery.addMelting\(Blocks\.'+field+r', 0, (\d+), new FluidStack\(moltenStoneFluid, (\d+)\)\);'
+        match=re.search(pattern,native)
+        if not match:raise ValueError('missing native stone melting '+field)
+        add('new ItemStack(Blocks.'+block+',1,0)',imp.stack('FluidRegistry.getFluidStack("stone.seared",'+match[2]+')'),int(match[1]),native_label,native.count('\n',0,match.start())+1)
     # Only existing GT forms are represented here. Ore and host-rock variants
     # need the Core helper's explicit yields; they are not guessed from names.
     for name,(material,temperature) in types.items():

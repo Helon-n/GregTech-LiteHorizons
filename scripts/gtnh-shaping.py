@@ -15,8 +15,8 @@ class Shaping:
         # to another recipe map. Otherwise alloy-smelter inputs can leak into
         # the next extruder/solidifier output.
         for match in re.finditer(r'GTValues\.RA\.stdBuilder\(\)((?:(?!GTValues\.RA\.stdBuilder\(\)).)*?\.addTo\((\w+)\))',self.text,re.S):
-            if match[2] not in ('extruderRecipes','fluidSolidifierRecipes'):continue
-            code=match[1];process={'extruderRecipes':'extrude','fluidSolidifierRecipes':'solidify'}[match[2]]
+            if match[2] not in ('extruderRecipes','fluidSolidifierRecipes','alloySmelterRecipes'):continue
+            code=match[1];process={'extruderRecipes':'extrude','fluidSolidifierRecipes':'solidify','alloySmelterRecipes':'alloy'}[match[2]]
             output=re.search(r'GTOreDictUnificator.get\(OrePrefixes\.(\w+),\s*aMaterial(?:.mSmeltInto)?,\s*([^,)]+)\)',code)
             tool=re.search(r'ItemList\.(Shape_\w+).get\(0L\)',code)
             if not output or output[1] not in common or not tool:continue
@@ -27,11 +27,11 @@ class Shaping:
                 return code[m.end():matching(code,m.end()-1)] if m else None
             input_amount=re.search(r'GTUtility.copyAmount\(([^,]+),\s*aStack\)',code)
             molten=re.search(r'aMaterial.getMolten\(([^)]+)\)',code)
-            if process=='extrude' and not input_amount or process=='solidify' and not molten:continue
+            if process in ('extrude','alloy') and not input_amount or process=='solidify' and not molten:continue
             eut=operand('eut')
             if not eut or not eut.startswith('calculateRecipeEU(aMaterial,'):continue
             self.templates.append({'process':process,'prefix':output[1],'output':output[2],'tool':tool[1],
-              'input':input_amount[1] if process=='extrude' else molten[1],'ticks':operand('duration'),
+              'input':input_amount[1] if process!='solidify' else molten[1],'ticks':operand('duration'),
               'eut':eut[len('calculateRecipeEU(aMaterial,'):-1],
               'aluminiumRod':process=='extrude' and output[1]=='stick' and '10 * SECONDS' in code,
               'line':self.text.count('\n',0,match.start())+1})
@@ -55,9 +55,12 @@ class Shaping:
             if t['process']=='extrude' and t['prefix']=='stick':
                 if name=='Obsidian' or t['aluminiumRod']!=(name=='Aluminium'):continue
             if t['process']=='solidify' and name in ('AnnealedCopper','CastIron'):continue
+            if t['process']=='alloy':
+                if material['processingEU']>=8192:continue
+                if t['prefix']=='plate' and (name in ('StyreneButadieneRubber','RubberSilicone'))!=(number(t['input'])==1):continue
             try:tool=imp.named(t['tool'])
             except ValueError:continue
             imp.active_file=self.label
-            inputs={imp.material(name,'ingot' if t['process']=='extrude' else 'molten'):number(t['input'])}
+            inputs={imp.material(name,'molten' if t['process']=='solidify' else 'ingot'):number(t['input'])}
             r=imp.emit_recipe(t['process'],inputs,{imp.material(target,t['prefix']):number(t['output'])},max(1,number(t['ticks'])),material['processingEU'] or number(t['eut']),t['line'],{tool:1},{},[],None)
             if r:r['origin']['material']={'file':'gregtech/loaders/materials/MaterialsInit.java','line':material['line']}

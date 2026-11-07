@@ -6,6 +6,7 @@ import {energySpec,energyCapacity,initializeEnergy,runtime,sourceOptions,setSupp
 import {migrateMaterialRecipes} from './material-migration.js';
 import {validBatchOutputs} from './recipe-yields.js';
 import {migrateIndustry} from './industry-migration.js';
+import {migrateCatalogIdentities} from './identity-migration.js';
 import {SOLID_FUELS} from '../data/industry-catalog.js';
 import {COILS} from '../data/technology-catalog.js';
 import {installCoil,setMachineLocation,machineSupportsRecipe} from './technology.js';
@@ -282,7 +283,8 @@ export class Game {
     const drops={},skipped={},totals={},ranges=Object.entries(this.dropRanges(node));
     // Each collector and each completed round rolls independently, also during offline simulation.
     for(let batch=0;batch<batches;batch++)for(const[id,{min,max}]of ranges){
-      const amount=min===max?min:min+Math.floor(this.nextDropRandom()*(max-min+1));
+      const probability=node.dropProbabilities?.[id];
+      const amount=probability!==undefined?(this.nextDropRandom()>=1-probability?max:min):min===max?min:min+Math.floor(this.nextDropRandom()*(max-min+1));
       totals[id]=(totals[id]||0)+amount;
     }
     for(const[id,requested]of Object.entries(totals)){const received=isFluid(this.catalog,id)?Math.min(requested,this.fluidRoom(id)):requested;if(received>0){this.add({[id]:received});drops[id]=received;}if(received<requested)skipped[id]=requested-received;}
@@ -356,7 +358,7 @@ export class Game {
   canAdvance(){return !this.state.completed&&this.milestoneProgress().every(x=>x.have>=x.need);}
   advance(){if(!this.canAdvance())return{ok:false,message:'先完成本阶段目标'};if(this.state.stage===this.catalog.stages.length-1){this.state.completed=true;this.note('星门已建成：GregTech-LiteHorizons 完成');return{ok:true,message:'星门已建成！'};}this.state.stage++;this.note('进入 '+this.stage.name+' · '+this.stage.code);return{ok:true,message:'阶段解锁：'+this.stage.name};}
   drops(node){return this.catalog.nodeDrops[node.id]||{[node.output]:node.amount};}
-  dropRanges(node){return Object.fromEntries(Object.entries(this.drops(node)).map(([id,n])=>[id,isFluid(this.catalog,id)?{min:n,max:n}:{min:Math.max(id===node.output?1:0,n-1),max:n+1}]));}
+  dropRanges(node){return node.dropRanges??Object.fromEntries(Object.entries(this.drops(node)).map(([id,n])=>[id,isFluid(this.catalog,id)?{min:n,max:n}:{min:Math.max(id===node.output?1:0,n-1),max:n+1}]));}
   nextDropRandom(){
     // Saved random state keeps future drops consistent after loading and across offline/online steps.
     let value=this.state.lootSeed=(this.state.lootSeed+0x6D2B79F5)>>>0;
@@ -385,6 +387,7 @@ export class Game {
   snapshot(){this.state.lastSeen=Date.now();return clone(this.state);}
   restore(raw){
     if(!raw||![2,3,SCHEMA].includes(raw.schema))throw Error('存档版本不兼容');
+    raw=migrateCatalogIdentities(raw,this.catalog);
     raw=migrateMaterialRecipes(raw,this.catalog);
     raw=migrateIndustry(raw,this.catalog);
     if(!Number.isInteger(raw.stage)||raw.stage<0||raw.stage>=this.catalog.stages.length)throw Error('科技阶段无效');

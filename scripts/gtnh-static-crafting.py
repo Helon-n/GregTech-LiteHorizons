@@ -80,15 +80,17 @@ def import_crafting(importer, paths, split_args, matching, scopes_at):
         if s=='OrePrefixes.stone':s='"stone"'
         if s=='OrePrefixes.plank.get(Materials.Wood)':s='"plankWood"'
         if s=='OrePrefixes.stick.get(Materials.Wood)':s='"stickWood"'
+        if re.fullmatch(r'newOreDictItemStack\("sand",[\dL]+\)',s):s='"sand"'
         itemdata=re.fullmatch(r'OrePrefixes\.(\w+)\.get\(Materials\.(\w+)\)',re.sub(r'\s+','',s))
         if itemdata:s='GTOreDictUnificator.get(OrePrefixes.'+itemdata[1]+',Materials.'+itemdata[2]+',1)'
         addon=re.fullmatch(r'OrePrefixes\.(\w+)\.get\(((?:WerkstoffLoader|GGMaterial)\.\w+\.getGTMaterial\(\))\)',s)
         if addon:s='GTOreDictUnificator.get(OrePrefixes.'+addon[1]+','+addon[2]+',1)'
         # Use the metadata-zero member of these vanilla block dictionaries.
         # This applies only to ingredient wildcards, never output damage/NBT.
-        s=re.sub(r'newItemStack\(Blocks\.(glass|chest|trapped_chest|piston|sticky_piston|furnace|anvil|crafting_table|redstone_torch|unlit_redstone_torch),1,(?:WILDCARD|32767)\)',r'new ItemStack(Blocks.\1,1,0)',s)
+        s=re.sub(r'newItemStack\(Blocks\.(sand|glass|chest|trapped_chest|piston|sticky_piston|furnace|anvil|crafting_table|redstone_torch|unlit_redstone_torch),1,(?:WILDCARD|32767)\)',r'new ItemStack(Blocks.\1,1,0)',s)
         if s.startswith('"'):
             key=json.loads(s)
+            if key in ('sand','cobblestone'):return ingredient('new ItemStack(Blocks.'+('sand' if key=='sand' else 'cobblestone')+',1,0)')
             if key in importer.bw_glass_ores:return ingredient(importer.bw_glass_ores[key])
             if key in ore_representatives:
                 for representative in ore_representatives[key]:

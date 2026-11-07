@@ -18,15 +18,18 @@ def load(importer, split_args, matching, numeric):
         if len(args)<3:continue
         key=args[0].split('.')[0]
         if key not in ids:continue
-        title=re.fullmatch(r'"([^"\n]+)"',args[2]);lang=re.fullmatch(r'"([^"\n]+)"',args[1])
+        # TecTech energy hatches pass an empty display title and obtain their
+        # name from the language key; their registry metadata is still literal.
+        title=re.fullmatch(r'"([^"\n]*)"',args[2]);lang=re.fullmatch(r'"([^"\n]+)"',args[1])
         if not title:continue
-        registered['CustomItemList.'+m[1]]={'name':importer.lang.get('gt.blockmachines.'+lang[1]+'.name',title[1]) if lang else title[1],
+        registered['CustomItemList.'+m[1]]={'name':importer.lang.get('gt.blockmachines.'+lang[1]+'.name',title[1] or m[1]) if lang else title[1] or m[1],
           'registry':'gregtech:gt.blockmachines','meta':numeric(ids[key]),'texture':'assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png'}
     for label in ('tectech/thing/casing/BlockGodforgeCasings.java','tectech/thing/casing/BlockGTCasingsTT.java','tectech/thing/casing/BlockGTCasingsBA0.java','tectech/thing/casing/StabilisationFieldCasing.java'):
         text=read(label)
         block=re.search(r'super\([^;]*?"([^"]+)"',text)
         icons=dict(re.findall(r'(\w+)\s*=\s*\w+\.registerIcon\("([^"]+)"\)',text))
-        faces=dict(re.findall(r'case\s+(\d+)\s*:\s*return\s+(\w+)\s*;',text))
+        faces={meta:returns[-1] for meta,body in re.findall(r'case\s+(\d+)\s*:(.*?)(?=case\s+\d+\s*:|default\s*:)',text,re.S)
+               if (returns:=re.findall(r'return\s+(\w+)\s*;',body))}
         if not block:continue
         for key,meta in re.findall(r'CustomItemList\.(\w+)\.set\(new ItemStack\(this,\s*1,\s*(\d+)\)\)',text):
             texture=icons.get(faces.get(meta))
@@ -53,6 +56,23 @@ def load(importer, split_args, matching, numeric):
         strings=[s[1:-1] for s in args if re.fullmatch(r'"[^"]+"',s)]
         stacks[m[1]]={'name':strings[-1] if strings else m[1],'registry':'gregtech:gt.blockmachines','meta':numeric(ids[key]),
           'texture':'assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png'}
+    # Single-texture GGItem registrations are physical components as well as
+    # blocks/controllers. Match the registry call rather than inventing IDs.
+    read('goodgenerator/items/GGItem.java')
+    for variable,registry in re.findall(r'GameRegistry\s*\.registerItem\(\s*(\w+),\s*"([^"\n]+)",\s*Mods.ModIDs.GOOD_GENERATOR\s*\)',loader):
+        definition=re.search(r'\b'+re.escape(variable)+r'\s*=\s*new GGItem\(\s*"([^"\n]+)"\s*,',loader)
+        if not definition:continue
+        opening=loader.index('(',definition.start())
+        args=split_args(loader[opening+1:matching(loader,opening)])
+        texture='assets/goodgenerator/textures/items/'+definition[1]+'.png'
+        if args[-1]!='GoodGenerator.GG':
+            if len(args)<3 or args[1]!='GoodGenerator.GG':continue
+            textures=re.findall(r'Mods.ModIDs.GOOD_GENERATOR\s*\+\s*":([^"\n]+)"',args[-1])
+            if len(textures)!=1:continue # multi-subtype components require per-meta resolution
+            texture='assets/goodgenerator/textures/items/'+textures[0]+'.png'
+        stacks[variable]={'name':importer.lang.get('item.'+definition[1]+'.name',registry),
+          'registry':importer.mod_ids.get('GoodGenerator','GoodGenerator')+':'+registry,'meta':0,
+          'texture':texture}
     refs=read('goodgenerator/util/ItemRefer.java')
     for key,obj,meta in re.findall(r'ItemRefer\s+(\w+)\s*=\s*getItemStack\((\w+(?:\[\d+\])?)(?:,\s*(\d+))?\)',refs):
         if obj in stacks:registered['ItemRefer.'+key]=stacks[obj];continue
@@ -82,6 +102,8 @@ def load(importer, split_args, matching, numeric):
             registered['GregtechItemList.'+m[1]]={'name':importer.lang.get('gt.blockmachines.'+lang[1]+'.name',title[1]) if lang else title[1],
               'registry':'gregtech:gt.blockmachines','meta':numeric(ids[key]),'texture':'assets/gregtech/textures/blocks/iconsets/MACHINE_CASING_SOLID_STEEL.png'}
     textures=read('gtPlusPlus/xmod/gregtech/common/blocks/textures/TexturesGtBlock.java')
+    gt_textures=read('gregtech/api/enums/Textures.java')
+    framework=re.findall(r'INTEGRAL_FRAMEWORK_\w+\s*=\s*create\("([^"]+)"\)',gt_textures)
     custom=dict(re.findall(r'\b(\w+)\s*=\s*new CustomIcon\(\s*"([^"]+)"',textures))
     for path in sorted((importer.source/'gtPlusPlus/xmod/gregtech/common/blocks').glob('GregtechMeta*.java')):
         label=str(path.relative_to(importer.source)).replace('\\','/');text=read(label)
@@ -89,6 +111,10 @@ def load(importer, split_args, matching, numeric):
         if not block:continue
         faces=dict(re.findall(r'case\s+(\d+)\s*->\s*TexturesGtBlock\.(\w+)\.getIcon\(\)',text))
         for key,meta in re.findall(r'GregtechItemList\.(\w+)\.set\(new ItemStack\(this,\s*1,\s*(\d+)\)\)',text):
+            if 'Textures.BlockIcons.INTEGRAL_FRAMEWORK[aMeta]' in text and int(meta)<10:
+                registered['GregtechItemList.'+key]={'name':importer.lang.get(block[1]+'.'+meta+'.name',key.replace('_',' ')),
+                  'registry':'miscutils:'+block[1],'meta':int(meta),'texture':'assets/gregtech/textures/blocks/iconsets/'+framework[int(meta)]+'.png'}
+                continue
             texture=custom.get(faces.get(meta))
             if not texture:continue
             registered['GregtechItemList.'+key]={'name':importer.lang.get(block[1]+'.'+meta+'.name',key.replace('_',' ')),

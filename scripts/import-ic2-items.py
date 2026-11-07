@@ -29,10 +29,15 @@ def generate(source,jar):
             internal=internal[0]
             # ItemIC2 renders its unlocalized registry name from items/<name>.
             texture='assets/ic2/textures/items/'+internal+'.png'
+            if match[1]=='reBattery':
+                battery=source.parents[1]/'item/ItemBattery.java'
+                discharged=source.parents[1]/'item/ItemBatteryDischarged.java'
+                if 'Ic2Items.chargedReBattery' not in discharged.read_text(encoding='utf-8') or '"." + index' not in battery.read_text(encoding='utf-8'):raise ValueError('changed IC2 battery renderer')
+                texture='assets/ic2/textures/items/itemBatRE.0.png'
             if texture not in files:
                 unresolved.append({'alias':match[1],'expression':expression,'reason':'not an item with a direct registered texture'});continue
             entries[match[1]]={'name':lang.get(internal,internal),'registry':'IC2:'+internal,'meta':0,'texture':texture}
-        resource_sources={}
+        resource_sources={name:hashlib.sha256((source.parents[1]/'item'/f'{name}.java').read_bytes()).hexdigest() for name in ['ItemBattery','ItemBatteryDischarged']}
         for classname in ('ItemIngot','ItemDust','ItemDust2','ItemRecipePart'):
             path=source.parents[1]/'item/resources'/f'{classname}.java'
             text=path.read_text(encoding='utf-8');resource_sources[classname]=hashlib.sha256(path.read_bytes()).hexdigest()

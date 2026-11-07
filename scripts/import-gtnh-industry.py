@@ -514,6 +514,14 @@ class Importer:
             for name in names:
                 if name in self.materials:
                     m=self.materials[name];m['dimensions']=sorted(set(m.get('dimensions',[])+dims))
+        # Small deposits have their own registrations (not OreMixes), notably
+        # Nether realgar, the early source of arsenic for diodes.
+        source=(self.source/'gregtech/api/enums/SmallOres.java').read_text(encoding='utf-8')
+        for part in source.split('new SmallOreBuilder()')[1:]:
+            ore=re.search(r'\.ore\(Materials\.(\w+)\)',part)
+            if not ore or ore[1] not in self.materials:continue
+            dims=[dim.strip() for call in re.findall(r'\.enableInDim\(([^)]*)\)',part) for dim in call.split(',')]
+            m=self.materials[ore[1]];m['dimensions']=sorted(set(m.get('dimensions',[])+dims))
 
     def plasma_fuels(self):
         path='gregtech/loaders/oreprocessing/ProcessingCell.java'

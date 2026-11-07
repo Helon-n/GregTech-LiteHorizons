@@ -83,11 +83,18 @@ def generate(imp,needed,numeric,split_args,matching):
                 result=explicit if explicit>0 else average(field)
             else:raise ValueError('unknown metric '+field)
         cache[key]=result;return result
-    registrations={}
+    wire_label='gtPlusPlus/core/recipe/RecipesGeneral.java';wire_raw=read(wire_label)
+    wire_materials={imp.gtpp_materials.get(ref.replace('MaterialsElements.getInstance().','MaterialsElements.')) for ref in re.findall(r'generateWireRecipes\(([\w.()]+)\)',wire_raw)}
+    registrations={};extra_forms={}
     for path in (imp.source/'gtPlusPlus').rglob('*.java'):
         content=path.read_text(encoding='utf-8')
         if 'MaterialGenerator.generate' not in content:continue
         content=re.sub(r'/\*.*?\*/|//[^\n]*',lambda m:'\n'*m[0].count('\n'),content,flags=re.S)
+        component_forms={'FOIL':'foil','FINEWIRE':'wireFine','BOLT':'bolt','GEAR':'gearGt','SMALLGEAR':'gearGtSmall','PLATESUPERDENSE':'plateSuperdense'}
+        for match in re.finditer(r'MaterialUtils\s*\.generateComponentAndAssignToAMaterial\((\w+),\s*([\w.()]+)\)',content):
+            ref=match[2].replace('MaterialsElements.getInstance().','MaterialsElements.')
+            key=imp.gtpp_materials.get(ref)
+            if key and match[1] in component_forms:extra_forms.setdefault(key,set()).add(component_forms[match[1]])
         for call in re.finditer(r'MaterialGenerator\.(generate|generateDusts|generateNuclearDusts|generateNuclearMaterial)\(',content):
             end=matching(content,call.end()-1);args=split_args(content[call.end():end])
             ref=re.sub(r'\s+','',args[0]).replace('MaterialsElements.getInstance().','MaterialsElements.')
@@ -151,8 +158,12 @@ def generate(imp,needed,numeric,split_args,matching):
             if plates:templates|={'RecipeGenPlates','RecipeGenAssembler'}
         # External registrators can explicitly create extra forms. Merely
         # seeing a consumer reference does not prove a form was registered.
+        forms|=extra_forms.get(name,set())
         f=lambda prefix:imp.material(name,'molten' if prefix=='fluid' and state=='SOLID' else prefix)
         for form in forms:f(form)
+        if 'wireFine' in forms and 'ingot' in forms and name in wire_materials:
+            label='gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechConduits.java';raw=read(label);imp.active_file=label
+            imp.emit_recipe('wire',{f('ingot'):1},{f('wireFine'):8},100,4,raw.count('\n',0,raw.index('if (ItemUtils.checkForInvalidItems(new ItemStack[] { aIngot, aFineWire }))'))+1,{}, {},[],3)
         def add(template,process,inputs,outputs,ticks=mass,eu=power,marker='private void generateRecipes',**kw):
             if template not in templates:return
             if any(prefix not in forms and prefix!='fluid' for prefix in [*inputs,*outputs]):return
@@ -160,6 +171,8 @@ def generate(imp,needed,numeric,split_args,matching):
         # Plates, rods and mechanical parts keep GT++'s own rates.
         add('RecipeGenPlates','forgeHammer',{'ingot':3},{'plate':2})
         add('RecipeGenPlates','bend',{'ingot':1},{'plate':1},circuit=1)
+        add('RecipeGenPlates','bend',{'ingot':1},{'foil':4},mass*2,circuit=10,marker='if (ingotStackOne != null && foil_SingleFour != null)')
+        add('RecipeGenPlates','bend',{'plate':1},{'foil':4},mass,circuit=1,marker='if (material.getPlate(1) != null && material.getFoil(1) != null)')
         add('RecipeGenPlates','alloy',{'ingot':2},{'plate':1},mass*2,tools={imp.named('Shape_Mold_Plate'):1})
         add('RecipeGenPlates','cut',{'block':1},{'plate':9},mass*10)
         for form,count in [('plateDouble',2),('plateDense',9)]:
@@ -236,6 +249,23 @@ def generate(imp,needed,numeric,split_args,matching):
                     duration=(200 if abs_tier<=4 else 1200)*abs_tier
                     if blast:emit('RecipeGenBlastSmelter','alloyBlast',{f('dust'):1},{f('fluid'):144},max(1,duration//total),abs_eu,'// Generate Recipes for all singular materials',circuit=1)
                     if 1<len(parts)<=9:emit('RecipeGenBlastSmelter','alloyBlast',inputs,{f('fluid'):144*total},duration,abs_eu if blast else abs_eu//2,'// Adds Recipe',circuit=len(parts) if len(parts)<9 else None)
+        # ABS supports one non-solid component. The source overwrites the
+        # previous fluid when several occur, so do not silently import those.
+        if optional and blastsmelter and parts and 1<len(parts)<=9 and all(isinstance(n,int) and n>0 for k,n in parts):
+            fluid_parts=[(k,n) for k,n in parts if imp.gtpp_states.get(k,'SOLID' if imp.materials[k]['dust'] else 'UNKNOWN').split('.')[-1]!='SOLID' or not imp.materials[k]['dust']]
+            if len(fluid_parts)==1:
+                ratio=math.gcd(*(n if 1<=n<=100 else 100 for k,n in parts));counts=[(k,(n if 1<=n<=100 else 100)//ratio) for k,n in parts]
+                inputs={}
+                for k,n in counts:
+                    fluid=k==fluid_parts[0][0];prefix='fluid' if fluid else 'dust'
+                    # ABS calls MaterialStack.getUnificatedDustStack. ModItems
+                    # explicitly binds GT++ iodine to BW Werkstoff 11012.
+                    material='WerkstoffMaterialPool_Iodine' if not fluid and k=='GTPP_Iodine' else k
+                    id=imp.material(material,prefix);inputs[id]=inputs.get(id,0)+n*(1000 if fluid else 1)
+                abs_tier=max(1,tier)
+                if abs_tier<15:
+                    abs_eu=[7,30,120,480,1920,7680,30720,122880,491520,1966080,7864320,31457280,125829120,503316480,2013265920][abs_tier]
+                    emit('RecipeGenBlastSmelter','alloyBlast',inputs,{f('fluid'):144*sum(n for k,n in counts)},(200 if abs_tier<=4 else 1200)*abs_tier,abs_eu if blast else abs_eu//2,'// Adds Recipe',circuit=len(parts) if len(parts)<9 else None)
         if dehydrate and 'dust' in forms:
             label='gtPlusPlus/core/material/MaterialGenerator.java';source=read(label);imp.active_file=label
             imp.emit_recipe('dehydrate',{f('fluid'):144},{f('dust'):1},10*(power//5),power,source.count('\n',0,source.index('public static void generateNuclearDusts(final Material matInfo, boolean'))+1,{}, {},[],20)

@@ -4,6 +4,8 @@
   "sourceSHA256": "f36f253c93464706ae967a72f6cf577631046754430ddf79c6800f252ed803b8",
   "description": "Literal BlocksItems and resource subtype aliases from IC2 2.2.828 bytecode decompiled by CFR 0.152; no game startup.",
   "resourceSHA256": {
+    "ItemBattery": "ed68d16e68e7daa09eb3e7a6610ded918964ca2e3be9124a6de63fdbd65bcb13",
+    "ItemBatteryDischarged": "c9652917512b90a15ed26a05619519696d0dd190527aca6c97606b806b3a7f3f",
     "ItemIngot": "4ce9b7fd8074cc19e4fd797518b893b40067b1fd92db9c57f8ba08f7965b235f",
     "ItemDust": "e23dff0c40d64048d2a93977adf3e605c01315373193906393c390bd5a09156b",
     "ItemDust2": "07a1ce48fcac6ab9eec8040b6b98df86a805b825de9ae8d651334c1e40e762f7",
@@ -412,6 +414,12 @@
       "registry": "IC2:itemNightvisionGoggles",
       "meta": 0,
       "texture": "assets/ic2/textures/items/itemNightvisionGoggles.png"
+    },
+    "reBattery": {
+      "name": "充电电池",
+      "registry": "IC2:itemBatREDischarged",
+      "meta": 0,
+      "texture": "assets/ic2/textures/items/itemBatRE.0.png"
     },
     "suBattery": {
       "name": "一次性电池",
@@ -1305,11 +1313,6 @@
     {
       "alias": "compositeArmor",
       "expression": "(Item)new ItemArmorIC2(InternalName.itemArmorAlloyChestplate, alloyArmorMaterial, InternalName.alloy, 1, Ic2Items.advancedAlloy)"
-    },
-    {
-      "alias": "reBattery",
-      "expression": "(Item)new ItemBatteryDischarged(InternalName.itemBatREDischarged, 10000, 100, 1)",
-      "reason": "not an item with a direct registered texture"
     },
     {
       "alias": "chargedReBattery",

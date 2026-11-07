@@ -74,9 +74,10 @@ for(const r of c.recipes){
   if(!machines.some(voltageOK)){unserved.push({recipe:r.id,process:r.process,reason:'voltage'});continue;}
   const conditionOK=m=>{
     const q=r.requirements??{},cap=m.capabilities??{},tier=m.energy?.maxTier??m.energy?.tier??0;
+    if(r.process==='stationResearch'&&q.researchVoltage>energy.voltage[tier])return false;
     if(q.startup&&(!m.energy?.fusion||q.startup>fusionCapacity(m.energy,tier)))return false;
     if(q.heat&&(m.godforge?q.heat>forgeHeat(forgeState,m.godforge):!m.coils||q.heat>Math.max(...COILS.map(c=>c.heat))+(m.id==='ebf'?100*(tier-2):0)))return false;
-    for(const key of ['compressionTier','chemicalCasing','preciseCasing','componentCasing','spaceModule','pcbTier','qftTier','qftFocus','nanoForgeTier','refineryCoil','plasmaTier','exoticTier','nanochipTier'])if(q[key]!==undefined&&!(m.godforge&&['plasmaTier','exoticTier'].includes(key))&&(cap[key]??-1)<q[key])return false;
+    for(const key of ['compressionTier','chemicalCasing','preciseCasing','componentCasing','spaceModule','pcbTier','qftTier','qftFocus','nanoForgeTier','refineryCoil','plasmaTier','exoticTier','nanochipTier','computation'])if(q[key]!==undefined&&!(m.godforge&&['plasmaTier','exoticTier'].includes(key))&&(cap[key]??-1)<q[key])return false;
     if(q.algaeTier!==undefined&&cap.algaeTier!==q.algaeTier)return false;
     if(q.bioGlass!==undefined&&(cap.bioGlass??-1)<q.bioGlass)return false;
     for(const key of ['bioUpgrade','multiStepPlasma','heavyCentrifuge'])if(q[key]&&!(m.godforge&&key==='multiStepPlasma')&&!cap[key])return false;
@@ -86,7 +87,13 @@ for(const r of c.recipes){
   if(!machines.some(m=>voltageOK(m)&&conditionOK(m)))unserved.push({recipe:r.id,process:r.process,reason:'machine-condition'});
 }
 const gathered=new Set();
-for(const node of c.gatherNodes){gathered.add(node.output);for(const id of Object.keys(c.nodeDrops[node.id]??{}))gathered.add(id);}
+for(const node of c.gatherNodes){
+  gathered.add(node.output);for(const id of Object.keys(c.nodeDrops[node.id]??{}))gathered.add(id);
+  for(const [id,p]of Object.entries(node.dropProbabilities??{})){
+    const range=node.dropRanges?.[id];
+    if(!Number.isFinite(p)||p<0||p>1||range?.min!==0||range?.max!==1)fail('gather-probability',node.id,{id,p,range});
+  }
+}
 const used=new Set(c.recipes.flatMap(r=>Object.keys({...r.inputs,...r.tools})).concat(machineList.flatMap(m=>Object.keys(m.cost))));
 for(const r of c.recipes)if(r.requirements?.bioCulture)used.add(r.requirements.bioCulture);
 for(const id of Object.keys(biology.fuels)){item(id,'radiation-hatch');used.add(id);}

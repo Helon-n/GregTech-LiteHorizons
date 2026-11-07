@@ -4,6 +4,8 @@ import {applyIndustryCatalog,INDUSTRY_VERSION} from './industry-catalog.js';
 import {applyTechnologyCatalog} from './technology-catalog.js';
 import {applyLargeEnergyCatalog} from './large-energy-catalog.js';
 import {applyCircuitProgression,CIRCUIT_MIGRATIONS} from './circuit-progression.js';
+import {ITEM_IDENTITIES,RECIPE_IDENTITIES,RECIPE_OUTPUT_IDENTITIES,RECIPE_OUTPUT_FACTORS} from './catalog-identities.js';
+import {GATHERING_REFERENCE} from './gathering-reference.js';
 // Gameplay adaptation of GTNH progression. Exact original recipes come from the
 // optional runtime exporter; these authored recipes are deliberately labelled.
 export const STAGES = [
@@ -199,11 +201,18 @@ export const milestones=[
 applyEnergyCatalog({items,machines,recipes});
 const industry=applyIndustryCatalog({items,machines,recipes,gatherNodes});
 applyTechnologyCatalog({items,machines,recipes,legacy:industry.legacy,gatherNodes});
+gatherNodes.push(...GATHERING_REFERENCE.nodes.map(n=>structuredClone(n)));
 // Steam-capable recipes unlock with the bronze machines even when their
 // original EU/t exceeds ULV. Unlock chapter and operating voltage are distinct.
 const steamProcesses=new Set(Object.values(machines).filter(m=>m.stage===1&&m.energy?.kind==='steam').flatMap(m=>m.processes));
-for(const r of recipes)if(r.stage===2&&r.power<=16&&steamProcesses.has(r.process))r.stage=1;
+for(const r of recipes)if(r.stage===2&&r.power<=32&&steamProcesses.has(r.process))r.stage=1;
+// EBF amperage permits the initial MV-power recipes using LV energy hatches.
+for(const r of recipes)if(r.process==='electricBlast'&&r.stage===3&&r.power<=128)r.stage=2;
 gatherNodes.find(n=>n.id==='redstoneVein').stage=1;
+// Sphalerite is an Overworld ore needed for brass casts before LV. Its
+// mining click cost remains the normal ore cost; this only fixes the chapter.
+gatherNodes.find(n=>n.id==='ore:Sphalerite').stage=1;
 applyLargeEnergyCatalog({items,machines,recipes,fuels:industry.fuels});
+for(const id of ['rocketGenerator4'])if(machines[id])machines[id].stage=6;
 applyCircuitProgression({items,machines,recipes,milestones});
-export const CATALOG={version:4,materialRulesVersion:1,industryRulesVersion:INDUSTRY_VERSION,itemMigrations:CIRCUIT_MIGRATIONS,industryLegacyRecipes:industry.legacy,fuels:industry.fuels,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};
+export const CATALOG={version:4,materialRulesVersion:1,industryRulesVersion:INDUSTRY_VERSION,itemMigrations:CIRCUIT_MIGRATIONS,itemIdentityMigrations:ITEM_IDENTITIES,recipeIdentityMigrations:RECIPE_IDENTITIES,recipeOutputIdentityMigrations:RECIPE_OUTPUT_IDENTITIES,recipeOutputFactors:RECIPE_OUTPUT_FACTORS,industryLegacyRecipes:industry.legacy,fuels:industry.fuels,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones};

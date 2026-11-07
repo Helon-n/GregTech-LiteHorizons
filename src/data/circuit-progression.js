@@ -19,9 +19,16 @@ export function applyCircuitProgression({items,machines,recipes,milestones}){
     if(r.tools)r.tools=remap(r.tools);
   }
   for(let index=0;index<milestones.length;index++)milestones[index]=remap(milestones[index]);
-  // UHV begins with an optical assembly, after the UV optical processor.
+  // Core's BioCPU requires UHV/2 EU/t, beyond UV's single-amp recipes.
+  // UV completes the wetware ladder with its UHV-rated mainframe instead.
+  if(milestones[9]?.biowareCircuit){
+    milestones[9].gtItem_Circuit_Wetwaremainframe=milestones[9].biowareCircuit;
+    delete milestones[9].biowareCircuit;
+  }
+  // Optical assemblies need UEV mutated living solder. UHV first completes
+  // the BioCPU route registered at RECIPE_UHV / 2 in Core.
   if(milestones[10]?.opticalCircuit){
-    milestones[10].gtItem_Circuit_OpticalAssembly=milestones[10].opticalCircuit;
+    milestones[10].biowareCircuit=milestones[10].opticalCircuit;
     delete milestones[10].opticalCircuit;
   }
   const names={gtItem_Circuit_OpticalAssembly:'光学处理器集群',gtItem_Circuit_OpticalComputer:'光学计算机',

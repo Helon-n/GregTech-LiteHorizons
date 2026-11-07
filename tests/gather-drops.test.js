@@ -3,18 +3,33 @@ import assert from 'node:assert/strict';
 import {Game} from '../src/core/engine.js';
 
 const node=(g,id)=>g.catalog.gatherNodes.find(n=>n.id===id);
-test('random drops reach both range endpoints; a secondary drop can be absent and primary drops stay positive',()=>{
+test('resource drops reach both range endpoints; ordinary primary resources stay positive and unenchanted hunts drop at 50%',()=>{
   const g=new Game(),forest=node(g,'forest');
   const before=g.state.lootSeed;assert.deepEqual(g.dropRanges(forest),{wood:{min:1,max:3},resin:{min:0,max:2}});assert.equal(g.state.lootSeed,before);
   g.nextDropRandom=()=>0;assert.deepEqual(g.collectDrops(forest).drops,{wood:1});
   g.nextDropRandom=()=>1-Number.EPSILON;assert.deepEqual(g.collectDrops(forest).drops,{wood:3,resin:2});
-  for(const n of g.catalog.gatherNodes)for(const[id,{min,max}]of Object.entries(g.dropRanges(n))){assert.ok(Number.isInteger(min)&&Number.isInteger(max));assert.ok(min>=0&&max>=min);if(id===n.output)assert.ok(min>=1);}
+  const hunts={endermanHunt:'enderPearlGem',blazeHunt:'blazeRod'};
+  for(const [encounter,item]of Object.entries(hunts)){
+    const n=node(g,encounter);assert.ok(n);assert.deepEqual(g.dropRanges(n),{[item]:{min:0,max:1}});
+    g.nextDropRandom=()=>.499999;assert.deepEqual(g.collectDrops(n).drops,{});
+    g.nextDropRandom=()=>.5;assert.deepEqual(g.collectDrops(n).drops,{[item]:1});
+  }
+  for(const n of g.catalog.gatherNodes)for(const[id,{min,max}]of Object.entries(g.dropRanges(n))){assert.ok(Number.isInteger(min)&&Number.isInteger(max));assert.ok(min>=0&&max>=min);if(id===n.output&&!Object.hasOwn(hunts,n.id)&&!n.dropProbabilities?.[id])assert.ok(min>=1);}
 });
 
 test('automatic collectors roll each machine independently and never before its cycle',()=>{
   const g=new Game(),rolls=[0,.999,.999,0];g.nextDropRandom=()=>{assert.ok(rolls.length);return rolls.shift();};
   g.state.collectors.forest={count:2,elapsed:0};g.simulate(7.5);assert.equal(g.quantity('wood'),0);assert.equal(rolls.length,4);
   g.tick(.5);assert.equal(rolls.length,0);assert.equal(g.quantity('wood'),4);assert.equal(g.quantity('resin'),2);
+});
+
+test('dimensional shard chance is one in sixteen with a separate roll for each collection',()=>{
+  const g=new Game(),n=node(g,'netherShardHunt'),id=n.output;
+  assert.equal(n.dropProbabilities[id],1/16);
+  const rolls=[0,.9375-Number.EPSILON,.9375,1-Number.EPSILON];
+  g.nextDropRandom=()=>{assert.ok(rolls.length);return rolls.shift();};
+  const result=g.collectDrops(n,4);
+  assert.equal(rolls.length,0);assert.equal(result.drops[id],2);assert.equal(g.quantity(id),2);
 });
 
 test('saved random state reproduces online/offline drops and reload does not change the next rolls',()=>{

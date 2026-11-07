@@ -29,12 +29,21 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
     if(items[id])Object.assign(items[id],{native:item.native??items[id].native,nativeItem:item.nativeItem??items[id].nativeItem});
     else items[id]={...item};
   }
-  const gathered=new Set(gatherNodes.map(n=>n.output));
   for(const ore of T.oreMaterials??[]){
-    const dims=ore.dimensions,region=dims.some(d=>['OW','NETHER','TWILIGHT_FOREST','THE_END'].includes(d))?'surface':dims.includes('Moon')?'moon':dims.includes('Mars')?'mars':dims.some(d=>['Asteroids','EndAsteroids'].includes(d))?'belt':null;
-    if(!region||gathered.has(ore.item))continue;
-    gathered.add(ore.item);
-    gatherNodes.push({id:'ore:'+ore.id,name:ore.name+'矿脉',output:ore.item,stage:region==='surface'?2:region==='moon'?5:region==='mars'?6:7,requires:region==='surface'?null:region==='belt'?'advancedRocket':'rocket',amount:1,seconds:6,description:region==='surface'?'开采矿石':region==='moon'?'月球矿脉':region==='mars'?'火星矿脉':'小行星矿脉',cost:{ironPlate:12,motor:2}});
+    const dims=ore.dimensions.map(d=>d.replace(/^DimensionDef\./,'')).map(d=>({ASTEROIDS:'Asteroids',KUIPERBELT:'KuiperBelt'}[d]??d));
+    const region=dims.some(d=>['OW','NETHER','TWILIGHT_FOREST','THE_END','EVERGLADES'].includes(d))?'surface':dims.includes('Moon')?'moon':dims.includes('Mars')?'mars':dims.some(d=>['Asteroids','EndAsteroids'].includes(d))?'belt':dims.length?'deepSpace':null;
+    if(!region)continue;
+    // The technology import includes small deposits as well as large veins.
+    // Update an existing planetary entry when the same ore also occurs early.
+    const existing=gatherNodes.find(n=>n.output===ore.item),earlyDeepSpace=dims.some(d=>['BarnardC','BarnardE','BarnardF','Haumea','Horus','MakeMake','Proteus','TcetiE','Triton','VegaB'].includes(d));
+    const stage=region==='surface'?2:region==='moon'?5:region==='mars'||region==='deepSpace'&&earlyDeepSpace?6:7;
+    const requires=region==='surface'?null:region==='belt'||region==='deepSpace'&&!earlyDeepSpace?'advancedRocket':'rocket';
+    const description=region==='surface'?'开采矿石':region==='moon'?'月球矿脉':region==='mars'?'火星矿脉':region==='deepSpace'?'深空矿脉':'小行星矿脉';
+    if(existing){
+      if(stage<existing.stage)Object.assign(existing,{stage,requires,description});
+      continue;
+    }
+    gatherNodes.push({id:'ore:'+ore.id,name:ore.name+'矿脉',output:ore.item,stage,requires,amount:1,seconds:6,description,cost:{ironPlate:12,motor:2}});
   }
   const machine=(id,name,stage,processes,extra={})=>{
     machines[id]={id,name,stage,processes,cost:{[stage>=4?'stainlessPlate':'steelPlate']:8,basicCircuit:2,motor:2},power:E.voltage[Math.max(1,stage-1)],energy:{kind:'consumer',tier:Math.max(1,stage-1),maxTier:14},...extra};
@@ -56,7 +65,7 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
     ['canner','装罐机',2,['canner']],['pyrolyseOven','热解炉',3,['pyrolyse','industrialCoke']],
     ['quantumForceTransformer','量子力场变换器',11,['quantumTransform']],
     ['pcbFactory','印刷电路板工厂',9,['pcbFactory']],['industrialPackager','工业打包机',3,['unpack']],
-    ['algaePond','藻类池',3,['algaePond']],['neutronActivator','中子活化器',9,['neutronActivate']],
+    ['algaePond','藻类池',3,['algaePond']],['neutronActivator','中子活化器',7,['neutronActivate']],
     ['nanoForge','纳米锻炉',10,['nanoForge']],['godforgePlasma','造物主等离子模块',13,['godforgePlasma']],
     ['dissolutionTank','溶解罐',7,['dissolve']],['naquadahFuelRefinery','硅岩燃料精炼厂',9,['naquadahRefine']],
     ['nuclearProcessingUnit','核燃料处理单元',6,['nuclearProcess']],
@@ -96,15 +105,35 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
   }
   for(const row of MATTER.controllers){
     const id='massFabricator'+row.code;
-    machine(id,row.code+' 物质制造机',row.tier+1,['massFabricate'],{cost:{[row.item]:1},icon:row.item,power:MATTER.power,energy:{kind:'consumer',tier:row.tier,maxTier:row.tier,massFabricator:true,inputAmps:MATTER.inputAmps,recipeAmps:MATTER.recipeAmps,bufferTicks:MATTER.bufferTicks},description:'消耗电力制造 UU 物质，可供给增幅剂加速；产物需要实体容器'});
+    machine(id,row.code+' 物质制造机',Math.max(4,row.tier+1),['massFabricate'],{cost:{[row.item]:1},icon:row.item,power:MATTER.power,energy:{kind:'consumer',tier:row.tier,maxTier:row.tier,massFabricator:true,inputAmps:MATTER.inputAmps,recipeAmps:MATTER.recipeAmps,bufferTicks:MATTER.bufferTicks},description:'消耗电力制造 UU 物质，可供给增幅剂加速；产物需要实体容器'});
     items[id].icon=row.item;
+    // HV field generators require IV circuits (Core crafting loader:384).
+    if(row.code==='HV')machines[id].stage=5;
   }
   for(const row of REPLICATION.controllers){
     const id=row.kind+row.code,scan=row.kind==='scanner';
-    machine(id,row.code+(scan?' 元素扫描仪':' 复制机'),row.tier+1,[scan?'elementScan':'replicate'],{cost:{[row.item]:1},icon:row.item,energy:{kind:'consumer',tier:row.tier,maxTier:row.tier},description:scan?'消耗样品和空白数据球记录元素数据':'保留元素数据球，消耗 UU 物质复制对应元素；流体产物需要容器'});
+    machine(id,row.code+(scan?' 元素扫描仪':' 复制机'),scan?row.tier+1:Math.max(4,row.tier+1),[scan?'elementScan':'replicate'],{cost:{[row.item]:1},icon:row.item,energy:{kind:'consumer',tier:row.tier,maxTier:row.tier},description:scan?'消耗样品和空白数据球记录元素数据':'保留元素数据球，消耗 UU 物质复制对应元素；流体产物需要容器'});
     items[id].icon=row.item;
+    if(!scan&&row.code==='HV')machines[id].stage=5;
   }
+  // These EV controllers need byproducts from GTNH's deep-space ore mixes.
+  for(const id of ['massFabricatorEV','replicatorEV','rocketGenerator4'])if(machines[id])machines[id].stage=6;
+  // UHV field generators use UEV circuits; these controllers cannot be built
+  // until mutated living solder and the UEV circuit chain are available.
+  for(const id of ['massFabricatorUHV','scannerUHV','replicatorUHV'])machines[id].stage=11;
   machines.compressor.processes=['electricCompress'];
+  // MTENanoForge uses getMaxInputEu as the processing voltage. Bundle a
+  // 64A port; it still draws every EU of the original high-power recipes.
+  Object.assign(machines.nanoForge.energy,{inputAmps:64,recipeAmps:64,bufferTicks:4096,combinedInput:true});
+  // MTEPlasmaForge.java:735 enables unlimited tier skips. Unlike a basic
+  // single-block machine, its 64A feed can run recipes above hatch voltage.
+  // This idle construction bundles that feed; actual EU/t is still consumed.
+  for(const id of ['plasmaForge','stellarForge'])Object.assign(machines[id].energy,{inputAmps:64,recipeAmps:64,bufferTicks:4096,amperageOC:true,unlimitedTierSkips:true});
+  // A dedicated complex/feed is bundled with each idle module. Shared NAC
+  // power allocation and calibration bonuses are not granted for free.
+  for(const id of ['nanochipAssemblyMatrix','nanochipBoardProcessor','nanochipEtchingArray','nanochipCuttingChamber','nanochipWireTracer','nanochipSuperconductorSplitter','nanochipOpticalOrganizer','nanochipBiologicalCoordinator','nanochipEncasement','nanochipProcessor']){
+    Object.assign(machines[id].energy,{inputAmps:64,recipeAmps:64,bufferTicks:4096,nanochip:true});
+  }
   machines.isamill.perfectOverclock=true;
   // Full 32-hatch canonical capacity is bundled in these idle construction costs.
   // Recipe voltage and startup gates remain separate, as in LargeFusionComputer.
@@ -136,6 +165,10 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
   machines.vacuumFreezer.stage=3;machines.vacuumFreezer.energy.tier=2;
   machines.vacuumFreezer.cost={steelPlate:16,goodCircuit:4,pump:4};
   machines.ebf.coils=true;machines.plasmaForge.coils=true;machines.digester.coils=true;machines.vacuumFurnace.coils=true;
+  // The EBF controller uses LV circuits (MTERecipeLoader); two 2A LV
+  // energy hatches can supply the 120 EU/t bootstrap smelts.
+  machines.ebf.stage=2;machines.ebf.cost={steelPlate:24,basicCircuit:4,motor:4};
+  machines.ebf.energy={kind:'consumer',tier:1,maxTier:14,inputAmps:4,recipeAmps:4};
   // GTNH multiblocks gate otherwise valid recipes on installed structure tiers.
   // Keep each capability combination explicit so dispatch cannot bypass a requirement.
   const gated=[
@@ -176,7 +209,7 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
     else if(baseId==='godforgePlasma')source.capabilities={plasmaTier:0,exoticTier:0};
   }
   for(let tier=4;tier<=8;tier++)machine('naquadahReactor'+tier,['小型','大型','巨型','极限','超巨型'][tier-4]+'硅岩反应堆',tier+1,['generateNaquadah'+tier],{energy:{kind:'generator',tier,family:'Naquadah'+tier,solid:true},power:-E.voltage[tier]});
-  machine('largeNaquadahReactor','大型液态硅岩反应堆',8,['generateLargeNaquadah'],{cost:{[N.controller]:1},icon:N.controller,power:0,energy:{kind:'generator',tier:7,maxTier:14,cycle:'naquadah',outputAmps:64}});
+  machine('largeNaquadahReactor','大型液态硅岩反应堆',9,['generateLargeNaquadah'],{cost:{[N.controller]:1},icon:N.controller,power:0,energy:{kind:'generator',tier:7,maxTier:14,cycle:'naquadah',outputAmps:64}});
   items.largeNaquadahReactor.icon=N.controller;
   for(let ring=1;ring<=R.solar.rings.length;ring++){
     const id='solarSaltTower'+ring,reflectors=R.solar.rings[ring-1][0];
@@ -189,10 +222,10 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
   machine('deepEarthHeatingPump','深井地热泵',6,['deepHeat'],{cost:{[R.pump.controller]:1,...R.pump.structure,[R.pump.pipe]:64},icon:R.pump.controller,energy:{kind:'consumer',tier:3,maxTier:3},deepHeat:true});
   items.deepEarthHeatingPump.icon=R.pump.controller;
   for(let tier=1;tier<=3;tier++)machine('magicConverter'+tier,'魔力能源转换器 · '+E.codes[tier],tier+1,['generateMagic'],{energy:{kind:'generator',tier,family:'Magic'},power:0});
-  machine('rtg','放射性同位素热电机',4,['generateRTG'],{cost:{[RTG.controller]:1},icon:'rtg',energy:{kind:'generator',tier:3,maxTier:3,family:'RTG',solid:true,rtg:true},power:0});
-  machine('ic2RTG','同位素温差发电机',2,[],{cost:{[RTG.ic2.controller]:1},icon:RTG.ic2.controller,facility:'isotope',energy:{kind:'generator',tier:1,maxTier:1,cycle:'ic2RTG',reserve:0},power:0});
+  machine('rtg','放射性同位素热电机',6,['generateRTG'],{cost:{[RTG.controller]:1},icon:'rtg',energy:{kind:'generator',tier:3,maxTier:3,family:'RTG',solid:true,rtg:true},power:0});
+  machine('ic2RTG','同位素温差发电机',5,[],{cost:{[RTG.ic2.controller]:1},icon:RTG.ic2.controller,facility:'isotope',energy:{kind:'generator',tier:1,maxTier:1,cycle:'ic2RTG',reserve:0},power:0});
   items.ic2RTG.icon=RTG.ic2.controller;
-  machine('nuclearReactor','核反应堆',3,[],{cost:{[NUCLEAR.controller]:1},icon:NUCLEAR.controller,facility:'nuclear',energy:{kind:'generator',tier:4,maxTier:4,cycle:'nuclear',reserve:0},power:0});
+  machine('nuclearReactor','核反应堆',5,[],{cost:{[NUCLEAR.controller]:1},icon:NUCLEAR.controller,facility:'nuclear',energy:{kind:'generator',tier:4,maxTier:4,cycle:'nuclear',reserve:0},power:0});
   items.nuclearReactor.icon=NUCLEAR.controller;
   for(const g of FUEL_GENERATORS.machines){
     machine(g.id,g.name+' · '+E.codes[g.tier],g.tier+1,['generate'+g.family],{cost:{[g.item]:1},icon:g.item,power:0,energy:{kind:'generator',tier:g.tier,maxTier:g.tier,family:g.family,efficiency:g.efficiency}});
@@ -230,7 +263,8 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
   const waterTiers=[6,6,6,7,7,8,8,9,10];
   for(let n=0;n<=8;n++){
     const id=n?'purification'+n:'purificationPlant',controller=W.controllers[n],tier=waterTiers[n];
-    machine(id,waterNames[n],tier+1,n?['purify'+n]:[],{purification:n||'host',cost:{[controller]:1},icon:controller,power:n?T.recipes.find(r=>r.process==='purify'+n)?.power??0:0,energy:{kind:'consumer',tier,maxTier:n?tier:10},...(n?{}:{facility:'purification'})});
+    // The degasser runs at UHV but its controller is assembled at UEV.
+    machine(id,waterNames[n],n>=7?tier+2:tier+1,n?['purify'+n]:[],{purification:n||'host',cost:{[controller]:1},icon:controller,power:n?T.recipes.find(r=>r.process==='purify'+n)?.power??0:0,energy:{kind:'consumer',tier,maxTier:n?tier:10},...(n?{}:{facility:'purification'})});
     items[id].icon=controller;
   }
   // Previously generated capability variants retain their IDs for old saves.
@@ -243,18 +277,30 @@ export function applyTechnologyCatalog({items,machines,recipes,legacy,gatherNode
     if(CIRCUIT_MIGRATIONS[r.id]||retire.has(r.id)&&Object.keys(r.outputs).every(id=>replacements.has(id))){legacy[r.id]=structuredClone(r);recipes.splice(index,1);}
   }
   recipes.push(...T.recipes.map(r=>({...r})));
-  // Research is a real powered job; the scanned prototype is retained, and the
-  // resulting data item is checked for every assembly-line batch.
+  // Scanner jobs retain their prototype; TecTech station jobs consume it.
+  // Every assembly-line batch requires the corresponding recorded data.
   const scans=new Map();
   for(const r of recipes){
     const req=r.requirements;if(!req?.researchItem)continue;
-    const key=[req.researchItem,req.scanTicks,req.scanEUt].join('_');
+    const station=!!req.researchComputation;
+    const key=[req.researchItem,req.scanTicks,req.scanEUt,...(station?[req.researchComputation,req.researchAmperage,req.researchVoltage,req.researchCount??1]:[])].join('_');
     const data='researchData_'+key;
     items[data]??={id:data,name:(items[req.researchItem]?.name??'装配线')+'研究数据',kind:'item',category:'研究',icon:'gtItem_Tool_DataStick'};
     req.researchData=data;
     if(scans.has(key))continue;scans.set(key,true);
-    const scanTier=E.voltage.findIndex(v=>v>=req.scanEUt);
-    recipes.push({id:'research:'+key,name:items[data].name,process:'research',stage:Math.max(machines.scanner.stage,scanTier+1),inputs:{},tools:{[req.researchItem]:1},outputs:{[data]:1},seconds:req.scanTicks/20,power:req.scanEUt,source:'GTNH2.9',origin:r.origin});
+    const scanTier=E.voltage.findIndex(v=>v>=(station?req.researchVoltage:req.scanEUt));
+    recipes.push({id:'research:'+key,name:items[data].name,process:station?'stationResearch':'research',stage:Math.max(station?9:machines.scanner.stage,scanTier+1),
+      inputs:station?{[req.researchItem]:req.researchCount??1,gtItem_Tool_DataStick:1}:{},tools:station?{}:{[req.researchItem]:1},outputs:{[data]:1},
+      seconds:req.scanTicks/20,power:req.scanEUt,...(station?{fixedRuntime:true,requirements:{computation:req.researchComputation,researchVoltage:req.researchVoltage,researchAmperage:req.researchAmperage}}:{}),source:'GTNH2.9',origin:r.origin});
+  }
+  const computations=[...new Set(recipes.filter(r=>r.process==='stationResearch').map(r=>r.requirements.computation))];
+  for(const cps of computations){
+    const amperage=Math.max(...recipes.filter(r=>r.process==='stationResearch'&&r.requirements.computation===cps).map(r=>r.requirements.researchAmperage));
+    const id='researchStationCps'+cps;
+    machine(id,'科研站 · '+cps+' 算力',9,['stationResearch'],{cost:{stainlessPlate:32,quantumCircuit:8,[T.researchHardware.cpu]:Math.ceil(cps/T.researchHardware.nominalCPU)},
+      icon:'scanner',capabilities:{computation:cps},energy:{kind:'consumer',tier:8,maxTier:14,inputAmps:amperage,recipeAmps:amperage,bufferTicks:64*amperage},
+      description:'消耗样品与数据存储器完成研究；计算机算力按建造时装入的处理器配置'});
+    items[id].icon='scanner';
   }
   return {recipes:T.recipes.length};
 }

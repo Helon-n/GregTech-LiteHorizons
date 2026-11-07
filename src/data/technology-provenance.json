@@ -2,7 +2,7 @@
   "pack": "GTNH 2.9.0",
   "gregtech": "5.09.54.265",
   "core": "2.9.99",
-  "recipes": 36933,
+  "recipes": 45159,
   "maps": {
     "mill": 68,
     "generateNaquadah4": 2,
@@ -11,63 +11,65 @@
     "generateNaquadah7": 2,
     "generateNaquadah8": 2,
     "generateMagic": 22,
-    "implode": 214,
-    "electricBlast": 983,
+    "assemble": 5147,
+    "implode": 458,
+    "electricBlast": 1132,
     "sift": 21,
-    "chemistry": 218,
+    "chemistry": 231,
     "blast": 25,
-    "fusion": 67,
+    "fusion": 68,
     "distill": 20,
-    "autoclave": 97,
-    "centrifuge": 241,
+    "autoclave": 105,
+    "centrifuge": 266,
     "bioLab": 31,
     "bioVat": 24,
-    "alloy": 454,
-    "arcFurnace": 114,
-    "assemble": 4764,
-    "assemblyLine": 785,
-    "bend": 997,
+    "mix": 419,
+    "melt": 1805,
+    "freeze": 270,
+    "bend": 1150,
+    "alloy": 780,
+    "arcFurnace": 129,
+    "assemblyLine": 2354,
     "brew": 8,
-    "canner": 38,
-    "chemicalBath": 68,
-    "largeChemistry": 157,
+    "canner": 43,
+    "chemicalBath": 126,
+    "largeChemistry": 163,
     "circuit": 1044,
     "pyrolyse": 9,
     "coke": 1,
-    "electricCompress": 256,
-    "cut": 1972,
+    "electricCompress": 290,
+    "cut": 2098,
     "distillery": 21,
-    "electrolyze": 72,
-    "extract": 174,
-    "extrude": 1907,
+    "electrolyze": 101,
+    "extract": 183,
+    "extrude": 2158,
     "ferment": 5,
-    "melt": 1228,
-    "solidify": 2941,
-    "forgeHammer": 463,
-    "press": 368,
-    "laser": 196,
-    "lathe": 687,
+    "solidify": 3027,
+    "forgeHammer": 610,
+    "press": 373,
+    "laser": 210,
+    "lathe": 799,
     "amplify": 2,
-    "mix": 372,
-    "pack": 358,
+    "pack": 362,
     "plasmaForge": 61,
     "print": 1,
-    "grind": 1237,
+    "grind": 1281,
     "thermalCentrifuge": 32,
     "plasmaMix": 9,
-    "freeze": 227,
-    "wire": 554,
+    "wire": 777,
     "digest": 36,
-    "chemicalPlant": 73,
+    "chemicalPlant": 79,
     "fluidHeat": 8,
-    "nanoForge": 11,
+    "nanoForge": 12,
+    "dissolve": 9,
     "vacuumFurnace": 15,
-    "alloyBlast": 94,
+    "alloyBlast": 104,
     "dehydrate": 48,
-    "crack": 6,
-    "electricImplode": 2,
+    "crack": 7,
+    "electricImplode": 3,
     "pcbFactory": 105,
     "purify1": 1,
+    "purify2": 4,
     "purify3": 1,
     "purify4": 1,
     "purify5": 1,
@@ -75,13 +77,12 @@
     "purify7": 1,
     "purify8": 1,
     "godforgePlasma": 225,
-    "godforgeMolten": 984,
-    "componentAssembly": 140,
+    "godforgeMolten": 1133,
+    "componentAssembly": 142,
     "naquadahRefine": 6,
-    "quantumTransform": 22,
+    "quantumTransform": 23,
     "neutronActivate": 12,
-    "preciseAssemble": 3,
-    "dissolve": 7,
+    "preciseAssemble": 5,
     "electromagnetic": 4,
     "algaePond": 30,
     "rockBreak": 3,
@@ -92,11 +93,11 @@
     "nuclearProcess": 6,
     "coldTrap": 2,
     "thermalBoil": 4,
-    "cyclotron": 14,
+    "cyclotron": 17,
     "industrialCoke": 2,
     "flotation": 12,
     "neutronCompress": 79,
-    "polarize": 2,
+    "polarize": 38,
     "spaceAssemble": 326,
     "unpack": 5,
     "nanochipBoard": 7,
@@ -110,50 +111,54 @@
     "nanochipOptical": 8,
     "nanochipSplit": 7,
     "nanochipConvert": 256,
-    "simpleWash": 787,
+    "simpleWash": 788,
     "heatExchange": 3,
     "heatExchangeXL": 3,
     "heatExchangeExtreme": 71,
-    "craft": 9187,
-    "electricSmelt": 20,
-    "purify2": 4,
+    "craft": 12479,
+    "electricSmelt": 30,
     "generateLargeNaquadah": 9,
     "solarSalt": 1,
     "deepHeat": 2,
     "generateRTG": 5,
     "tableCast": 92,
-    "basinCast": 1,
-    "smelteryMelt": 190,
+    "basinCast": 3,
+    "smelteryMelt": 191,
     "massFabricate": 2,
     "elementScan": 82,
     "replicate": 82,
     "oreWash": 30
   },
   "conditions": {
-    "heat": 2079,
-    "startup": 67,
+    "heat": 2377,
+    "startup": 68,
     "bioCulture": 24,
     "bioGlass": 24,
-    "researchItem": 785,
-    "scanTicks": 785,
-    "scanEUt": 785,
+    "researchItem": 2354,
+    "scanTicks": 2354,
+    "scanEUt": 2354,
     "heavyCentrifuge": 4,
-    "compressionTier": 64,
-    "cleanroom": 733,
+    "compressionTier": 69,
+    "cleanroom": 758,
     "euMultiplier": 2,
-    "chemicalCasing": 73,
-    "nanoForgeTier": 11,
+    "chemicalCasing": 78,
+    "nanoForgeTier": 12,
+    "dissolutionRatio": 9,
     "pcbTier": 105,
     "pcbNaniteMaterial": 70,
     "bioUpgrade": 21,
     "multiStepPlasma": 225,
     "plasmaTier": 225,
-    "componentCasing": 140,
+    "researchComputation": 1409,
+    "researchAmperage": 1409,
+    "researchVoltage": 1409,
+    "researchCount": 1409,
+    "researchTotal": 1409,
+    "componentCasing": 142,
     "refineryCoil": 6,
-    "qftFocus": 22,
+    "qftFocus": 23,
     "nkeRange": 12,
-    "preciseCasing": 3,
-    "dissolutionRatio": 7,
+    "preciseCasing": 5,
     "algaeTier": 30,
     "compostBoost": 15,
     "lowGravity": 7,
@@ -240,6 +245,7 @@
     "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechWirelessChargers.java": "859c3fcc3702252d3416eaa99921752fe5e159f771370b3f5451a5836e529a85",
     "gregtech/loaders/preload/LoaderMetaTileEntities.java": "b8aaf1d46aa6d442d73da94317106080e005b4fe2060120955ce695585e93c2a",
     "NewHorizonsCoreMod/com/dreammaster/block/BlockList.java": "f5fe387be1bd3b78b4ee6041c5bb883af71505fd9e2c18d47306f0429c844bc1",
+    "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_OreDictionary.java": "25e3b35488649c5562e1c45ef0cd07c1b4426ebb38919c2885cb4c9762d45a95",
     "bartworks/system/material/WerkstoffLoader.java": "478ae0873f1efdb989a1c4b4102ea192b2ed755390cabf78043d5addb67665ea",
     "goodgenerator/items/GGMaterial.java": "83198075ac00d7658563903e78295ae4929122e87753ff29eafbb4249f327c09",
     "gtnhlanth/common/register/WerkstoffMaterialPool.java": "86d599bf9a53c0e514de01ca7bd04e1e29e58a9d0abf0334df5a7f4ec4ff50df",
@@ -264,6 +270,7 @@
     "tectech/thing/casing/BlockGTCasingsBA0.java": "95d0a5028436e4ee0caa0dbd9688a13c7cd1e50a2dfc12293940cd266e7d15d5",
     "tectech/thing/casing/StabilisationFieldCasing.java": "e2926f48cab6c759eb790bea2f0f078c7b79b28e88486c627d7b75f39a546d1d",
     "goodgenerator/loader/Loaders.java": "99c1c3ce95f95d9e80c91eaabb9a086af842f133a798e8d98c367b0099eabfd8",
+    "goodgenerator/items/GGItem.java": "c11cd8dcbc3b620d02fc53fa15ccd0affc4f0c35a753ce2ca81532f80596a6c8",
     "goodgenerator/util/ItemRefer.java": "4664dc07261bbbb76a3fb398cd9112e7505bc8b188022f871a3f037e41ba88e5",
     "tectech/thing/item/ItemAstralArrayFabricator.java": "08d94b75bdb08c415eba63d07063bac5a8177e0c55be5085fb3c9d0b0bde58f4",
     "gtnhintergalactic/item/ItemDysonSwarmParts.java": "4af81ceb0fda4d618bd891930c50f709ad9043273536835f8d07e67f94fb3db5",
@@ -271,6 +278,7 @@
     "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechConduits.java": "d784e706ebbb0b80decf7b19186cc17f94a5cf056b8cdeac43b659b96bbad284",
     "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechSimpleWasher.java": "9c5715083959444347c339c5ed560121ac127879e19926f92d4d8e8a7146c71f",
     "gtPlusPlus/xmod/gregtech/common/blocks/textures/TexturesGtBlock.java": "b66931431bb5372aeb3ddf95e43093941af93e7f0bd4b7c09e1e5a1f9f2ea7cf",
+    "gregtech/api/enums/Textures.java": "f73494337b6d4df30c94b84d18c24f02d9dde5017646e5ba86c924a49470f52f",
     "gtPlusPlus/xmod/gregtech/common/blocks/GregtechMetaCasingBlocks.java": "fa7c16ffcae044835227be7a4a70ce3a370236ea8aee736844bb32fef5a1d7df",
     "gtPlusPlus/xmod/gregtech/common/blocks/GregtechMetaCasingBlocks2.java": "6ce83301fa427060dddf8f8c2ae07cea0dab18cea27d4edd156c650f975eac6a",
     "gtPlusPlus/xmod/gregtech/common/blocks/GregtechMetaCasingBlocks3.java": "1820f880c17307be94c83246814bc43eeab6b617a9f166a8cf3b08deddc61d08",
@@ -299,7 +307,7 @@
     "Avaritia-1.100/blocks/BlockResource.java": "75690da61d34cb2bd850230c0a7d39ce3875a6f426670c22c8de9c8df6bd0f94",
     "Avaritia-1.100/blocks/ItemBlockResource.java": "f44466b4ccc6452d87709e07401b6a12329cdd5c1859ac739971b195dfbd3885",
     "instance/mods/industrialcraft-2-2.2.828-experimental.jar": "de1d4597972be036eccd1c3b37e9980c3c9d9cdb92f52df2bf470971873893f6",
-    "generated/ic2-items-reference.json": "40184b316fb2e0815d1395b13a426d8260e7521af7882027da013433e1fbb0ff",
+    "generated/ic2-items-reference.json": "31de1a2a7bd1e35311d3ecf1ff723f79b6e91db08541f7c489c76732e587b668",
     "Galacticraft-3.4.37/ItemBasic.java": "c08acf535f6718ee4214aee7996a0df3a062493ea03b258e8736f8039bb8de45",
     "instance/mods/Galacticraft-3.4.37-GTNH.jar": "15058fd52b3527c80b4a8280a499cea0c9226a72946945736c5d4980d9350374",
     "bartworks/MainMod.java": "20c17d4a944196a2e76a05de45a9344cc5c1891006cc2813be9abc22886c6fb7",
@@ -329,8 +337,10 @@
     "gtPlusPlus/core/item/base/ore/BaseItemMilledOre.java": "5e79711b023344bcb3b28222c9adca65f56ae7533ee3b7d083931358e990b4cb",
     "gtPlusPlus/core/item/ModItems.java": "9619e65f9c308f0c30a69703736001d1802dd1c9c6812104b7e8c15ecafeb862",
     "gregtech/loaders/load/FuelLoader.java": "582edb2feacd174dc793456195f4237bce6c07ec17cc2b720f257677f6752538",
+    "gregtech/loaders/load/MTERecipeLoader.java": "b4dcc8d4f7696e315202f0aa0638195e18359cd0b791c6aa4f34ab9c43366472",
     "bartworks/system/material/processingLoaders/AdditionalRecipes.java": "263c9388d2c2f026eeb87bbc60e89f04d36a205ac775297bccc4ce13f940aae4",
     "bartworks/common/loaders/BioRecipeLoader.java": "6be7dde6eb148f086998da864959555da1a4f9ad72ed3bafa94272ab168b008a",
+    "bartworks/common/loaders/ArtificialMicaLine.java": "22bbba94ad5d3ca64f43f49eef840edf08d5617aa4f6028bb8c756be6e72b028",
     "gregtech/loaders/postload/recipes/AlloySmelterRecipes.java": "1d29a99190542014a3252d6fec4694dde7c0f64eaf35283c55590736d1f3a793",
     "gregtech/loaders/postload/recipes/ArcFurnaceRecipes.java": "494185ba468c5002ae733d9f574c3ffcf41588afe08d15399de81af992798720",
     "gregtech/loaders/postload/recipes/AssemblerRecipes.java": "2c535bdd602be5874ef855106a5b08d8b98b8f6e10129ea035730339c7e331ea",
@@ -390,6 +400,9 @@
     "gregtech/loaders/postload/recipes/TranscendentPlasmaMixerRecipes.java": "95eea4e5d20ef01e64bdfa675c36fc5f129a10c2351a154f9ba042da5f403d66",
     "gregtech/loaders/postload/recipes/VacuumFreezerRecipes.java": "1526cf3f547880265a712953600e5ec1bc5219523f849cb6345b58706d17f0ee",
     "gregtech/loaders/postload/recipes/WiremillRecipes.java": "8057c557e72b6a569c1c7d12aa8edacb29a692d1fcebb6433e8dcb08e7925627",
+    "gregtech/api/util/GTRecipeRegistrator.java": "b011f29a8bdf4cf3e5015396d5342443f300b5afcecd7aa4cd800d79c91016ca",
+    "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/WiremillRecipes.java": "569f5321feb866aeca2797b0008cea048f3859c4d61ad8c8a871f8bf32791a58",
+    "goodgenerator/loader/ComponentAssemblyLineMiscRecipes.java": "02f772ae06a15b7143ccacb3691ff9794131a746cbf43387e5ce6886ec552f03",
     "gregtech/loaders/postload/chains/AcidRecipes.java": "4f416d7ecf99c0d96dbf48b7aea6bdcd63b35fe5cce8d480ff6a1c70f5dfcfea",
     "gregtech/loaders/postload/chains/BauxiteRefineChain.java": "aedd4fa0927b2d02ddbf78c45f4f6a17a2e23c41a9c8e278009f125e0865f2f8",
     "gregtech/loaders/postload/chains/NaniteChain.java": "3891a63f2fb8c337c77ca13940a2d0ab4be996b9b907809868cdb9ff9038a2ef",
@@ -397,13 +410,18 @@
     "gregtech/loaders/postload/chains/PCBFactoryRecipes.java": "d12b132447c88a707c137faa3de4ef7646907b7741a290f64131838c6f7ea324",
     "gregtech/loaders/postload/chains/PurifiedWaterRecipes.java": "6ef435f7ddaad6f2d8af10f60fb885fb6b4cebe8ed07600df4b18a6e208930b8",
     "tectech/loader/recipe/Assembler.java": "b8e834b0e85cc4dc542c4b5c4b6eb96b7b6b5d0f11fbe5d223cec572443da3ce",
-    "tectech/loader/recipe/AssemblyLine.java": "854aba344c3b9094c173870488c1b4eea36b6129d8405b1d875533cf86e9cbc1",
     "tectech/loader/recipe/BaseRecipeLoader.java": "d9cf4d7c59ae9184120d0538a7a34d46be4caab43124f4d34644a843da30fcc5",
+    "bartworks/system/material/werkstoff_loaders/registration/BridgeMaterialsLoader.java": "bb6d0b31f9b01e56511e409485a44899d48f37be09a2a013da25754d0703dccc",
+    "tectech/thing/block/BlockQuantumGlass.java": "10b0eba897d3ffdf73436f5c24d362fc27d96b26dc78fd278725a0b859357cff",
+    "tectech/loader/recipe/AssemblyLine.java": "854aba344c3b9094c173870488c1b4eea36b6129d8405b1d875533cf86e9cbc1",
     "tectech/loader/recipe/CircuitAssembler.java": "209fdb63936273f65099920fc207d9c7296dc0ea64236b4a194c43c83434fbe8",
     "tectech/loader/recipe/Crafting.java": "d9543e8268cc7c3cd764521c9ebc9e0cea0696cd03cb900827025678cef45fcd",
     "tectech/loader/recipe/Extractor.java": "74c2ce44fd461fed90aee064b06424b99985e7114d984a3e1ca3bad91470baa0",
     "tectech/loader/recipe/Godforge.java": "630a59e1abc38323579a97e47d352708575cb22dc8b80f6bf7548aceb9f33a29",
     "tectech/loader/recipe/ResearchStationAssemblyLine.java": "c855c01572445e9416e327c77da7e084cf095daa8e3e63e51c3667ff3fb7c351",
+    "tectech/recipe/TTRecipeAdder.java": "20978f95a7974b4d122fe5751377b84a6ca948d111df467aebc38eefb1797ca8",
+    "tectech/thing/metaTileEntity/multi/MTEResearchStation.java": "a2cd514b3c9f55e9033ef5c3a738a0d6392c65dfeb2ff2e0b27cfe0042d0e4a3",
+    "tectech/thing/metaTileEntity/hatch/MTEHatchRack.java": "5e1575b20a1970e0b605613ddf510f730dda9f5f015ea3163656849e54e9a2d8",
     "bartworks/common/loaders/recipes/Assembler.java": "a8b4d36fe24697df11c9e8ebfddd01ca7cd206ebdace824bee6d952f01a94b86",
     "gregtech/api/enums/ItemList.java": "ea4fc0394fef4c7582fe5bb76e362fc6df082fbd7c43893cba638a5f9ce2527d",
     "bartworks/common/loaders/recipes/AssemblyLine.java": "8d06f134822636aa533902ed3c988a9c2ee64167c1921f70233cf39faab47d21",
@@ -420,7 +438,6 @@
     "bartworks/common/loaders/recipes/Pulverizer.java": "c15be157e0e01deb6b1097bebd54f6541c3a46a20cfcfdbd77bae527b5093ace",
     "goodgenerator/loader/AchievementLoader.java": "33a34ca6462e3e08b5589be74e870aba6169f2ca4eab65dae4d98c2b96f438a9",
     "goodgenerator/loader/ComponentAssemblyLineLoader.java": "efb805c09383ded4f62bda937501337710df64667437737dd52ed4e5cfa5f26f",
-    "goodgenerator/loader/ComponentAssemblyLineMiscRecipes.java": "02f772ae06a15b7143ccacb3691ff9794131a746cbf43387e5ce6886ec552f03",
     "goodgenerator/loader/FuelRecipeLoader.java": "a241e0824691c387a673af58adcf0dd7d87016b1905c58b6b8a24ac2e5413be2",
     "goodgenerator/loader/NaquadahRecipeLoader.java": "a0059822e83e264e10c319ee588ede9fc5b7ed477ac8ec382a4b0ba322d5b189",
     "goodgenerator/loader/NeutronActivatorLoader.java": "bb2532f810e4accc17d74baa8079303a47eddab8831e777531d4d585297b0f62",
@@ -445,6 +462,9 @@
     "gtPlusPlus/core/recipe/RecipesBatteries.java": "54637d43cdea090d0d7288a64ca5414ea5c91169ee7c794680da77434087bf72",
     "gtPlusPlus/core/recipe/RecipesGeneral.java": "43aff84bbcd4de85cd0616e9ec37ef4485fc5c4fb0ba86d811bf69e68124f131",
     "gtPlusPlus/core/recipe/RecipesGregTech.java": "742c9e10590025dc5a6030883f175ae2c8249a4e9566299e809ea2009f863f2e",
+    "gtPlusPlus/core/material/Particle.java": "a12fd76bdfa20470c3e5afb04998a2cf6cc6e6cad5b1a6216237975fb4729de5",
+    "gtPlusPlus/core/item/chemistry/IonParticles.java": "99c0842ff39be6e31f535344071621ed8bff638cd19a918a247453c3cb0ce7aa",
+    "gtPlusPlus/core/item/base/misc/BaseItemParticle.java": "594354159b685c90f41cca7cb0a47f72a22ddfc73df97dfd363701ced5344292",
     "gtPlusPlus/core/recipe/RecipesLaserEngraver.java": "3e226ca4dc8bf30c153101dd8193575558950b52feb9113646dd210d281cb3a8",
     "gtPlusPlus/core/recipe/RecipesMachines.java": "9e4d36e04fd17276e613cf08cde891c7e136cc29d4a3862b0690e8f2ca25a469",
     "gtPlusPlus/core/recipe/RecipesMachinesCustom.java": "8058e09c0c58d952bbcd8a4d59961a6100766f20fa1ab90fa0b60a5ce797c49d",
@@ -453,7 +473,6 @@
     "gtPlusPlus/core/recipe/RecipesRareEarthProcessing.java": "0deaf6e277f2672cf64d2b2022dd72356ea5628a641bb9b07f8a3797ae1c8133",
     "gtPlusPlus/core/recipe/RecipesSeleniumProcessing.java": "03a685d27e35ff288967c7effa95fb954650e8857c8055a7cddcfcdc5fa09f18",
     "gtPlusPlus/core/item/chemistry/general/ItemGenericChemBase.java": "50c85169da49a3c82287daba8f3066a3e28770a8c7c2992bced090ab774c04c3",
-    "gtPlusPlus/core/item/chemistry/IonParticles.java": "99c0842ff39be6e31f535344071621ed8bff638cd19a918a247453c3cb0ce7aa",
     "gtPlusPlus/core/item/chemistry/RecipeLoaderAgriculturalChem.java": "54a4216c15a3f5190577a75cfb8cd78b390a3976dc625c5c0072baea1df4c1e5",
     "gtPlusPlus/core/item/chemistry/RecipeLoaderCoalTar.java": "c8df6e12171cd25c2de07eadbc56eb0e579fa5dc57968e1cf980e2bc543de508",
     "gtPlusPlus/core/item/chemistry/RecipeLoaderGenericChem.java": "fda4944f8848c7ea23fe5ddad6601d7b95446f830acbd9a1f5a6966eb421fd8d",
@@ -479,6 +498,7 @@
     "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/ArcFurnaceRecipes.java": "bb2dbeddd8030ff17a4e22c583a7f4204156f8924bf2104a47a6abd15e343aa0",
     "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java": "329fc70ebf81de7fd80d7e9a10f12a888791d1f2642c9b8e31d111fa2d670668",
     "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java": "1466e1539d9145ca9ae7bb052609f608e70d5f8e820d1d813ed128fba1e4f7dc",
+    "tectech/thing/block/BlockGodforgeGlass.java": "3df00afa26304e509636e47292034f877bfcd36832f38573ea87e9579bab071a",
     "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AutoclaveRecipes.java": "7a195c26e7f9dd1a6846d8f36ac3840b6c1ad8c7b4acc7f3abd286e943464ee3",
     "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/BeamcraftingRecipes.java": "35427d0a68a946cda92e67b86fb3cccd01b68fa3955059be6038d8d32a4605b0",
     "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/BECRecipes.java": "81f95a84f2f0e67bb333a3b9ac40eaecfd67acdd19a2eadde2a56da1d6eb8593",
@@ -519,7 +539,6 @@
     "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/SpaceAssemblerRecipes.java": "a229afdba065bffa2bdefb8acf3aff45cbbfd22adcab071d72cb239d80c0f928",
     "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/VacuumFreezerRecipes.java": "9f767285a23eda852b9c3a7a1f3017fc5423f00f6c66fd50d8831d704c43ea71",
     "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/VacuumFurnaceRecipes.java": "de2ebe037160beda38320318c5480aa8ab901c3eb7a9c78fd7ffdb38c96dc7e4",
-    "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/WiremillRecipes.java": "569f5321feb866aeca2797b0008cea048f3859c4d61ad8c8a871f8bf32791a58",
     "NewHorizonsCoreMod/com/dreammaster/mantle/MantleManualRecipeRegistry.java": "e0eb3e1f58b99dc5992c1fb9328636a08f2ea4ebf4fdf48ff2a77ee0f58fefa1",
     "NewHorizonsCoreMod/com/dreammaster/recipes/CustomItem.java": "65e787ac0b2981161272c2c9c2c26616e86a09543b264b55304e39cf25d4edb4",
     "NewHorizonsCoreMod/com/dreammaster/recipes/IngredientsFlattener.java": "e98852233775c2d935fa6a618f22507cde56ebc049117a6afee5d906138d31ff",
@@ -653,14 +672,16 @@
     "gregtech/common/tools/ToolKnife.java": "1a0bfb86c715aa76e8b7be16952056d015c44e478869a3843d95d26de8668494",
     "gregtech/common/tools/ToolSoftMallet.java": "94d424d03d46f2b97e448b2d789a42231c1c2c6e220d91f6b4fc8b3817b49b60",
     "NewHorizonsCoreMod/com/dreammaster/item/WoodenBrickForm.java": "d19ba750f0f616d390f5b2023600e926fab9cdea15ae790cf49f614b698f614d",
-    "gregtech/api/util/GTModHandler.java": "bd899989e2facef8af9b54e560a6d66fe30a8294993afacff99eaecd44069063",
     "gregtech/common/items/MetaGeneratedItem01.java": "d62e80882839e9b41f997d485dd6d90c9daf56909e3e0bd6da95d55c7f3c9fe6",
+    "gregtech/common/items/MetaGeneratedItem02.java": "218a814baef761d1ab3c879f97ead267355a56e475cc7f15599d4e3272215ba3",
+    "gregtech/common/items/MetaGeneratedItem03.java": "aad1c6dcec5cbda36f2a8385279ea03cdfbb9170649c15fa1c4ae0dd1f2dd4df",
+    "gregtech/common/items/MetaGeneratedTool01.java": "c1193c1dc8b895746590f6e887346cfd9ea92e45dceb37f7cbf2434cc7f94510",
+    "gregtech/api/util/GTModHandler.java": "bd899989e2facef8af9b54e560a6d66fe30a8294993afacff99eaecd44069063",
     "gregtech/api/enums/Dyes.java": "d3c000dd278d23cf015b1354114eb01c7f8987346cc774c72930d691afe4ab64",
     "gregtech/loaders/postload/CraftingRecipeLoader.java": "80279998a644b9a921c1a939e34858e7cc6481b7629d828e0eee7d29fd4575c0",
-    "gregtech/common/items/MetaGeneratedItem02.java": "218a814baef761d1ab3c879f97ead267355a56e475cc7f15599d4e3272215ba3",
-    "gregtech/common/items/MetaGeneratedTool01.java": "c1193c1dc8b895746590f6e887346cfd9ea92e45dceb37f7cbf2434cc7f94510",
     "gregtech/api/recipe/maps/FurnaceBackend.java": "e9d95cba9207e7d4325e873b4034396055ce89a762bbe1ef208d6cd09837beec",
-    "gregtech/loaders/load/MTERecipeLoader.java": "b4dcc8d4f7696e315202f0aa0638195e18359cd0b791c6aa4f34ab9c43366472",
+    "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java": "4b91c75c6cfe3d87c1fc254a07eadcb4ec4aee2c368c516d5dc396c5816bee3a",
+    "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_CustomLoader.java": "c4dc67e426968d2ac6fcf9cf78e08c9254326196de62a03f73d9ae0e77cb60d8",
     "gregtech/common/tileentities/machines/multi/purification/LinkedPurificationUnit.java": "4e2d522add4bdf9215060c00a466c9db5032d48d46fe79c3c0eed6f92d192145",
     "gregtech/common/tileentities/machines/multi/purification/MTEHatchDegasifierControl.java": "f0de16e2daee30cde412d8443e6135d759e2cc56284cd83129bdddfeb02a008e",
     "gregtech/common/tileentities/machines/multi/purification/MTEHatchLensHousing.java": "828ae30ad3a2d86014715b0c0d723576b470935af779d47b9472eb91ad53fa09",
@@ -686,7 +707,7 @@
     "bartworks/common/tileentities/multis/MTEDeepEarthHeatingPump.java": "0c952073cf34ce614e2d8297f9b25b40630a6ecb57c6a71b203e26e6135b4cbd",
     "gtPlusPlus/xmod/gregtech/common/items/MetaGeneratedGregtechItems.java": "2c8f0e4244ab65c2a79ff335b36448ffc36f45a48d02a6ee301581bc0cbfae42",
     "gtPlusPlus/xmod/gregtech/common/tileentities/generators/MTERTGenerator.java": "d4b1cdebbd224d4ebc7d869e9a7b3c592c0bf94e6c6605e4519258b35f8ecd4d",
-    "instance/config/IC2.ini": "a407753f7b5a37328c888a36897c9b3a65dc118ef49d56fc6f398897527e59f6",
+    "instance/config/IC2.ini": "8c7ae40e2e2ba2181f49e27c31f3c1d05f982597946b5d5bd0fbf37881ffa055",
     "IC2-2.2.828/TileEntityRTGenerator.java": "4de968104f33892ac395560879dbad9ec9de419501649690a3feb8da465e02c8",
     "IC2-2.2.828/TileEntityBaseGenerator.java": "db488cbc71c9163a7d0a7a8aaaf99bb30988a3bd0ae3ba6a3ae92b5fae4b0742",
     "IC2-2.2.828/BlocksItems.java": "f36f253c93464706ae967a72f6cf577631046754430ddf79c6800f252ed803b8",
@@ -732,10 +753,10 @@
     "gregtech/common/tileentities/machines/basic/MTEReplicator.java": "5a73adf485f29e50e04a9cf7b601a977061206cb0784132b2a06216c25032b88",
     "gregtech/common/items/behaviors/BehaviourDataOrb.java": "48dfbbb8681d2f0da4a116177cfcbd6061a4db4d09a6c1dcf2b569cca7e23907",
     "gregtech/api/util/GTUtility.java": "0a4aaf5797fe0e435279bac914c9b05ae9bfe22333bb6e569ddd3c5ecbaa16b0",
-    "bartworks/system/material/werkstoff_loaders/registration/BridgeMaterialsLoader.java": "bb6d0b31f9b01e56511e409485a44899d48f37be09a2a013da25754d0703dccc",
     "bartworks/system/material/werkstoff_loaders/recipe/CellLoader.java": "aa848e42bd50710454cf0e4382af7c5ddd10c07a634abdd186e9e55b0298fb18",
     "gregtech/common/config/OPStuff.java": "fd2cde43e1b1c56cf5f85eae286529e46434307d4d5de9fd17f76e1ea6f3330b",
     "gregtech/loaders/oreprocessing/ProcessingShaping.java": "19637435816baff45881ac93fb72fdb0117d89cfaca05bf276b588cdb7006196",
+    "gregtech/api/enums/SmallOres.java": "cb05e8030fbfba6ee2b578a8b6cc21eac4d4919ec4ea84ea4309060ee9844928",
     "gregtech/loaders/oreprocessing/ProcessingOre.java": "65ede3770948f33ede4565c02575f6237031b03b7811de3c4a31cfe52e75fdd7",
     "gregtech/loaders/oreprocessing/ProcessingDirty.java": "dae2910c2b500a6a4499bf93407b05b1ca108ab455ac020f9d9ee8744917adf5",
     "gregtech/loaders/oreprocessing/ProcessingPure.java": "a69806a9444a44e774521ebf5263139d068d21d0a84fcdcb9813818eede5cf9f",
@@ -743,17 +764,33 @@
     "gregtech/loaders/oreprocessing/ProcessingDust.java": "6875805bf3aa7f9ab80a56f55d48589b196f05527ba95983f22c986a74903d22",
     "goodgenerator/util/NaquadahRecipeOutputs.java": "d126c282b999458c5563ec23e307abcde478dacc0f087f179fa80dd78380ad6a",
     "gtnhlanth/util/LanthanidesRecipeOutputs.java": "ac4dddfb15cd3887d81d516ca0db3216521b1ca1e87168a4b9c69b8fce4d1a1b",
+    "gtPlusPlus/xmod/bop/blocks/pine/LogPineTree.java": "557d69dd7fb47c82ea7496cedb15c690283579fb8e623e5bf01daec0bbded319",
+    "gtPlusPlus/xmod/bop/blocks/base/LogBase.java": "35aa15169e9d93d680d59abeb3cb4c6881a2b9bac120edb33000cf4663f76fdf",
+    "gtPlusPlus/xmod/bop/blocks/BOPBlockRegistrator.java": "6d3e350972606c638d4a4d57e80b7deb215132106b184ea71ac70397c71b03e7",
+    "gregtech/loaders/oreprocessing/ProcessingGem.java": "7774d7448c2f67ddfae303467ca1b6a32e01542b4a7cb6698638bea18a81d975",
+    "bartworks/system/material/werkstoff_loaders/recipe/GemLoader.java": "4a2f3420a741fae0f7bbd733d00c27ec9fbd58c284dffe3d90ff063cfff65528",
+    "bartworks/system/material/werkstoff_loaders/recipe/MetalLoader.java": "b03380b9328fb89be3d592975ec73bc79f8976562855efb40239a365241ca907",
+    "bartworks/system/material/werkstoff_loaders/recipe/SimpleMetalLoader.java": "0cd50a79b53ea1cff126854898c0db716ade7a4a1ba8c134819425cae9ac5d5e",
+    "bartworks/system/material/werkstoff_loaders/recipe/DustLoader.java": "f4232d22638766a6bccf8a7ce27fe07ed04a4831be60ef9ecf682de0562ba194",
+    "bartworks/system/material/werkstoff_loaders/recipe/RawOreLoader.java": "d77caddcadb8ae028a5ec5a1f8d4ce376c91f609f91f60773d3a7562629a1fc4",
+    "bartworks/system/material/werkstoff_loaders/recipe/MoltenCellLoader.java": "a9419e44f88665b641fee5da91c3738b739d6cbfb299c39b68ab873f86ac9198",
+    "bartworks/system/material/werkstoff_loaders/recipe/CraftingMaterialLoader.java": "462f99b5d55d383937eec5c9f0abb80b044f6673273f676e60cd788f6b714960",
+    "goodgenerator/util/CrackRecipeAdder.java": "c271088ac6612f9ac9fc55b3951a6e3e75dbf908fa5a41f35ee6f0a6b0769fc3",
+    "gregtech/loaders/preload/LoaderMetaPipeEntities.java": "55d907cfaacb6ff47730a808381d1ea42661cff953e8c6f20fe5ca4ab945dd4b",
+    "gregtech/loaders/oreprocessing/ProcessingTransforming.java": "c737985d6c41f97ab619f945f9a6a5140c2a903fe543fa9a0ca1e967b3d3652d",
     "gregtech/loaders/oreprocessing/ProcessingPlate.java": "79ba64c9bc8a5307caa52b23ef51d69efc82a4f978b9e50a85e03dd451d73bcf",
     "gregtech/loaders/oreprocessing/ProcessingRotor.java": "0a1e3c6a8d11b8bd47ba84f3085b44482dd92920c36965d55639b6039027bb82",
-    "gregtech/loaders/preload/LoaderMetaPipeEntities.java": "55d907cfaacb6ff47730a808381d1ea42661cff953e8c6f20fe5ca4ab945dd4b",
     "gregtech/loaders/oreprocessing/ProcessingStick.java": "8772efc36a2531f4b6b21f88aed2a6925ba09b9f0ba6a90e5325349d3a151ef4",
     "gregtech/loaders/oreprocessing/ProcessingScrew.java": "a37133addd1c565725bee9df2b4349d103374913046d949591912f0247ce4025",
-    "gregtech/api/util/GTRecipeRegistrator.java": "b011f29a8bdf4cf3e5015396d5342443f300b5afcecd7aa4cd800d79c91016ca",
     "gregtech/common/GTProxy.java": "84ee3922cb7eb8fb0da4faf10bbfe8b324983d4d19c247100e58dc77a714c6cb",
     "gregtech/loaders/oreprocessing/ProcessingLens.java": "5ffaee6ab99036c9954a885158f532d32bad351914644ea8b2d0db328aba6d3e",
-    "gregtech/loaders/oreprocessing/ProcessingGem.java": "7774d7448c2f67ddfae303467ca1b6a32e01542b4a7cb6698638bea18a81d975",
-    "gregtech/loaders/oreprocessing/ProcessingFineWire.java": "580f55ec03308fca9289e386b153c8ba97eb452e2c70bc8e9ceda28b98f8f32c",
+    "gregtech/loaders/oreprocessing/ProcessingStickLong.java": "31794f1802c253c53921a5cc2c325c2b0da630790496509c8df1527bf3bf37dc",
     "gregtech/loaders/oreprocessing/ProcessingWire.java": "2872f80c97b88eb92a89cb618fd3052999ccd1d3c0ebde18b48d8a5e0c535ef4",
+    "gregtech/loaders/preload/LoaderGTItemData.java": "a080a435530d5756bdf7767de907805bc09e880cfcc14040625aac57ef5abac2",
+    "gregtech/loaders/oreprocessing/ProcessingBolt.java": "e04c480e53d1903c89772acfaf65b708ac0511913e8f1804a4c6530167f19a73",
+    "gregtech/loaders/oreprocessing/ProcessingFineWire.java": "580f55ec03308fca9289e386b153c8ba97eb452e2c70bc8e9ceda28b98f8f32c",
+    "gregtech/loaders/oreprocessing/ProcessingPipe.java": "d6aaf51abb76a73436fc8c89af8d3054bb0026ff67042255756b8776c98a6ec1",
+    "gregtech/loaders/oreprocessing/ProcessingBlock.java": "96ed683b373e7ef0bc3a2b178007e83e533189e573b63dd3912f139ad0e84e31",
     "gtPlusPlus/core/material/Material.java": "a05675175ca14526e704708d2fdff5b2ffd70a58f58f227e0af3182650885453",
     "gtPlusPlus/core/material/MaterialGenerator.java": "13c6bd667268d3f981ea36345bba79d3f29e31b6231ba6105014625f8c6db091",
     "gtPlusPlus/core/util/minecraft/MaterialUtils.java": "bb959be76d9b39d8aca0610e5d244ce7283c9e36bc6084ed9a272473c9db154e",
@@ -772,7 +809,6 @@
     "gregtech/loaders/oreprocessing/ProcessingToolOther.java": "63a8835d0d245aee8f244080985a442978824ccc924ad283d8bd1ebe3f6645b8",
     "gregtech/loaders/oreprocessing/ProcessingFoil.java": "fc1d3d52c52cdf8d1431cc4585663b397fc0e8d9d0944c9536800b6da66f8295",
     "gregtech/loaders/oreprocessing/ProcessingIngot.java": "2632242b9817e936694a39bf7fe010fa727121497d8575728292eacf09c7f714",
-    "gregtech/loaders/oreprocessing/ProcessingStickLong.java": "31794f1802c253c53921a5cc2c325c2b0da630790496509c8df1527bf3bf37dc",
     "gregtech/loaders/oreprocessing/ProcessingNugget.java": "ac45cee7a0b9db5b90165a7d66862d0b3db154209967c7bcb3ceac1dd8bb4e13",
     "gregtech/loaders/oreprocessing/ProcessingGear.java": "1b381817881ac752c3e069c25d2376974184e0e71dba7f53a3bf379fbbb98617",
     "tectech/thing/metaTileEntity/multi/godforge/color/ForgeOfGodsStarColor.java": "7d13d95135eecd219cb84359f194d2c8e87a83d387bb0eec42a138ca3e199869",
@@ -803,6 +839,31 @@
       "reason": "nonfluid fuel needs its own generator"
     },
     {
+      "file": "gregtech/loaders/load/MTERecipeLoader.java",
+      "line": 1620,
+      "reason": "unresolved stack Materials.Naquadah.getPart(OrePrefixes.blockCasing,1)"
+    },
+    {
+      "file": "gregtech/loaders/load/MTERecipeLoader.java",
+      "line": 1945,
+      "reason": "unresolved stack ItemRegistry.megaMachines[2]"
+    },
+    {
+      "file": "gregtech/loaders/load/MTERecipeLoader.java",
+      "line": 1954,
+      "reason": "unresolved stack ItemRegistry.megaMachines[1]"
+    },
+    {
+      "file": "gregtech/loaders/load/MTERecipeLoader.java",
+      "line": 1963,
+      "reason": "unresolved stack ItemRegistry.megaMachines[0]"
+    },
+    {
+      "file": "gregtech/loaders/load/MTERecipeLoader.java",
+      "line": 1972,
+      "reason": "unresolved stack ItemRegistry.megaMachines[4]"
+    },
+    {
       "file": "bartworks/system/material/processingLoaders/AdditionalRecipes.java",
       "line": 223,
       "reason": "unresolved stack BioCultureEnum.getPetriDish(bioCulture)"
@@ -823,11 +884,6 @@
       "reason": "dynamic number: otherFuel.getRight()"
     },
     {
-      "file": "bartworks/system/material/processingLoaders/AdditionalRecipes.java",
-      "line": 400,
-      "reason": "unknown addon material WerkstoffLoader.Calcium"
-    },
-    {
       "file": "bartworks/common/loaders/BioRecipeLoader.java",
       "line": 129,
       "reason": "unresolved stack grape"
@@ -841,6 +897,11 @@
       "file": "bartworks/common/loaders/BioRecipeLoader.java",
       "line": 146,
       "reason": "unresolved stack FluidRegistry.getFluidStack(\"potion.grapejuice\",100)"
+    },
+    {
+      "file": "bartworks/common/loaders/ArtificialMicaLine.java",
+      "line": 156,
+      "reason": "unresolved stack BWGTMaterialReference.Magnesia.getMolten(5*INGOTS)"
     },
     {
       "file": "gregtech/loaders/postload/recipes/AlloySmelterRecipes.java",
@@ -1286,11 +1347,6 @@
       "file": "gregtech/loaders/postload/recipes/AutoclaveRecipes.java",
       "line": 284,
       "reason": "unsupported form stone"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/AutoclaveRecipes.java",
-      "line": 311,
-      "reason": "unknown addon material WerkstoffLoader.Salt"
     },
     {
       "file": "gregtech/loaders/postload/recipes/BECMetaMaterialRecipes.java",
@@ -2028,26 +2084,6 @@
       "reason": "unresolved stack newFluidStack(dyeFluid,18)"
     },
     {
-      "file": "gregtech/loaders/postload/recipes/ChemicalBathRecipes.java",
-      "line": 337,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2hotcoolant\"),250)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/ChemicalBathRecipes.java",
-      "line": 502,
-      "reason": "unresolved stack GTOreDictUnificator.get(prefix,Materials.Infinity,multiplier)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/ChemicalBathRecipes.java",
-      "line": 510,
-      "reason": "unresolved stack GTOreDictUnificator.get(prefix,Materials.Creon,multiplier)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/ChemicalBathRecipes.java",
-      "line": 518,
-      "reason": "unresolved stack GTOreDictUnificator.get(prefix,Materials.Mellion,multiplier)"
-    },
-    {
       "file": "gregtech/loaders/postload/recipes/ChemicalRecipes.java",
       "line": 61,
       "reason": "unresolved stack newOreDictItemStack(dye.name(),1)"
@@ -2106,11 +2142,6 @@
       "file": "gregtech/loaders/postload/recipes/ChemicalRecipes.java",
       "line": 3793,
       "reason": "unresolved stack getFilledCellFromFluidName(Formaldehyde,4)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/ChemicalRecipes.java",
-      "line": 3808,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.formaldehyde\"),4_000)"
     },
     {
       "file": "gregtech/loaders/postload/recipes/ChemicalRecipes.java",
@@ -2191,21 +2222,6 @@
       "file": "gregtech/loaders/postload/recipes/ChemicalRecipes.java",
       "line": 4741,
       "reason": "unresolved stack newFluidStack(ItemList.sBlueVitriol,18_000)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/ChemicalRecipes.java",
-      "line": 5840,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.formaldehyde\"),1_000)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/ChemicalRecipes.java",
-      "line": 6012,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.formaldehyde\"),2_000)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/ChemicalRecipes.java",
-      "line": 6026,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"fluid.formaldehyde\"),18_000)"
     },
     {
       "file": "gregtech/loaders/postload/recipes/ChemicalRecipes.java",
@@ -3089,11 +3105,6 @@
     },
     {
       "file": "gregtech/loaders/postload/recipes/FluidCannerRecipes.java",
-      "line": 14,
-      "reason": "unresolved stack GTModHandler.getIC2Item(\"reBattery\",1)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/FluidCannerRecipes.java",
       "line": 22,
       "reason": "unresolved stack ItemList.Battery_SU_LV_Mercury.getWithCharge(1,Integer.MAX_VALUE)"
     },
@@ -3176,21 +3187,6 @@
       "file": "gregtech/loaders/postload/recipes/FluidExtractorRecipes.java",
       "line": 182,
       "reason": "unresolved ItemList.Long_Distance_Pipeline_Item_Pipe"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/FluidExtractorRecipes.java",
-      "line": 449,
-      "reason": "unresolved stack newItemStack(Items.wheat_seeds,1,32767)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/FluidExtractorRecipes.java",
-      "line": 456,
-      "reason": "unresolved stack newItemStack(Items.melon_seeds,1,32767)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/FluidExtractorRecipes.java",
-      "line": 463,
-      "reason": "unresolved stack newItemStack(Items.pumpkin_seeds,1,32767)"
     },
     {
       "file": "gregtech/loaders/postload/recipes/FluidExtractorRecipes.java",
@@ -3829,18 +3825,8 @@
     },
     {
       "file": "gregtech/loaders/postload/recipes/VacuumFreezerRecipes.java",
-      "line": 228,
-      "reason": "unresolved stack GTModHandler.getIC2Item(\"airCell\",1L)"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/VacuumFreezerRecipes.java",
       "line": 318,
       "reason": "unsupported form cellPlasma"
-    },
-    {
-      "file": "gregtech/loaders/postload/recipes/VacuumFreezerRecipes.java",
-      "line": 383,
-      "reason": "unresolved stack GTOreDictUnificator.get(prefix,Materials.HotProtoHalkonite,multiplier)"
     },
     {
       "file": "gregtech/loaders/postload/chains/BauxiteRefineChain.java",
@@ -3889,33 +3875,8 @@
     },
     {
       "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 68,
-      "reason": "unsupported form shard"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
       "line": 79,
       "reason": "unresolved stack GTBees.combs.getStackForType(CombType.PRISMATIC,8)"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 90,
-      "reason": "unsupported form shard"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 102,
-      "reason": "unsupported form shard"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 136,
-      "reason": "unresolved stack MaterialMisc.STRONTIUM_HYDROXIDE.getDust(3)"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 144,
-      "reason": "unresolved stack MaterialMisc.STRONTIUM_HYDROXIDE.getDust(42)"
     },
     {
       "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
@@ -3929,53 +3890,13 @@
     },
     {
       "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 305,
-      "reason": "dynamic number: newItemStack(Blocks.fire)"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 313,
-      "reason": "dynamic number: newItemStack(Blocks.fire)"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 323,
-      "reason": "dynamic number: newItemStack(Blocks.fire)"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 331,
-      "reason": "dynamic number: newItemStack(Blocks.fire)"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 342,
-      "reason": "dynamic number: newItemStack(Blocks.fire)"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
       "line": 381,
       "reason": "unresolved stack GTBees.combs.getStackForType(CombType.NETHERITE,8)"
     },
     {
       "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 455,
-      "reason": "dynamic number: newItemStack(Blocks.fire)"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
-      "line": 477,
-      "reason": "unresolved stack GTOreDictUnificator.get(prefix,Materials.InfusedGold,multiplier)"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/NetheriteRecipes.java",
       "line": 492,
       "reason": "unresolved stack inputStack"
-    },
-    {
-      "file": "gregtech/loaders/postload/chains/PurifiedWaterRecipes.java",
-      "line": 99,
-      "reason": "unresolved stack lens"
     },
     {
       "file": "tectech/loader/recipe/Assembler.java",
@@ -4059,26 +3980,6 @@
     },
     {
       "file": "tectech/loader/recipe/Assembler.java",
-      "line": 49,
-      "reason": "unresolved stack BaseRecipeLoader.getOrDefault(\"Trinium\",Materials.Osmium).getMolten(4*INGOTS)"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 88,
-      "reason": "unresolved registered addon CustomItemList.eM_Computer_Casing"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 100,
-      "reason": "unresolved stack GTOreDictUnificator.get(OrePrefixes.wireGt01,BaseRecipeLoader.getOrDefault(\"SuperconductorIV\",Materials.SuperconductorUHV),1)"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 117,
-      "reason": "unresolved stack GTOreDictUnificator.get(OrePrefixes.foil,BaseRecipeLoader.getOrDefault(\"Trinium\",Materials.Osmium),12)"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
       "line": 132,
       "reason": "unresolved registered addon CustomItemList.tM_TeslaBase"
     },
@@ -4124,341 +4025,6 @@
     },
     {
       "file": "tectech/loader/recipe/Assembler.java",
-      "line": 235,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_HV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 246,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_EV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 257,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_IV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 268,
-      "reason": "unresolved stack GTOreDictUnificator.get(OrePrefixes.plate,BaseRecipeLoader.getOrDefault(\"Rhodium-PlatedPalladium\",Materials.Chrome),2)"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 282,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 293,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 304,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 315,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 326,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 337,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 348,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 365,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_EV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 377,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_IV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 389,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_LuV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 404,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 416,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 428,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 440,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 452,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 464,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 476,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 494,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_EV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 506,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_IV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 518,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_LuV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 533,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 545,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 557,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 569,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 581,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 593,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 605,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti16_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 619,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti64_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 631,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti64_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 643,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti64_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 655,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti64_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 667,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti64_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 679,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti64_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 700,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_EV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 711,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_IV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 722,
-      "reason": "unresolved stack GTOreDictUnificator.get(OrePrefixes.plate,BaseRecipeLoader.getOrDefault(\"Rhodium-PlatedPalladium\",Materials.Chrome),2)"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 736,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 747,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 758,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 769,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 780,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 791,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 802,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 819,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_EV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 831,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_IV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 843,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_LuV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 858,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 870,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 882,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 894,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 906,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 918,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 930,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti4_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 948,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_EV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 960,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_IV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 972,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_LuV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 987,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 999,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1011,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1023,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1035,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1047,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1059,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti16_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
       "line": 1077,
       "reason": "unresolved stack BaseRecipeLoader.getNHCoreModItem(\"Display\",1)"
     },
@@ -4501,426 +4067,6 @@
       "file": "tectech/loader/recipe/Assembler.java",
       "line": 1194,
       "reason": "unresolved stack BaseRecipeLoader.getNHCoreModItem(\"Display\",1)"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1213,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel1_IV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1225,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel1_LuV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1237,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel1_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1249,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel1_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1261,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel1_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1273,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel1_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1285,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel1_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1297,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel1_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1309,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel1_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1326,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel2_LuV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1338,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel2_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1350,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel2_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1362,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel2_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1374,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel2_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1386,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel2_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1398,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel2_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1410,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel2_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1427,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel3_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1439,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel3_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1451,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel3_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1463,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel3_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1475,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel3_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1487,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel3_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1499,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel3_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1516,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel4_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1528,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel4_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1540,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel4_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1552,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel4_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1564,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel4_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1576,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel4_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1593,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel5_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1605,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel5_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1617,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel5_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1629,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel5_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1641,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel5_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1658,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel6_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1670,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel6_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1682,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel6_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1694,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel6_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1711,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel7_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1723,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel7_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1735,
-      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel7_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1755,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel1_IV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1767,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel1_LuV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1779,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel1_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1791,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel1_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1803,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel1_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1815,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel1_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1827,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel1_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1839,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel1_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1851,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel1_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1868,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel2_LuV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1880,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel2_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1892,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel2_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1904,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel2_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1916,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel2_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1928,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel2_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1940,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel2_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1952,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel2_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1969,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel3_ZPM"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1981,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel3_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 1993,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel3_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2005,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel3_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2017,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel3_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2029,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel3_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2041,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel3_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2058,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel4_UV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2070,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel4_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2082,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel4_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2094,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel4_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2106,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel4_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2118,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel4_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2135,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel5_UHV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2147,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel5_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2159,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel5_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2171,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel5_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2183,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel5_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2200,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel6_UEV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2212,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel6_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2224,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel6_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2236,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel6_UXV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2253,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel7_UIV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2265,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel7_UMV"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2277,
-      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel7_UXV"
     },
     {
       "file": "tectech/loader/recipe/Assembler.java",
@@ -4970,7 +4116,7 @@
     {
       "file": "tectech/loader/recipe/Assembler.java",
       "line": 2409,
-      "reason": "unresolved stack BaseRecipeLoader.getOrDefault(\"Rhodium-PlatedPalladium\",Materials.Chrome).getMolten(2*INGOTS)"
+      "reason": "unresolved stack CustomItemList.enderLinkFluidCover.getWithDamage(1,0)"
     },
     {
       "file": "tectech/loader/recipe/Assembler.java",
@@ -5103,51 +4249,6 @@
       "reason": "unresolved stack BaseRecipeLoader.getNHCoreModItem(\"HighEnergyFlowCircuit\",1)"
     },
     {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2694,
-      "reason": "unresolved registered addon CustomItemList.eM_Computer_Casing"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2711,
-      "reason": "unresolved registered addon CustomItemList.eM_Computer_Casing"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2724,
-      "reason": "unresolved registered addon CustomItemList.eM_Computer_Casing"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2737,
-      "reason": "unresolved registered addon CustomItemList.eM_Computer_Bus"
-    },
-    {
-      "file": "tectech/loader/recipe/Assembler.java",
-      "line": 2750,
-      "reason": "unresolved registered addon CustomItemList.eM_Computer_Casing"
-    },
-    {
-      "file": "tectech/loader/recipe/AssemblyLine.java",
-      "line": 43,
-      "reason": "unresolved stack GTOreDictUnificator.get(OrePrefixes.screw,BaseRecipeLoader.getOrDefault(\"Quantium\",Materials.Europium),16)"
-    },
-    {
-      "file": "tectech/loader/recipe/AssemblyLine.java",
-      "line": 66,
-      "reason": "unresolved stack BaseRecipeLoader.getOrDefault(\"Trinium\",Materials.Osmium).getMolten(9*INGOTS)"
-    },
-    {
-      "file": "tectech/loader/recipe/AssemblyLine.java",
-      "line": 87,
-      "reason": "unresolved registered addon CustomItemList.eM_Computer_Bus"
-    },
-    {
-      "file": "tectech/loader/recipe/AssemblyLine.java",
-      "line": 156,
-      "reason": "unresolved registered addon CustomItemList.eM_Coil"
-    },
-    {
       "file": "tectech/loader/recipe/AssemblyLine.java",
       "line": 174,
       "reason": "unresolved stack LanthItemList.TARGET_CHAMBER"
@@ -5196,6 +4297,171 @@
       "file": "tectech/loader/recipe/Godforge.java",
       "line": 873,
       "reason": "missing recipe map"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 152,
+      "reason": "unresolved ItemList.SpaceElevatorController"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 184,
+      "reason": "too many substitute combinations"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 303,
+      "reason": "too many substitute combinations"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 910,
+      "reason": "unresolved stack newItemStack(compactFusionCoil,1,2)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 952,
+      "reason": "unresolved stack newItemStack(defcCasingBlock,1,8)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 972,
+      "reason": "unresolved stack newItemStack(defcCasingBlock,1,9)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 989,
+      "reason": "unresolved stack DEFCWyvernSchematic.get(1)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 1005,
+      "reason": "unresolved stack DEFCAwakenedSchematic.get(1)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 1021,
+      "reason": "unresolved stack DEFCChaoticSchematic.get(1)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2193,
+      "reason": "unresolved stack LanthItemList.SYNCHROTRON"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2210,
+      "reason": "unresolved stack LanthItemList.LUV_BEAMLINE_OUTPUT_HATCH"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2224,
+      "reason": "unresolved stack newItemStack(LanthItemList.SHIELDED_ACCELERATOR_CASING,4)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2241,
+      "reason": "unresolved ItemList.ElectromagneticallyIsolatedCasing"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2267,
+      "reason": "unresolved ItemList.PeaceEnforcementCasing"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2290,
+      "reason": "unresolved ItemList.ConflictInducementCasing"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2318,
+      "reason": "unresolved ItemList.CondensateGuidanceCoil"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2343,
+      "reason": "unresolved ItemList.CondensateGuidanceCoil"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2396,
+      "reason": "unresolved stack ItemRegistry.energyDistributor[11]"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2465,
+      "reason": "unresolved stack GregtechItemList.CosmicFabricManipulator.get(1)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2504,
+      "reason": "unresolved stack GregtechItemList.ForceFieldGlass.get(8)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2547,
+      "reason": "unresolved stack newItemStack(Blocks.tfftStorageField,1,9)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2755,
+      "reason": "unresolved stack (i==0)?ItemList.Tesseract.get(1):wirelessHatches[i-1]"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2778,
+      "reason": "unresolved stack energyHatches_4A[i]"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2802,
+      "reason": "unresolved stack energyHatches_16A[i]"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2826,
+      "reason": "unresolved stack energyHatches_64A[i]"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2850,
+      "reason": "unresolved stack i!=7?laserTargets_UXV[i]:CustomItemList.eM_energyWirelessTunnel7_UXV.get(1)"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2874,
+      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel8_UMV"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2890,
+      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel8_UMV"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2906,
+      "reason": "unresolved registered addon CustomItemList.eM_energyTunnel8_UXV"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2926,
+      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel8_UMV"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2942,
+      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel8_UXV"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2958,
+      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel8_UXV"
+    },
+    {
+      "file": "tectech/loader/recipe/ResearchStationAssemblyLine.java",
+      "line": 2980,
+      "reason": "unresolved registered addon CustomItemList.eM_dynamoTunnel8_UMV"
     },
     {
       "file": "bartworks/common/loaders/recipes/Assembler.java",
@@ -5311,16 +4577,6 @@
       "file": "bartworks/common/loaders/recipes/Mixer.java",
       "line": 33,
       "reason": "unresolved stack GTModHandler.getLiquidDNA(1_000)"
-    },
-    {
-      "file": "goodgenerator/loader/ComponentAssemblyLineLoader.java",
-      "line": 1630,
-      "reason": "unresolved stack MaterialsAlloy.TRINIUM_REINFORCED_STEEL.getFluidStack(12*STACKS)"
-    },
-    {
-      "file": "goodgenerator/loader/ComponentAssemblyLineLoader.java",
-      "line": 1653,
-      "reason": "unresolved stack MaterialsAlloy.TRINIUM_REINFORCED_STEEL.getFluidStack(12*STACKS)"
     },
     {
       "file": "goodgenerator/loader/ComponentAssemblyLineMiscRecipes.java",
@@ -5443,6 +4699,21 @@
       "reason": "unresolved stack getCircuit(14,16)"
     },
     {
+      "file": "goodgenerator/loader/ComponentAssemblyLineMiscRecipes.java",
+      "line": 284,
+      "reason": "dynamic number: 375<<(1-2)"
+    },
+    {
+      "file": "goodgenerator/loader/ComponentAssemblyLineMiscRecipes.java",
+      "line": 310,
+      "reason": "dynamic number: 375<<(1-2)"
+    },
+    {
+      "file": "goodgenerator/loader/ComponentAssemblyLineMiscRecipes.java",
+      "line": 336,
+      "reason": "dynamic number: 375<<(1-2)"
+    },
+    {
       "file": "goodgenerator/loader/FuelRecipeLoader.java",
       "line": 58,
       "reason": "unresolved registered addon ItemRefer.High_Density_Uranium"
@@ -5458,64 +4729,9 @@
       "reason": "unresolved registered addon ItemRefer.High_Density_Uranium"
     },
     {
-      "file": "goodgenerator/loader/NaquadahRecipeLoader.java",
-      "line": 438,
-      "reason": "unresolved registered addon ItemRefer.Naquadah_Mass"
-    },
-    {
-      "file": "goodgenerator/loader/NaquadahRecipeLoader.java",
-      "line": 446,
-      "reason": "unresolved registered addon ItemRefer.Enriched_Naquadah_Mass"
-    },
-    {
-      "file": "goodgenerator/loader/NaquadahRecipeLoader.java",
-      "line": 454,
-      "reason": "unresolved registered addon ItemRefer.Naquadria_Mass"
-    },
-    {
-      "file": "goodgenerator/loader/NaquadahRecipeLoader.java",
-      "line": 462,
-      "reason": "unresolved registered addon ItemRefer.Naquadah_Mass"
-    },
-    {
-      "file": "goodgenerator/loader/NaquadahRecipeLoader.java",
-      "line": 472,
-      "reason": "unresolved registered addon ItemRefer.Enriched_Naquadah_Mass"
-    },
-    {
-      "file": "goodgenerator/loader/NaquadahRecipeLoader.java",
-      "line": 482,
-      "reason": "unresolved registered addon ItemRefer.Naquadria_Mass"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 68,
-      "reason": "unresolved registered addon ItemRefer.Radiation_Protection_Plate"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 79,
-      "reason": "unresolved registered addon ItemRefer.Radiation_Protection_Plate"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 91,
-      "reason": "unresolved registered addon ItemRefer.Radiation_Protection_Plate"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 117,
-      "reason": "unresolved registered addon ItemRefer.Radiation_Protection_Plate"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 141,
-      "reason": "unresolved registered addon ItemRefer.Wrapped_Uranium_Ingot"
-    },
-    {
       "file": "goodgenerator/loader/RecipeLoader.java",
       "line": 151,
-      "reason": "unresolved registered addon ItemRefer.Wrapped_Uranium_Ingot"
+      "reason": "unresolved registered addon ItemRefer.High_Density_Uranium_Nugget"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
@@ -5529,13 +4745,8 @@
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 189,
-      "reason": "unresolved registered addon ItemRefer.Wrapped_Thorium_Ingot"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
       "line": 199,
-      "reason": "unresolved registered addon ItemRefer.Wrapped_Thorium_Ingot"
+      "reason": "unresolved registered addon ItemRefer.High_Density_Thorium_Nugget"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
@@ -5549,13 +4760,8 @@
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 238,
-      "reason": "unresolved registered addon ItemRefer.Wrapped_Plutonium_Ingot"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
       "line": 248,
-      "reason": "unresolved registered addon ItemRefer.Wrapped_Plutonium_Ingot"
+      "reason": "unresolved registered addon ItemRefer.High_Density_Plutonium_Nugget"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
@@ -5574,53 +4780,8 @@
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 428,
-      "reason": "unresolved registered addon ItemRefer.Raw_Atomic_Separation_Catalyst"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
       "line": 659,
-      "reason": "unresolved registered addon ItemRefer.Advanced_Radiation_Protection_Plate"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 687,
-      "reason": "unresolved registered addon ItemRefer.Radiation_Protection_Plate"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 705,
-      "reason": "unresolved registered addon ItemRefer.Advanced_Radiation_Protection_Plate"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 837,
-      "reason": "unresolved registered addon ItemRefer.Aluminum_Nitride_Dust"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 845,
-      "reason": "unresolved registered addon ItemRefer.Aluminum_Nitride_Dust"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 854,
-      "reason": "unresolved registered addon ItemRefer.Aluminum_Nitride_Dust"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 865,
-      "reason": "unresolved registered addon ItemRefer.Special_Ceramics_Dust"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 872,
-      "reason": "unresolved registered addon ItemRefer.Special_Ceramics_Dust"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 880,
-      "reason": "unresolved registered addon ItemRefer.Special_Ceramics_Plate"
+      "reason": "unresolved stack \"craftingLensYellow\""
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
@@ -5654,33 +4815,8 @@
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 987,
-      "reason": "unresolved registered addon ItemRefer.Micro_Heater"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 1000,
-      "reason": "unresolved registered addon ItemRefer.Quartz_Wafer"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 1012,
-      "reason": "unresolved registered addon ItemRefer.Quartz_Wafer"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 1023,
-      "reason": "unresolved registered addon ItemRefer.Quartz_Wafer"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
       "line": 1038,
-      "reason": "unresolved registered addon ItemRefer.Quartz_Crystal_Resonator"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 1052,
-      "reason": "unresolved registered addon ItemRefer.Quartz_Crystal_Resonator"
+      "reason": "unsupported form componentCircuit"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
@@ -5695,22 +4831,22 @@
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
       "line": 1119,
-      "reason": "unresolved registered addon ItemRefer.Inverter"
+      "reason": "unresolved stack Loaders.NeutronAccelerators[2]"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
       "line": 1133,
-      "reason": "unresolved registered addon ItemRefer.Inverter"
+      "reason": "unresolved stack Loaders.NeutronAccelerators[3]"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
       "line": 1147,
-      "reason": "unresolved registered addon ItemRefer.Inverter"
+      "reason": "unresolved stack Loaders.NeutronAccelerators[4]"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
       "line": 1162,
-      "reason": "unresolved registered addon ItemRefer.Inverter"
+      "reason": "unresolved stack Loaders.NeutronAccelerators[5]"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader.java",
@@ -5763,29 +4899,9 @@
       "reason": "unresolved stack GTModHandler.getIC2Item(\"reactorVentDiamond\",1L,1)"
     },
     {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 1394,
-      "reason": "unresolved registered addon ItemRefer.Aluminum_Nitride_Dust"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 1406,
-      "reason": "unresolved registered addon ItemRefer.Aluminum_Nitride_Dust"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader.java",
-      "line": 1418,
-      "reason": "unresolved registered addon ItemRefer.Aluminum_Nitride_Dust"
-    },
-    {
       "file": "goodgenerator/loader/RecipeLoader2.java",
       "line": 68,
       "reason": "unresolved registered addon ItemRefer.Speeding_Pipe"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader2.java",
-      "line": 138,
-      "reason": "unresolved registered addon ItemRefer.Advanced_Fuel_Rod"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader2.java",
@@ -6080,12 +5196,12 @@
     {
       "file": "goodgenerator/loader/RecipeLoader2.java",
       "line": 1262,
-      "reason": "unresolved registered addon ItemRefer.Quartz_Crystal_Resonator"
+      "reason": "unresolved registered addon ItemRefer.HiC_T3"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader2.java",
       "line": 1274,
-      "reason": "unresolved registered addon ItemRefer.Radiation_Protection_Plate"
+      "reason": "unresolved registered addon ItemRefer.HiC_T4"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader2.java",
@@ -6100,7 +5216,7 @@
     {
       "file": "goodgenerator/loader/RecipeLoader2.java",
       "line": 1325,
-      "reason": "unresolved registered addon ItemRefer.Advanced_Radiation_Protection_Plate"
+      "reason": "unresolved registered addon ItemRefer.HiC_T3"
     },
     {
       "file": "goodgenerator/loader/RecipeLoader2.java",
@@ -6119,93 +5235,18 @@
     },
     {
       "file": "goodgenerator/loader/RecipeLoader2.java",
-      "line": 1463,
-      "reason": "unresolved registered addon ItemRefer.High_Energy_Mixture"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader2.java",
-      "line": 1471,
-      "reason": "unresolved registered addon ItemRefer.High_Energy_Mixture"
-    },
-    {
-      "file": "goodgenerator/loader/RecipeLoader2.java",
       "line": 1527,
       "reason": "unresolved registered addon ItemRefer.HiC_T5"
     },
     {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 51,
-      "reason": "unresolved stack SodiumTungstate.getFluidOrGas(1_000)"
+      "file": "goodgenerator/loader/RecipeLoader2.java",
+      "line": 1370,
+      "reason": "unresolved registered addon ItemRefer.HiC_T4"
     },
     {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 61,
-      "reason": "unresolved stack SodiumTungstate.getFluidOrGas(1_000)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 71,
-      "reason": "unresolved stack SodiumTungstate.getFluidOrGas(1_000)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 82,
-      "reason": "unresolved stack SodiumTungstate.getFluidOrGas(1_000)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 92,
-      "reason": "unresolved stack TungsticAcid.get(dust,7)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 102,
-      "reason": "unresolved stack TungsticAcid.get(dust,7)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 111,
-      "reason": "unresolved stack TungstenTrioxide.get(dust,4)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 123,
-      "reason": "unresolved stack TungstenTrioxide.get(dust,8)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 136,
-      "reason": "unresolved stack Phosgene.get(cell,1)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 144,
-      "reason": "unresolved stack Phosgene.get(cell,1)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 152,
-      "reason": "unresolved stack Phosgene.get(cell,1)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 191,
-      "reason": "unresolved stack AmmoniumNitrate.get(dust,9)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 199,
-      "reason": "unresolved stack AmmoniumNitrate.get(dust,9)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 209,
-      "reason": "unresolved stack AmmoniumNitrate.get(dust,9)"
-    },
-    {
-      "file": "gtnhlanth/loader/BotRecipes.java",
-      "line": 223,
-      "reason": "unresolved stack Nitromethane.getFluidOrGas(2_000)"
+      "file": "goodgenerator/loader/RecipeLoader2.java",
+      "line": 1404,
+      "reason": "unresolved registered addon ItemRefer.HiC_T5"
     },
     {
       "file": "gtnhlanth/loader/RecipeLoader.java",
@@ -6330,7 +5371,7 @@
     {
       "file": "gtnhlanth/loader/RecipeLoader.java",
       "line": 636,
-      "reason": "unresolved stack lens"
+      "reason": "unresolved stack newItemStack(LanthItemList.MASK_SUBSTRATE)"
     },
     {
       "file": "gtnhlanth/loader/RecipeLoader.java",
@@ -6418,24 +5459,9 @@
       "reason": "unresolved stack LanthItemList.DISSOLUTION_TANK"
     },
     {
-      "file": "gtnhlanth/loader/RecipeLoader.java",
-      "line": 3454,
-      "reason": "unresolved stack itemStack"
-    },
-    {
-      "file": "gtnhlanth/loader/RecipeLoader.java",
-      "line": 3467,
-      "reason": "unresolved stack itemStack"
-    },
-    {
       "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
       "line": 159,
       "reason": "unsupported builder noBuffer"
-    },
-    {
-      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
-      "line": 298,
-      "reason": "unsupported form shard"
     },
     {
       "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
@@ -6454,18 +5480,53 @@
     },
     {
       "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
-      "line": 559,
-      "reason": "unsupported form shard"
-    },
-    {
-      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
       "line": 629,
       "reason": "unresolved stack newOreDictItemStack(\"dustIodine\",64)"
     },
     {
       "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
       "line": 779,
-      "reason": "unresolved stack newItemStack(BlockQuantumGlass.INSTANCE,1)"
+      "reason": "unresolved stack GregtechItemList.ForceFieldGlass.get(1)"
+    },
+    {
+      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
+      "line": 644,
+      "reason": "unresolved stack GregtechItemList.ForceFieldGlass.get(1)"
+    },
+    {
+      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
+      "line": 661,
+      "reason": "unresolved stack GregtechItemList.NeutronPulseManipulator.get(1)"
+    },
+    {
+      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
+      "line": 679,
+      "reason": "unresolved stack GregtechItemList.CosmicFabricManipulator.get(1)"
+    },
+    {
+      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
+      "line": 696,
+      "reason": "unresolved stack GregtechItemList.InfinityInfusedManipulator.get(1)"
+    },
+    {
+      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
+      "line": 714,
+      "reason": "unresolved stack GregtechItemList.NeutronShieldingCore.get(1)"
+    },
+    {
+      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
+      "line": 729,
+      "reason": "unresolved stack GregtechItemList.NeutronShieldingCore.get(1)"
+    },
+    {
+      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
+      "line": 747,
+      "reason": "unresolved stack GregtechItemList.CosmicFabricShieldingCore.get(1)"
+    },
+    {
+      "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderChemicalSkips.java",
+      "line": 763,
+      "reason": "unresolved stack GregtechItemList.InfinityInfusedShieldingCore.get(1)"
     },
     {
       "file": "gtPlusPlus/xmod/gregtech/loaders/recipe/RecipeLoaderIndustrialRockBreaker.java",
@@ -6589,21 +5650,6 @@
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
-      "line": 463,
-      "reason": "unresolved stack MaterialsAlloy.TRINIUM_REINFORCED_STEEL.getBolt(8)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
-      "line": 485,
-      "reason": "unresolved stack MaterialsAlloy.TRINIUM_REINFORCED_STEEL.getFluidStack(16*INGOTS)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
-      "line": 507,
-      "reason": "unresolved stack MaterialsAlloy.TRINIUM_REINFORCED_STEEL.getFluidStack(32*INGOTS)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
       "line": 554,
       "reason": "unresolved stack GregtechItemList.UltimateHandPump.get(1)"
     },
@@ -6689,11 +5735,6 @@
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
-      "line": 831,
-      "reason": "unresolved stack MaterialsAlloy.NITINOL_60.getBlock(2)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
       "line": 852,
       "reason": "unresolved stack FluidRegistry.getFluidStack(\"xpjuice\",1_332)"
     },
@@ -6721,11 +5762,6 @@
       "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
       "line": 897,
       "reason": "unresolved stack GregtechItemList.DecayedRadium226Dust.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
-      "line": 1067,
-      "reason": "unresolved stack MaterialMisc.STRONTIUM_OXIDE.getDust(8)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
@@ -6805,7 +5841,7 @@
     {
       "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
       "line": 1427,
-      "reason": "unresolved stack MaterialsAlloy.TRINIUM_REINFORCED_STEEL.getBolt(64)"
+      "reason": "unresolved stack ItemDummyResearch.getResearchStack(ASSEMBLY_LINE_RESEARCH.RESEARCH_8_TURBINE_AUTOMATION,1)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
@@ -6846,21 +5882,6 @@
       "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
       "line": 1947,
       "reason": "unresolved stack MaterialUtils.getMaterial(y)!=null?MaterialUtils.getMaterial(y).getPlasma(1_000):FluidRegistry.getFluidStack(\"plasma.\"+y.toLowerCase(),1_000"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
-      "line": 1975,
-      "reason": "unresolved stack Particle.getIon(\"Hydrogen\",1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
-      "line": 1994,
-      "reason": "unresolved stack Particle.getIon(\"Hydrogen\",0)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
-      "line": 2012,
-      "reason": "unresolved stack Particle.getIon(\"Hydrogen\",0)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesGregTech.java",
@@ -6945,7 +5966,7 @@
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachines.java",
       "line": 188,
-      "reason": "unresolved stack MaterialsAlloy.TRINIUM_REINFORCED_STEEL.getPlateDouble(4)"
+      "reason": "unresolved stack GregtechItemList.Casing_BedrockMiner.get(1)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
@@ -6979,16 +6000,6 @@
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
-      "line": 233,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_HV.get(4)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
-      "line": 288,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_MV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
       "line": 311,
       "reason": "unresolved stack GregtechItemList.Casing_Machine_Custom_1.get(2)"
     },
@@ -6996,21 +6007,6 @@
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
       "line": 328,
       "reason": "unresolved stack GregtechItemList.Casing_Machine_Custom_2.get(2)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
-      "line": 339,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_MV.get(4)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
-      "line": 354,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_LV.get(2)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
-      "line": 371,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_ULV.get(4)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
@@ -7025,7 +6021,7 @@
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
       "line": 430,
-      "reason": "unresolved registered addon CustomItemList.eM_Coil"
+      "reason": "unresolved stack GregtechItemList.Casing_Coil_QuantumForceTransformer.get(1)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
@@ -7109,11 +6105,6 @@
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
-      "line": 871,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_IV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
       "line": 888,
       "reason": "unresolved stack ItemDummyResearch.getResearchStack(ItemDummyResearch.ASSEMBLY_LINE_RESEARCH.RESEARCH_10_SPARGING,1)"
     },
@@ -7125,12 +6116,12 @@
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
       "line": 929,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_HV.get(1)"
+      "reason": "unresolved stack GregtechItemList.Casing_Sparge_Tower_Exterior.get(1)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
       "line": 946,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_LuV.get(1)"
+      "reason": "unresolved stack ItemDummyResearch.getResearchStack(ItemDummyResearch.ASSEMBLY_LINE_RESEARCH.RESEARCH_11_MOLECULAR_TRANSFORMER,1)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
@@ -7153,6 +6144,11 @@
       "reason": "unresolved stack GregtechItemList.Casing_Molecular_Transformer_3.get(1)"
     },
     {
+      "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
+      "line": 443,
+      "reason": "unresolved stack GregtechItemList.Casing_Coil_QuantumForceTransformer.get(1)"
+    },
+    {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesMulti.java",
       "line": 96,
       "reason": "unresolved stack GregtechItemList.Casing_XL_HeatExchanger.get(1)"
@@ -7171,11 +6167,6 @@
       "file": "gtPlusPlus/core/recipe/RecipesMachinesMulti.java",
       "line": 185,
       "reason": "unresolved stack GregtechItemList.ResonanceChamber_III.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesMulti.java",
-      "line": 226,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_IV.get(16)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesMulti.java",
@@ -7399,56 +6390,6 @@
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 490,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_ULV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 505,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_LV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 520,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_MV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 535,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_HV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 550,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_EV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 565,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_IV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 580,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_LuV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 595,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_ZPM.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 610,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_UV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
-      "line": 625,
-      "reason": "unresolved stack GregtechItemList.GTPP_Casing_UHV.get(1)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesMachinesTiered.java",
       "line": 642,
       "reason": "unresolved stack GregtechItemList.Cover_Overflow_Valve_LV.get(1)"
     },
@@ -7546,16 +6487,6 @@
       "file": "gtPlusPlus/core/recipe/RecipesRareEarthProcessing.java",
       "line": 88,
       "reason": "unresolved stack MaterialMisc.RARE_EARTH_LOW.getCrushed(2)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesRareEarthProcessing.java",
-      "line": 116,
-      "reason": "unresolved stack MaterialMisc.RARE_EARTH_HIGH.getCrushed(2)"
-    },
-    {
-      "file": "gtPlusPlus/core/recipe/RecipesRareEarthProcessing.java",
-      "line": 125,
-      "reason": "unresolved stack MaterialMisc.RARE_EARTH_HIGH.getCrushed(2)"
     },
     {
       "file": "gtPlusPlus/core/recipe/RecipesRareEarthProcessing.java",
@@ -7724,11 +6655,6 @@
     },
     {
       "file": "gtPlusPlus/plugin/agrichem/BioRecipes.java",
-      "line": 447,
-      "reason": "unresolved stack MaterialsAlloy.TUMBAGA.getBlock(1)"
-    },
-    {
-      "file": "gtPlusPlus/plugin/agrichem/BioRecipes.java",
       "line": 582,
       "reason": "unresolved stack FluidRegistry.getFluidStack(\"ic2hotwater\",2_000)"
     },
@@ -7746,6 +6672,26 @@
       "file": "bartworks/system/material/gtenhancement/PlatinumSludgeRecipes.java",
       "line": 256,
       "reason": "unresolved stack werkstoff.get(OrePrefixes.crushedPurified,9)"
+    },
+    {
+      "file": "bartworks/system/material/processingLoaders/AdditionalRecipes.java",
+      "line": 223,
+      "reason": "unresolved stack BioCultureEnum.getPetriDish(bioCulture)"
+    },
+    {
+      "file": "bartworks/system/material/processingLoaders/AdditionalRecipes.java",
+      "line": 234,
+      "reason": "unresolved stack fluidStack.equals(Materials.Water.getFluid(1_000))?Materials.Water.getCells(1):GTUtility.getContainersFromFluid(GTModHandler.getDistilledWat"
+    },
+    {
+      "file": "bartworks/system/material/processingLoaders/AdditionalRecipes.java",
+      "line": 268,
+      "reason": "dynamic number: fuel.getRight()"
+    },
+    {
+      "file": "bartworks/system/material/processingLoaders/AdditionalRecipes.java",
+      "line": 282,
+      "reason": "dynamic number: otherFuel.getRight()"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/bartworksHandler/BacteriaRegistry.java",
@@ -8104,11 +7050,6 @@
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
-      "line": 799,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),1000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
       "line": 926,
       "reason": "unresolved stack newOreDictItemStack(OrePrefixes.gem.get(Materials.Diamond).toString(),1)"
     },
@@ -8265,17 +7206,82 @@
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
       "line": 2667,
-      "reason": "unresolved stack dyes[meta]"
+      "reason": "unresolved stack dyes[0]"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
-      "line": 2802,
-      "reason": "no circuit variants SuperconductorUHV"
+      "line": 2667,
+      "reason": "unresolved stack dyes[1]"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
-      "line": 2813,
-      "reason": "no circuit variants SuperconductorUHV"
+      "line": 2667,
+      "reason": "unresolved stack dyes[2]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[3]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[4]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[5]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[6]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[7]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[8]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[9]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[10]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[11]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[12]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[13]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[14]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 2667,
+      "reason": "unresolved stack dyes[15]"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
@@ -8379,11 +7385,6 @@
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
-      "line": 4299,
-      "reason": "unresolved stack MaterialsAlloy.TRINIUM_REINFORCED_STEEL.getFoil(2)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
       "line": 4445,
       "reason": "unresolved stack newOreDictItemStack(\"dyeBlack\",4)"
     },
@@ -8464,16 +7465,6 @@
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
-      "line": 6406,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"liquid helium\"),34000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
-      "line": 6415,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),1000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
       "line": 6925,
       "reason": "unresolved ItemList.Dye_Bonemeal"
     },
@@ -8495,7 +7486,77 @@
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
       "line": 6993,
-      "reason": "dynamic number: meta"
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,2)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,3)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,4)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,5)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,6)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,7)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,8)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,9)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,10)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,11)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,12)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,13)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,14)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 6993,
+      "reason": "unresolved stack newItemStack(Blocks.wool,4,15)"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
@@ -8505,7 +7566,77 @@
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
       "line": 7052,
-      "reason": "dynamic number: meta"
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,2)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,3)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,4)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,5)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,6)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,7)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,8)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,9)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,10)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,11)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,12)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,13)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,14)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
+      "line": 7052,
+      "reason": "unresolved stack newItemStack(Blocks.wool,2,15)"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
@@ -9370,7 +8501,7 @@
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblerRecipes.java",
       "line": 9854,
-      "reason": "unresolved registered addon ItemRefer.Advanced_Radiation_Protection_Plate"
+      "reason": "unresolved ItemList.FuelPellet"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
@@ -9381,56 +8512,6 @@
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
       "line": 1025,
       "reason": "unresolved stack GTModHandler.getIC2Item(\"quantumBodyarmor\",1L,GTValues.W)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1072,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),8000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1088,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),16000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1214,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti64_LuV"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1234,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti64_LuV"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1259,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti64_LuV"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1285,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti64_ZPM"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1311,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti64_UV"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1337,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti64_UV"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1363,
-      "reason": "unresolved registered addon CustomItemList.eM_Computer_Casing"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1388,
-      "reason": "unresolved registered addon CustomItemList.eM_energyMulti64_UEV"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
@@ -9474,8 +8555,163 @@
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
-      "line": 1789,
-      "reason": "unresolved stack MaterialsAlloy.TRINIUM_REINFORCED_STEEL.getRotor(4)"
+      "line": 207,
+      "reason": "unresolved stack dataIn_Hatch.get(1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 237,
+      "reason": "unresolved stack dataOut_Hatch.get(1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 268,
+      "reason": "unresolved stack dataInAss_Hatch.get(1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 299,
+      "reason": "unresolved stack dataOutAss_Hatch.get(1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 330,
+      "reason": "unresolved ItemList.DroneCase"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 348,
+      "reason": "unresolved ItemList.Femtocontroller"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 365,
+      "reason": "unresolved ItemList.SolarSail"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 379,
+      "reason": "unresolved stack ItemRegistry.energyDistributor[9]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 397,
+      "reason": "unresolved ItemList.DysonSwarmReceiverDish"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 417,
+      "reason": "unresolved ItemList.DysonSwarmDeploymentUnitCasing"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 435,
+      "reason": "unresolved ItemList.DysonSwarmDeploymentUnitCore"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 453,
+      "reason": "unresolved ItemList.DysonSwarmDeploymentUnitMagnet"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 472,
+      "reason": "unresolved ItemList.DysonSwarmControlCasing"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 488,
+      "reason": "unresolved registered addon CustomItemList.tM_TeslaPrimary_6"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 504,
+      "reason": "unresolved registered addon CustomItemList.tM_TeslaSecondary"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 520,
+      "reason": "unresolved ItemList.DysonSwarmControlToroid"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 536,
+      "reason": "unresolved ItemList.DysonSwarmController"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1632,
+      "reason": "unresolved stack GregtechItemList.CosmicFabricManipulator.get(16)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1678,
+      "reason": "unresolved stack goodgenerator.loader.Loaders.AMHatch"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1695,
+      "reason": "unresolved stack newItemStack(GregTechAPI.sBlockGlass1,1,3)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1712,
+      "reason": "unresolved stack newItemStack(GregTechAPI.sBlockCasings10,1,8)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1750,
+      "reason": "unresolved stack newItemStack(ModBlocks.blockCasingsMisc,1,8)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1814,
+      "reason": "unresolved stack ElectrodeDetectorHatch.get(1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1834,
+      "reason": "unresolved stack LanthItemList.LUV_BEAMLINE_INPUT_HATCH"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1855,
+      "reason": "unresolved registered addon CustomItemList.Hatch_BEC_Connector"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1874,
+      "reason": "dynamic number: WILDCARD"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1894,
+      "reason": "unresolved registered addon CustomItemList.Hatch_LineOfSight_Connector"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1914,
+      "reason": "unresolved ItemList.ElectromagneticallyIsolatedCasing"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1937,
+      "reason": "unresolved ItemList.FineStructureConstantManipulator"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1960,
+      "reason": "unresolved stack GGItemList.AdvAssLine.get(1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 1984,
+      "reason": "unresolved ItemList.CoherencePreservingPlasmaConduit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/AssemblingLineRecipes.java",
+      "line": 2008,
+      "reason": "unresolved ItemList.ElectromagneticallyIsolatedCasing"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/BeamcraftingRecipes.java",
@@ -9528,21 +8764,6 @@
       "reason": "unresolved stack recipe.getResource()"
     },
     {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CannerRecipes.java",
-      "line": 64,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"liquid helium\"),1000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CannerRecipes.java",
-      "line": 69,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"liquid helium\"),3000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CannerRecipes.java",
-      "line": 74,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"liquid helium\"),6000)"
-    },
-    {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CentrifugeRecipes.java",
       "line": 617,
       "reason": "unresolved stack newItemStack(Blocks.dirt,1,32767)"
@@ -9551,31 +8772,6 @@
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CentrifugeRecipes.java",
       "line": 638,
       "reason": "unresolved stack GTBees.combs.getStackForType(CombType.INDIUM,8)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/ChemicalBathRecipes.java",
-      "line": 90,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),250)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/ChemicalBathRecipes.java",
-      "line": 96,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),250)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/ChemicalBathRecipes.java",
-      "line": 102,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),250)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/ChemicalBathRecipes.java",
-      "line": 108,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),250)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/ChemicalBathRecipes.java",
-      "line": 114,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),250)"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/ChemicalBathRecipes.java",
@@ -9880,12 +9076,407 @@
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
       "line": 934,
-      "reason": "unresolved stack RocketMaterial[(i-1)]"
+      "reason": "unresolved stack RocketMaterial[(2-1)]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
+      "line": 934,
+      "reason": "unresolved stack RocketMaterial[(3-1)]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
+      "line": 934,
+      "reason": "unresolved stack RocketMaterial[(4-1)]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
+      "line": 934,
+      "reason": "unresolved stack RocketMaterial[(5-1)]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
+      "line": 934,
+      "reason": "unresolved stack RocketMaterial[(6-1)]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
+      "line": 934,
+      "reason": "unresolved stack RocketMaterial[(7-1)]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
+      "line": 934,
+      "reason": "unresolved stack RocketMaterial[(8-1)]"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
       "line": 949,
-      "reason": "dynamic number: max(i+1,2)"
+      "reason": "unresolved stack RocketMaterial[2-1]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
+      "line": 949,
+      "reason": "unresolved stack RocketMaterial[3-1]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblerRecipes.java",
+      "line": 949,
+      "reason": "unresolved stack RocketMaterial[3-1]"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 32,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 46,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 59,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 76,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 89,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 102,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 115,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 133,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 144,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 155,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 166,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 177,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 188,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 199,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 210,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 221,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 233,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 245,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 259,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 273,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 287,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 301,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 313,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 326,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 338,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 352,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 365,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 377,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 389,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 402,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 415,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 427,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 441,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 455,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 469,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 483,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 497,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 511,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 523,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 535,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 549,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 563,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 575,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 589,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 603,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 617,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 631,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 645,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 659,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 673,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 687,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 701,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 715,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 729,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 743,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 757,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 771,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 783,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 797,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 811,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 825,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 839,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 853,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 865,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 879,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 893,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 907,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 921,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 933,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 947,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CircuitAssemblyLineRecipes.java",
+      "line": 961,
+      "reason": "unsupported map circuitAssemblyLineRecipes"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CompressorRecipes.java",
@@ -9906,31 +9497,6 @@
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CompressorRecipes.java",
       "line": 94,
       "reason": "unresolved stack GTOreDictUnificator.get(OrePrefixes.ingot,material,9L)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CompressorRecipes.java",
-      "line": 179,
-      "reason": "unresolved stack newItemStack(BlockGodforgeGlass.INSTANCE,1)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CuttingMachineRecipes.java",
-      "line": 219,
-      "reason": "dynamic number: meta"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CuttingMachineRecipes.java",
-      "line": 222,
-      "reason": "dynamic number: meta"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CuttingMachineRecipes.java",
-      "line": 226,
-      "reason": "dynamic number: meta"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/CuttingMachineRecipes.java",
-      "line": 229,
-      "reason": "dynamic number: meta"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/DistillationRecipes.java",
@@ -10038,19 +9604,9 @@
       "reason": "dynamic number: WILDCARD"
     },
     {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/ExtractorRecipes.java",
-      "line": 41,
-      "reason": "dynamic number: i"
-    },
-    {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/FluidExtractorRecipes.java",
       "line": 38,
       "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"xpjuice\"),250)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/FluidExtractorRecipes.java",
-      "line": 54,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"stone.seared\"),18)"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/FluidHeaterRecipes.java",
@@ -10249,11 +9805,6 @@
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/LaserEngraverRecipes.java",
-      "line": 181,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"oganesson\")!=null?FluidRegistry.getFluid(\"oganesson\"):FluidRegistry.getFluid(\"radon\"),4000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/LaserEngraverRecipes.java",
       "line": 353,
       "reason": "dynamic number: circuit"
     },
@@ -10273,16 +9824,6 @@
       "reason": "dynamic number: WILDCARD"
     },
     {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/MaceratorRecipes.java",
-      "line": 851,
-      "reason": "dynamic number: meta"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/MixerRecipes.java",
-      "line": 53,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),2000)"
-    },
-    {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/MixerRecipes.java",
       "line": 981,
       "reason": "unresolved stack newItemStack(Blocks.sand,3,1)"
@@ -10296,11 +9837,6 @@
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/MixerRecipes.java",
       "line": 1038,
       "reason": "unresolved stack FluidRegistry.getFluidStack(\"witchery:fluidspirit\",1000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/MixerRecipes.java",
-      "line": 1074,
-      "reason": "dynamic number: meta"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/recipes/MixerRecipes.java",
@@ -10586,6 +10122,36 @@
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptAmunRa.java",
       "line": 589,
       "reason": "unresolved stack input"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptAmunRa.java",
+      "line": 420,
+      "reason": "unresolved stack newItemStack(GameRegistry.findBlock(GalacticraftMars.ID,\"tile.marsMachine\"),1,8)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptAmunRa.java",
+      "line": 438,
+      "reason": "unresolved stack newItemStack(baseItem,4,27)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptAmunRa.java",
+      "line": 457,
+      "reason": "unresolved stack newItemStack(machines2)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptAmunRa.java",
+      "line": 475,
+      "reason": "unresolved stack newItemStack(baseItem,1,27)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptAmunRa.java",
+      "line": 491,
+      "reason": "unresolved stack newItemStack(msBoosters1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptAmunRa.java",
+      "line": 507,
+      "reason": "unresolved stack GameRegistry.findItemStack(GalaxySpace.ID,\"item.SchematicTier8\",1)"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptAppliedEnergistics2.java",
@@ -11419,11 +10985,6 @@
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptEFR.java",
-      "line": 1219,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2distilledwater\"),4000)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptEFR.java",
       "line": 1281,
       "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"potion.mineralwater\"),576)"
     },
@@ -11476,11 +11037,6 @@
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptEFR.java",
       "line": 2115,
       "reason": "unresolved stack newItemStack(Blocks.sand,4,1)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptEFR.java",
-      "line": 2127,
-      "reason": "unresolved stack lens"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptEFR.java",
@@ -11678,29 +11234,59 @@
       "reason": "unresolved ItemList.Magnetic_Chassis_T2_ExoFoundry"
     },
     {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 105,
+      "reason": "unresolved ItemList.Central_Casing_ExoFoundry"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 126,
+      "reason": "unresolved ItemList.Secondary_Casing_ExoFoundry"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 144,
+      "reason": "unresolved ItemList.Magnetic_Chassis_T1_ExoFoundry"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 164,
+      "reason": "unresolved ItemList.Magnetic_Chassis_T2_ExoFoundry"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 205,
+      "reason": "unresolved ItemList.Magnetic_Chassis_T2_ExoFoundry"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 225,
+      "reason": "unresolved ItemList.Magnetic_Chassis_T3_ExoFoundry"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 247,
+      "reason": "unresolved ItemList.Primary_Casing_ExoFoundry"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 271,
+      "reason": "unresolved ItemList.Primary_Casing_ExoFoundry"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 289,
+      "reason": "unresolved ItemList.Primary_Casing_ExoFoundry"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptFoundryRecipes.java",
+      "line": 309,
+      "reason": "unresolved ItemList.Magnetic_Chassis_T1_ExoFoundry"
+    },
+    {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptGalacticraft.java",
       "line": 1724,
       "reason": "unresolved stack FluidRegistry.getFluidStack(\"refinedglue\",144)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptGalacticraft.java",
-      "line": 1855,
-      "reason": "unresolved stack lens"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptGalacticraft.java",
-      "line": 1861,
-      "reason": "unresolved stack lens"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptGalacticraft.java",
-      "line": 1867,
-      "reason": "unresolved stack lens"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptGalacticraft.java",
-      "line": 1873,
-      "reason": "unresolved stack lens"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptGalacticraft.java",
@@ -12249,6 +11835,56 @@
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 461,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 461,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 461,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 461,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 461,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 559,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 559,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 559,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 559,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
+      "line": 559,
+      "reason": "dynamic number: circuit"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptLogisticPipes.java",
       "line": 559,
       "reason": "dynamic number: circuit"
     },
@@ -12400,17 +12036,17 @@
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMatterManipulator.java",
       "line": 217,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),16000)"
+      "reason": "unresolved stack MMItemList.PowerCore2.get(1)"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMatterManipulator.java",
       "line": 233,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),32000)"
+      "reason": "unresolved stack MMItemList.ComputerCore2.get(1)"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMatterManipulator.java",
       "line": 249,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"ic2coolant\"),32000)"
+      "reason": "unresolved stack MMItemList.TeleporterCore2.get(1)"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMatterManipulator.java",
@@ -12488,6 +12124,21 @@
       "reason": "unresolved stack MMItemList.UpgradeBlank.get(1)"
     },
     {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMatterManipulator.java",
+      "line": 421,
+      "reason": "unresolved stack AEApi.instance().definitions().parts().patternTerminal().maybeStack(1).get()"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMatterManipulator.java",
+      "line": 441,
+      "reason": "unresolved stack AEApi.instance().definitions().blocks().quantumLink().maybeStack(1).get()"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMatterManipulator.java",
+      "line": 518,
+      "reason": "unresolved stack AEApi.instance().definitions().parts().p2PTunnelGregtech().maybeStack(1).get()"
+    },
+    {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMinecraft.java",
       "line": 249,
       "reason": "unresolved stack newOreDictItemStack(\"plankWood\",6)"
@@ -12561,6 +12212,11 @@
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptNanochipRecipes.java",
       "line": 517,
       "reason": "unresolved stack cc.getFakeStack(1)"
+    },
+    {
+      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptNanochipRecipes.java",
+      "line": 215,
+      "reason": "unresolved stack ItemRegistry.cal"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptNatura.java",
@@ -14134,11 +13790,6 @@
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTCCoreMod.java",
-      "line": 1139,
-      "reason": "unresolved stack MaterialsElements.RHODIUM.getBlock(1)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTCCoreMod.java",
       "line": 1148,
       "reason": "unsupported map fusionCraftingRecipes"
     },
@@ -14166,11 +13817,6 @@
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptThaumicBases.java",
       "line": 1295,
       "reason": "unresolved stack getModItem(ThaumicBases.ID,blockId,1,blockMeta)"
-    },
-    {
-      "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
-      "line": 2075,
-      "reason": "unresolved stack newFluidStack(FluidRegistry.getFluid(\"stone.seared\"),360)"
     },
     {
       "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
@@ -14241,10 +13887,90 @@
       "file": "goodgenerator/loader/RecipeLoader2.java",
       "line": 1571,
       "reason": "extreme heat exchange: unresolved stack tPlasma"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3708,
+      "reason": "unresolved stack newItemStack(Blocks.red_flower,1,1)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3714,
+      "reason": "unresolved stack newItemStack(Blocks.red_flower,1,2)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3720,
+      "reason": "unresolved stack newItemStack(Blocks.red_flower,1,3)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3726,
+      "reason": "unresolved stack newItemStack(Blocks.red_flower,1,4)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3732,
+      "reason": "unresolved stack newItemStack(Blocks.red_flower,1,5)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3738,
+      "reason": "unresolved stack newItemStack(Blocks.red_flower,1,6)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3744,
+      "reason": "unresolved stack newItemStack(Blocks.red_flower,1,7)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3750,
+      "reason": "unresolved stack newItemStack(Blocks.red_flower,1,8)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3768,
+      "reason": "unresolved stack newItemStack(Blocks.double_plant,1,1)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3774,
+      "reason": "unresolved stack newItemStack(Blocks.double_plant,1,4)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3780,
+      "reason": "unresolved stack newItemStack(Blocks.double_plant,1,5)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3790,
+      "reason": "unresolved stack newItemStack(Blocks.red_flower,8,32767)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3797,
+      "reason": "unresolved stack newItemStack(Blocks.yellow_flower,8,32767)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3813,
+      "reason": "unresolved ItemList.Dye_Cocoa"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3834,
+      "reason": "unresolved stack GTModHandler.getIC2Item(\"crop\",1L)"
+    },
+    {
+      "file": "gregtech/common/items/MetaGeneratedItem02.java",
+      "line": 3848,
+      "reason": "dynamic number: WILDCARD"
     }
   ],
   "crafting": {
-    "recipes": 7613,
+    "recipes": 10721,
     "unresolved": [
       {
         "file": "gregtech/loaders/postload/CraftingRecipeLoader.java",
@@ -14870,6 +14596,31 @@
         "file": "gregtech/loaders/postload/CraftingRecipeLoader.java",
         "line": 1948,
         "reason": "unresolved ItemList.MagLevHarness"
+      },
+      {
+        "file": "gregtech/loaders/postload/recipes/SmelterRecipes.java",
+        "line": 24,
+        "reason": "unresolved ItemList.Food_Baked_Bread"
+      },
+      {
+        "file": "gregtech/loaders/postload/recipes/SmelterRecipes.java",
+        "line": 48,
+        "reason": "unsupported form oreBlackgranite"
+      },
+      {
+        "file": "gregtech/loaders/postload/recipes/SmelterRecipes.java",
+        "line": 52,
+        "reason": "unsupported form oreEndstone"
+      },
+      {
+        "file": "gregtech/loaders/postload/recipes/SmelterRecipes.java",
+        "line": 56,
+        "reason": "unsupported form oreNetherrack"
+      },
+      {
+        "file": "gregtech/loaders/postload/recipes/SmelterRecipes.java",
+        "line": 64,
+        "reason": "unsupported form oreRedgranite"
       },
       {
         "file": "gregtech/common/items/MetaGeneratedItem01.java",
@@ -17818,11 +17569,6 @@
       },
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptCoreMod.java",
-        "line": 108,
-        "reason": "unresolved crafting dictionary cobblestone"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptCoreMod.java",
         "line": 113,
         "reason": "unresolved crafting dictionary stoneObsidian"
       },
@@ -18035,11 +17781,6 @@
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptDraconicEvolution.java",
         "line": 1184,
         "reason": "unresolved crafting dictionary gearDraconium"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptEFR.java",
-        "line": 130,
-        "reason": "unresolved crafting dictionary cobblestone"
       },
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptEFR.java",
@@ -23103,21 +22844,6 @@
       },
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMinecraft.java",
-        "line": 551,
-        "reason": "unresolved crafting dictionary cobblestone"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMinecraft.java",
-        "line": 562,
-        "reason": "unresolved crafting dictionary cobblestone"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMinecraft.java",
-        "line": 573,
-        "reason": "unresolved crafting dictionary cobblestone"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptMinecraft.java",
         "line": 584,
         "reason": "unresolved crafting dictionary fenceWood"
       },
@@ -23613,11 +23339,6 @@
       },
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptRailcraft.java",
-        "line": 1335,
-        "reason": "unresolved crafting dictionary sand"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptRailcraft.java",
         "line": 1389,
         "reason": "container return needs a runtime crafting snapshot: modItem_Minecraft_potion_8229"
       },
@@ -23878,28 +23599,8 @@
       },
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
-        "line": 404,
-        "reason": "unresolved crafting dictionary sand"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
-        "line": 416,
-        "reason": "unresolved crafting dictionary sand"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
-        "line": 427,
-        "reason": "unresolved crafting dictionary sand"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
-        "line": 438,
-        "reason": "unresolved crafting dictionary sand"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
         "line": 449,
-        "reason": "unresolved crafting dictionary sand"
+        "reason": "container return needs a runtime crafting snapshot: modItem_IguanaTweaksTinkerConstruct_clayBucketWater_0"
       },
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
@@ -23909,12 +23610,12 @@
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
         "line": 471,
-        "reason": "unresolved crafting dictionary sand"
+        "reason": "container return needs a runtime crafting snapshot: modItem_IguanaTweaksTinkerConstruct_clayBucketWater_0"
       },
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
         "line": 482,
-        "reason": "unresolved crafting dictionary sand"
+        "reason": "container return needs a runtime crafting snapshot: modItem_IguanaTweaksTinkerConstruct_clayBucketWater_0"
       },
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/scripts/ScriptTinkersConstruct.java",
@@ -24330,11 +24031,6 @@
         "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_CraftingRecipeLoader.java",
         "line": 1098,
         "reason": "unresolved stack newOreDictItemStack(\"sand\",1L)"
-      },
-      {
-        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_CraftingRecipeLoader.java",
-        "line": 1105,
-        "reason": "unresolved stack newItemStack(Blocks.sand,1,32767)"
       },
       {
         "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_CraftingRecipeLoader.java",
@@ -24797,6 +24493,146 @@
         "reason": "unresolved stack craft.getResult()"
       },
       {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 323,
+        "reason": "unresolved stack newItemStack(Items.brewing_stand,1,32767)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 331,
+        "reason": "unresolved stack newItemStack(Items.brewing_stand,1,32767)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 339,
+        "reason": "unresolved stack newItemStack(Items.brewing_stand,1,32767)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 346,
+        "reason": "unresolved stack newItemStack(Items.brewing_stand,1,32767)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 354,
+        "reason": "unresolved stack newItemStack(Items.brewing_stand,1,32767)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 362,
+        "reason": "unresolved stack newItemStack(Items.brewing_stand,1,32767)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 371,
+        "reason": "unresolved stack newItemStack(Items.brewing_stand,1,32767)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 380,
+        "reason": "unresolved stack OrePrefixes.rotor.get(LuVMat2)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 606,
+        "reason": "unresolved stack OrePrefixes.rotor.get(LuVMat2)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 818,
+        "reason": "unsupported form battery"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 979,
+        "reason": "container or fluid crafting ingredient needs return handling"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 987,
+        "reason": "container or fluid crafting ingredient needs return handling"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 995,
+        "reason": "container or fluid crafting ingredient needs return handling"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 1003,
+        "reason": "container or fluid crafting ingredient needs return handling"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 1012,
+        "reason": "container or fluid crafting ingredient needs return handling"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 1021,
+        "reason": "container or fluid crafting ingredient needs return handling"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 1031,
+        "reason": "container or fluid crafting ingredient needs return handling"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 1040,
+        "reason": "container or fluid crafting ingredient needs return handling"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 1050,
+        "reason": "container or fluid crafting ingredient needs return handling"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 1276,
+        "reason": "unresolved stack OrePrefixes.plate.get(Materials.get(\"Rhodium-PlatedPalladium\"))"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 2313,
+        "reason": "unresolved stack OrePrefixes.rotor.get(LuVMat2)"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 2663,
+        "reason": "nonfluid cell Graphite"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 2671,
+        "reason": "nonfluid cell Graphite"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 2680,
+        "reason": "nonfluid cell Graphite"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 2689,
+        "reason": "nonfluid cell Graphite"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 2698,
+        "reason": "nonfluid cell Graphite"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 2707,
+        "reason": "nonfluid cell Graphite"
+      },
+      {
+        "file": "NewHorizonsCoreMod/com/dreammaster/gthandler/GT_Loader_Machines.java",
+        "line": 2716,
+        "reason": "nonfluid cell Graphite"
+      },
+      {
         "file": "bartworks/common/loaders/recipes/CraftingRecipes.java",
         "line": 79,
         "reason": "unresolved stack newMTELESU(LESU.ID,\"LESU\",\"L.E.S.U.\").getStackForm(1L)"
@@ -25099,7 +24935,7 @@
       {
         "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
         "line": 462,
-        "reason": "unresolved stack GregtechItemList.GTPP_Casing_IV.get(1)"
+        "reason": "unresolved stack MaterialsAlloy.INCONEL_792.getComponentByPrefix(OrePrefixes.pipeMedium,1)"
       },
       {
         "file": "gtPlusPlus/core/recipe/RecipesMachinesCustom.java",
@@ -25407,36 +25243,6 @@
         "reason": "unresolved stack GregtechItemList.BoilerChassis_Tier2.get(1)"
       },
       {
-        "file": "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechBufferDynamos.java",
-        "line": 51,
-        "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_HV"
-      },
-      {
-        "file": "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechBufferDynamos.java",
-        "line": 55,
-        "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_EV"
-      },
-      {
-        "file": "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechBufferDynamos.java",
-        "line": 59,
-        "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_IV"
-      },
-      {
-        "file": "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechBufferDynamos.java",
-        "line": 63,
-        "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_LuV"
-      },
-      {
-        "file": "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechBufferDynamos.java",
-        "line": 67,
-        "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_ZPM"
-      },
-      {
-        "file": "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechBufferDynamos.java",
-        "line": 71,
-        "reason": "unresolved registered addon CustomItemList.eM_dynamoMulti4_UV"
-      },
-      {
         "file": "gtPlusPlus/xmod/gregtech/registration/gregtech/GregtechConduits.java",
         "line": 644,
         "reason": "conditional or loop crafting registration needs expansion"
@@ -25578,16 +25384,6 @@
       },
       {
         "file": "goodgenerator/loader/RecipeLoader.java",
-        "line": 889,
-        "reason": "unresolved registered addon ItemRefer.Special_Ceramics_Plate"
-      },
-      {
-        "file": "goodgenerator/loader/RecipeLoader.java",
-        "line": 980,
-        "reason": "unresolved registered addon ItemRefer.Plastic_Case"
-      },
-      {
-        "file": "goodgenerator/loader/RecipeLoader.java",
         "line": 1098,
         "reason": "unresolved stack Loaders.NeutronAccelerators[0]"
       },
@@ -25599,7 +25395,7 @@
       {
         "file": "goodgenerator/loader/RecipeLoader.java",
         "line": 1337,
-        "reason": "unresolved registered addon ItemRefer.Neutron_Source"
+        "reason": "unresolved registered addon ItemRefer.High_Density_Uranium"
       },
       {
         "file": "goodgenerator/loader/RecipeLoader2.java",

@@ -91,19 +91,37 @@ export function runtime(game,d,r){
     return {seconds:Math.max(1,Math.trunc(r.seconds*20/2**count))/20,power,steamPerSecond:0,valid:r.power<=voltage(d)*spec.recipeAmps&&power<=voltage(d)*spec.recipeAmps};
   }
   let power=r.power||0,seconds=r.seconds*(r.bath?boardBathDuration(d):1);
+  if(spec?.nanochip){
+    const capacity=voltage(d)*spec.recipeAmps;
+    const matrix=r.process==='nanochipAssemble';
+    const recipeTier=matrix?r.requirements?.nanochipTier??1:Math.ceil(Math.log(Math.max(8,power)/8)/Math.log(4));
+    const casing=game.catalog.machines[d.type].capabilities?.nanochipTier??recipeTier;
+    if(matrix)power*=.95**Math.max(0,casing-recipeTier);
+    if(power>capacity)return {seconds,power,steamPerSecond:0,valid:false};
+    // MTENanochipAssemblyModuleBase: 2/2 OC, then spare-power 2/4 OC.
+    // Both phases stop before a batch would become shorter than five seconds.
+    let overclocks=Math.max(0,d.energyTier-recipeTier);
+    while(overclocks-->0&&power>0&&seconds/2>=5&&power*2<=capacity){seconds/=2;power*=2;}
+    power=Math.trunc(power);seconds=Math.max(.05,Math.trunc(seconds*20)/20);
+    while(power>0&&seconds/2>=5&&power*4<=capacity){seconds=Math.trunc(seconds*20/2)/20;power*=4;}
+    return {seconds,power,steamPerSecond:0,valid:true};
+  }
+  if(r.fixedRuntime)return {seconds,power,steamPerSecond:0,valid:power<=voltage(d)*(spec?.recipeAmps??1)&&(!r.requirements?.researchVoltage||r.requirements.researchVoltage<=voltage(d))};
   if(r.process==='algaePond')return {seconds,power,steamPerSecond:0,valid:power<=voltage(d)};
   if(spec?.kind==='consumer'){
-    if(power>voltage(d))return {seconds,power,steamPerSecond:0,valid:false};
+    const recipeCapacity=voltage(d)*(spec.recipeAmps??1);
+    if(power>recipeCapacity)return {seconds,power,steamPerSecond:0,valid:false};
     if(spec.fusion&&(r.startup??0)>fusionCapacity(spec,d.energyTier))return {seconds,power,steamPerSecond:0,valid:false};
     // EBF surplus heat grants 5% EU discount per 900 K and perfect
     // overclocks per 1800 K. Installed coils and voltage heat are independent.
     const surplus=d.type==='ebf'&&r.requirements?.heat?Math.max(0,machineHeat(game,d)-r.requirements.heat):0;
     let perfect=game.catalog.machines[d.type]?.perfectOverclock?Number.MAX_SAFE_INTEGER:Math.floor(surplus/1800);
     const recipeTier=power>0?Math.max(1,Math.ceil(Math.log(power/8)/Math.log(4))):d.energyTier;
-    let overclocks=Math.max(0,d.energyTier-recipeTier),factor=4;
+    const processingTier=spec.combinedInput||spec.amperageOC?Math.floor(Math.log(recipeCapacity/8)/Math.log(4)):d.energyTier;
+    let overclocks=Math.max(0,processingTier-recipeTier),factor=4;
     if(spec.fusion){const fusion=fusionOverclock(spec,d.energyTier,r);overclocks=fusion.count;factor=fusion.factor;perfect=spec.advancedFusion?Number.MAX_SAFE_INTEGER:0;}
     if(surplus)power*=.95**Math.floor(surplus/900);
-    while(overclocks-->0&&power>0&&power*factor<=voltage(d)&&seconds>.05){power*=factor;seconds/=perfect-->0?4:2;}
+    while(overclocks-->0&&power>0&&power*factor<=(spec.combinedInput||spec.amperageOC?recipeCapacity:voltage(d))&&seconds>.05){power*=factor;seconds/=perfect-->0?4:2;}
     power=Math.ceil(power);
     seconds=Math.ceil(seconds*20-1e-8)/20;
   }

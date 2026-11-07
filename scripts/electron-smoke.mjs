@@ -13,11 +13,16 @@ const app=portable?await launchPortable(path.resolve(`release/${productName}-${v
 try{
   const win=await app.firstWindow();win.setDefaultTimeout(10000);const errors=[];win.on('pageerror',x=>errors.push(x.message));
   await win.waitForSelector('[data-page="resources"]');
+  // Sidebar HTML precedes module initialization. Wait for the first render
+  // before clicking: packaged file loading may register handlers later.
+  await win.waitForSelector('#page[data-page="overview"]');
   await expect(win.locator('#saveStatus')).toContainText('v'+version);
   await expect(win).toHaveTitle(productName);
   await expect(win.locator('.brand strong')).toHaveText(productName);
   await expect(win.locator('[data-page="fluids"]')).toHaveCount(0);
-  await win.locator('[data-page="resources"]').first().click();await win.locator('[data-gather-hit="forest"]').click();await win.waitForTimeout(2300);
+  await win.locator('[data-page="resources"]').first().click();
+  await expect(win.locator('#page')).toHaveAttribute('data-page','resources');
+  await win.locator('[data-gather-hit="forest"]').click();await win.waitForTimeout(2300);
   await expect(win.locator('[data-qty="wood"]')).toHaveText('0');
   for(let i=0;i<3;i++)await win.locator('[data-gather="forest"]').click();
   await expect(win.locator('[data-qty="wood"]')).toHaveText(/^[1-3]$/);
