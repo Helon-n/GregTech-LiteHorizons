@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.content.pm.ApplicationInfo;
+import android.util.Log;
 import android.webkit.*;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +19,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public final class MainActivity extends Activity {
+    private static final String TAG="GTLHWebView";
     private static final String HOST="appassets.androidplatform.net";
     private static final String HOME="https://"+HOST+"/assets/index.html";
     private static final int EXPORT=1, IMPORT=2;
@@ -24,6 +27,8 @@ public final class MainActivity extends Activity {
     private WebView web;
     private String requestId, exportText;
     private boolean foreground, ready, fileBusy;
+    private volatile String startupError;
+    private boolean startupAlert;
     private final ExecutorService io=Executors.newSingleThreadExecutor();
 
     @Override public void onCreate(Bundle state) {
@@ -47,21 +52,34 @@ public final class MainActivity extends Activity {
         web.setHorizontalScrollBarEnabled(false);web.setVerticalScrollBarEnabled(false);
         web.addJavascriptInterface(new Bridge(),"GTLHAndroid");
         web.setWebViewClient(new WebViewClient(){
+            @Override public void onPageStarted(WebView view,String url,android.graphics.Bitmap icon){ready=false;startupError=null;startupAlert=false;}
             @Override public WebResourceResponse shouldInterceptRequest(WebView view,WebResourceRequest request){return resource(request.getUrl());}
             @Override public boolean shouldOverrideUrlLoading(WebView view,WebResourceRequest request){return !trusted(request.getUrl());}
             @Override public void onPageFinished(WebView view,String url){
-                ready=HOME.equals(url);
-                if(ready)web.evaluateJavascript("window.gtlhLifecycle?.("+!foreground+")",r->{if(!foreground&&!isDestroyed()){web.onPause();web.pauseTimers();}});
+                if(!HOME.equals(url))return;
+                web.evaluateJavascript("typeof window.gtlhBack==='function' && document.getElementById('page').children.length>0",loaded->{
+                    if(isFinishing()||isDestroyed())return;
+                    ready="true".equals(loaded);
+                    if(!ready){showStartupError();return;}
+                    web.evaluateJavascript("window.gtlhLifecycle("+!foreground+")",r->{if(!foreground&&!isDestroyed()){web.onPause();web.pauseTimers();}});
+                });
             }
             @Override public void onReceivedError(WebView view,WebResourceRequest request,WebResourceError error){
-                if(request.isForMainFrame())new AlertDialog.Builder(MainActivity.this).setTitle("页面未能打开")
-                    .setMessage("请更新 Android System WebView 后重试。").setPositiveButton("重试",(d,w)->web.loadUrl(HOME)).show();
+                if(!ready)startupError=error.getDescription().toString()+"\n"+request.getUrl().getPath();
+                if(request.isForMainFrame())showStartupError();
             }
         });
         web.setWebChromeClient(new WebChromeClient(){
             @Override public void onProgressChanged(WebView view,int progress){if(progress==100)immersive();}
+            @Override public boolean onConsoleMessage(ConsoleMessage message){
+                if(message.messageLevel()==ConsoleMessage.MessageLevel.ERROR){
+                    if(!ready&&startupError==null)startupError=message.message()+"\n"+Uri.parse(message.sourceId()).getPath()+":"+message.lineNumber();
+                    Log.e(TAG,message.message()+" ("+message.sourceId()+":"+message.lineNumber()+")");
+                }
+                return true;
+            }
         });
-        WebView.setWebContentsDebuggingEnabled(false);
+        WebView.setWebContentsDebuggingEnabled((getApplicationInfo().flags&ApplicationInfo.FLAG_DEBUGGABLE)!=0);
         immersive();web.loadUrl(HOME);
     }
     private boolean trusted(Uri uri){return "https".equals(uri.getScheme())&&HOST.equals(uri.getHost())&&(uri.getPort()==-1||uri.getPort()==443)&&uri.getPath()!=null&&uri.getPath().startsWith("/assets/");}
@@ -75,7 +93,15 @@ public final class MainActivity extends Activity {
             case "svg":mime="image/svg+xml";break;case "woff2":mime="font/woff2";break;default:mime="application/octet-stream";}
         Map<String,String> headers=new HashMap<>();headers.put("Cache-Control","no-cache");headers.put("X-Content-Type-Options","nosniff");
         try{return new WebResourceResponse(mime,"UTF-8",200,"OK",headers,getAssets().open(path));}
-        catch(IOException error){return new WebResourceResponse("text/plain","UTF-8",404,"Not found",Collections.emptyMap(),new ByteArrayInputStream(new byte[0]));}
+        catch(IOException error){if(!ready&&startupError==null)startupError="无法读取本地文件："+path;Log.e(TAG,"Asset could not be opened: "+path,error);return new WebResourceResponse("text/plain","UTF-8",404,"Not found",Collections.emptyMap(),new ByteArrayInputStream(new byte[0]));}
+    }
+    private void showStartupError(){
+        if(startupAlert||isFinishing()||isDestroyed())return;startupAlert=true;
+        String detail=startupError==null?"游戏脚本未完成加载。":startupError;
+        if(detail.length()>700)detail=detail.substring(0,700);
+        new AlertDialog.Builder(this).setTitle("游戏未能启动")
+            .setMessage("请重试；若仍失败，请更新 Android System WebView。\n\n"+detail)
+            .setPositiveButton("重试",(d,w)->web.reload()).setNegativeButton("关闭",(d,w)->finish()).setCancelable(false).show();
     }
     private void immersive(){
         if(android.os.Build.VERSION.SDK_INT>=28){WindowManager.LayoutParams attrs=getWindow().getAttributes();attrs.layoutInDisplayCutoutMode=WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;getWindow().setAttributes(attrs);}

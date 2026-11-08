@@ -1,6 +1,7 @@
 import {outputRolls} from './core/recipe-yields.js';
 import {planRecipe,planRoutes,planGatherNodes,planSupplyMachines,recipeMachines,planInFlight} from './core/production-plan.js';
 import {machineSupportsRecipe} from './core/technology.js';
+import {createRecipeWorker,destroyRecipeWorker} from './recipe-worker.js';
 
 // Preview calculations run in a worker after explicit actions, never on the UI clock.
 // The active plan refreshes text/progress in place without rebuilding the tree.
@@ -22,17 +23,19 @@ export function createRecipeTreeView(h){
     h.updateDisabled(panel.querySelector('[data-tree-action="start"]'),cannotStart());
     h.refit();
   }
-  function stopWorker(){if(worker){worker.onmessage=null;worker.onerror=null;worker.onmessageerror=null;worker.terminate();worker=null;}clearTimeout(deadline);}
+  function stopWorker(){if(worker){worker.onmessage=null;worker.onerror=null;worker.onmessageerror=null;destroyRecipeWorker(worker);worker=null;}clearTimeout(deadline);}
   function fail(message){
     stopWorker();loading=false;preview=null;error=message;updatePreview();
   }
-  function calculate(){
+  async function calculate(){
     collapsed.clear();error='';preview=null;previewGame=game();previewStage=game().state.stage;
     if(loading)stopWorker();clearTimeout(deadline);
     const id=++request;loading=!!rootId;if(!rootId)return;
     try{
       if(!worker){
-        worker=new Worker(new URL('./recipe-tree-worker.js',import.meta.url),{type:'module'});
+        const created=await createRecipeWorker();
+        if(id!==request){destroyRecipeWorker(created);return;}
+        worker=created;
         worker.onmessage=({data})=>{
           if(data.id!==request)return;
           clearTimeout(deadline);loading=false;preview=data.preview||null;error=data.error||'';updatePreview();
@@ -42,7 +45,7 @@ export function createRecipeTreeView(h){
       }
       worker.postMessage({id,root:rootId,batches,choices,favorites:h.favorites(),state:game().state});
       deadline=setTimeout(()=>{if(id===request&&loading)fail('配方计算时间过长，请减少批数或更换路线后重试。');},15000);
-    }catch{fail('材料预览暂时无法计算，请点击「按当前库存重算」重试。');}
+    }catch{if(id===request)fail('材料预览暂时无法计算，请点击「按当前库存重算」重试。');}
   }
   function sourceCard(id,{node,machine},selectable=false){
     if(machine)return `<div class="tree-row"><span class="tree-item">${icon(machine.id)}<span><strong>${e(machine.name)}</strong><small>在工厂配置原料、供能和输出容器</small></span></span><button class="text-link" data-page="factory">前往工厂 →</button></div>`;

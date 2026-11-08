@@ -68,6 +68,8 @@ APK 在 `release/android/`。构建脚本直接使用 Android SDK 工具，不�
 
 触屏界面检查：先运行 `npm run dev:web`，再运行 `npm run test:ui:mobile`。这是浏览器中的触屏与尺寸检查，不能替代真机安装测试。
 
+Android WebView 检查使用名为 `GTLH_test` 的独立模拟器：运行 `npm run build:android -- --debug-webview`，安装并打开 `.local/android-diagnostics/` 中的诊断 APK，再运行 `npm run test:android -- --serial emulator-5580`（端口按实际调整）。检查会创建测试存档、访问全部页面，并检查图标、采集、合成、配方树、容器、工厂和后台暂停。诊断包不进入发布目录；正常构建关闭 WebView 调试。
+
 ## 文档
 
 - [版本记录](docs/CHANGELOG.md)

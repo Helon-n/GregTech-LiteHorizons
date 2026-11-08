@@ -25,12 +25,14 @@
     "release:windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/release-windows.ps1",
     "import:instance": "python scripts/import-instance.py",
     "build:android": "node scripts/build-android.mjs",
-    "test:ui:mobile": "node scripts/ui-mobile.mjs"
+    "test:ui:mobile": "node scripts/ui-mobile.mjs",
+    "test:android": "node scripts/android-smoke.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
     "electron": "^34.2.0",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "^26.0.12",
+    "esbuild": "^0.28.2"
   },
   "build": {
     "appId": "dev.gtnh.idle",
