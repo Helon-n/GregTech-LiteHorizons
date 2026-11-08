@@ -1,4 +1,5 @@
 import {beamKind} from './core/beamline.js';
+import {itemImage} from './item-art.js';
 import {isEOH} from './core/eoh.js';
 import {advancedControls} from './advanced-controls.js';
 import {becKind} from './core/bec.js';
@@ -104,7 +105,7 @@ const selectedItems={craft:'stick',machines:'workbench',recipes:'brick'};
 const allRecipeEntries=recipeEntries(CATALOG,STAGES.length-1);
 const recipeName=r=>productName(CATALOG,r);
 const favoriteKey=r=>r?.id||'';
-const icon=(id,large=false)=>`<span data-item="${id}" class="item-art ${large?'large':''}"><img src="assets/gtnh/${items[id]?.icon||id}.svg" alt="" draggable="false"></span>`;
+const icon=(id,large=false)=>`<span data-item="${id}" class="item-art ${large?'large':''}">${itemImage(items[id],id)}</span>`;
 const qty=id=>`<span data-qty="${id}">${num(game.quantity(id))}</span>`;
 const heading=(title,action='')=>`<div class="heading"><h1>${title}</h1>${action?`<div class="heading-actions">${action}</div>`:''}</div>`;
 const panel=(title,sub,body,cls='')=>`<section class="surface section ${cls}"><div class="section-head"><h3>${title}</h3><span>${sub}</span></div>${body}</section>`;

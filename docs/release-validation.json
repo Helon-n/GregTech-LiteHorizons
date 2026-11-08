@@ -1,0 +1,19 @@
+﻿{
+    "version":  "0.1.21",
+    "completedUtc":  "2026-11-08T03:50:22.5735259Z",
+    "platform":  "windows-x64",
+    "isolatedSave":  true,
+    "checks":  [
+                   "desktop-smoke",
+                   "construction",
+                   "source-navigation",
+                   "mining-access",
+                   "choice-input",
+                   "pinyin-search",
+                   "recipe-tree",
+                   "item-presentations",
+                   "all-catalog-icons",
+                   "portable-smoke"
+               ],
+    "status":  "passed"
+}

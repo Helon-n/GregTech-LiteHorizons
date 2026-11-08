@@ -1,5 +1,6 @@
 // Contextual icon cards keep selection visual and usable without dropdown lists.
 import {updateText,updateDisabled,updateAttribute} from './live-view.js';
+import {itemImage,itemIconPath,itemIconTitle} from './item-art.js';
 import {items,recipes,STAGES} from './data/catalog.js';
 import {planGrid,gridStyle,fitPageLimits} from './layout.js';
 import {productName} from './core/recipe-browser.js';
@@ -14,7 +15,7 @@ dialog.id='choiceDialog';
 dialog.setAttribute('aria-label','选择项目');
 document.body.append(dialog);
 const escape=text=>String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const art=id=>`<img src="assets/gtnh/${escape(items[id]?.icon||id)}.svg" alt="" draggable="false">`;
+const art=id=>itemImage(items[id],id);
 function details(select,option){
   if(!option.value)return {icon:'ui-inventory',label:option.text,meta:'',recipe:null};
   if(select.dataset.assign){const recipe=recipeById.get(option.value);return {icon:recipe?.fuel||Object.keys(recipe?.outputs||{})[0]||'turbine',label:recipe?productName({items},recipe):option.text,meta:recipe?`解锁 ${STAGES[recipe.stage].code} · 耗能 ${recipeEnergyText(recipe)}`:'',recipe};}
@@ -52,7 +53,8 @@ export function syncChoices(root=document){
     updateText(button.querySelector('[data-choice-label]'),label);
     updateText(button.querySelector('[data-choice-meta]'),detail?.recipe?'':detail?.meta||'');
     const icon=detail?.icon||'ui-inventory';
-    updateAttribute(button.querySelector('img'),'src',`assets/gtnh/${items[icon]?.icon||icon}.svg`);
+    updateAttribute(button.querySelector('img'),'src',itemIconPath(items[icon],icon));
+    updateAttribute(button.querySelector('img'),'title',itemIconTitle(items[icon],icon));
     updateAttribute(button,'title',select.title||title(select));
     updateAttribute(button,'aria-label',title(select)+'：'+label+(detail?.meta?'，'+detail.meta:''));
   }
@@ -62,7 +64,8 @@ export function syncChoices(root=document){
     if(detail.recipe)continue;
     updateText(button.querySelector('strong'),detail.label);
     updateText(button.querySelector('small'),detail.meta||'');
-    updateAttribute(button.querySelector('img'),'src',`assets/gtnh/${items[detail.icon]?.icon||detail.icon}.svg`);
+    updateAttribute(button.querySelector('img'),'src',itemIconPath(items[detail.icon],detail.icon));
+    updateAttribute(button.querySelector('img'),'title',itemIconTitle(items[detail.icon],detail.icon));
   }
 }
 export function closeChoices(){if(dialog.open)dialog.close();source=null;composing=false;}

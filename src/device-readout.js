@@ -6,12 +6,13 @@ import {purificationTier,purificationHost,purificationChance} from './core/purif
 import {RTG_REFERENCE as RTG} from './data/rtg-reference.js';
 import {NUCLEAR_REFERENCE as NUCLEAR} from './data/nuclear-reference.js';
 import {bioDose} from './core/biochemistry.js';
+import {itemImage} from './item-art.js';
 
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const exact=n=>Math.floor(Math.max(0,n||0)).toLocaleString('zh-CN');
 const amount=n=>n>=1e9?(n/1e9).toFixed(1)+'G':n>=1e6?(n/1e6).toFixed(1)+'M':exact(n);
 const percent=m=>(m.value-(m.min||0))/Math.max(1,m.max-(m.min||0))*100;
-const image=(game,id)=>`<img src="assets/gtnh/${escape(game.catalog.items[id]?.icon||id)}.svg" alt="" draggable="false">`;
+const image=(game,id)=>itemImage(game.catalog.items[id],id);
 const description=m=>`${m.label}，${m.direction}，${exact(m.value)} / ${exact(m.max)} ${m.unit}${m.detail?'，'+m.detail:''}`;
 
 function model(game,d){

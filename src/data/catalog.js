@@ -8,6 +8,7 @@ import {ITEM_IDENTITIES,RECIPE_IDENTITIES,RECIPE_OUTPUT_IDENTITIES,RECIPE_OUTPUT
 import {GATHERING_REFERENCE} from './gathering-reference.js';
 import {applyMiningCatalog} from './mining-catalog.js';
 import {applyItemPresentations} from './item-presentation-catalog.js';
+import {applyFurnaceCatalog} from './furnace-catalog.js';
 // Gameplay adaptation of GTNH progression. Exact original recipes come from the
 // optional runtime exporter; these authored recipes are deliberately labelled.
 export const STAGES = [
@@ -219,4 +220,9 @@ for(const id of ['rocketGenerator4'])if(machines[id])machines[id].stage=6;
 applyCircuitProgression({items,machines,recipes,milestones});
 const mining=applyMiningCatalog({items,machines,recipes,gatherNodes});
 applyItemPresentations({items,recipes});
+applyFurnaceCatalog({items,recipes});
+// Windows paths ignore case; Electron ASAR paths do not. These aliases are the
+// same original material/chemical and must use the actual on-disk asset spelling.
+items.spaceTime.icon='spacetime';
+items.titaniumtetrachloride.icon='titaniumTetrachloride';
 export const CATALOG={version:4,materialRulesVersion:1,industryRulesVersion:INDUSTRY_VERSION,itemMigrations:CIRCUIT_MIGRATIONS,itemIdentityMigrations:ITEM_IDENTITIES,recipeIdentityMigrations:RECIPE_IDENTITIES,recipeOutputIdentityMigrations:RECIPE_OUTPUT_IDENTITIES,recipeOutputFactors:RECIPE_OUTPUT_FACTORS,industryLegacyRecipes:industry.legacy,fuels:industry.fuels,items,recipes,machines,containerTypes,stages:STAGES,gatherNodes,nodeDrops,milestones,mining};

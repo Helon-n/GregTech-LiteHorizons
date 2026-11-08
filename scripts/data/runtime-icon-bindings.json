@@ -1,0 +1,38 @@
+{
+  "machineRegistry": "gregtech:gt.blockmachines",
+  "evidence": "GTNH 2.9.0 GregTechAPI.METATILEENTITIES runtime registry; see source manifest per icon",
+  "previewMetadata": {
+    "modItem_AppliedEnergistics2_tileBlockSkyChest_32767": 0
+  },
+  "machines": {
+    "molecularTransformer": 15558,
+    "cyclotron": 828,
+    "canner": 360,
+    "neutronActivator": 32013,
+    "nuclearProcessingUnit": 749,
+    "vacuumFurnace": 995,
+    "electricImplosionCompressor": 15563,
+    "fissionFuelProcessor": 835,
+    "simpleWasher": 31790,
+    "nanochipConverter": 9500,
+    "isamill": 31027,
+    "preciseAssembler": 32018,
+    "spaceAssembler": 14004,
+    "godforgePlasma": 15414,
+    "naquadahReactor4": 1190,
+    "naquadahReactor5": 1191,
+    "naquadahReactor6": 1192,
+    "naquadahReactor7": 1188,
+    "naquadahReactor8": 1189
+  },
+  "blockFields": {
+    "gdcUnit": ["kekztech.common.Blocks", "gdcUnit"],
+    "yszUnit": ["kekztech.common.Blocks", "yszUnit"]
+  },
+  "railcraftTracks": {
+    "Railcraft:track.slow": "SLOW",
+    "Railcraft:track.speed": "SPEED",
+    "Railcraft:track.electric": "ELECTRIC",
+    "Railcraft:track.reinforced": "REINFORCED"
+  }
+}

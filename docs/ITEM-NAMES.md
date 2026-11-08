@@ -32,7 +32,7 @@ python scripts/import-industry-icons.py --presentations-only
 
 这不是全模组名称或渲染器的完整移植。审计保留 2,513 个尚未确认映射的候选标签，包含 Forestry、Railcraft、Natura、GalaxySpace 等特殊子类型、损伤值／通配值物品和缺少明确注册资料的条目；候选标签不等同于全部已证实错误。原始注册身份和材料规则照常保留，未以别的物品名称代替。清单位于上述 provenance 文件的 `unresolved`。
 
-名称已校准也不代表其全部模型图标已完成：部分方块和特殊模型需要单独解析。图标导入器将仍无法确认的对应图标列入 `.local/presentation-missing-icons.json`，本轮为 887 项；不会用无关物品图标掩盖缺口。截图所涉焦黑砖、相关材料／铸模和已确认的普通元件材质已生成并校验。
+名称已校准也不代表其全部模型图标已完成：部分方块和特殊模型需要单独解析。名称校准时，图标导入器将仍无法确认的对应图标列入 `.local/presentation-missing-icons.json`，当时为 887 项；不会用无关物品图标掩盖缺口。截图所涉焦黑砖、相关材料／铸模和已确认的普通元件材质已生成并校验。后续全目录图标审计扩展到运行时的全部物品及共用引用，当前范围与待补清单以 `ICONS.md`、`icon-gaps.json` 为准。
 
 ## 验证
 
@@ -41,3 +41,7 @@ python scripts/import-industry-icons.py --presentations-only
 `node scripts/ui-item-presentations.mjs` 使用独立临时存档检查实际 Electron 中的工作台标题、原料／产物图标加载、收藏、配方树、仓库拼音搜索和工厂运行配方名称，不接触玩家存档。
 
 本轮纳入 v0.1.20。发布流程执行 `node scripts/ui-item-presentations.mjs --packaged` 检查实际成品，全部发布门槛通过后创建本地提交与版本标签。测试结果见 `VALIDATION.md`。
+
+## v0.1.21 图标解析完成
+
+名称候选审计与图标覆盖分别统计。此前尚缺的模型、动态图标和子类型图片已通过原版隔离客户端及原始材质算法补齐；最终目录全部 20,742 个物品、19,749 个图标引用路径缺图为零。原版运行时注册／渲染证据见 `ICONS.md` 和 SVG 来源清单；未把名称候选数当作缺图数，也未改写配方规则。

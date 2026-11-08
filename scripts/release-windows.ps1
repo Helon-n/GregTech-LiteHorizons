@@ -9,6 +9,8 @@ $tag="v$version"
 & git show-ref --verify --quiet "refs/tags/$tag"
 if($LASTEXITCODE -eq 0){throw "$tag already exists. Increment the version before a new release; tags are never overwritten."}
 if($LASTEXITCODE -ne 1){throw 'Could not check Git version tags'}
+& npm run audit:icons
+if($LASTEXITCODE -ne 0){throw 'Original icon coverage/vector audit failed'}
 & (Join-Path $PSScriptRoot 'build-windows.ps1')
 if($TestPackaged){
     & node scripts/electron-smoke.mjs --packaged
@@ -27,8 +29,18 @@ if($TestPackaged){
     if($LASTEXITCODE -ne 0){throw 'Packaged recipe tree regression failed'}
     & node scripts/ui-item-presentations.mjs --packaged
     if($LASTEXITCODE -ne 0){throw 'Packaged item presentation regression failed'}
+    & node scripts/ui-icons.mjs --packaged
+    if($LASTEXITCODE -ne 0){throw 'Packaged full catalog icon loading failed'}
     & node scripts/electron-smoke.mjs --portable
     if($LASTEXITCODE -ne 0){throw 'Portable desktop smoke test failed'}
+    [ordered]@{
+        version=$version
+        completedUtc=[DateTime]::UtcNow.ToString('o')
+        platform='windows-x64'
+        isolatedSave=$true
+        checks=@('desktop-smoke','construction','source-navigation','mining-access','choice-input','pinyin-search','recipe-tree','item-presentations','all-catalog-icons','portable-smoke')
+        status='passed'
+    } | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath (Join-Path $projectRoot 'docs/release-validation.json') -Encoding UTF8
 }
 & git add --all
 if($LASTEXITCODE -ne 0){throw 'Git staging failed'}
