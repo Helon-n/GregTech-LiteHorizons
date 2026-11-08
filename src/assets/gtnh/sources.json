@@ -9773,16 +9773,6 @@
       "note": "Original GT DULL/ingot with material color. No resource pack.",
       "importSignature": "6a446bc5131e7082fd57413a44acb2da15032a132cae5f5a51e0f55a931859cc"
     },
-    "mHDCSMDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
-          "tint": "#ffffff"
-        }
-      ],
-      "note": "Original GT MHDCSM/dust with material color. No resource pack."
-    },
     "mHDCSM": {
       "sources": [
         {
@@ -9794,16 +9784,6 @@
       "note": "Original GT MHDCSM/ingot with material color. No resource pack.",
       "importSignature": "c7e7f60cf82150a0788ef967aa6d044f878c9fa3a340eee8565f1821d53eb692"
     },
-    "whiteDwarfMatterDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dust.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT WHITE_DWARF_MATTER/dust with material color. No resource pack."
-    },
     "whiteDwarfMatter": {
       "sources": [
         {
@@ -9814,16 +9794,6 @@
       ],
       "note": "Original GT WHITE_DWARF_MATTER/ingot with material color. No resource pack.",
       "importSignature": "e3c3af0f8f7a91f06e3489cf36023abfa389dca9e3d0a130e06067f9770b7c4a"
-    },
-    "blackDwarfMatterDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dust.png",
-          "tint": "#000000"
-        }
-      ],
-      "note": "Original GT METALLIC/dust with material color. No resource pack."
     },
     "blackDwarfMatter": {
       "sources": [
@@ -20601,68 +20571,6 @@
       "note": "Original GT DULL/dust with material color. No resource pack.",
       "importSignature": "332d7327b7a08cbcb9f9ce6eb7db2b55274fe8930f05dfb358237e94db6eec03"
     },
-    "oilsandsCrushed": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/crushed.png",
-          "tint": "#0a0a0a"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/crushed_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT DULL/crushed with material color. No resource pack."
-    },
-    "oilsandsPurifiedCrushed": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/crushedPurified.png",
-          "tint": "#0a0a0a"
-        }
-      ],
-      "note": "Original GT DULL/crushedPurified with material color. No resource pack."
-    },
-    "oilsandsCentrifugedCrushed": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/crushedCentrifuged.png",
-          "tint": "#0a0a0a"
-        }
-      ],
-      "note": "Original GT DULL/crushedCentrifuged with material color. No resource pack."
-    },
-    "oilsandsImpureDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustImpure.png",
-          "tint": "#0a0a0a"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustImpure_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT DULL/dustImpure with material color. No resource pack."
-    },
-    "oilsandsPureDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustPure.png",
-          "tint": "#0a0a0a"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustPure_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT DULL/dustPure with material color. No resource pack."
-    },
     "orichalcumDust": {
       "sources": [
         {
@@ -24641,68 +24549,6 @@
       ],
       "note": "Original GT METALLIC/ore with material color. No resource pack.",
       "importSignature": "7dd4dfd0e53f8951569687029ebac60719e23f446b8be9a44dc0cd0c820f6a4c"
-    },
-    "pigIronCrushed": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/crushed.png",
-          "tint": "#c8b4b4"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/crushed_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT METALLIC/crushed with material color. No resource pack."
-    },
-    "pigIronPurifiedCrushed": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/crushedPurified.png",
-          "tint": "#c8b4b4"
-        }
-      ],
-      "note": "Original GT METALLIC/crushedPurified with material color. No resource pack."
-    },
-    "pigIronCentrifugedCrushed": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/crushedCentrifuged.png",
-          "tint": "#c8b4b4"
-        }
-      ],
-      "note": "Original GT METALLIC/crushedCentrifuged with material color. No resource pack."
-    },
-    "pigIronImpureDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dustImpure.png",
-          "tint": "#c8b4b4"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dustImpure_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT METALLIC/dustImpure with material color. No resource pack."
-    },
-    "pigIronPureDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dustPure.png",
-          "tint": "#c8b4b4"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/METALLIC/dustPure_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT METALLIC/dustPure with material color. No resource pack."
     },
     "powelliteOre": {
       "sources": [
@@ -31608,44 +31454,6 @@
       ],
       "note": "Original GT REDSTONE/crushedPurified with material color. No resource pack.",
       "importSignature": "673f18bf455be3247c352ceb6f747acb8eee3dd4406b9c8226611bbc420baec4"
-    },
-    "redstoneCentrifugedCrushed": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/crushedCentrifuged.png",
-          "tint": "#c80000"
-        }
-      ],
-      "note": "Original GT REDSTONE/crushedCentrifuged with material color. No resource pack."
-    },
-    "redstoneImpureDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustImpure.png",
-          "tint": "#c80000"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustImpure_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT REDSTONE/dustImpure with material color. No resource pack."
-    },
-    "redstonePureDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustPure.png",
-          "tint": "#c80000"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/dustPure_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT REDSTONE/dustPure with material color. No resource pack."
     },
     "soapstoneOre": {
       "sources": [
@@ -39938,16 +39746,6 @@
       "note": "Original GT METALLIC/nugget with material color. No resource pack.",
       "importSignature": "54eed005cd86bf13c120bbd1620e4313c217be671595847dc3987ff529cdcf8a"
     },
-    "gtItem_Circuit_TranscendentProcessor": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.03/174.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "f84bea320f97918e01009a12692c450174685bf5adad42f654f9ddeef4cdabf7"
-    },
     "mHDCSMRod": {
       "sources": [
         {
@@ -40274,16 +40072,6 @@
       ],
       "note": "Original GT MANASTEEL/ingot with material color. No resource pack.",
       "importSignature": "18954dd956e5f4f9ced5628dd62ba120277bee71e371007986901527fc16e1e1"
-    },
-    "gtItem_Circuit_Board_Multifiberglass": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.01/712.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "0d6b7d5314ccd179fa8262fe83a22a4f27066614c45fc1c3ba9fb4507356b3b8"
     },
     "endiumNugget": {
       "sources": [
@@ -41700,16 +41488,6 @@
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "fbb50e7fccefe736946949ed5cccd2005af057c9cff6dd3706b88ab9dc4d912b"
     },
-    "gtItem_Circuit_CosmicProcessor": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.03/170.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "4d3a0681736d82700b1aeff2d7c24334c9780b26561a6b9af93e28a52473fbb9"
-    },
     "mellionMolten": {
       "sources": [
         {
@@ -42401,16 +42179,6 @@
       ],
       "note": "Original GT SHINY/ingotHot with material color. No resource pack.",
       "importSignature": "211cb584c2b03b867f8c3d97490f9ecae66d189a151ea87563188dcf67c587d7"
-    },
-    "gtItem_Circuit_ExoticProcessor": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.03/166.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "1020314e4826a587ee73bdf94ef487bc5f4e2cdf6a8a20a2ff9382db7084f630"
     },
     "shijimaPlate": {
       "sources": [
@@ -43911,16 +43679,6 @@
       "note": "Original GT DULL/bolt with material color. No resource pack.",
       "importSignature": "e7d90bce8f5e83ea88feebdf5361f63d4fc7f73010e33c40e990947c1a45cd98"
     },
-    "gtItem_Circuit_Computer": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.01/703.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "6890b4a3e1cfc66ee99234b214ad31d3457c370bdb7fd5c96a26799c5cbe3085"
-    },
     "manasteelDustSmall": {
       "sources": [
         {
@@ -45362,16 +45120,6 @@
       ],
       "note": "Original GT SHINY/plate with material color. No resource pack.",
       "importSignature": "76aa2898d30ff932d3dd6560a9c878e14575fa4b01a870d15eeae5b49508f40a"
-    },
-    "gtItem_Circuit_Board_Epoxy": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.01/711.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "6ab0734e469180aa9cfad81c425c5c4b8ac65ea6ec860e8c6138b56a68135c8a"
     },
     "europiumBolt": {
       "sources": [
@@ -48388,16 +48136,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "3d0962c08ff0f5381fbd032fb81b6fcfa80fd1db25ea3bdb92b5e6eb67bf4725"
     },
-    "gtItem_Circuit_Basic": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.01/701.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "734b4650bdf333948209fddcb6b6b9b82046f71628f6975991ff0b2cf5c137df"
-    },
     "castIronNugget": {
       "sources": [
         {
@@ -48466,16 +48204,6 @@
       ],
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "2b05cb3738fb60a21e55a5a46a31426883507be7602cbfd2745a414ce4e2ac42"
-    },
-    "gtItem_Circuit_OpticalProcessor": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.03/154.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "713f30c741a0b1b813d24e4bc165a1f6774d3f6c4928d79f44c4450cecfb1f5b"
     },
     "mytryl": {
       "sources": [
@@ -52819,21 +52547,6 @@
       ],
       "note": "Original GT DULL/dustSmall with material color. No resource pack.",
       "importSignature": "f12be0e7bcd382fbfccf623c8f40711550dbf55c28474d822a88bcf81920c00e"
-    },
-    "anyBronzeRing": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/ring.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/ring_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/ring with material color. No resource pack.",
-      "importSignature": "6dc5306326b3238bdaac7b3aa95a09ee4147183f7d88bfebf4a1078d5a61c1a4"
     },
     "blutoniumMolten": {
       "sources": [
@@ -58118,16 +57831,6 @@
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "ad9dab09c52e2da930cedf3b892fe370d9db47308c30ac6c9399e4f8719480c9"
     },
-    "indalloy140Molten": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/blocks/fluids/fluid.autogenerated.png",
-          "tint": "#a8a8be"
-        }
-      ],
-      "note": "Original GT autogenerated fluid silhouette with the registered material color."
-    },
     "gtItem_Shape_Extruder_Pipe_Medium": {
       "sources": [
         {
@@ -61297,16 +61000,6 @@
       "note": "Original GT DULL/dustSmall with material color. No resource pack.",
       "importSignature": "55cbe723cf3ad28127c09d1d2384ddb4ed27fc88a3a61cd2e5a082fe245c36d4"
     },
-    "gtItem_Circuit_Primitive": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.01/700.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "599d0a386685223108408e0c7ac415800d1476ce7b8464f7181cc17302622dc1"
-    },
     "alduorite": {
       "sources": [
         {
@@ -62344,16 +62037,6 @@
       ],
       "note": "Original GT CRUDE_STEEL/dustSmall with material color. No resource pack.",
       "importSignature": "06699cb5981f1afc8e1a796181c1e9ea1bc5ce8720bdee1fc31b9e17a11200e6"
-    },
-    "gtItem_Circuit_Parts_Diode": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/gt.metaitem.01/715.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "972dd48026a8fedc1fa2936176d746af8901b1a7a5d6a5b14e1cd3643a8c967a"
     },
     "ichorium": {
       "sources": [
@@ -65784,17 +65467,6 @@
       ],
       "note": "Original GT DULL/wireGt01 with material color. No resource pack.",
       "importSignature": "6487d521a3899b6c3fa00c4792dbfc82ce05ef8bcd1f1da2eabc4268892560c6"
-    },
-    "anyCopperCable1": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/wire.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT SHINY/cableGt01 with material color. No resource pack.",
-      "importSignature": "9aa997f3a35644a26048e2cde17d70e3257b8930fec6b7a81f06243b12c6a16b"
     },
     "aluminiumCable1": {
       "sources": [
@@ -73455,16 +73127,6 @@
       "note": "Original GT SHINY/gearGt with material color. No resource pack.",
       "importSignature": "e4e454bb28ad292f6650997cb3dfd0d21eff48277373b50d9b99c26b31cf8813"
     },
-    "modItem_IndustrialCraft2_itemArmorNanoLegs_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemArmorNanoLegs.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "72c859e6c5765ab12461b5ad7e28ce23a50824e8aed2bd8b8dc79b038d8f7eda"
-    },
     "gtItem_Hatch_Input_Multi_2x2_UV": {
       "sources": [
         {
@@ -73687,16 +73349,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "5bc55634774ffecbdbe4c5833b54cb280e51cc15085b632f7d455f84b85ec0a8"
-    },
-    "modItem_IndustrialCraft2_reactorPlating_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorPlating.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "6a92ad156d10b49edcc7f25b215f69871502872bb773af6ecad29754162ff3c6"
     },
     "dragonstoneLens": {
       "sources": [
@@ -74285,16 +73937,6 @@
       "note": "Original GT METALLIC/gearGt with material color. No resource pack.",
       "importSignature": "bc7f3d97b285358c1a0fbda5d788f6ea6fc0c50e448e17ecaf8f7114b679a027"
     },
-    "modItem_Minecraft_stoneshovel_0": {
-      "sources": [
-        {
-          "archive": "minecraft-1.7.10-client.jar",
-          "texture": "assets/minecraft/textures/items/stone_shovel.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "c60b41ea27801d15fda730b7504e9fc77e89dc3255fa353b3411e2c5f8d4dbb7"
-    },
     "forcilliumLens": {
       "sources": [
         {
@@ -74439,16 +74081,6 @@
       ],
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "d6dbb7fd047a460a49e60453601b75e9a4289cdda5444da31454a7b570986ae4"
-    },
-    "modItem_IndustrialCraft2_itemPartIridium_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemPartIridium.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "6fdde86dd8a5ff8165ddc563c4943e2a20941c28af5a02ade33ece1627b02050"
     },
     "gGMaterial_tairitsuFoil": {
       "sources": [
@@ -74702,16 +74334,6 @@
       ],
       "note": "Original GT DULL/dust with material color. No resource pack.",
       "importSignature": "2715843cce163a1a7659a6cbf0d6aec4f12b2b0177bcd3fe3d43789be34e092e"
-    },
-    "modItem_IndustrialCraft2_reactorVentDiamond_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorVentDiamond.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "c04557cb7f828d16550d98398a0ab45052f1415abcdc9fff07e4382548343915"
     },
     "enrichedHolmiumBolt": {
       "sources": [
@@ -75333,16 +74955,6 @@
       ],
       "note": "Original GT FINE/block with material color. No resource pack.",
       "importSignature": "3258e2c6d759af90bc0262b2586c9fee22903502c18f7397b2d311b1bf8cad65"
-    },
-    "modItem_IndustrialCraft2_reactorHeatSwitchDiamond_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorHeatSwitchDiamond.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "e2041ce37e7653806aa9da817a9e67a59fe4a0ed44fd8d873491a706cd735c3e"
     },
     "grass": {
       "sources": [
@@ -75973,16 +75585,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "73ad97fcb9c9e9d4267b4a02e32b22171ba58d7c57da6fd75d33f3edb200704a"
     },
-    "modItem_IndustrialCraft2_reactorVentGold_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorVentGold.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "b5b94e9eccd82cf24ad728942a13b7336ed17120ce8c65d0dad82a154e00c7ce"
-    },
     "annealedCopperCable1": {
       "sources": [
         {
@@ -76191,16 +75793,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "4e8fa265bd1e7a0ed7152a9a30e7c80644428a6463b6cbab88b84ca7e5d54a9b"
     },
-    "modItem_IndustrialCraft2_reactorReflectorThick_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorReflectorThick.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "8c2bffccd6ef9734d8bf28bcb898bbb5aaa117250e3f58c403ac85fc479d3e0b"
-    },
     "tinSpring": {
       "sources": [
         {
@@ -76253,16 +75845,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "c9b32f3fd1aa41f9b7a85aba0ab986df2fdca17710d165439b785d85e755df5e"
-    },
-    "modItem_IndustrialCraft2_itemRTGPellet_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemRTGPellet.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "03d208ce53199e194071a650eb3f23b602ade055f61a542743d7beffb87b95c9"
     },
     "arditeBlock": {
       "sources": [
@@ -77113,16 +76695,6 @@
       "note": "Original GT DULL/dust with material color. No resource pack.",
       "importSignature": "6f70d2043f60a64ee1c347b938482929765b7e123a7fa17853e3c14b03038d16"
     },
-    "modItem_IndustrialCraft2_itemPartCircuit_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemPartCircuit.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "52518e90da1ff3233b3c162f0c6a27daa59db30858e4f4878d5914fe413f1ecd"
-    },
     "werkstoffMaterialPool_IodineDust": {
       "sources": [
         {
@@ -77186,26 +76758,6 @@
       ],
       "note": "Original GT SHINY/cableGt08 with material color. No resource pack.",
       "importSignature": "4e7461720bfafb0bddc92cdf51a7ee300d04201e86f9a91aa1b95c4c8c102e56"
-    },
-    "modItem_IndustrialCraft2_itemPartCarbonPlate_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemPartCarbonPlate.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "f9f06cafe08eb93dda7b3fbac1d9570651e23114cf8bc12f84f4361fc3e7137e"
-    },
-    "modItem_IndustrialCraft2_reactorVentCore_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorVentCore.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "fd8263e06541dc0635363c13a03e9134cdde7ce6b3cef9c3c638941999b16893"
     },
     "gTPP_Pikyonium64BGear": {
       "sources": [
@@ -77414,16 +76966,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "4299f3c6629b5eb4d7f4b99da7328314f8989e6b3de0e0db4fe1e9fdd31e7af4"
     },
-    "modItem_IndustrialCraft2_reactorCondensatorLap_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorCondensatorLap.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "458d8474af11044c33e93fb121bbdae4da58efd3c0b0ba7df7a6780de2ddb419"
-    },
     "titaniumCable1": {
       "sources": [
         {
@@ -77575,16 +77117,6 @@
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "b700b12c09fbe9f95b1057cbb27f0028d3210c0148190872a69d44c9a07ba687"
     },
-    "modItem_IndustrialCraft2_itemPartAlloy_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemPartAlloy.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "1f6e4b4bfbcf70ee7c10fcc40b26d4180f3af243b0418d03886073bbb6f99ce9"
-    },
     "leather": {
       "sources": [
         {
@@ -77711,21 +77243,6 @@
       ],
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "8407586f88993a941c0ae7cfff638923b85b6663352f7406fb885b78aaa8bb78"
-    },
-    "anyBronzePlate": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/plate with material color. No resource pack.",
-      "importSignature": "edb2973ebd63ba73637e920d9ce6276ee20cc674b50d8c3581a428d7d646c38e"
     },
     "nanoComponent_ProcessedAdvSMDInductor": {
       "sources": [
@@ -78212,16 +77729,6 @@
       ],
       "note": "Original GT DULL/springSmall with material color. No resource pack.",
       "importSignature": "6d56502ee84b9247a13597ce38d65181579d4477c5fdd9942debe6badeff0099"
-    },
-    "modItem_Minecraft_stoneaxe_0": {
-      "sources": [
-        {
-          "archive": "minecraft-1.7.10-client.jar",
-          "texture": "assets/minecraft/textures/items/stone_axe.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "a48d1e4e3e3fa92038b1e4a0303c30e7090f7f982d640dba1e5fd4ecaf1c0337"
     },
     "enrichedHolmiumFoil": {
       "sources": [
@@ -79061,16 +78568,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "8b15489b49ff28f66eb7da8691b6a54852dd105cbe2b3322f21a7491aa52cf09"
     },
-    "modItem_IndustrialCraft2_itemFuelPlantBall_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemFuelPlantBall.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "607a650acf5525f85149214a2fc561b7aa4b41d33255de04621ca294a54d68c1"
-    },
     "werkstoffLoader_PDSaltDust": {
       "sources": [
         {
@@ -79335,17 +78832,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "22ad01b08da971c4e6a621b9a2675a73c3bd849e6a79a5980e901e7e85a0bb5f"
-    },
-    "anyIronScrew": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/screw.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT SHINY/screw with material color. No resource pack.",
-      "importSignature": "80a06a722b318ab49dc30eda67a4921cebd79bea522fda48ce147c1e16c84721"
     },
     "werkstoffLoader_PTMetallicPowderDust": {
       "sources": [
@@ -79828,16 +79314,6 @@
       "note": "Original GT FINE/dustSmall with material color. No resource pack.",
       "importSignature": "a17f803164fe64c1f3ea4db57a0efe5e15b9bbfd3d0c2b1039da389f47ac631f"
     },
-    "modItem_Minecraft_stonesword_0": {
-      "sources": [
-        {
-          "archive": "minecraft-1.7.10-client.jar",
-          "texture": "assets/minecraft/textures/items/stone_sword.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "80288e27f19b19b9f226b223d6a8527703cbbbd1b6b26862255942b2c95b8c64"
-    },
     "werkstoffMaterialPool_GangueBlock": {
       "sources": [
         {
@@ -80136,16 +79612,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "199574d3afa32b5df15c1569c833e974ee451ce2f2e0e4bd496813df417faf07"
     },
-    "modItem_Minecraft_paper_0": {
-      "sources": [
-        {
-          "archive": "minecraft-1.7.10-client.jar",
-          "texture": "assets/minecraft/textures/items/paper.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "8c1fff0df850c75e528f358daf99fe9ead813eaa331202d52d3eaa6d3d629d13"
-    },
     "werkstoffMaterialPool_MoTeOCatalystDustTiny": {
       "sources": [
         {
@@ -80352,21 +79818,6 @@
       "note": "Original GT METALLIC/plate with material color. No resource pack.",
       "importSignature": "b53e5c654afde4ab7b743c6f54d0d8b89b03b323537b472f51dd80f0cb7c3d01"
     },
-    "anyCopperPlate": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/plate with material color. No resource pack.",
-      "importSignature": "9a5dc8645483b2d7ddaad40130450af03f60d895e20f4fe20d828da9fe26999c"
-    },
     "werkstoffMaterialPool_LanthanumOreConcentrateDust": {
       "sources": [
         {
@@ -80410,21 +79861,6 @@
       ],
       "note": "Original GT ROUGH/stick with material color. No resource pack.",
       "importSignature": "e347e6207675a879dae4399996738fe1c2c3795081d4257416530163cc7e4823"
-    },
-    "anyIronPlate": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/plate with material color. No resource pack.",
-      "importSignature": "7068855e91560d9a140b4ecd2cfef6390cc6365e69f7fa4a7aecd85b44d8fd13"
     },
     "gtppItem_BrownMetalCatalyst": {
       "sources": [
@@ -80498,16 +79934,6 @@
       ],
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "4c1aa65be01451a41becd2524e51f50ef57a2525712e309980315dd17c34efdc"
-    },
-    "modItem_IndustrialCraft2_reactorHeatSwitchSpread_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorHeatSwitchSpread.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "d5cc20551e6c365fb36a79f7335a9c986f658109b3e9885a2a517d4636455401"
     },
     "blackPlutoniumCable1": {
       "sources": [
@@ -80710,16 +80136,6 @@
       "note": "Original GT METALLIC/block with material color. No resource pack.",
       "importSignature": "a3c4223dec3fe587a1df3db50de2d16230fd82ceaed29c81fe01da7feaaa80bf"
     },
-    "modItem_IndustrialCraft2_itemArmorNanoChestplate_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemArmorNanoChestplate.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "b9b7e686892e2f032520a499869093100544d20a7cbdfb9456d907892d1d5295"
-    },
     "werkstoffMaterialPool_CeriumDopedLutetiumAluminiumGarnetDustSmall": {
       "sources": [
         {
@@ -80780,16 +80196,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "fc5afc7f2e26a9fe4e5cfad6bde7653309e8cd794e9113f5e32a8cef82147e71"
-    },
-    "modItem_Minecraft_rottenflesh_0": {
-      "sources": [
-        {
-          "archive": "minecraft-1.7.10-client.jar",
-          "texture": "assets/minecraft/textures/items/rotten_flesh.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "06dead24c2d245c4d76cdeb0d3884976c8064b6f73db6b2bd170185c160b67b3"
     },
     "gTPP_EglinSteelScrew": {
       "sources": [
@@ -81115,16 +80521,6 @@
       ],
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "9a9577e92b60115bffdea2d884ac097129696490f902659abfa9898c4eb494a5"
-    },
-    "modItem_IndustrialCraft2_reactorHeatSwitch_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorHeatSwitch.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "755bd136914811eef07baf00a06ab47f638776ef28cffa1c010d680468fccbae"
     },
     "netherAir": {
       "sources": [
@@ -82904,16 +82300,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "c535ff630f8eed185bb10f0173971156d84fead4549b18425d39fac9377990c7"
     },
-    "modItem_IndustrialCraft2_reactorCondensator_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorCondensator.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "174adfa4c8e99650c9a62af059206512c3fa8ca0324f3835b5f32180b1279da4"
-    },
     "melon": {
       "sources": [
         {
@@ -83392,16 +82778,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "dd0e69233c0c86ee645b65c108f05f942220fc8d639902e7459a9890893be046"
     },
-    "modItem_IndustrialCraft2_reactorPlatingExplosive_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorPlatingExplosive.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "fe70238e1df473ec0a842e83dda88341552767d9d5ea51d28be0a0e49d51d8b8"
-    },
     "roseGoldBlock": {
       "sources": [
         {
@@ -83539,16 +82915,6 @@
       ],
       "note": "Original GT ETERNITY/block with material color. No resource pack.",
       "importSignature": "8ffc5648b3bfece0d1b50e6060b3de46f5184fe2eca8947f67ffdd40013de901"
-    },
-    "modItem_IndustrialCraft2_reactorHeatSwitchCore_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorHeatSwitchCore.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "2bef7f7a62f869f09b074a4d39db1e9bf6335422738c3decfc7c9dc7fe21f687"
     },
     "werkstoffLoader_RhodiumPlatedPalladiumTurbineBlade": {
       "sources": [
@@ -83747,16 +83113,6 @@
       ],
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "9f92992c01a34079cafa18237089f07fccc8ce228b6a4dd46ef7f8d14d3f5c63"
-    },
-    "modItem_IndustrialCraft2_reactorReflector_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorReflector.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "4f9dc27fb04778b884caa442f5749016a266d26fcdf025a97e518ec6ffb3cb26"
     },
     "gtppItem_LithiumCarbonateDust": {
       "sources": [
@@ -84090,17 +83446,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "75844a5b544d84d765eab4d1e86cf396a1600eb65c2722a6ed3fe617d93e6347"
-    },
-    "anyIronSmallSpring": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/springSmall.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT SHINY/springSmall with material color. No resource pack.",
-      "importSignature": "c71163767cf4d718d19162d97b84d52d4c74271b1428be929dd0edebfce3bcf8"
     },
     "gTPP_SodiumFluoride": {
       "sources": [
@@ -84581,16 +83926,6 @@
       "note": "Original GT DARKSTEEL/block with material color. No resource pack.",
       "importSignature": "341289d3f8a1647b6dce68c5accc8c969f87a960b0e803baa3e534081e7bcdcf"
     },
-    "modItem_Minecraft_reeds_0": {
-      "sources": [
-        {
-          "archive": "minecraft-1.7.10-client.jar",
-          "texture": "assets/minecraft/textures/items/reeds.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "63f6bd7c3e4502d109ff4f2fd40ade6985f63694e5e2feab84f890a16d64f4be"
-    },
     "rail": {
       "sources": [
         {
@@ -84621,16 +83956,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "ac75d6558e78a8a8f4bd467e4d4dc3c9873313a51122d3335ea4f65888fac5ec"
-    },
-    "modItem_IndustrialCraft2_reactorPlatingHeat_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorPlatingHeat.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "60709591eeff7efe6fb97a5900b8eeae3a3aad1e133622261b39c8a0e8262a7f"
     },
     "werkstoffMaterialPool_GangueDust": {
       "sources": [
@@ -84761,16 +84086,6 @@
       "note": "Original GT DRACONIUM/cableGt01 with material color. No resource pack.",
       "importSignature": "2da827cf19a2f0d523ea2cb75fe17226e529431c6231f9c642b2a67eddc39bc0"
     },
-    "modItem_IndustrialCraft2_reactorVent_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorVent.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "061949fa96b11a0f5fdbceb90f912805ebbb57c2d3971a8b7d3ba8d35493e266"
-    },
     "gtItem_Coolant_Duct_Casing": {
       "sources": [
         {
@@ -84894,16 +84209,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "b75bb579c2931da083e89bcf0e595a3ce5a81b95aaaf591233ce38ca5a818569"
-    },
-    "modItem_Minecraft_string_0": {
-      "sources": [
-        {
-          "archive": "minecraft-1.7.10-client.jar",
-          "texture": "assets/minecraft/textures/items/string.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "facc3f137da067ba896ffb79d1d2d8746e8d60fdae2ac68e1dcd3d037d202575"
     },
     "glassDustTiny": {
       "sources": [
@@ -85844,16 +85149,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "619ad666f8d7eb2d1b76b02846a5d069691d8baf026fbfd874ab22b4819bec36"
     },
-    "modItem_IndustrialCraft2_itemArmorNanoBoots_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemArmorNanoBoots.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "a10fb675772f8fd2933750d7a6948be8424b1239fd999ff4e32ad7775a8436e4"
-    },
     "gtItem_Casing_Advanced_Rhodium_Palladium": {
       "sources": [
         {
@@ -86469,16 +85764,6 @@
       ],
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "b7aeda22bf4b7912a6caa39e34b6a3102aa3cd1ab2911805637ec97a796213cf"
-    },
-    "modItem_Minecraft_stonehoe_0": {
-      "sources": [
-        {
-          "archive": "minecraft-1.7.10-client.jar",
-          "texture": "assets/minecraft/textures/items/stone_hoe.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "9b2b092c31cc773c35126ee38aee0ed03345fb0687c3e927f2bd7520db1b1229"
     },
     "gTPP_LFTRFuel3Dust": {
       "sources": [
@@ -87146,21 +86431,6 @@
       "note": "Original GT METALLIC/foil with material color. No resource pack.",
       "importSignature": "79382d5e4baf258f081a9a70f12663338449cf21695486585f4b044d59ce665b"
     },
-    "anyIronSmallGear": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/gearGtSmall.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/gearGtSmall_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/gearGtSmall with material color. No resource pack.",
-      "importSignature": "0bba9fe877491e292559a600e5cbb9411c97f668924b241e8cca312e10aab3aa"
-    },
     "gtItem_Electric_Motor_UHV": {
       "sources": [
         {
@@ -87727,16 +86997,6 @@
       ],
       "note": "Original GT HYPOGEN/frameGt with material color. No resource pack.",
       "importSignature": "bc1f2842589cf3dd0b0d6e069343004149f7c22e3f107119968fd2b0b5a30d1e"
-    },
-    "modItem_Minecraft_stonepickaxe_0": {
-      "sources": [
-        {
-          "archive": "minecraft-1.7.10-client.jar",
-          "texture": "assets/minecraft/textures/items/stone_pickaxe.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "b46c987afecb1aaf34c939c2a27a9c7c8eceb2ba4b86b8c28f2ea6cae02f6380"
     },
     "nhItem_EngineCore": {
       "sources": [
@@ -88388,16 +87648,6 @@
       ],
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "d23f125d0dd6aedf863d043b317b6b1e6ffa7f70ee4af4d599aafac822465e9f"
-    },
-    "modItem_IndustrialCraft2_itemBiochaff_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemBiochaff.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "6231a1d0ddba421c879be66a9d22eb61d88a9c94715e1a1eca6b45ec5ecf6e84"
     },
     "snow": {
       "sources": [
@@ -96920,17 +96170,6 @@
       ],
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "e928f02bf3ee2545cfc2b156941f9deca858b1128cde827a2d10f5c8adeedc8c"
-    },
-    "gTPP_SolarSaltColdMolten": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/blocks/fluids/fluid.autogenerated.png",
-          "tint": "#2669c1"
-        }
-      ],
-      "note": "Original GT autogenerated fluid silhouette with the registered material color.",
-      "importSignature": "c5018ba5d58560e78fa90a2a3d47117a2dc8ada993090c112f3095a9c125b631"
     },
     "gTPPFluid_PineOil": {
       "sources": [
@@ -105660,17 +104899,6 @@
       "note": "Original GT METALLIC/toolTurbine with material color. No resource pack.",
       "importSignature": "1520f1218998a9d0391e05a6ec115f78b83cb455f6c65a178c4b82e4f479873a"
     },
-    "gTPP_SolarSaltHotMolten": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/blocks/fluids/fluid.autogenerated.png",
-          "tint": "#c81919"
-        }
-      ],
-      "note": "Original GT autogenerated fluid silhouette with the registered material color.",
-      "importSignature": "a47b5b23c2f8106f574d83b5acf6efe95e02b1c73f9ed50149e0dbffc65baf2b"
-    },
     "turbineRotorNormal_Uranium": {
       "sources": [
         {
@@ -108895,16 +108123,6 @@
       "note": "Original GT HYPOGEN/dust with material color. No resource pack.",
       "importSignature": "0bfb4e645dd5c32fa9b06dbe67d57ec3284139e8e8994e1348110ba131db85c6"
     },
-    "modItem_IndustrialCraft2_itemPartCFPowder_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemPartCFPowder.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "e64ed0e72acdb6fc4e0d5859eed8656a5d42695c25b6d5481782db5ad35833cb"
-    },
     "gTPP_RutheniumPlasma": {
       "sources": [
         {
@@ -109206,16 +108424,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "c75e3603dd6ba97ba7ac264b8a1c431ef06e1d61e99657870b5a4d5c76c54b84"
-    },
-    "modItem_IndustrialCraft2_itemDynamite_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemDynamite.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "c00b0194008e796c87e8a6ae91386791055e98ce91e93df37f308fefd8a22959"
     },
     "gTPP_FermiumDust": {
       "sources": [
@@ -109550,16 +108758,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "4513221674d355f2a8ce1b502eb765e0ebc81b17d699a5c32b0c7b44def8ff54"
     },
-    "modItem_IndustrialCraft2_itemSteamTurbineBlade_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemSteamTurbineBlade.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "bb388a8694f2a0f06f44821b979fa4b743564e32c135f33ec45e839749b8517c"
-    },
     "copperWire4": {
       "sources": [
         {
@@ -109795,21 +108993,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "03c58641af3dab9bf44fd8213fe956c2a2b6c868b964e6f620bb07b340df29fa"
-    },
-    "anyIronRod": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/stick with material color. No resource pack.",
-      "importSignature": "1dbc2fb5990236702b95e4bab55291b493bd7ccf050f9217e7faae3521a8dd15"
     },
     "ttItem_Godforge_StellarEnergySiphonCasing": {
       "sources": [
@@ -110094,21 +109277,6 @@
       "note": "Original GT WHITE_DWARF_MATTER/frameGt with material color. No resource pack.",
       "importSignature": "4dde928d1ebc571881cfc17a9e6b4eb32411d9332f17a0e6f725c8d93f0f32b2"
     },
-    "anyRubberRing": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/ring.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/ring_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/ring with material color. No resource pack.",
-      "importSignature": "69efe5b654c8593c5e338f126a1e66afc2c0c69338b214e136566f7791dd6b2d"
-    },
     "modItem_PamsHarvestCraft_bubblywaterItem_0": {
       "sources": [
         {
@@ -110225,16 +109393,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "59a2f0ea1b0761dfa97ac061335e820c1ccb8ce6e308a0f705422c979a423381"
-    },
-    "modItem_IndustrialCraft2_itemSteamTurbine_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemSteamTurbine.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "61197afbf79dbdd98842250956758861350716e4f93fe7ebe966230236cc5df9"
     },
     "werkstoffMaterialPool_SamariumTerbiumMixture": {
       "sources": [
@@ -110513,21 +109671,6 @@
       "note": "Original Minecraft item.",
       "importSignature": "6ae39c0223ef2855e062040ccdc2279c9f764042b91186f7f2610b8e79ecef25"
     },
-    "anyRubberRod": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/stick_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/stick with material color. No resource pack.",
-      "importSignature": "01eb9f698f22b88ef402085ac638050d46cd48fe324b34c89164d4b6e6f31130"
-    },
     "bronzeItemCasing": {
       "sources": [
         {
@@ -110703,21 +109846,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "7aa27cd4e06be0358d19048306f47f757639ff2956dac711eeadb058befe4795"
-    },
-    "anyIronRing": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/ring.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/ring_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/ring with material color. No resource pack.",
-      "importSignature": "7d9c7cb117825096d2c9c77de72a9e9ec27896f3ecf69a5fc47d6d2645da12a0"
     },
     "werkstoffLoader_ZincSulfate": {
       "sources": [
@@ -111264,16 +110392,6 @@
       "note": "Original Minecraft item.",
       "importSignature": "96374036d5c7c1816d5388aa7b982145c3b4aea2ba1270675023944db4ffcf16"
     },
-    "modItem_IndustrialCraft2_itemPartCarbonMesh_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemPartCarbonMesh.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "9747eae16bb23fc42d35a5c352455ee8f3efb2c7087b3b71babe67fc3aa02219"
-    },
     "gtItem_Food_Large_Sandwich_Steak": {
       "sources": [
         {
@@ -111314,21 +110432,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "66ca6e21c27a8d6bc324723a0cffa5d8c26cab471af6a3efecda46ebea280f67"
-    },
-    "anyCopperDust": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/dust.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/dust_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/dust with material color. No resource pack.",
-      "importSignature": "776a9e41f7bf711c55c7a3ece1e52cffb3cf73d901279f059f83e9683881ce5a"
     },
     "gtItem_Plank_Spruce": {
       "sources": [
@@ -111831,21 +110934,6 @@
       "note": "Original GT autogenerated fluid silhouette with the registered material color.",
       "importSignature": "ca874c095048b7577d361c954099a9ea516c7f128a86c57b4df6d59a7ee92b42"
     },
-    "anyRubberPlate": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate.png",
-          "tint": "#c8c8c8"
-        },
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/SHINY/plate_OVERLAY.png"
-        }
-      ],
-      "note": "Original GT SHINY/plate with material color. No resource pack.",
-      "importSignature": "8fb7eea1c7219e73fade4720ad24b9d73601a95d865417396ca145c103c3f834"
-    },
     "infinityMediumPipe": {
       "sources": [
         {
@@ -111906,16 +110994,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "97fe9581d86b7825f990c0fb50f6e52824d429b5cd721ece9ff53de7be676d76"
-    },
-    "modItem_IndustrialCraft2_itemHarz_0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemHarz.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "1549dde368d6f6f2810a062b0a5396ee6157864ca1b0bb27be7f7def10165e66"
     },
     "gtItem_Plank_Jungle": {
       "sources": [
@@ -111991,17 +111069,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "5a7e429dc6389d0d3972332e4d3cf5c85cc5e227a7a912a8d632342554ef6ab3"
-    },
-    "anyRubberRound": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/round.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT SHINY/round with material color. No resource pack.",
-      "importSignature": "2cf55c602fd20f1c797d16582680d778bf842edf91c7c8053ce4bc1ed9e751c5"
     },
     "modItem_PamsHarvestCraft_rainbowcurryItem_0": {
       "sources": [
@@ -112949,17 +112016,6 @@
       ],
       "note": "Original GT DULL/dustSmall with material color. No resource pack.",
       "importSignature": "f203e2c00df98775787c891b467d733449bfcb05c49de1f4218a95e368471895"
-    },
-    "anyIronItemCasing": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/casingSmall.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT SHINY/itemCasing with material color. No resource pack.",
-      "importSignature": "5708d2fad266eb2a84611ba6964e9fe3b84693f7fa997230b3b2c40fbd87e124"
     },
     "endSteelItemCasing": {
       "sources": [
@@ -116316,17 +115372,6 @@
       "note": "Original GT DRACONIUM/springSmall with material color. No resource pack.",
       "importSignature": "925b15531895ef1cc7ff1ac6f040bee4c294c322b218224602e908b7e39c36e5"
     },
-    "anyIronBuzzSawHead": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/toolHeadBuzzSaw.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT SHINY/toolHeadBuzzSaw with material color. No resource pack.",
-      "importSignature": "f6b7ee2b47a60353378e1ca030417fbe6741723d8e67d92121a6cb5bb344ec04"
-    },
     "ic2_stickyDynamite": {
       "sources": [
         {
@@ -116461,16 +115506,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "22b017dff57936be73273fdf5ac6f4afce1a884bc33ef39ed8baa072a975e653"
-    },
-    "ic2_resin": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/itemHarz.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "44e8e8523f5cf0e65f0948febd69345ad0906877b4f1493f34651ff4e07554a0"
     },
     "gtppItem_Casing_ThermalContainment": {
       "sources": [
@@ -121332,17 +120367,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "d1b40da2d7d9ed92ca1003b68757a2c2ff531498e38c3352ef5c3ae03e63349e"
     },
-    "anyCopperItemCasing": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/casingSmall.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT SHINY/itemCasing with material color. No resource pack.",
-      "importSignature": "94d656ef32049feac0a20ffeb24e76f7321ff382a5c62cf64536630eb887d2ae"
-    },
     "superconductorUHVBaseFineWire": {
       "sources": [
         {
@@ -122817,17 +121841,6 @@
       "note": "Original GT BEDROCKIUM/cableGt04 with material color. No resource pack.",
       "importSignature": "4e934c9f7c3097b70c08ecbaf45d7748b01f222597f92cb5b1c6e5091a906263"
     },
-    "anyIronSpring": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/spring.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT SHINY/spring with material color. No resource pack.",
-      "importSignature": "2f56ec6ed42a87aad4d1ffcec9561a3eb27e979e1e14bba317100b86433ea6b9"
-    },
     "modItem_MineAndBladeBattleGear2_daggerstone_0": {
       "sources": [
         {
@@ -122996,16 +122009,6 @@
       ],
       "note": "Original GT SHINY/wireGt12 with material color. No resource pack.",
       "importSignature": "5417fdd434841b12d1de7fca2d8b43752aff60dbe05ddc693bb4754a961b99db"
-    },
-    "modItem_IndustrialCraft2_reactorCoolantSimple_1": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorCoolantSimple.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "cda4e2d36fd923fa00488796ecd17b94b1365468782d2d8a7ec8f1c3e1ec5435"
     },
     "ic2_frequencyTransmitter": {
       "sources": [
@@ -123178,17 +122181,6 @@
       ],
       "note": "Original GT SHINY/wireFine with material color. No resource pack.",
       "importSignature": "67afff2d3f297141e5119ca2c7d3808bd25bf98ea826048de1f3bd216732dc5d"
-    },
-    "anyIronLongRod": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/items/materialicons/NONE/stickLong.png",
-          "tint": "#c8c8c8"
-        }
-      ],
-      "note": "Original GT SHINY/stickLong with material color. No resource pack.",
-      "importSignature": "0ca7383c3fca562def6299dad6ce01b7437eebee7c29d373aa12092131bd0445"
     },
     "modItem_Fether_quartzchestplate_0": {
       "sources": [
@@ -146783,17 +145775,6 @@
       "note": "Original GT METALLIC/stickLong with material color. No resource pack.",
       "importSignature": "6b99b934e6addd8a96a8358089e627f3bf500a98cfff6a0b9f8229d7ad12162b"
     },
-    "gTPP_HG1223Block": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/blocks/materialicons/NONE/block1.png",
-          "tint": "#27559f"
-        }
-      ],
-      "note": "Original GT SHINY/block with material color. No resource pack.",
-      "importSignature": "a139e29a1f839a04a4492b5cc23dd66ac93633791fcdd997a34bd0c2c4d5aab5"
-    },
     "gTPP_StaballoyDust": {
       "sources": [
         {
@@ -160298,17 +159279,6 @@
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "1d68c979f2ce2e40e84e69c0c1f93577cfb7b70295db961b03c10e766c8b3dc0"
     },
-    "gTPP_ArceusAlloy2B": {
-      "sources": [
-        {
-          "archive": "gregtech-5.09.54.265.jar",
-          "texture": "assets/gregtech/textures/blocks/fluids/fluid.autogenerated.png",
-          "tint": "#cdc517"
-        }
-      ],
-      "note": "Original GT autogenerated fluid silhouette with the registered material color.",
-      "importSignature": "de9bfa6d91ea2dd46521e0ea634b0e92143ebf0755e01978a0475e12f11b2e5b"
-    },
     "werkstoffLoader_MagnetoResonaticDustDustTiny": {
       "sources": [
         {
@@ -172267,16 +171237,6 @@
       ],
       "note": "Original registered item texture from the pinned GTNH mod jars.",
       "importSignature": "3e232a751e145b3d97abf8fd33497dd09531e7a8417f0d61b11d4ed272106890"
-    },
-    "ic2_reactorVentSpreadMeta0": {
-      "sources": [
-        {
-          "archive": "industrialcraft-2-2.2.828-experimental.jar",
-          "texture": "assets/ic2/textures/items/reactorVentSpread.png"
-        }
-      ],
-      "note": "Original registered item texture from the pinned GTNH mod jars.",
-      "importSignature": "02d5caf17dc08df31a1093028c499cef36418c5fc61f5e5b4a4f59cacba61ecb"
     },
     "ttItem_TimeAccelerationFieldGeneratorTier5": {
       "sources": [

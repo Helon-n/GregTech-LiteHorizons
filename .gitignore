@@ -8,3 +8,4 @@ electron-runtime.zip
 bridge/build/
 bridge/*.jar
 __pycache__/
+/AGENTS.md
