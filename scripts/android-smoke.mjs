@@ -2,7 +2,7 @@ import {execFileSync} from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {chromium,expect} from '@playwright/test';
-import {revealResource} from './ui-controls.mjs';
+import {revealResource,checkCollectorLayout} from './ui-controls.mjs';
 
 // This test changes saves only in the project's disposable emulator.
 const serial=process.argv[process.argv.indexOf('--serial')+1];
@@ -57,7 +57,7 @@ try{
   };
   for(const name of ['overview','resources','workshop','factory','inventory','research','space','settings'])await go(name);
   console.log('Native WebView: startup, all 8 pages, icons and modules passed.');
-  await go('resources');await revealResource(page,'forest');
+  await go('resources');await checkCollectorLayout(page,expect);await revealResource(page,'forest');
   for(let i=0;i<4;i++)await page.locator('[data-gather=forest]').click();
   await expect(page.locator('[data-qty=wood]')).toHaveText(/^[1-3]$/);
   await go('workshop');await page.locator('[data-book-item=stick]').click();
@@ -74,10 +74,14 @@ try{
     for(const type of ['cokeOven','steamMacerator','forgeHammer','boiler']){
       game.add(game.catalog.machines[type].cost);const result=game.build(type);if(!result.ok)throw Error(result.message);
     }
+    for(let i=0;i<3;i++){game.add(game.collectorCost(game.catalog.gatherNodes.find(n=>n.id==='forest')));const r=game.buildCollector('forest');if(!r.ok)throw Error(r.message);}
     game.add({woodBucket:3});const result=game.placeContainer('woodBucket',3);if(!result.ok)throw Error(result.message);
     sessionStorage.setItem('gtlh-test-seed',JSON.stringify(game.snapshot()));
   });
-  await page.reload({waitUntil:'load'});await go('inventory');
+  await page.reload({waitUntil:'load'});await go('resources');await checkCollectorLayout(page,expect,{deployed:true});
+  await fs.writeFile('artifacts/android/collectors.png',execFileSync(executable,['-s',serial,'exec-out','screencap','-p'],{timeout:10000}));
+  console.log('Native WebView: undeployed/active collectors, stop/resume, worker count and both pagers passed.');
+  await go('inventory');
   await expect(page.locator('#page')).toContainText('物品仓库');
   await go('factory');
   for(const type of ['cokeOven','steamMacerator','forgeHammer','boiler']){

@@ -27,19 +27,21 @@ html[data-mobile] .current-goal h3{font-size:18px;margin:0}
 html[data-mobile] .current-goal p{margin:3px 0;font-size:12px}
 html[data-mobile] .goal-row{padding:4px 0;min-height:34px}
 html[data-mobile] .progress-label{font-size:12px;margin:3px 0}
-html[data-mobile] .list-pagination{gap:4px;min-height:38px}
+html[data-mobile] .list-pagination{gap:4px;min-height:38px;flex-wrap:nowrap}
+html[data-mobile] .list-pagination.compact{justify-content:center}
 html[data-mobile] .list-pagination .button{min-width:36px;padding:4px 7px}
 html[data-mobile] .list-pagination .page-count{font-size:12px;padding:0 3px}
 html[data-mobile] .list-pagination .page-gap{display:none}
 html[data-mobile] .resource-card{padding:0;display:grid;grid-template-columns:105px minmax(0,1fr);align-content:start}
 html[data-mobile] .pool-top{grid-column:1/-1;padding:2px 9px}
-html[data-mobile] .pool-top h3{font-size:15px}
+html[data-mobile] .pool-top h3{font-size:15px;margin:0}
 html[data-mobile] .resource-tabs .filter{min-height:34px}
-html[data-mobile] .resource-tabs{grid-column:1/-1;padding:0 8px;margin:0 0 4px}
+html[data-mobile] .resource-card .resource-tabs{grid-column:1/-1;padding:0 8px;margin:3px 0}
 html[data-mobile] .gather-scene{align-self:center}
 html[data-mobile] .gather-target{height:112px}
 html[data-mobile] .resource-scene>.item-art.large{width:60px;height:60px;flex-basis:60px}
 html[data-mobile] .pool-body{padding:3px 8px 6px;min-width:0}
+html[data-mobile] .pool-body>p{line-height:1.4;margin:4px 0}
 html[data-mobile] .pool-body>.button{margin-top:0}
 html[data-mobile] .pool-body>.progress{margin-top:4px}
 html[data-mobile] .pool-body>.text-link{padding:2px 0;min-height:24px;font-size:12px}
@@ -48,9 +50,22 @@ html[data-mobile] .resource-title>span{display:none}
 html[data-mobile] .resource-title>strong{font-size:16px}
 html[data-mobile] .node-access{font-size:11px;line-height:1.4;margin:4px 0;overflow-wrap:anywhere}
 html[data-mobile] .scene-hint{font-size:12px}
-html[data-mobile] .automatic .pool-body{grid-column:1/-1}
+html[data-mobile] .resource-card.automatic .pool-body{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:6px;align-items:center}
+html[data-mobile] .resource-card.automatic .pool-body>.muted:not(.node-access),html[data-mobile] .resource-card.automatic .collector-controls,html[data-mobile] .resource-card.automatic .collector-deploy{grid-column:1/-1}
+html[data-mobile] .resource-card.automatic .node-access{grid-column:1}
+html[data-mobile] .resource-card.automatic .pool-body>.text-link{grid-column:2;white-space:nowrap}
 html[data-mobile] .collector-controls{margin:2px 0}
-html[data-mobile] .collector-deploy{display:flex;align-items:center;gap:6px}
+html[data-mobile] .collector-deploy{display:flex;align-items:center;gap:6px;margin-top:4px;padding-top:4px}
+html[data-mobile] .collector-cost .stacks{margin-top:2px}
+html[data-mobile] .resource-card.automatic .worker-control{margin:0;padding:0;gap:3px;font-size:12px}
+html[data-mobile] .resource-card.automatic .worker-control small{font-size:11px}
+html[data-mobile] .resource-card.automatic .worker-stepper{gap:4px}
+html[data-mobile] .resource-card.automatic .worker-stepper strong{font-size:14px;min-width:36px}
+html[data-mobile] .resource-card.automatic .collector-controls{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px}
+html[data-mobile] .resource-card.automatic .collector-controls>.worker-control{grid-column:1/-1}
+html[data-mobile] .resource-card.automatic .collector-controls>.progress-label,html[data-mobile] .resource-card.automatic .collector-controls>.progress{grid-column:1}
+html[data-mobile] .resource-card.automatic .collector-controls>.button{grid-column:2;grid-row:2/4;width:auto;margin:0}
+html[data-mobile] .resource-card>.mobile-panel-pages{grid-column:1/-1}
 html[data-mobile] .collector-cost{margin:0;padding:0;font-size:12px}
 html[data-mobile] .ingredient{padding:2px 4px;font-size:12px}
 html[data-mobile] .workshop-tabs .filter{padding:3px 7px;min-height:34px;font-size:13px}
@@ -146,7 +161,7 @@ html[data-mobile] .tree-row{min-height:48px;padding:4px;gap:6px}
 html[data-mobile] .recipe-tree{padding:8px}
 html[data-mobile] .tree-actions{margin:4px 0}
 html[data-mobile] .tree-target h2{font-size:15px}
-html[data-mobile] .mobile-panel-pages{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:5px;font-size:12px}
+html[data-mobile] .mobile-panel-pages{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:5px;font-size:12px;white-space:nowrap}
 html[data-mobile] .mobile-panel-pages .button{min-height:32px;min-width:34px;padding:3px 7px}
 html[data-mobile] .tier-appearance{gap:6px}
 html[data-mobile] .tier-controls{gap:4px;flex-wrap:nowrap}

@@ -1,6 +1,6 @@
 import {chromium,expect} from '@playwright/test';
 import fs from 'node:fs/promises';
-import {revealResource} from './ui-controls.mjs';
+import {revealResource,checkCollectorLayout} from './ui-controls.mjs';
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe'});
 await fs.mkdir('artifacts/mobile',{recursive:true});
 const errors=[];
@@ -28,7 +28,7 @@ async function checkPanelPages(page,label){
   }
 }
 try{
-  for(const size of [{width:854,height:393},{width:960,height:480},{width:740,height:360}]){
+  for(const size of [{width:854,height:393},{width:960,height:480},{width:740,height:360},{width:792,height:360,inset:60}]){
     const context=await browser.newContext({viewport:size,isMobile:true,hasTouch:true});
     await context.addInitScript(()=>{
       window.nativeCalls=[];window.cancelExport=false;
@@ -37,11 +37,14 @@ try{
         setTimeout(()=>window.gtlhNativeResult(req.id,result),10);
       }};
     });
+    if(size.inset)await context.addInitScript(inset=>document.addEventListener('DOMContentLoaded',()=>{document.querySelector('.layout').style.paddingLeft=inset+'px';}),size.inset);
     const page=await context.newPage();page.setDefaultTimeout(5000);page.on('pageerror',e=>errors.push(e.message));
     await page.goto('http://127.0.0.1:4173/');await expect(page.locator('[data-gather]')).toHaveCount(0);
     const go=async name=>{await page.locator('.nav [data-page="'+name+'"]').click();await fit(page,name+' '+size.width);};
     for(const section of ['overview','resources','workshop','factory','inventory','research','space','settings'])await go(section);
-    await go('resources');await revealResource(page,'forest');for(let i=0;i<4;i++)await page.locator('[data-gather=forest]').click();
+    await go('resources');await checkCollectorLayout(page,expect);
+    await page.screenshot({path:`artifacts/mobile/collectors-empty-${size.width}.png`});
+    await revealResource(page,'forest');for(let i=0;i<4;i++)await page.locator('[data-gather=forest]').click();
     await expect(page.locator('[data-qty=wood]')).toHaveText(/^[1-3]$/);
     await page.locator('[data-node-details=forest]').click();await expect(page.locator('#modal')).toContainText('每轮掉落范围');
     expect(await page.evaluate(()=>window.gtlhBack())).toBe(true);
@@ -88,9 +91,11 @@ try{
     // Isolated synthetic factory fixture, never a player's saved world.
     const factoryFixture=await page.evaluate(async()=>{const {Game}=await import('/core/engine.js');const g=new Game();g.add({wood:10000,coal:10000,steel:10000,bronze:10000,copper:10000,iron:10000,tin:10000,brick:10000,stone:10000,flintPick:1,wrench:1,hammer:1});
       for(const type of ['cokeOven','steamMacerator','forgeHammer','boiler']){const cost=g.catalog.machines[type].cost;g.add(cost);const result=g.build(type);if(!result.ok)throw Error(type+': '+result.message);}
+      for(let i=0;i<3;i++){g.add(g.collectorCost(g.catalog.gatherNodes.find(n=>n.id==='forest')));const r=g.buildCollector('forest');if(!r.ok)throw Error(r.message);}
       g.add({woodBucket:3});g.placeContainer('woodBucket',3);return JSON.stringify(g.snapshot());});
     await page.addInitScript(value=>localStorage.setItem('gtnh-long-road-v2',value),factoryFixture);
-    await page.reload();await go('factory');
+    await page.reload();await go('resources');await checkCollectorLayout(page,expect,{deployed:true});
+    await page.screenshot({path:`artifacts/mobile/collectors-active-${size.width}.png`});await go('factory');
     for(const type of ['cokeOven','steamMacerator','forgeHammer','boiler']){
       const button=page.locator('[data-factory-type="'+type+'"]');await expect(button).toHaveCount(1);
       await button.click();await fit(page,'factory '+type);

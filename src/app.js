@@ -187,10 +187,10 @@ function listPage(key,list,size){
   const previous=listSizes.get(key);
   if(previous&&previous!==size)listPages[key]=Math.floor((listAnchors.get(key)??(listPages[key]||0)*previous)/size);
   listSizes.set(key,size);
-  const compact=['book','goals','recipe-favorites'].includes(key);
+  const compact=mobile||['book','goals','recipe-favorites'].includes(key);
   const count=Math.max(1,Math.ceil(list.length/size));
   const index=listPages[key]=Math.max(0,Math.min(listPages[key]||0,count-1));
-  const button=(target,label,disabled=false)=>`<button class="button ${target===index?'current':''}" data-list-page="${key}" data-list-index="${target}" ${disabled?'disabled':''} ${target===index?'aria-current="page"':''}>${label}</button>`;
+  const button=(target,label,disabled=false)=>`<button class="button ${target===index?'current':''}" data-list-page="${key}" data-list-index="${target}" ${label==='‹'?'aria-label="上一页"':label==='›'?'aria-label="下一页"':''} ${disabled?'disabled':''} ${target===index?'aria-current="page"':''}>${label}</button>`;
   const indexes=[...new Set([0,...Array.from({length:5},(_,i)=>index+i-2).filter(i=>i>=0&&i<count),count-1])].sort((a,b)=>a-b);
   const numbers=compact?'':indexes.map((i,at)=>(at&&i-indexes[at-1]>1?'<span class="page-gap">…</span>':'')+button(i,i+1)).join('');
   const controls=count<2?'':`<nav class="list-pagination ${compact?'compact':''}" data-pagination="${key}" aria-label="${key==='book'?'物品列表':key==='goals'?'主线目标':'列表'}翻页">${button(index-1,compact?'‹':'上一页',index===0)}${numbers}<span class="page-count">${index+1} / ${count}</span>${button(index+1,compact?'›':'下一页',index===count-1)}</nav>`;
