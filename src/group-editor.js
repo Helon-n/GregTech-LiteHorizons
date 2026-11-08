@@ -1,3 +1,4 @@
+import {mobile} from './platform.js';
 import {items,machines} from './data/catalog.js';
 import {ENERGY_REFERENCE as ENERGY} from './data/energy-reference.js';
 import {planGrid,gridStyle,fitPageLimits} from './layout.js';
@@ -11,7 +12,7 @@ export function configureGroupEditor(options){getGame=options.getGame;onSaved=op
 export function openGroupEditor(groupKind,id=null,machineType=''){
   const g=getGame().state.groups.find(g=>g.id===id);kind=g?.kind||groupKind;groupId=g?.id||null;type=machineType;
   selected=new Set(g?.members||[]);groupName=g?.name||'';query='';page=0;rowLimit=Infinity;
-  draw();dialog.showModal();draw();dialog.querySelector('[name="groupName"]').focus();
+  draw();dialog.showModal();draw();if(!mobile)dialog.querySelector('[name="groupName"]').focus();
 }
 function candidates(){
   const game=getGame();return (kind==='fluid'?game.state.containers:game.state.devices).filter(x=>{
@@ -28,7 +29,7 @@ function draw(){
   const all=candidates(),chosen=[...new Map(all.filter(x=>selected.has(x.id)).map(x=>[`${x.type}/${x.fluid}/${x.energyTier}`,x])).values()];
   const label=x=>kind==='fluid'?`${items[x.type].name} #${x.id.slice(1)} · ${items[x.fluid]?.name||'空容器'}`:`${x.alias||machines[x.type].name} #${x.id.slice(1)}`;
   const matches=createSearch(query),visible=all.filter(x=>matches(label(x)));
-  const plan=planGrid('choice',{width:Math.min(980,innerWidth-48)-40,height:innerHeight-48},310);
+  const plan=planGrid('choice',{width:mobile?(Math.min(980,innerWidth-20)-40)/2:Math.min(980,innerWidth-48)-40,height:innerHeight-48},310);
   plan.rows=Math.min(plan.rows,rowLimit);plan.size=plan.rows*plan.columns;
   const count=Math.max(1,Math.ceil(visible.length/plan.size));page=Math.max(0,Math.min(page,count-1));
   dialog.setAttribute('aria-label',groupId?'管理分组':'创建分组');

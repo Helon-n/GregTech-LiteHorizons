@@ -4,6 +4,8 @@
 
 Windows x64，下载后可直接玩，不需要安装 Minecraft，也不需要联网。
 
+安卓版本支持 Android 8.0 及以上，横屏操作，需要较新的 Android System WebView。切到后台时自动保存并暂停，回到游戏后继续；可以导入 Windows 版导出的 JSON 存档。
+
 ## 下载
 
 [下载最新版](https://github.com/Helon-n/GregTech-LiteHorizons/releases/latest)
@@ -53,6 +55,18 @@ npm run dist                # 生成 Portable 和 Setup
 ```
 
 构建结果在 `release/`。素材重新提取需要本地 GTNH 实例及相应工具，普通运行和打包不需要。
+
+### 安卓
+
+安装 JDK 17、Android SDK Platform 35 和 Build Tools 35.0.0，设置 `JAVA_HOME` 与 `ANDROID_SDK_ROOT` 后运行：
+
+```powershell
+npm run build:android
+```
+
+APK 在 `release/android/`。构建脚本直接使用 Android SDK 工具，不需要 Electron 或 Gradle；同一 APK 支持 ARM 和 x86 设备。当前使用本机生成的开发测试签名，密钥保存在 `.local/android-signing/`，后续覆盖安装需要保留此密钥。清除应用数据或卸载会删除手机存档，请先在设置中导出备份。
+
+触屏界面检查：先运行 `npm run dev:web`，再运行 `npm run test:ui:mobile`。这是浏览器中的触屏与尺寸检查，不能替代真机安装测试。
 
 ## 文档
 
