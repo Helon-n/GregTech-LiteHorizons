@@ -58,11 +58,9 @@ npm run dist                # 生成 Portable 和 Setup
 
 - [版本记录](docs/CHANGELOG.md)
 - [能源](docs/ENERGY.md) · [材料加工](docs/MATERIALS.md) · [工业配方](docs/INDUSTRY.md)
-- [科技产线](docs/TECHNOLOGY.md) · [配方树与制作计划](docs/PRODUCTION-PLAN.md)
-- [界面布局](docs/LAYOUT.md) · [电压外观](docs/VOLTAGE-STYLE.md)
-- [物品名称](docs/ITEM-NAMES.md) · [图标来源](docs/ICONS.md)
+- [科技产线](docs/TECHNOLOGY.md) · [图标来源](docs/ICONS.md)
 - [素材许可核对](docs/ASSET-LICENSE-AUDIT.md)
-- [测试记录](docs/VALIDATION.md) · [配方导出工具](bridge/README.md)
+- [配方导出工具](bridge/README.md)
 
 ## 素材来源
 

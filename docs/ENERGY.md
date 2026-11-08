@@ -18,7 +18,7 @@
 - 别名及流体目标为 schema 4 的可选字段，旧存档加载补默认值。移除容器或拆除设备时清理相关连接。
 - 本轮仅累计源码修改，未运行测试、启动应用或打包。
 
-v0.1.7 能源规则；本次发布按用户要求执行逻辑、浏览器及桌面应用检查和打包，结果见 `VALIDATION.md`。未启动 Minecraft 实例。数值依据用户指定实例中的 GregTech **5.09.54.265**，使用同名源代码标签核对；锅炉与轮机关键方法另与安装 jar 的 `javap` 输出对照。文件哈希与来源索引在 `src/data/energy-provenance.json`，运行数值在 `src/data/energy-reference.js`。
+v0.1.7 能源规则使用的数值依据为 GregTech **5.09.54.265**，使用同名源代码标签核对；锅炉与轮机关键方法另与安装 jar 的 `javap` 输出对照。文件哈希与来源索引在 `src/data/energy-provenance.json`，运行数值在 `src/data/energy-reference.js`。
 
 ## 已采用的数值
 
