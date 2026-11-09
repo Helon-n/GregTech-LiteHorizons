@@ -1,10 +1,26 @@
 // Navigate the same paginated controls a player uses; never wheel-scroll a test.
+import {CATALOG} from '../src/data/catalog.js';
+import {gatheringDestination} from '../src/core/gathering-browser.js';
 export async function revealResource(page,id){
+  const node=CATALOG.gatherNodes.find(node=>node.id===id);
+  if(!node)throw Error('Unknown resource node: '+id);
+  const {region,page:key}=gatheringDestination(CATALOG,node,()=>false);
+  if(await page.locator('#page').getAttribute('data-page')!==key)await page.locator('.nav [data-page="'+key+'"]').click();
+  if(!await page.locator('[data-gather-region="'+region+'"]').count()){
+    const previous=page.locator('[data-region-step="-1"]');
+    while(!await previous.isDisabled())await previous.click();
+    for(let i=0;i<50&&!await page.locator('[data-gather-region="'+region+'"]').count();i++){
+      const next=page.locator('[data-region-step="1"]');
+      if(await next.isDisabled())throw Error('Resource region is unavailable: '+region);
+      await next.click();
+    }
+  }
+  await page.locator('[data-gather-region="'+region+'"]').click();
   if(!await page.locator('[data-node="'+id+'"]').count()){
-    const first=page.locator('[data-pagination="resources"] [data-list-index="0"]').first();
+    const first=page.locator('[data-pagination="'+key+'"] [data-list-index="0"]').first();
     if(await first.count()&&!await first.isDisabled())await first.click();
     for(let i=0;i<30&&!await page.locator('[data-node="'+id+'"]').count();i++){
-      const next=page.locator('[data-pagination="resources"] button').last();
+      const next=page.locator('[data-pagination="'+key+'"] button').last();
       if(!await next.count()||await next.isDisabled())throw Error('Resource node is unavailable: '+id);
       await next.click();
     }

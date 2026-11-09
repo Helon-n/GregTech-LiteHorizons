@@ -96,7 +96,8 @@ try{
   await expect(win.locator('[data-tree-content]')).toContainText('恶魔召唤研究笔记');
   await expect(win.locator('[data-tree-action="start"]')).toBeDisabled();
   await win.locator('[data-resource-source="netherSinExpedition"]').click();
-  await expect(win.locator('#page')).toHaveAttribute('data-page','space');
+  await expect(win.locator('#page')).toHaveAttribute('data-page','resources');
+  await expect(win.locator('[data-gather-region="NETHER"]')).toHaveAttribute('aria-pressed','true');
   expect(errors).toEqual([]);
   console.log(`${packaged?'Packaged':'Source'} recipe tree OK: real module worker, responsive iron-plate preview, fold cache, stale requests, batch edits, page switching, actual plan completion, unsupported and bounded previews, locked gathering sources; isolated save.`);
 }catch(error){

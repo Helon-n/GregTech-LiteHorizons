@@ -1,6 +1,7 @@
 import {MINING_REFERENCE as reference} from './mining-reference.js';
 import {INDUSTRY_IMPORT as industry} from './industry-import.js';
 import {TECHNOLOGY_IMPORT as technology} from './technology-import.js';
+import {REGION_NAMES} from './region-names.js';
 
 const normalize=id=>({ASTEROIDS:'Asteroids',KUIPERBELT:'KuiperBelt'}[id.replace(/^DimensionDef\./,'')]??id.replace(/^DimensionDef\./,''));
 export function applyMiningCatalog({items,machines,recipes,gatherNodes}) {
@@ -41,7 +42,7 @@ export function applyMiningCatalog({items,machines,recipes,gatherNodes}) {
   };
   const near=new Set(['Moon','Mars']);
   for(const dim of new Set([...industry.oreMaterials,...technology.oreMaterials].flatMap(ore=>(ore.dimensions??[]).map(normalize))))
-    regions[dim]??={name:({Moon:'月球',Mars:'火星',Asteroids:'小行星带',EndAsteroids:'末地小行星',KuiperBelt:'柯伊伯带'}[dim]??dim),requires:[near.has(dim)?'rocket':'advancedRocket']};
+    regions[dim]??={name:REGION_NAMES[dim]??dim,requires:[near.has(dim)?'rocket':'advancedRocket']};
   const ores=new Map();
   for(const ore of [...industry.oreMaterials,...technology.oreMaterials]) {
     const entry=ores.get(ore.id)??{dimensions:[]};

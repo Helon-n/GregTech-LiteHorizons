@@ -58,6 +58,23 @@ html,body{height:100%;overflow:clip;scrollbar-gutter:auto}
 .activity-log>div{padding:10px 0;line-height:1.6}
 .fitted-cards{display:grid}
 .resource-card{min-width:0}
+.resource-card .node-access{font-size:14px;line-height:1.5;margin:6px 0}
+.workspace[data-page="resources"],.workspace[data-page="space"]{gap:6px}
+.region-browser{flex:none;min-width:0;display:flex;flex-direction:column;gap:6px}
+.region-navigation{display:flex;align-items:stretch;gap:8px}
+.region-choices{display:grid;grid-template-columns:repeat(var(--region-columns),minmax(0,144px));gap:8px;flex:1;min-width:0}
+.region-choice{display:flex;align-items:center;gap:8px;text-align:left;padding:6px 9px;min-width:0;line-height:1.35}
+.region-choice .item-art{flex:none;width:28px;height:28px}
+.region-choice>span:last-child{min-width:0;overflow-wrap:anywhere;font-size:15px}
+.region-choice small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+.region-choice[aria-pressed="true"]{border-color:var(--green)}
+.region-step{flex:none;width:38px;padding:0;align-self:center}
+.region-caption{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;font-size:14px;line-height:1.5}
+.region-caption strong{font-size:16px}
+.region-choice:focus-visible,.region-step:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.resource-card .pool-top{padding-block:8px}
+.resource-card .resource-tabs{margin-block:6px}
+.resource-card .pool-body{padding-bottom:8px}
 .pool-top{padding:10px 14px}
 .pool-top h3{font-size:19px;margin:0;font-weight:600}
 .resource-tabs{margin:10px 12px;gap:7px}

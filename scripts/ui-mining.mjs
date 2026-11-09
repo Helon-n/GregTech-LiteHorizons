@@ -19,15 +19,18 @@ try {
     return {manual:JSON.stringify(manual),auto:JSON.stringify(g.snapshot()),ready:JSON.stringify({...g.snapshot(),inventory:{...g.state.inventory,netherPortal:1}})};
   });
   for(const size of [{width:1440,height:960},{width:1040,height:720}]) {
+    console.log(`Checking mining access at ${size.width}×${size.height}`);
     await win.setViewportSize(size);
     await win.evaluate(value=>sessionStorage.setItem('mining-fixture',value),fixtures.manual);await win.reload();
     await win.locator('.nav [data-page="resources"]').click();await revealResource(win,'ironVein');
+    console.log('Iron source located');
     const iron=win.locator('[data-node="ironVein"]');await expect(iron.locator('[data-gather]')).toBeDisabled();
     await expect(iron.locator('[data-node-access]')).toContainText('采掘 2+ / 当前 1');await expect(iron.locator('[data-gather]')).toContainText('铁镐');
     expect(await iron.locator('[data-node-access]').getAttribute('title')).toContain('主世界');
     let rect=await iron.boundingBox();expect(rect.y+rect.height).toBeLessThanOrEqual(size.height);
     await win.evaluate(value=>sessionStorage.setItem('mining-fixture',value),fixtures.auto);await win.reload();
     await win.locator('.nav [data-page="resources"]').click();await revealResource(win,'ore:Sulfur');
+    console.log('Sulfur source located');
     await win.locator('[data-node-id="ore:Sulfur"][data-node-view="auto"]').click();
     const sulfur=win.locator('[data-node="ore:Sulfur"]');await expect(sulfur.locator('[data-collector]')).toBeDisabled();
     await expect(sulfur.locator('[data-auto]')).toContainText('地区入口');await expect(sulfur.locator('[data-auto]')).toContainText('下界传送门');
@@ -42,4 +45,5 @@ try {
     await Promise.all(Object.keys(CATALOG.mining.tools).map(id=>new Promise((resolve,reject)=>{const image=new Image();image.onload=resolve;image.onerror=()=>reject(Error('Icon failed: '+id));image.src='./assets/gtnh/'+id+'.svg';})));
   });
   expect(errors).toEqual([]);console.log(`${packaged?'Packaged':'Source'} mining UI OK: tool/region locks, collector pause, access restoration and SVG tools at 1440×960 / 1040×720; isolated saves.`);
-} finally {await app.close();}
+} catch(error){await (await app.firstWindow()).screenshot({path:'artifacts/mining-ui-failure.png',timeout:3000}).catch(()=>{});throw error;}
+finally {await app.close();}

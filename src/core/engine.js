@@ -331,7 +331,15 @@ export class Game {
     this.state.gatherProgress[id]=completed?0:clicks;
     return {ok:true,completed,clicks:completed?0:clicks,required,drops,skipped};
   }
-  collectorCost(node){const level=this.state.collectors[node.id]?.count||0;return Object.fromEntries(Object.entries(node.cost).map(([id,n])=>[id,Math.ceil(n*1.5**level)]).filter(([,n])=>n>0));}
+  collectorCost(node){
+    const count=this.state.collectors[node.id]?.count||0;
+    // Five at each price; the eleventh and all later units use the capped price.
+    const step=Math.min(2,Math.floor(count/5));
+    return Object.fromEntries(Object.entries(node.cost).filter(([,n])=>n>0).map(([id,n])=>{
+      const base=Math.ceil(n/2),fixed=id==='motor'||id==='pump';
+      return [id,fixed?base:Math.ceil(base*(1+step*.25))];
+    }));
+  }
   buildCollector(id){const node=this.catalog.gatherNodes.find(n=>n.id===id),access=this.nodeAccess(node);if(!access.available)return {ok:false,message:'需要：'+access.missing.join('、')};const cost=this.collectorCost(node);if(!this.pay(cost))return{ok:false,message:'采集设备建造材料不足'};this.state.collectors[id]??={count:0,elapsed:0,enabled:true,activeCount:0};const c=this.state.collectors[id],allActive=c.activeCount===undefined||c.activeCount===c.count;c.count++;if(allActive)c.activeCount=c.count;this.note('部署自动采集：'+node.name);return {ok:true};}
   toggleCollector(id){
     const c=this.state.collectors[id];if(!c)return {ok:false,message:'尚未部署采集器'};

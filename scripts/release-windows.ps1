@@ -21,6 +21,8 @@ if($TestPackaged){
     if($LASTEXITCODE -ne 0){throw 'Packaged source navigation regression failed'}
     & node scripts/ui-mining.mjs --packaged
     if($LASTEXITCODE -ne 0){throw 'Packaged mining access regression failed'}
+    & node scripts/ui-gathering-regions.mjs --packaged
+    if($LASTEXITCODE -ne 0){throw 'Packaged gathering regions and collector cost regression failed'}
     & node scripts/ui-choice-input.mjs --packaged
     if($LASTEXITCODE -ne 0){throw 'Packaged choice input regression failed'}
     & node scripts/ui-search.mjs --packaged
@@ -38,7 +40,7 @@ if($TestPackaged){
         completedUtc=[DateTime]::UtcNow.ToString('o')
         platform='windows-x64'
         isolatedSave=$true
-        checks=@('desktop-smoke','construction','source-navigation','mining-access','choice-input','pinyin-search','recipe-tree','item-presentations','all-catalog-icons','portable-smoke')
+        checks=@('desktop-smoke','construction','source-navigation','mining-access','gathering-regions-and-costs','choice-input','pinyin-search','recipe-tree','item-presentations','all-catalog-icons','portable-smoke')
         status='passed'
     } | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath (Join-Path $projectRoot 'docs/release-validation.json') -Encoding UTF8
 }

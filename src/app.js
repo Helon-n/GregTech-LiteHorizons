@@ -22,6 +22,7 @@ import {appearanceMarkup,mountAppearance} from './tier-appearance.js';
 import {updateText,updateDisabled,updateAttribute,updatePercent} from './live-view.js';
 import {deviceReadout,updateDeviceReadout} from './device-readout.js';
 import {Game} from './core/engine.js';
+import {gatheringRegions,gatheringDestination} from './core/gathering-browser.js';
 import {migrateRecipeFavorites} from './core/identity-migration.js';
 import {energySpec,energyCapacity,voltage,generatorFuel,carrier,batteryItem,boilerProfile,boilerSteam,boilerSolidFuels,daylight} from './core/energy.js';
 import {ENERGY_REFERENCE as ENERGY,recipeEnergyText} from './data/energy-reference.js';
@@ -59,6 +60,8 @@ setChoiceResolver(id=>{
 configureGroupEditor({getGame:()=>game,onSaved:r=>result(r,'分组设置已保存'),notify});
 let page='overview',workshopTab='craft',filter='',queueSignature='',factoryType='',inventoryTab='items';
 const listPages={},nodeViews={},deviceViews={};
+const regionLists={resources:gatheringRegions(CATALOG,'resources'),space:gatheringRegions(CATALOG,'space')};
+const selectedRegions={resources:'OW',space:'Moon'};
 const containerPlaceCounts={};
 const containerPlaceLimit=id=>Math.max(0,Math.min(Math.floor(game.quantity(id)),10000-game.state.containers.length));
 const containerPlaceCount=id=>Math.max(1,Math.min(containerPlaceCounts[id]||1,containerPlaceLimit(id)));
@@ -152,7 +155,23 @@ function collectorControls(n){
   const workers=c.activeCount??c.count;
   return `<div class="collector-controls"><div class="worker-control"><span>同时工作 <small>/ 共 ${c.count} 台</small></span><div class="worker-stepper"><button class="button" data-worker-node="${n.id}" data-worker-count="${workers-1}" aria-label="减少工作台数" ${workers<=1?'disabled':''}>−</button><strong>${workers} 台</strong><button class="button" data-worker-node="${n.id}" data-worker-count="${workers+1}" aria-label="增加工作台数" ${workers>=c.count?'disabled':''}>＋</button><button class="button" data-worker-node="${n.id}" data-worker-count="${c.count}" ${workers===c.count?'disabled':''}>全部</button></div></div><div class="progress-label"><span>每台 ${n.seconds*4} 秒 / 轮</span><span data-auto="${n.id}"></span></div>${progress(c.elapsed/(n.seconds*4)*100,`data-collector-progress="${n.id}"`)}<button class="button full" data-toggle-collector="${n.id}">${c.enabled===false?'恢复采集':'停止采集'}</button></div>`;
 }
-function gatherPageNodes(key){return gatherNodes.filter(n=>key==='resources'?n.stage<5:n.stage>=5);}
+function currentRegion(key=page){return regionLists[key]?.find(region=>region.id===selectedRegions[key]);}
+function gatherPageNodes(key){return currentRegion(key)?.nodes??[];}
+function regionStatus(region){
+  const missing=region.requires.filter(id=>!game.owned(id)&&!(id==='rocket'&&game.owned('advancedRocket')));
+  return missing.length?'进入需要：'+missing.map(name).join('、'):region.requires.length?'入口已就绪':'可直接探索';
+}
+function regionCapacity(){return Math.max(1,Math.floor((viewport.width-96)/152));}
+function regionBrowser(key){
+  const regions=regionLists[key],selected=currentRegion(key),size=regionCapacity(),index=regions.indexOf(selected),start=Math.floor(index/size)*size;
+  const symbol=region=>({OW:'grass',NETHER:'obsidianBlock',TWILIGHT_FOREST:'sapling',THE_END:'enderEyeGem',EVERGLADES:'vine',Moon:'moonRock',Mars:'marsRock',Asteroids:'asteroid'}[region.id]??region.nodes[0].output);
+  return `<section class="region-browser" aria-label="${key==='space'?'星球':'地区'}分类"><div class="region-navigation"><button class="button region-step" data-region-step="-1" aria-label="上一组地区" ${start===0?'disabled':''}>‹</button><div class="region-choices" style="--region-columns:${Math.min(size,regions.length)}">${regions.slice(start,start+size).map(region=>`<button class="filter region-choice ${region.id===selected.id?'active':''}" data-gather-region="${region.id}" aria-pressed="${region.id===selected.id}" title="${e(region.name+' · '+regionStatus(region))}">${icon(symbol(region))}<span>${e(region.name)}<small>${region.nodes.length} 个采集点</small></span></button>`).join('')}</div><button class="button region-step" data-region-step="1" aria-label="下一组地区" ${start+size>=regions.length?'disabled':''}>›</button></div></section>`;
+}
+function chooseRegion(id){
+  if(!regionLists[page]?.some(region=>region.id===id))return;
+  selectedRegions[page]=id;listPages[page]=0;render();
+  $('[data-gather-region="'+id+'"]')?.focus({preventScroll:true});
+}
 function nodeAccessText(n){
   const access=game.nodeAccess(n),available=access.regions.filter(region=>region.available),region=available[0]??access.regions[0];
   const place='地区：'+(region?.name??'未知')+(access.regions.length>1?` 等 ${access.regions.length} 处`:'');
@@ -160,9 +179,18 @@ function nodeAccessText(n){
     (game.nodeRequirements(n).length?' · 需要 '+game.nodeRequirements(n).map(name).join('、'):'');
 }
 function nodeAccessTitle(n){const access=game.nodeAccess(n);return '分布：'+access.regions.map(region=>region.name).join('、')+(access.available?'':'；缺少：'+access.missing.join('、'));}
+function gatherButtonText(n,access){
+  if(access.available)return `${gatherVerb(n)} · +${Math.round(100/game.gatherClicks(n))}%`;
+  if(access.missing.some(text=>text.startsWith('采掘等级'))){
+    const tool=Object.entries(CATALOG.mining.tools).find(([,tool])=>tool.level>=n.miningLevel);
+    return tool?'需要：'+name(tool[0])+'或更高等级的镐':'需要更高等级的镐';
+  }
+  const missing=game.nodeRequirements(n).find(id=>!game.owned(id)&&!(id==='rocket'&&game.owned('advancedRocket')));
+  return missing?'需要：'+name(missing):'需要地区入口';
+}
 function nodeCard(n){
   const allowed=game.nodeAvailable(n),auto=game.state.collectors[n.id]?.count||0,clicks=game.state.gatherProgress[n.id]||0,total=game.gatherClicks(n),automatic=nodeViews[n.id]==='auto';
-  return `<article class="surface resource-card ${automatic?'automatic':''} ${allowed?'':'locked'}" data-node="${n.id}"><div class="pool-top"><h3>${n.name}</h3><span class="pill" data-collector-badge="${n.id}">${auto?'自动 ×'+(game.state.collectors[n.id].enabled===false||!allowed?0:game.state.collectors[n.id].activeCount??auto):STAGES[n.stage].code}</span></div><div class="subtabs resource-tabs"><button class="filter ${automatic?'':'active'}" data-node-view="manual" data-node-id="${n.id}">手动采集</button><button class="filter ${automatic?'active':''}" data-node-view="auto" data-node-id="${n.id}">自动采集</button></div>${automatic?'':`<div class="gather-scene"><button class="resource-scene gather-target" data-gather-hit="${n.id}" aria-label="${gatherVerb(n)}${n.name}" ${!allowed?'disabled':''}>${resourceArt(n)}<span class="scene-grid"></span><span class="scene-hint">点击${gatherVerb(n)}</span></button><div class="drop-layer" data-drop-layer="${n.id}" aria-hidden="true"></div></div>`}<div class="pool-body"><div class="resource-title"><span>${e(n.description)}</span><strong>${qty(n.output)}${items[n.output].kind==='fluid'?'<small> mB</small>':''}</strong></div>${automatic?`${collectorControls(n)||'<p class="muted">尚未部署采集器</p>'}<div class="collector-deploy"><div class="collector-cost">部署消耗 ${stacks(game.collectorCost(n))}</div><button class="button" data-collector="${n.id}" ${!allowed?'disabled':''}>部署 +</button></div>`:`${progress(clicks/total*100,`data-gather-progress="${n.id}"`)}<div class="progress-label"><span data-click-progress="${n.id}">${clicks} / ${total} 次点击</span></div><button class="button primary full" data-gather="${n.id}" ${!allowed?'disabled':''}>${gatherVerb(n)} · +${Math.round(100/total)}%</button>`}<p class="small muted node-access" data-node-access="${n.id}" title="${e(nodeAccessTitle(n))}">${e(nodeAccessText(n))}</p><div class="node-drops"><small>每轮掉落范围</small>${dropRanges(n)}</div></div></article>`;
+  return `<article class="surface resource-card ${automatic?'automatic':''} ${allowed?'':'locked'}" data-node="${n.id}"><div class="pool-top"><h3>${n.name}</h3><span class="pill" data-collector-badge="${n.id}">${auto?'自动 ×'+(game.state.collectors[n.id].enabled===false||!allowed?0:game.state.collectors[n.id].activeCount??auto):STAGES[n.stage].code}</span></div><div class="subtabs resource-tabs"><button class="filter ${automatic?'':'active'}" data-node-view="manual" data-node-id="${n.id}">手动采集</button><button class="filter ${automatic?'active':''}" data-node-view="auto" data-node-id="${n.id}">自动采集</button></div>${automatic?'':`<div class="gather-scene"><button class="resource-scene gather-target" data-gather-hit="${n.id}" aria-label="${gatherVerb(n)}${n.name}" ${!allowed?'disabled':''}>${resourceArt(n)}<span class="scene-grid"></span><span class="scene-hint">点击${gatherVerb(n)}</span></button><div class="drop-layer" data-drop-layer="${n.id}" aria-hidden="true"></div></div>`}<div class="pool-body"><div class="resource-title"><span>${e(n.description)}</span><strong>${qty(n.output)}${items[n.output].kind==='fluid'?'<small> mB</small>':''}</strong></div>${automatic?`${collectorControls(n)||'<p class="muted">尚未部署采集器</p>'}<div class="collector-deploy"><div class="collector-cost">部署消耗（11 台起封顶）${stacks(game.collectorCost(n))}</div><button class="button" data-collector="${n.id}" ${!allowed?'disabled':''}>部署 +</button></div>`:`${progress(clicks/total*100,`data-gather-progress="${n.id}"`)}<div class="progress-label"><span data-click-progress="${n.id}">${clicks} / ${total} 次点击</span></div><button class="button primary full" data-gather="${n.id}" ${!allowed?'disabled':''}>${gatherVerb(n)} · +${Math.round(100/total)}%</button>`}<p class="small muted node-access" data-node-access="${n.id}" title="${e(nodeAccessTitle(n))}">${e(nodeAccessText(n))}</p><div class="node-drops"><small>每轮掉落范围</small>${dropRanges(n)}</div></div></article>`;
 }
 
 function dropSummary(){return lastDrops?`<p class="small muted">${gatherNodes.find(n=>n.id===lastDrops.id).name} · 物品入库，流体装入容器</p>${Object.keys(lastDrops.drops).length?stacks(lastDrops.drops,false):'<p class="small muted">本轮未收集到物品</p>'}${Object.keys(lastDrops.skipped||{}).length?'<p class="small storage-warning">未收集：'+Object.keys(lastDrops.skipped).map(name).join('、')+'，需要兼容的空桶或储罐容量。</p>':''}`:'<p class="small muted">暂无掉落</p>';}
@@ -180,7 +208,11 @@ function listPage(key,list,size){
   const controls=count<2?'':`<nav class="list-pagination ${compact?'compact':''}" data-pagination="${key}" aria-label="${key==='book'?'物品列表':key==='goals'?'主线目标':'列表'}翻页">${button(index-1,compact?'‹':'上一页',index===0)}${numbers}<span class="page-count">${index+1} / ${count}</span>${button(index+1,compact?'›':'下一页',index===count-1)}</nav>`;
   return {entries:list.slice(index*size,(index+1)*size),controls};
 }
-function resourcesPage(){const plan=gridPlan('resources'),list=listPage('resources',gatherPageNodes('resources'),plan.size);return heading('资源采集','<button class="button" data-show-drops>最近掉落</button>')+`<div class="resource-cards fitted-cards" ${gridAttrs('resources')}>${list.entries.map(nodeCard).join('')}</div>${list.controls}`;}
+function gatheringScreen(key){
+  const plan=gridPlan(key,210),list=listPage(key,gatherPageNodes(key),plan.size);
+  return heading(titleMap[key],`<div class="region-caption"><strong>${e(currentRegion(key).name)}</strong><span data-region-status>${e(regionStatus(currentRegion(key)))}</span></div><button class="button" data-show-drops>最近掉落</button>`)+regionBrowser(key)+`<div class="resource-cards fitted-cards" ${gridAttrs(key)}>${list.entries.map(nodeCard).join('')}</div>${list.controls}`;
+}
+function resourcesPage(){return gatheringScreen('resources');}
 
 function processName(p){return p==='stationResearch'?'科研站研究':Object.values(machines).find(m=>m.processes.includes(p))?.name||p;}
 function workshopEntries(){
@@ -470,7 +502,7 @@ function fluids(){
 
 function research(){const plan=gridPlan('research',100,Math.max(0,viewport.width-298)),list=listPage('research',STAGES,plan.size);return heading('科技主线')+`<div class="page-grid"><div class="page-main"><div class="era-grid" ${gridAttrs('research')}>${list.entries.map(t=>{const active=t.index===game.state.stage,complete=t.index<game.state.stage;return `<article class="surface era-card ${active?'current':''} "><span class="era-index">${String(t.index+1).padStart(2,'0')}</span><div><span class="eyebrow">${t.code}</span><h3>${t.name}</h3><p>${t.description}</p><small>${complete?'✓ 已完成':active?'● 正在推进':'待完成'}</small></div><span class="era-voltage">${t.voltage?num(t.voltage)+' V':'—'}</span></article>`;}).join('')}</div>${list.controls}</div><aside class="page-rail">${mainlinePanel()}</aside></div>`;}
 
-function space(){const plan=gridPlan('space'),list=listPage('space',gatherPageNodes('space'),plan.size);return heading('星际远征')+`<div class="resource-cards fitted-cards" ${gridAttrs('space')}>${list.entries.map(nodeCard).join('')}</div>${list.controls}`;}
+function space(){return gatheringScreen('space');}
 
 function settings(){if(appearanceOpen)return appearance();return heading('存档与设置','<button class="button" data-appearance-open>电压外观</button>')+`<div class="page-grid"><div class="page-main">${panel('世界存档','',`<div class="settings-row"><div><h3>导出存档</h3><p>备份当前世界，或迁移到另一台电脑。</p></div><button class="button primary" data-action="export">导出存档</button></div><div class="settings-row"><div><h3>导入存档</h3><p>载入存档，替换当前世界。</p></div><button class="button" data-action="import">导入存档</button></div><div class="settings-row"><div><h3>重置世界</h3><p>重新开始，重置前会导出当前存档。</p></div><button class="button danger" data-action="reset">重置</button></div>`)}</div><aside class="page-rail">${panel('运行规则','','<p class="muted">采集、生产和手工队列仅在程序运行时推进。</p><p class="muted">关闭程序后暂停，重新打开时从保存的进度继续。</p>')}${panel('世界统计','',`<div class="goal-row"><span>当前章节</span><strong>${game.stage.code}</strong></div><div class="goal-row"><span>运行时间</span><strong data-playtime>${time(game.state.playtime)}</strong></div><div class="goal-row"><span>累计产出</span><strong data-produced>${num(game.state.produced)}</strong></div><div class="goal-row"><span>自动采集点</span><strong>${Object.keys(game.state.collectors).length}</strong></div>`)}</aside></div>`;}
 const pages={overview,resources:resourcesPage,workshop,factory,inventory,research,space,settings};
@@ -484,7 +516,7 @@ function render(){
   const root=$('#page'),style=getComputedStyle(root);
   viewport={width:root.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight),height:root.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)};
   listAnchors=new Map(Object.entries(listPages).map(([key,index])=>[key,index*(listSizes.get(key)||1)]));
-  const context=JSON.stringify([viewport,page,overviewTab,workshopTab,benchView,inventoryTab,containerView,factoryType,filter,appearanceOpen,appearanceMode,game.stage.code,nodeViews,deviceViews,[...expandedDeviceStacks]]);
+  const context=JSON.stringify([viewport,page,selectedRegions,overviewTab,workshopTab,benchView,inventoryTab,containerView,factoryType,filter,appearanceOpen,appearanceMode,game.stage.code,nodeViews,deviceViews,[...expandedDeviceStacks]]);
   if(context!==layoutContext){gridRowLimits.clear();listSizeLimits.clear();layoutContext=context;}
   root.dataset.page=page;
   let needsFit;
@@ -514,6 +546,7 @@ function render(){
 function navigate(next){if(!pages[next])return;closeChoices();appearanceOpen=false;page=next;filter='';render();}
 
 function refresh(){
+  if(currentRegion())updateText($('[data-region-status]'),regionStatus(currentRegion()));
   syncChoiceEntities();
   $$('[data-qty]').forEach(el=>updateText(el,num(game.quantity(el.dataset.qty))));
   if($('#containerList')){
@@ -537,7 +570,7 @@ function refresh(){
   $$('[data-energy-bar]').forEach(el=>updatePercent(el,'width',game.capacity()?game.state.energy/game.capacity()*100:0));
   $$('[data-produced]').forEach(el=>updateText(el,num(game.state.produced)));$$('[data-playtime]').forEach(el=>updateText(el,time(game.state.playtime)));
   $$('[data-ingredient]').forEach(el=>el.classList.toggle('enough',(el.dataset.toolRecipe?game.toolQuantity(el.dataset.ingredient,game.recipeById.get(el.dataset.toolRecipe)):game.quantity(el.dataset.ingredient))>=Number(el.dataset.need)));
-  $$('[data-gather],[data-gather-hit]').forEach(el=>{const n=gatherNodes.find(n=>n.id===(el.dataset.gather||el.dataset.gatherHit));const allowed=game.nodeAvailable(n);updateDisabled(el,!allowed);updateAttribute(el,'title',allowed?'点击采集':'需要：'+game.nodeAccess(n).missing.join('、'));if(el.dataset.gather)updateText(el,allowed?`${gatherVerb(n)} · +${Math.round(100/game.gatherClicks(n))}%`:'需要：'+game.nodeAccess(n).missing.join('、'));});
+  $$('[data-gather],[data-gather-hit]').forEach(el=>{const n=gatherNodes.find(n=>n.id===(el.dataset.gather||el.dataset.gatherHit));const allowed=game.nodeAvailable(n);updateDisabled(el,!allowed);updateAttribute(el,'title',allowed?'点击采集':'需要：'+game.nodeAccess(n).missing.join('、'));if(el.dataset.gather)updateText(el,gatherButtonText(n,game.nodeAccess(n)));});
   $$('[data-node-access]').forEach(el=>{const n=gatherNodes.find(n=>n.id===el.dataset.nodeAccess);updateText(el,nodeAccessText(n));updateAttribute(el,'title',nodeAccessTitle(n));el.closest('[data-node]').classList.toggle('locked',!game.nodeAvailable(n));});
   $$('[data-collector]').forEach(el=>{const n=gatherNodes.find(n=>n.id===el.dataset.collector);updateDisabled(el,!game.nodeAvailable(n));updateAttribute(el,'title',game.nodeAccess(n).missing.join('、'));});
   $$('[data-gather-progress]').forEach(el=>{const n=gatherNodes.find(n=>n.id===el.dataset.gatherProgress);updatePercent(el,'width',(game.state.gatherProgress[n.id]||0)/game.gatherClicks(n)*100);});
@@ -601,7 +634,16 @@ function gatherAction(id){
   }
   refresh();
 }
-document.addEventListener('click',ev=>{const t=ev.target.closest('[data-resource-source]');if(!t)return;const n=gatherNodes.find(n=>n.id===t.dataset.resourceSource);if(!n)return;const key=n.stage<5?'resources':'space';navigate(key);listPages[key]=Math.floor(gatherPageNodes(key).indexOf(n)/(listSizes.get(key)||1));render();$('[data-gather="'+n.id+'"]')?.focus({preventScroll:true});});
+document.addEventListener('click',ev=>{
+  const t=ev.target.closest('button');if(!t||t.disabled)return;
+  if(t.dataset.gatherRegion)return chooseRegion(t.dataset.gatherRegion);
+  if(t.dataset.regionStep){
+    const regions=regionLists[page],size=regionCapacity(),at=regions.indexOf(currentRegion());
+    const next=(Math.floor(at/size)+Number(t.dataset.regionStep))*size;
+    if(regions[next])chooseRegion(regions[next].id);
+  }
+});
+document.addEventListener('click',ev=>{const t=ev.target.closest('[data-resource-source]');if(!t)return;const n=gatherNodes.find(n=>n.id===t.dataset.resourceSource);if(!n)return;const destination=gatheringDestination(CATALOG,n,id=>game.owned(id)>0),key=destination.page;selectedRegions[key]=destination.region;listPages[key]=0;nodeViews[n.id]='manual';navigate(key);listPages[key]=Math.floor(gatherPageNodes(key).indexOf(n)/(listSizes.get(key)||1));render();$('[data-gather="'+n.id+'"]')?.focus({preventScroll:true});});
 
 document.addEventListener('click',ev=>{const t=ev.target.closest('button');if(!t)return;if(t.hasAttribute('data-appearance-open')){appearanceOpen=true;appearanceCode=appearanceMode||tierFor(game.stage.code).code;appearanceEraPage=tierFor(appearanceCode).era;page='settings';render();$('[data-tier-step]:not(:disabled)')?.focus({preventScroll:true});}else if(t.hasAttribute('data-appearance-close')){appearanceOpen=false;render();$('#page [data-appearance-open]')?.focus({preventScroll:true});}});
 document.addEventListener('click',ev=>{const t=ev.target.closest('button');if(!t||t.disabled)return;if(recipeTree.click(t))return;if(t.dataset.bookView){bookView=t.dataset.bookView;return render();}if(t.hasAttribute('data-favorite-toggle'))return toggleRecipeFavorite();if(t.dataset.favoriteOpen)return openRecipeFavorite(t.dataset.favoriteOpen);if(t.dataset.favoriteRemove)return removeRecipeFavorite(t.dataset.favoriteRemove);if(t.dataset.listPage){listPages[t.dataset.listPage]=Number(t.dataset.listIndex);if(t.dataset.listPage.startsWith('bec-')||t.dataset.listPage.startsWith('spin-')||t.dataset.listPage.startsWith('foundry-')||t.dataset.listPage.startsWith('beam-')){const id=t.dataset.listPage.split(':')[1],d=game.state.devices.find(d=>d.id===id);return showModal(advancedControls({game,d,icon,name,num,e,listPage,deviceName,view:t.dataset.listPage.startsWith('bec-nanites')?'nanites':t.dataset.listPage.startsWith('bec-contents')?'contents':t.dataset.listPage.startsWith('beam-filter')?'detectors':'network'}));}render();return;}if(t.hasAttribute('data-show-drops'))return showModal('<h2>最近掉落</h2><div data-last-drops role="status" aria-live="polite">'+dropSummary()+'</div>');if(t.dataset.overviewTab){overviewTab=t.dataset.overviewTab;return render();}if(t.dataset.benchView){benchView=t.dataset.benchView;return render();}if(t.dataset.nodeView){nodeViews[t.dataset.nodeId]=t.dataset.nodeView;return render();}if(t.dataset.containerView){containerView=t.dataset.containerView;return render();}if(t.dataset.expandStack){const key=t.dataset.expandStack;if(t.dataset.stackOutput){for(const id of t.dataset.stackOutput.split(','))deviceViews[id]='output';expandedDeviceStacks.clear();expandedDeviceStacks.add(key);}else if(expandedDeviceStacks.has(key))expandedDeviceStacks.delete(key);else{expandedDeviceStacks.clear();expandedDeviceStacks.add(key);}render();return;}if(t.dataset.inventoryTab){inventoryTab=t.dataset.inventoryTab;filter='';render();return;}if(t.dataset.workerNode)return result(game.setCollectorWorkers(t.dataset.workerNode,Number(t.dataset.workerCount)));if(t.dataset.toggleCollector)return result(game.toggleCollector(t.dataset.toggleCollector));if(t.dataset.dispatch){const target=$('[data-dispatch-target="'+t.dataset.dispatch+'"]').value;const outcome=game.dispatch(t.dataset.dispatch,target);if(outcome.ok){factoryType=outcome.device.type;listPages.factory=0;}return result(outcome,outcome.ok?'已派工至'+deviceName(outcome.device)+' #'+target.slice(1):'');}if(t.dataset.buildFor){workshopTab='machines';selectedItems.machines=t.dataset.buildFor;selectedRecipes.machines='build:'+t.dataset.buildFor;filledRecipe='';listPages.book=0;return navigate('workshop');}if(t.dataset.page)return navigate(t.dataset.page);if(t.dataset.factoryType){focusFactorySelector=true;factoryType=t.dataset.factoryType;listPages.factory=0;expandedDeviceStacks.clear();render();return;}if(t.dataset.workshop){workshopTab=t.dataset.workshop;return navigate('workshop');}if(t.dataset.tab){benchView='recipe';listPages.book=0;workshopTab=t.dataset.tab;recipeMode='recipes';filter='';filledRecipe='';return render();}if(t.dataset.bookItem){benchView='recipe';selectedItems[workshopTab]=t.dataset.bookItem;selectedRecipes[workshopTab]='';filledRecipe='';return render();}if(t.dataset.lookupItem||t.dataset.recipeItem)return lookupItem(t.dataset.lookupItem||t.dataset.recipeItem);if(t.dataset.recipeMode){listPages.book=0;recipeMode=t.dataset.recipeMode;selectedRecipes[workshopTab]='';filledRecipe='';return render();}if(t.dataset.recipeStep){const list=currentRecipes(),at=list.findIndex(r=>r.id===selectedEntry()?.id);selectedRecipes[workshopTab]=list[(at+Number(t.dataset.recipeStep)+list.length)%list.length]?.id;filledRecipe='';return render();}if(t.dataset.placeContainer){const count=containerPlaceCount(t.dataset.placeContainer),outcome=game.placeContainer(t.dataset.placeContainer,count);return result(outcome,`已放置 ${count} 个${name(t.dataset.placeContainer)}`);}if(t.dataset.removeContainer)return result(game.removeContainer(t.dataset.removeContainer),'空容器已收起');if(t.dataset.transfer){const target=$(`[data-transfer-target="${t.dataset.transfer}"]`).value;return result(game.transferFluid(t.dataset.transfer,target),'流体已转移');}if(t.dataset.selectRecipe){selectedRecipes[workshopTab]=t.dataset.selectRecipe;filledRecipe='';return render();}if(t.dataset.fill){const r=selectedEntry();if(r&&r.id===t.dataset.fill&&game.canPay(r.inputs)&&game.hasTools(r)){filledRecipe=r.id;render();}return;}if(t.dataset.gather||t.dataset.gatherHit)return gatherAction(t.dataset.gather||t.dataset.gatherHit);if(t.dataset.collector)return result(game.buildCollector(t.dataset.collector),'已部署自动采集器');if(t.dataset.craft){filledRecipe='';return result(game.craft(t.dataset.craft,Number(t.dataset.count)||1),'已加入手工队列');}if(t.dataset.build){filledRecipe='';return result(game.build(t.dataset.build),'设备已建成');}if(t.dataset.toggle){game.toggle(t.dataset.toggle);persist();return render();}if(t.dataset.forceStop)return result(game.forceStop(t.dataset.forceStop),'已强制停止，可选择新配方后启动');if(t.dataset.remove)return result(game.dismantle(t.dataset.remove),'已拆除并退还原料');if(t.dataset.cancel)return result(game.cancelQueue(Number(t.dataset.cancel)),'已退还未完成批次材料');const action=t.dataset.action;if(action==='advance')result(game.advance());if(action==='export')download(exportWorld(game),'GregTech-LiteHorizons-'+new Date().toISOString().slice(0,10)+'.json');if(action==='import')$('#importFile').click();if(action==='close-modal')$('#modal').close();if(action==='reset')showModal('<h2>重新开始这个世界？</h2><p class="muted">当前存档会先下载为备份，之后创建空白世界。</p><button class="button danger" data-action="confirm-reset">备份并重置世界</button>');if(action==='confirm-reset'){download(exportWorld(game),'GregTech-LiteHorizons-before-reset.json');game=new Game();persist();$('#modal').close();render();notify('新的世界已建立');}});

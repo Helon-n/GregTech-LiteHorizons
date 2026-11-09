@@ -1,19 +1,29 @@
-﻿{
-    "version":  "0.1.22",
-    "completedUtc":  "2026-11-09T03:29:16.0373891Z",
-    "platform":  "windows-x64",
-    "isolatedSave":  true,
-    "checks":  [
-                   "desktop-smoke",
-                   "construction",
-                   "source-navigation",
-                   "mining-access",
-                   "choice-input",
-                   "pinyin-search",
-                   "recipe-tree",
-                   "item-presentations",
-                   "all-catalog-icons",
-                   "portable-smoke"
-               ],
-    "status":  "passed"
+{
+  "version": "0.1.23",
+  "completedUtc": "2026-11-09T04:49:26.5956197Z",
+  "platform": "windows-x64",
+  "isolatedSave": true,
+  "checks": [
+    "desktop-smoke",
+    "construction",
+    "source-navigation",
+    "mining-access",
+    "gathering-regions-and-costs",
+    "choice-input",
+    "pinyin-search",
+    "recipe-tree",
+    "item-presentations",
+    "all-catalog-icons",
+    "portable-smoke"
+  ],
+  "status": "passed",
+  "basicTests": {
+    "passed": 126,
+    "failed": 0,
+    "command": "npm test"
+  },
+  "logs": [
+    ".local/release-v0.1.23.log",
+    ".local/validation-v0.1.23.log"
+  ]
 }

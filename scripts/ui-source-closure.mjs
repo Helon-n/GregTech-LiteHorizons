@@ -3,6 +3,7 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import {CATALOG as c} from '../src/data/catalog.js';
 import {MAGIC_REFERENCE as magic} from '../src/data/magic-reference.js';
+import {gatheringDestination} from '../src/core/gathering-browser.js';
 
 const dataDir=path.resolve('artifacts','source-test-'+Date.now()+'-'+process.pid);
 const packaged=process.argv.includes('--packaged');
@@ -24,14 +25,18 @@ try{
       await tile.click();await tile.hover();await win.keyboard.press('r');
       await expect(win.locator('.workbench')).toContainText('获取地点');
       await win.locator('[data-resource-source="'+node+'"]').click();
-      await expect(win.locator('#page')).toHaveAttribute('data-page','space');
+      const destination=gatheringDestination(c,c.gatherNodes.find(n=>n.id===node),()=>false);
+      await expect(win.locator('#page')).toHaveAttribute('data-page',destination.page);
+      await expect(win.locator('[data-gather-region="'+destination.region+'"]')).toHaveAttribute('aria-pressed','true');
       const card=win.locator('[data-node="'+node+'"]');
       await expect(card).toBeVisible();await expect(card).toContainText(missing);
       await expect(card.locator('[data-gather]')).toBeDisabled();
       expect(await card.locator('img').evaluateAll(images=>images.every(i=>i.complete&&i.naturalWidth>0))).toBe(true);
       const rect=await card.boundingBox();expect(rect.y+rect.height).toBeLessThanOrEqual(size.height);
+      const clipped=await win.locator('#page button').evaluateAll(buttons=>buttons.filter(button=>button.getBoundingClientRect().bottom>innerHeight+1).map(button=>button.textContent.trim()));
+      expect(clipped,'Source navigation must leave pagination reachable').toEqual([]);
     }
   }
   expect(errors).toEqual([]);
-  console.log('Source navigation OK: primary/secondary exclusive drops, locked research, correct remote page and original icons at 1440×960 / 1040×720; isolated save.');
+  console.log('Source navigation OK: primary/secondary exclusive drops, locked research, correct region/page, visible pagination and original icons at 1440×960 / 1040×720; isolated save.');
 }finally{await app.close();}
