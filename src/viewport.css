@@ -152,6 +152,9 @@ html,body{height:100%;overflow:clip;scrollbar-gutter:auto}
 .bench-status{font-size:15px;line-height:1.5;margin:8px 0;min-height:23px}
 .bench-actions{gap:8px}
 .bench-actions .button{min-height:38px;padding:6px 12px}
+.build-quantity{display:flex;align-items:center;gap:5px;flex-wrap:wrap;font-size:14px}
+.build-quantity strong{min-width:28px;text-align:center;font:17px var(--mono)}
+.build-quantity .button{padding-inline:8px}
 .dispatch-panel{margin:0;padding:0;border:0;gap:12px}
 .dispatch-panel h3{margin:0}
 .dispatch-panel .select-label{flex-basis:100%}

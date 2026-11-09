@@ -2,7 +2,7 @@
   "pack": "GTNH 2.9.0",
   "gregtech": "5.09.54.265",
   "core": "2.9.99",
-  "recipes": 50351,
+  "recipes": 50352,
   "maps": {
     "mill": 68,
     "generateNaquadah4": 2,
@@ -118,7 +118,7 @@
     "heatExchangeXL": 3,
     "heatExchangeExtreme": 71,
     "craft": 12861,
-    "electricSmelt": 53,
+    "electricSmelt": 54,
     "generateLargeNaquadah": 9,
     "solarSalt": 1,
     "deepHeat": 2,

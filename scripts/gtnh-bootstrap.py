@@ -75,14 +75,16 @@ def generate(imp, numeric, mass):
     imp.emit_recipe('solidify',{imp.material('BorosilicateGlass','molten'):1296},{imp.material('BorosilicateGlass','block'):1},value*9,8,299,{tool:1}, {},[],None)
     # The original alloy loader uses a MaterialStack[][] loop rather than
     # literal builders. Only registered dust/ingot forms are expanded.
-    # Early brass uses Overworld sphalerite -> zinc, registered by
-    # ProcessingOre's direct furnace-smelting branch (one stone-host ore).
-    name='Sphalerite';m=imp.materials[name]
-    if m['smelting']!='Zinc' or m['blast']:raise ValueError('changed sphalerite smelting rule')
+    # Sphalerite occurs in the Nether; Overworld zinc deposits must also
+    # retain ProcessingOre's direct furnace route (one stone-host ore).
     file=directory+'ProcessingOre.java';imp.active_file=file
     imp.paths[file]=hashlib.sha256((imp.source/file).read_bytes()).hexdigest()
-    r=imp.emit_recipe('electricSmelt',{imp.material(name,'ore'):1},{imp.material('Zinc','ingot'):1},128,4,150,{}, {},[],None)
-    if r:r.update(stage=1,furnaceRegistry=True)
+    for name in ('Sphalerite','Zinc'):
+        m=imp.materials[name]
+        if m['smelting']!='Zinc' or m['blast']:
+            raise ValueError('changed zinc ore smelting rule: '+name)
+        r=imp.emit_recipe('electricSmelt',{imp.material(name,'ore'):1},{imp.material('Zinc','ingot'):1},128,4,150,{}, {},[],None)
+        if r:r.update(stage=1,furnaceRegistry=True)
     file='gregtech/loaders/postload/recipes/AlloySmelterRecipes.java'
     imp.active_file=file
     path=imp.source/file;text=path.read_text(encoding='utf-8')

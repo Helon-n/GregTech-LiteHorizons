@@ -17,6 +17,8 @@ if($TestPackaged){
     if($LASTEXITCODE -ne 0){throw 'Packaged desktop smoke test failed'}
     & node scripts/ui-construction.mjs --packaged
     if($LASTEXITCODE -ne 0){throw 'Packaged construction regression failed'}
+    & node scripts/ui-batch-build.mjs --packaged
+    if($LASTEXITCODE -ne 0){throw 'Packaged batch construction regression failed'}
     & node scripts/ui-source-closure.mjs --packaged
     if($LASTEXITCODE -ne 0){throw 'Packaged source navigation regression failed'}
     & node scripts/ui-mining.mjs --packaged
@@ -40,7 +42,7 @@ if($TestPackaged){
         completedUtc=[DateTime]::UtcNow.ToString('o')
         platform='windows-x64'
         isolatedSave=$true
-        checks=@('desktop-smoke','construction','source-navigation','mining-access','gathering-regions-and-costs','choice-input','pinyin-search','recipe-tree','item-presentations','all-catalog-icons','portable-smoke')
+        checks=@('desktop-smoke','construction','batch-construction','source-navigation','mining-access','gathering-regions-and-costs','choice-input','pinyin-search','recipe-tree','item-presentations','all-catalog-icons','portable-smoke')
         status='passed'
     } | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath (Join-Path $projectRoot 'docs/release-validation.json') -Encoding UTF8
 }

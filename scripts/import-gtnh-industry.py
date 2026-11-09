@@ -285,6 +285,7 @@ class Importer:
         if rolls: r['outputRolls'] = rolls
         if circuit is not None: r['circuit'] = circuit
         self.recipes.append(r)
+        return r
 
     def builders(self, name):
         path = self.source / ('gregtech/loaders/postload/recipes/'+name+'.java')
@@ -421,7 +422,13 @@ class Importer:
         for name, m in self.materials.items():
             if name in overrides: continue
             if m['metal'] and m['dust'] and not m['blast'] and 'NO_SMELTING' not in m['tags'] and not m['processingEU']:
-                self.emit('electricSmelt', {self.material(name, 'dust'): 1}, {self.material(name, 'ingot'): 1}, 128, 4, 'FurnaceBackend.java', m['line'])
+                recipe = self.emit('electricSmelt', {self.material(name, 'dust'): 1}, {self.material(name, 'ingot'): 1}, 128, 4, 'FurnaceBackend.java', m['line'])
+                # Zinc dust is explicitly eligible for the ordinary furnace in
+                # ProcessingDust.java:99-121; keep its existing recipe ID.
+                if name == 'Zinc' and recipe:
+                    recipe['furnaceRegistry'] = True
+                    recipe['origin']['file'] = 'gregtech/loaders/oreprocessing/ProcessingDust.java'
+                    recipe['origin']['line'] = 121
             parts = m['components']
             if not m['decomposition'] or not m['dust'] or not parts or not m['defaultDensity'] or any(k in overrides or k == 'Air' or k not in self.materials for k, _ in parts): continue
             count = sum(n for _, n in parts)

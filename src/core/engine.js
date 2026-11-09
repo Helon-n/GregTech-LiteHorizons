@@ -357,8 +357,29 @@ export class Game {
     return this.recipeOptionsCache.get(key);
   }
   missing(stacks){return Object.entries(stacks).filter(([id,n])=>this.quantity(id)<n).map(([id,n])=>({id,need:n,have:this.quantity(id)}));}
-  canBuild(type){const m=this.catalog.machines[type];return !!m&&this.canPay(m.cost);}
-  build(type){const m=this.catalog.machines[type];if(!m)return{ok:false,message:'机器不存在'};if(this.state.devices.length>=500)return{ok:false,message:'设备数量已达上限'};if(!this.pay(m.cost))return{ok:false,message:'建造材料不足'};const device={id:'d'+this.state.nextId++,type,recipe:null,job:null,enabled:true,blocked:'请选择配方'};initializeEnergy(this,device);if(m.energy?.kind==='dyson')device.modules=m.cost.dyson||0;this.state.devices.push(device);this.state.earned[type]=(this.state.earned[type]||0)+1;this.note('建成：'+m.name);return{ok:true,device};}
+  buildCost(type,count=1){
+    const m=this.catalog.machines[type];
+    return m&&Number.isInteger(count)&&count>=1&&count<=500?Object.fromEntries(Object.entries(m.cost).map(([id,n])=>[id,n*count])):null;
+  }
+  buildLimit(type){
+    const m=this.catalog.machines[type];if(!m)return 0;
+    return Math.max(0,Math.min(500-this.state.devices.length,...Object.entries(m.cost).filter(([,n])=>n>0).map(([id,n])=>Math.floor((this.quantity(id)+1e-9)/n))));
+  }
+  canBuild(type,count=1){const cost=this.buildCost(type,count);return !!cost&&this.state.devices.length+count<=500&&this.canPay(cost);}
+  build(type,count=1){
+    const m=this.catalog.machines[type];if(!m)return {ok:false,message:'机器不存在'};
+    const cost=this.buildCost(type,count);if(!cost)return {ok:false,message:'建造数量须为 1–500 的整数'};
+    if(this.state.devices.length+count>500)return {ok:false,message:'设备数量上限为 500 台，剩余 '+(500-this.state.devices.length)+' 台'};
+    if(!this.pay(cost))return {ok:false,message:'建造材料不足'};
+    const devices=[];
+    for(let i=0;i<count;i++){
+      const device={id:'d'+this.state.nextId++,type,recipe:null,job:null,enabled:true,blocked:'请选择配方'};
+      initializeEnergy(this,device);if(m.energy?.kind==='dyson')device.modules=m.cost.dyson||0;
+      this.state.devices.push(device);devices.push(device);
+    }
+    this.state.earned[type]=(this.state.earned[type]||0)+count;
+    this.note('建成：'+m.name+(count>1?' ×'+count:''));return {ok:true,device:devices[0],devices};
+  }
   assign(deviceId,recipeId){
     const peers=devicePeers(this,deviceId),r=this.recipeById.get(recipeId);
     if(!peers.length)return {ok:false,message:'机器不存在'};
