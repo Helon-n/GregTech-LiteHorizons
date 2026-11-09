@@ -9,7 +9,3 @@ bridge/build/
 bridge/*.jar
 __pycache__/
 /AGENTS.md
-android/build/
-android/local.properties
-*.jks
-*.keystore

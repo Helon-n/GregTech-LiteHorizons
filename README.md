@@ -2,10 +2,6 @@
 
 以 GT New Horizons 2.9 为蓝本的单机放置工厂游戏。从采集木头、燧石开始，烧砖、炼钢、造机器，再逐步搭起矿物处理、化工、电路和能源产线。
 
-Windows x64，下载后可直接玩，不需要安装 Minecraft，也不需要联网。
-
-安卓版本支持 Android 8.0 及以上，横屏操作，需要较新的 Android System WebView。切到后台时自动保存并暂停，回到游戏后继续；可以导入 Windows 版导出的 JSON 存档。
-
 ## 下载
 
 [下载最新版](https://github.com/Helon-n/GregTech-LiteHorizons/releases/latest)
@@ -13,18 +9,6 @@ Windows x64，下载后可直接玩，不需要安装 Minecraft，也不需要�
 - **Portable.exe**：免安装，双击运行。
 - **Setup.exe**：安装版，可选择安装目录并创建快捷方式。
 - **SHA256SUMS.txt**：下载文件的 SHA-256 校验值。
-
-## 怎么玩
-
-在「资源采集」连续点击获取材料。矿脉有工具和地区要求；造出自动采集器后，可以安排多台一起工作。
-
-「配方与工作台」可以查询合成和加工路线，点原料继续往上查。常用配方可以收藏，复杂物品可以展开配方树、查看缺料，再按制作计划安排手工合成和机器生产。搜索支持中文、英文、全拼和拼音首字母。
-
-「生产工厂」按机型管理设备。同配方的机器可以合并查看，也可以单独暂停、停止和更换配方。设备与容器都能起别名、分组，并设置输入输出。
-
-液体和气体需要桶或储罐，电力需要发电设备和装有电池的电池箱。机器可以直连产能设备，也可以从缓存取能；缺料、断能或输出容器满时会停下来。
-
-游戏自动保存。关闭程序后停止生产，重新打开从保存的进度继续，不计算离线收益。
 
 ## 存档
 
@@ -56,26 +40,11 @@ npm run dist                # 生成 Portable 和 Setup
 
 构建结果在 `release/`。素材重新提取需要本地 GTNH 实例及相应工具，普通运行和打包不需要。
 
-### 安卓
-
-安装 JDK 17、Android SDK Platform 35 和 Build Tools 35.0.0，设置 `JAVA_HOME` 与 `ANDROID_SDK_ROOT` 后运行：
-
-```powershell
-npm run build:android
-```
-
-APK 在 `release/android/`。构建脚本直接使用 Android SDK 工具，不需要 Electron 或 Gradle；同一 APK 支持 ARM 和 x86 设备。当前使用本机生成的开发测试签名，密钥保存在 `.local/android-signing/`，后续覆盖安装需要保留此密钥。清除应用数据或卸载会删除手机存档，请先在设置中导出备份。
-
-触屏界面检查：先运行 `npm run dev:web`，再运行 `npm run test:ui:mobile`。这是浏览器中的触屏与尺寸检查，不能替代真机安装测试。
-
-Android WebView 检查使用名为 `GTLH_test` 的独立模拟器：运行 `npm run build:android -- --debug-webview`，安装并打开 `.local/android-diagnostics/` 中的诊断 APK，再运行 `npm run test:android -- --serial emulator-5580`（端口按实际调整）。检查会创建测试存档、访问全部页面，并检查图标、采集、合成、配方树、容器、工厂和后台暂停。诊断包不进入发布目录；正常构建关闭 WebView 调试。
-
 ## 文档
 
 - [版本记录](docs/CHANGELOG.md)
 - [能源](docs/ENERGY.md) · [材料加工](docs/MATERIALS.md) · [工业配方](docs/INDUSTRY.md)
 - [科技产线](docs/TECHNOLOGY.md) · [图标来源](docs/ICONS.md)
-- [素材许可核对](docs/ASSET-LICENSE-AUDIT.md)
 - [配方导出工具](bridge/README.md)
 
 ## 素材来源

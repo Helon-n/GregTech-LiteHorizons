@@ -1,12 +1,3 @@
-import {mobile} from './platform.js';
-const MOBILE_GRIDS={
-  resources:{width:300,rowHeight:230},space:{width:300,rowHeight:230},
-  factory:{width:350,rowHeight:230},stack:{width:350,rowHeight:230},
-  fluids:{width:320,rowHeight:230},inventory:{width:230,rowHeight:68},
-  research:{width:320,rowHeight:148},book:{width:96,rowHeight:100,gap:6},
-  containers:{width:370,rowHeight:140},categories:{width:150,rowHeight:44},
-  choice:{width:180,rowHeight:86},recipeChoice:{width:220,rowHeight:130}
-};
 // Shared dimensions are budgets for pagination, not forced panel heights.
 export const LAYOUT=Object.freeze({
   gap:14,
@@ -28,7 +19,6 @@ export const LAYOUT=Object.freeze({
 });
 
 export function factoryContentWidth(width){
-  if(mobile)return Math.max(0,width-132);
   const rail=LAYOUT.factorySidebar;
   return Math.max(0,width-(width<rail.compactAt?rail.compactWidth:rail.width)-rail.gap);
 }
@@ -38,7 +28,7 @@ export function fitRows(height,reserved,rowHeight,gap=LAYOUT.gap){
 }
 
 export function planGrid(key,{width,height},reserved=100){
-  const spec=mobile?MOBILE_GRIDS[key]:LAYOUT.grids[key],gap=spec.gap??(mobile?8:LAYOUT.gap);
+  const spec=LAYOUT.grids[key],gap=spec.gap??LAYOUT.gap;
   const columns=Math.max(1,Math.floor((Math.max(0,width)+gap)/(spec.width+gap)));
   const rows=fitRows(height,reserved,spec.rowHeight,gap);
   return {columns,rows,size:columns*rows,width:spec.width,gap,rowHeight:spec.rowHeight};
@@ -48,24 +38,23 @@ export function gridStyle(plan){
   return `--columns:${plan.columns};--tile-width:${plan.width}px;--tile-min-height:${plan.rowHeight}px;--grid-gap:${plan.gap}px`;
 }
 
-// Reserve following controls whether they sit inside or after a grid.
-export function contentBottom(root,element){
-  const boundary=root.getBoundingClientRect().bottom-(parseFloat(getComputedStyle(root).paddingBottom)||0);
-  let total=0;
-  for(let node=element;node.parentElement&&node!==root;node=node.parentElement){
-    const box=node.getBoundingClientRect();let bottom=box.bottom;
-    for(let next=node.nextElementSibling;next;next=next.nextElementSibling){
-      const rect=next.getBoundingClientRect();
-      if(rect.height&&rect.top>=box.bottom-1)bottom=Math.max(bottom,rect.bottom);
-    }
-    total+=bottom-box.bottom;
-    if(node.parentElement!==root)total+=parseFloat(getComputedStyle(node.parentElement).paddingBottom)||0;
-  }
-  return boundary-total;
-}
-
-// Fit natural rows on page changes/resizes, never on the refresh timer.
+// Fit natural rows after names, themed borders and choice buttons have laid out.
+// This runs on page changes/resizes, never on the simulation's refresh timer.
 export function fitPageLimits(root,plans,gridLimits,listLimits){
+  const boundary=root.getBoundingClientRect().bottom-parseFloat(getComputedStyle(root).paddingBottom);
+  function trailingHeight(element){
+    let total=0;
+    for(let node=element;node.parentElement&&node!==root;node=node.parentElement){
+      const box=node.getBoundingClientRect();let bottom=box.bottom;
+      for(let next=node.nextElementSibling;next;next=next.nextElementSibling){
+        const rect=next.getBoundingClientRect();
+        if(rect.height&&rect.top>=box.bottom-1)bottom=Math.max(bottom,rect.bottom);
+      }
+      total+=bottom-box.bottom;
+      if(node.parentElement!==root)total+=parseFloat(getComputedStyle(node.parentElement).paddingBottom)||0;
+    }
+    return total;
+  }
   let changed=false;
   for(const grid of root.querySelectorAll('[data-fit-grid],[data-fit-list]')){
     if(grid.classList.contains('has-expanded'))continue;
@@ -73,7 +62,7 @@ export function fitPageLimits(root,plans,gridLimits,listLimits){
     if(!entries.length)continue;
     const controls=grid.querySelector(':scope > nav');
     const controlHeight=controls?controls.getBoundingClientRect().height+(parseFloat(getComputedStyle(grid).rowGap)||8):0;
-    const limit=contentBottom(root,grid)-controlHeight,tracks=[];
+    const limit=boundary-trailingHeight(grid)-controlHeight,tracks=[];
     for(const entry of entries){
       const rect=entry.getBoundingClientRect();
       if(!rect.height)continue;

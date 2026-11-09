@@ -1,5 +1,3 @@
-import {mobile} from './platform.js';
-import {fitMobilePanels} from './mobile-view.js';
 import {VOLTAGE_TIERS,VOLTAGE_ERAS} from './data/voltage-tiers.js';
 import {applyTier,tierFor} from './tier-theme.js';
 
@@ -28,7 +26,7 @@ export function mountAppearance(root,{selected,mode,onSelect,onUse,onAuto,view='
     const bottom=innerHeight-16;
     const compact=root.getBoundingClientRect().bottom>bottom;
     root.dataset.compact=String(compact);
-    const paged=compact&&(mobile||innerWidth<=760)&&(find('.tier-ladder').getBoundingClientRect().bottom>bottom||innerHeight<1000);
+    const paged=compact&&innerWidth<=760&&(find('.tier-ladder').getBoundingClientRect().bottom>bottom||innerHeight<1000);
     root.dataset.eraPaged=String(paged);root.dataset.eraPage=String(currentEra);
     all('[data-era-group]').forEach(el=>el.hidden=paged&&Number(el.dataset.eraGroup)!==currentEra);
     root.dataset.dnaPage=dnaPage;
@@ -40,7 +38,6 @@ export function mountAppearance(root,{selected,mode,onSelect,onUse,onAuto,view='
     all('[data-tier-view]').forEach(el=>{const active=el.dataset.tierView===currentView;el.classList.toggle('active',active);el.setAttribute('aria-pressed',String(active));});
     find('[data-era-count]').textContent=`${currentEra+1} / 4 · ${VOLTAGE_ERAS[currentEra].name}`;
     all('[data-era-step]').forEach(b=>b.disabled=Number(b.dataset.eraStep)<0?currentEra===0:currentEra===3);
-    if(mobile)fitMobilePanels(root.closest('.workspace'));
   }
   function update(code,focus=false){
     current=tierFor(code);applyTier(find('.tier-inspector'),current.code);

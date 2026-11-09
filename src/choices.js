@@ -1,4 +1,3 @@
-import {mobile} from './platform.js';
 // Contextual icon cards keep selection visual and usable without dropdown lists.
 import {updateText,updateDisabled,updateAttribute} from './live-view.js';
 import {itemImage,itemIconPath,itemIconTitle} from './item-art.js';
@@ -103,7 +102,7 @@ document.addEventListener('click',event=>{
   if(button.dataset.openChoice){
     source=document.querySelector(`select[data-choice-id="${button.dataset.openChoice}"]`);
     if(!source||source.disabled)return;
-    query='';index=0;pageSize=0;rowLimit=Infinity;composing=false;draw();dialog.showModal();draw();if(!mobile)dialog.querySelector('input').focus();
+    query='';index=0;pageSize=0;rowLimit=Infinity;composing=false;draw();dialog.showModal();draw();dialog.querySelector('input').focus();
   }else if(button.hasAttribute('data-close-choice'))closeChoices();
   else if(button.hasAttribute('data-choice-option')){
     const select=source;if(!select?.isConnected||select.disabled)return closeChoices();
