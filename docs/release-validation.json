@@ -1,22 +1,27 @@
-﻿{
-    "version":  "0.1.25",
-    "completedUtc":  "2026-11-10T04:19:32.9691786Z",
-    "platform":  "windows-x64",
-    "isolatedSave":  true,
-    "checks":  [
-                   "desktop-smoke",
-                   "container-placement",
-                   "construction",
-                   "batch-construction",
-                   "source-navigation",
-                   "mining-access",
-                   "gathering-regions-and-costs",
-                   "choice-input",
-                   "pinyin-search",
-                   "recipe-tree",
-                   "item-presentations",
-                   "all-catalog-icons",
-                   "portable-smoke"
-               ],
-    "status":  "passed"
+{
+  "version": "0.1.26",
+  "completedUtc": "2026-11-10T06:28:48.6928720Z",
+  "platform": "windows-x64",
+  "isolatedSave": true,
+  "checks": [
+    "container-placement",
+    "construction",
+    "batch-construction",
+    "desktop-smoke",
+    "management-search-and-organization",
+    "source-navigation",
+    "mining-access",
+    "gathering-regions-and-costs",
+    "choice-input",
+    "pinyin-search",
+    "recipe-tree",
+    "item-presentations",
+    "all-catalog-icons",
+    "portable-smoke"
+  ],
+  "status": "passed",
+  "finalRechecks": [
+    "source-navigation-after-name-sort",
+    "portable-smoke"
+  ]
 }

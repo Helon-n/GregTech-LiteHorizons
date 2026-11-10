@@ -16,6 +16,8 @@ try{
   await expect(win.locator('#saveStatus')).toContainText('v'+metadata.version);
   for(const size of [{width:1440,height:960},{width:1040,height:720}]){
     await win.setViewportSize(size);
+    await win.locator('.nav [data-page="resources"]').click();
+    await win.locator('[data-management-sort="name"]').click();
     for(const [id,node,missing]of [[magic.resources.prideShard,'netherSinExpedition','恶魔召唤研究笔记'],[magic.resources.soulShard,'demonGruntExpedition','恶魔召唤研究笔记']]){
       await win.locator('.nav [data-page="workshop"]').click();
       await win.locator('[data-tab="recipes"]').click();
@@ -39,4 +41,8 @@ try{
   }
   expect(errors).toEqual([]);
   console.log('Source navigation OK: primary/secondary exclusive drops, locked research, correct region/page, visible pagination and original icons at 1440×960 / 1040×720; isolated save.');
+}catch(error){
+  const win=await app.firstWindow();
+  console.error(await win.locator('#page').evaluate(root=>({viewport:[innerWidth,innerHeight],elements:[...root.children].map(n=>({class:n.className,top:n.getBoundingClientRect().top,height:n.getBoundingClientRect().height})),cards:[...root.querySelectorAll('[data-node]')].map(n=>({id:n.dataset.node,height:n.getBoundingClientRect().height}))})));
+  await win.screenshot({path:'artifacts/source-navigation-failure.png',timeout:3000}).catch(()=>{});throw error;
 }finally{await app.close();}

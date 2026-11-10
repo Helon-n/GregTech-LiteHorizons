@@ -2,7 +2,7 @@
   "pack": "GTNH 2.9.0",
   "gregtech": "5.09.54.265",
   "core": "2.9.99",
-  "recipes": 50352,
+  "recipes": 50376,
   "maps": {
     "mill": 68,
     "generateNaquadah4": 2,
@@ -123,7 +123,7 @@
     "solarSalt": 1,
     "deepHeat": 2,
     "generateRTG": 5,
-    "tableCast": 92,
+    "tableCast": 116,
     "basinCast": 3,
     "smelteryMelt": 191,
     "massFabricate": 2,
