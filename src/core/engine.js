@@ -265,13 +265,14 @@ export class Game {
   acceptsFluid(c,id){return c.group?endpointMembers(this,c.id).every(c=>acceptsFluid(this.catalog,c,id)):acceptsFluid(this.catalog,c,id);}
   fluidRoom(id,target=null){return (target?endpointMembers(this,target):fluidEntries(this)).reduce((n,c)=>n+((!c.fluid||c.fluid===id)&&this.acceptsFluid(c,id)?Math.max(0,this.containerCapacity(c)-c.amount):0),0);}
   canStore(stacks,inputs={},targets={}){return !!planFluids(this.catalog,this.state.containers,stacks,inputs,targets,this.state.groups);}
-  placeContainer(type,count=1){
+  placeContainer(type,count=1,fluid=null){
     const spec=this.catalog.containerTypes[type];
     if(!Object.hasOwn(this.catalog.containerTypes,type)||!spec||spec.migrationOnly)return {ok:false,message:'容器不存在或不可放置'};
     if(!Number.isInteger(count)||count<1||count>10000)return {ok:false,message:'放置数量必须为 1–10000 的整数'};
+    if(fluid!==null&&(typeof fluid!=='string'||!this.acceptsFluid({type},fluid)))return {ok:false,message:'请选择容器可储存的流体'};
     if(this.state.containers.length+count>10000)return {ok:false,message:'放置后容器总数不能超过 10000'};
     if(!this.pay({[type]:count}))return {ok:false,message:'空容器不足，请先在工作台合成'};
-    const containers=Array.from({length:count},()=>({id:'c'+this.state.nextId++,type,fluid:null,amount:0}));
+    const containers=Array.from({length:count},()=>({id:'c'+this.state.nextId++,type,fluid,amount:0}));
     this.state.containers.push(...containers);return {ok:true,container:containers[0],containers,count};
   }
   reserveContainer(id,fluid){

@@ -285,6 +285,8 @@ dialog h2{margin:0 30px 12px 0}
 .container-option>.container-placement{display:flex;flex:1 0 100%;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .container-placement .worker-stepper{flex-wrap:wrap}
 .container-placement .worker-stepper strong{min-width:64px;white-space:nowrap}
+.container-option>.container-placement-fluid{display:flex;flex:1 0 100%;align-items:center;gap:10px;min-width:0;font-size:15px}
+.container-placement-fluid .choice-trigger{flex:1;min-width:0}
 .worker-control small{font-size:13px;color:var(--muted)}
 .collector-deploy{display:flex;align-items:center;gap:10px;padding-top:8px;margin-top:8px;border-top:1px solid var(--line)}
 .collector-deploy>.collector-cost{flex:1;min-width:0;border:0;padding:0;margin:0}

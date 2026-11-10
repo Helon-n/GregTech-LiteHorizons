@@ -26,7 +26,7 @@ function details(select,option){
   const icon=option.dataset.icon||(items[option.value]?option.value:container?.querySelector('[data-item]')?.dataset.item||device?.querySelector('[data-item]')?.dataset.item||'ui-inventory');
   return {icon,label:option.text,meta:items[option.value]?.kind==='fluid'?'限定储存此流体':'',recipe:null};
 }
-function title(select){return select.dataset.assign?'选择生产配方':select.dataset.energySource?'选择供给设备':select.dataset.energyOutput?'选择充电电池箱':select.dataset.fluidOutput?'选择产物储罐':select.dataset.fluidInput?'选择原料容器':select.dataset.steamOutput?'选择蒸汽储罐':select.dataset.containerReserve?'限定储存流体':select.dataset.transferTarget?'转移到容器':select.dataset.dispatchTarget?'选择派工设备':'选择项目';}
+function title(select){return select.dataset.assign?'选择生产配方':select.dataset.energySource?'选择供给设备':select.dataset.energyOutput?'选择充电电池箱':select.dataset.fluidOutput?'选择产物储罐':select.dataset.fluidInput?'选择原料容器':select.dataset.steamOutput?'选择蒸汽储罐':select.dataset.containerPlaceFluid?'选择储存流体':select.dataset.containerReserve?'限定储存流体':select.dataset.transferTarget?'转移到容器':select.dataset.dispatchTarget?'选择派工设备':'选择项目';}
 
 export function enhanceChoices(root){
   for(const select of root.querySelectorAll('select:not([data-choice-id])')){
@@ -75,7 +75,7 @@ function draw(anchor){
   plan.rows=Math.min(plan.rows,rowLimit);plan.size=plan.rows*plan.columns;
   const size=plan.size;
   const matches=createSearch(query);
-  const options=[...source.options].map((option,at)=>({option,at})).filter(({option})=>{const d=details(source,option);return matches(d.label,d.meta);});
+  const options=[...source.options].map((option,at)=>({option,at})).filter(({option})=>{const d=details(source,option);return !option.hidden&&matches(d.label,d.meta);});
   const count=Math.max(1,Math.ceil(options.length/size));index=Math.max(0,Math.min(Math.floor(first/size),count-1));pageSize=size;
   // Keep the editable control mounted across filtering and pagination. Replacing
   // it during input cancels native IME composition and loses editing state.

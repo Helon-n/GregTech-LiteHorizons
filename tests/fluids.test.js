@@ -5,6 +5,34 @@ import {Game,SCHEMA} from '../src/core/engine.js';
 function place(g,type,count=1){g.add({[type]:count});const containers=[];for(let i=0;i<count;i++){const r=g.placeContainer(type);assert.equal(r.ok,true);containers.push(r.container.id);}return containers;}
 function harvest(g,id){let r;for(let i=0;i<g.gatherClicks(g.catalog.gatherNodes.find(n=>n.id===id));i++)r=g.gather(id);return r;}
 
+test('placement reserves every new tank before producers run and retains the selected fluid across reload',()=>{
+  const g=new Game();g.add({fluidTank:3,woodBucket:1,ironBucket:1});
+  const placed=g.placeContainer('fluidTank',3,'steam');assert.equal(placed.ok,true);
+  assert.equal(g.quantity('fluidTank'),0);assert.equal(placed.containers.length,3);
+  for(const c of placed.containers){assert.equal(c.fluid,'steam');assert.equal(c.amount,0);}
+  assert.equal(g.fluidRoom('steam'),64000*3);assert.equal(g.fluidRoom('water'),0);
+  assert.equal(g.add({water:1000}),false);assert.equal(g.quantity('water'),0);
+  assert.equal(g.add({steam:64001}),true);assert.equal(g.quantity('steam'),64001);
+  assert.equal(g.placeContainer('woodBucket',1,'water').ok,true);
+  assert.equal(g.placeContainer('ironBucket',1,'oil').ok,true);
+  assert.equal(g.add({water:1000,oil:500}),true);
+  const restored=new Game(g.snapshot());assert.deepEqual(restored.state.containers,g.state.containers);
+  assert.equal(restored.state.containers[2].fluid,'steam');assert.equal(restored.state.containers[2].amount,0);
+  assert.equal(restored.quantity('steam'),64001);assert.equal(restored.quantity('oil'),500);
+});
+
+test('invalid placement fluids, missing containers and capacity limits never partially place or charge',()=>{
+  const g=new Game();g.add({woodBucket:2,fluidTank:2});
+  for(const [type,count,fluid] of [['woodBucket',2,'steam'],['fluidTank',2,'unknown'],['fluidTank',2,'iron'],['fluidTank',2,''],['fluidTank',2,{}],['fluidTank',3,'steam']]){
+    const before=structuredClone(g.state);
+    assert.equal(g.placeContainer(type,count,fluid).ok,false);assert.deepEqual(g.state,before);
+  }
+  g.state.containers=Array.from({length:9999},(_,i)=>({id:'c'+(i+1),type:'fluidTank',fluid:'water',amount:0}));g.state.nextId=10000;
+  const before=structuredClone(g.state);assert.equal(g.placeContainer('fluidTank',2,'steam').ok,false);assert.deepEqual(g.state,before);
+  const placed=g.placeContainer('fluidTank',1,'steam');assert.equal(placed.ok,true);assert.equal(placed.container.fluid,'steam');
+  assert.equal(g.state.containers.length,10000);assert.equal(g.quantity('fluidTank'),1);
+});
+
 test('fluids cannot enter inventory; a crafted and enabled bucket is required to collect water',()=>{
   const g=new Game();assert.equal(g.add({water:1000,wood:2}),false);assert.equal(g.quantity('wood'),0);
   const bare=harvest(g,'river');for(const id of ['clay','sand'])assert.ok(bare.drops[id]>=1&&bare.drops[id]<=3);assert.deepEqual(bare.skipped,{water:1000});assert.equal(g.quantity('water'),0);
